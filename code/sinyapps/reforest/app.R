@@ -12,9 +12,16 @@ library(sf)
 library(leaflet)
 library(dplyr)
 library(sp)
+library(rgdal)
 
+## Must adjust for application directory & leaflet expect lat long data
+fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
+        "Stanislaus", "Inyo", "Sequoia", "Sierra")
+forest <- st_read("../../../data/Spatial", "Ca_NFBoundaries") %>%
+  st_transform(crs = "+proj=longlat +datum=WGS84") %>%
+  filter(FORESTNAME %in% fn)
 
-
+#unique(forest$FORESTNAME)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -25,24 +32,30 @@ ui <- fluidPage(
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
-      #    sliderInput("bins",
-      #                "Number of bins:",
-      #                min = 1,
-      #                max = 50,
-      #                value = 30)
-        p(),
-        actionButton("recalc", "New points")
+        selectInput("Forest", "Step 1: Select area of interest",
+                    # selected = "",
+                    fn),
+        checkboxGroupInput("Databases", "Step 2: Select data layers:",
+                           choices = c(
+                             "Fire", "WUI", "wilderness")
+                           ),
+        actionButton("recalc", "Execute")
       ),
       
       # Show a plot of the generated distribution
       mainPanel(
-         leafletOutput("map", height = 800, width = 800)
+         leafletOutput("map", height = 600, width = 600)
       )
    )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  
+  ## Reactive mapping object
+  aoe <- reactive({
+    filter(forest, FORESTNAME == input$Forest)
+  })
    
    # output$distPlot <- renderPlot({
    #    # generate bins based on input$bins from ui.R
@@ -56,34 +69,35 @@ server <- function(input, output) {
   # points <- eventReactive(input$recalc, {
   #   cbind(rnorm(40) * 2 + 13, rnorm(40) + 48)
   # }, ignoreNULL = FALSE)
-  
-  ## Read in data
-  fire_per <- st_read("C:/Users/zlsteel/Documents/CaFire/FireBirds/GIS2017/Fires",
-                      "sev_pers_wgs") %>%
-    filter(AGENCY == "NPS") 
    
   output$map <- renderLeaflet({
     leaflet() %>%
-      addTiles()
-      # addMarkers(data = points()) %>%
-      # addPolygons(data = fire_per,
-      #              color = "black",
-      #              fill = T,
-      #              weight = 20,
-      #              opacity = 0.5,
-      #              label = fire_per$VB_ID)
-       ## Add fire perimeters
-        #%>%
-       # addProviderTiles("Stamen.Watercolor")
+      addTiles() %>%
+      addPolygons(data = aoe(),
+                  color = "red",
+                  fill = F,
+                  opacity = 0.8,
+                  weight = 5) %>%
+      addPolygons(data = forest,
+                  color = "black",
+                  fillColor = "green",
+                  fill = T,
+                  weight = 2,
+                  opacity = 1,
+                  fillOpacity = 0.2,
+                  label = forest$FORESTNAME) %>%
+
+      # setView(lng = aoe()$lng, lat = aoe()$lat, zoom = aoe()$map_zoom) %>%
+      addProviderTiles(provider = "Esri.WorldShadedRelief")#"CartoDB.Positron")
    })
   
   observe({
-    leafletProxy("map", data = fire_per) %>%
-      addPolygons(color = "black",
-                  fill = T,
-                  weight = 20,
-                  opacity = 0.5,
-                  label = fire_per$VB_ID)
+    leafletProxy("map") %>%
+      ## Zoom to selection
+      flyToBounds(lng1 = as.numeric(st_bbox(aoe())$xmin),
+                lat1 = as.numeric(st_bbox(aoe())$ymin),
+                lng2 = as.numeric(st_bbox(aoe())$xmax),
+                lat2 = as.numeric(st_bbox(aoe())$ymax))
   })
 }
 

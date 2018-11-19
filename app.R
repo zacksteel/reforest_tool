@@ -40,7 +40,8 @@ ui <- fluidPage(
                     fn),
         checkboxGroupInput("Databases", "Step 2: Select data layers:",
                            choices = c(
-                             "Fire", "WUI", "wilderness")
+                             "Mortality (ADS)", "Slope", "Fire Severity", "WUI", "CWD"),
+                           selected = c("Mortality (ADS)", "Slope")
                            ),
         actionButton("recalc", "Execute")
       ),
@@ -60,7 +61,9 @@ server <- function(input, output) {
     filter(forest, FORESTNAME == input$Forest)
   })
   mortshow <- reactive({
-    filter(mort, FORESTNAME == input$Forest)
+    # if("Mortality" %in% input$Databases) {st_intersection(mort, aoi())} else
+    # {mort[0,]}
+    st_intersection(mort, aoi())
   })
    
    # output$distPlot <- renderPlot({
@@ -97,7 +100,7 @@ server <- function(input, output) {
                   opacity = 1,
                   weight = 0.5,
                   fill = T,
-                  fillColor = heat.colors(6, alpha = NULL),
+                  fillColor = heat.colors(5, alpha = NULL),
                   fillOpacity = 0.8) %>%
       addProviderTiles(provider = "Esri.WorldShadedRelief")#"CartoDB.Positron")
    })

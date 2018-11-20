@@ -20,8 +20,9 @@ forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
   filter(FORESTNAME %in% fn)
 
 ## Bring in mortality layer
-# mort <- st_read("../../../data/Spatial", "ADSMort15") %>%
-mort <- st_read("data/Spatial", "mort15_simple") 
+mort <- st_read("data/Spatial", "ADSMort15") %>%
+  st_transform(crs = "+proj=longlat +datum=WGS84")
+# mort <- st_read("data/Spatial", "mort15_simple") 
 ## Leaflet doesn't like named geometries, which st_write adds
 names(st_geometry(mort)) <- NULL
 
@@ -61,9 +62,9 @@ server <- function(input, output) {
     filter(forest, FORESTNAME == input$Forest)
   })
   mortshow <- reactive({
-    # if("Mortality" %in% input$Databases) {st_intersection(mort, aoi())} else
-    # {mort[0,]}
-    st_intersection(mort, aoi())
+    if("Mortality (ADS)" %in% input$Databases) {st_intersection(mort, aoi())} else
+    {mort[0,]}
+    # st_intersection(mort, aoi())
   })
    
    # output$distPlot <- renderPlot({
@@ -101,7 +102,8 @@ server <- function(input, output) {
                   weight = 0.5,
                   fill = T,
                   fillColor = heat.colors(5, alpha = NULL),
-                  fillOpacity = 0.8) %>%
+                  fillOpacity = 0.8,
+                  label = mortshow()$TPA) %>%
       addProviderTiles(provider = "Esri.WorldShadedRelief")#"CartoDB.Positron")
    })
   

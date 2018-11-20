@@ -4,12 +4,14 @@
 ## Downstream: app.R
 
 library(sf)
-library(leaflet)
+# library(leaflet)
 library(tidyverse)
-library(raster)
-library(rmapshaper)
-library(maptools)
-library(sp)
+library(cowplot)
+# library(raster)
+# library(rmapshaper)
+# library(maptools)
+library(ggmap)
+library(ggspatial)
 
 ## Limit ADS Mortality layer(s) to the Sierra Nevada & environs
 eswalk <- read.csv("data/Reference/EcoSectionXwalk.csv")
@@ -32,11 +34,19 @@ sm <- dplyr::select(sn.mort, TPA1) %>%
          class = ifelse(TPA1 >= 10 & TPA1 < 25, 3, class),
          class = ifelse(TPA1 >= 25 & TPA1 < 100, 4, class),
          class = ifelse(TPA1 >= 100 & TPA1 < 200, 5, class),
-         class = ifelse(TPA1 >= 200, 5, class)) %>%
-  dplyr::select(class) %>%
-  ## summarize/dissolve by class
+         class = ifelse(TPA1 >= 200, 5, class),
+         priority = ifelse(class %in% c(1,2), 1, NA),
+         priority = ifelse(class %in% c(3), 2, priority),
+         priority = ifelse(class %in% c(4,5), 3, priority),
+         priority = as.factor(priority))
+
+## summarize/dissolve by class
+sm.simple <- dplyr::select(sm, class) %>%
   group_by(class) %>%
   summarise_all(first)
+
+## Save simplified version for mapping
+write_sf(sm.simple, "data/Spatial/mort15_simple.shp")
 
 ## Add forest attribute
 forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
@@ -45,8 +55,32 @@ forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
 
 ## clip/intersect for each forest
 for (i in 1:length(forest$FORESTNAME)) {
-  forest1 <- forest[i,]
-  sm.for <- st_intersection(sm, forest1)
+  ## pull out area of interest
+  forest1 <- forest[i,] 
+  sm.for <- st_intersection(sm, st_buffer(forest1, 0)) ## buffer operation necessary lassen with a hole
+  
+  ## set up basemap
+  # bbox <- setNames(st_bbox(forest1), c("left", "bottom", "right", "top"))
+  # map <- get_openstreetmap(bbox = bbox)
+  # #setting zoom to 9 gives us a bit of padding around the bounding box
+  # basemap <- get_stamenmap(maptype = "terrain", bbox = bbox)
+  
+  # basemap %>%
+  p <- ggplot() +
+    geom_sf(data=sm.for, aes(fill = priority), col = NA) + 
+    scale_fill_manual(values = c("#CC9933", "#996600", "#993300"),
+                      name = "Priority Level",
+                      breaks = c(1,2,3),
+                      labels = c("Low", "Moderate", "High")) +
+    geom_sf(data=forest1, col = "darkgreen", fill = NA) +
+    theme_bw() +
+    annotation_scale(location = "bl", width_hint = 0.3) +
+    annotation_north_arrow(location = "bl", which_north = "true", 
+                           height = unit(0.3, "in"), width = unit(0.3, "in"),
+                           pad_x = unit(0.3, "in"), pad_y = unit(0.28, "in"),
+                           style = north_arrow_fancy_orienteering)
+    
+  save_plot(p, filename = paste0("maps/", forest1$FORESTNAME, ".png"), base_height = 6)
 }
 
 # 
@@ -56,9 +90,10 @@ for (i in 1:length(forest$FORESTNAME)) {
 #   group_by(class) %>%
 #   summarise_all(first)
 
+us <- c(left = -125, bottom = 25.75, right = -67, top = 49)
+map <- get_stamenmap(us, zoom = 5, maptype = "terrain")
+ggmap(map)
 
-## Save simplified version for mapping
-write_sf(sm, "data/Spatial/mort15_simple.shp")
 
 ## Convert to raster
 # r <- raster()

@@ -16,15 +16,16 @@ library(dplyr)
 fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
         "Stanislaus", "Inyo", "Sequoia", "Sierra")
 forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
+  st_buffer(0) %>% ## fixes problems with ring self-intersection
   st_transform(crs = "+proj=longlat +datum=WGS84") %>%
-  filter(FORESTNAME %in% fn)
+  filter(FORESTNAME %in% fn) 
 
 ## Bring in mortality layer
-mort <- st_read("data/Spatial", "ADSMort15") %>%
-  st_transform(crs = "+proj=longlat +datum=WGS84")
-# mort <- st_read("data/Spatial", "mort15_simple") 
-## Leaflet doesn't like named geometries, which st_write adds
-names(st_geometry(mort)) <- NULL
+# mort <- st_read("data/Spatial", "ADSMort15") %>%
+#   st_transform(crs = "+proj=longlat +datum=WGS84")
+# # mort <- st_read("data/Spatial", "mort15_simple") 
+# ## Leaflet doesn't like named geometries, which st_write adds
+# names(st_geometry(mort)) <- NULL
 
 
 # Define UI for application that draws a histogram
@@ -44,7 +45,8 @@ ui <- fluidPage(
                              "Mortality (ADS)", "Slope", "Fire Severity", "WUI", "CWD"),
                            selected = c("Mortality (ADS)", "Slope")
                            ),
-        actionButton("recalc", "Execute")
+        h5(strong("Step 3: Execute prioritization:")),
+        actionButton("Calc", "Execute")
       ),
       
       # Show a plot of the generated distribution
@@ -57,15 +59,28 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  ## Reactive mapping object
+  ## Reactive mapping objects
   aoi <- reactive({
     filter(forest, FORESTNAME == input$Forest)
   })
-  mortshow <- reactive({
-    if("Mortality (ADS)" %in% input$Databases) {st_intersection(mort, aoi())} else
-    {mort[0,]}
-    # st_intersection(mort, aoi())
+  # mortshow <- reactive({
+  #   if("Mortality (ADS)" %in% input$Databases) {st_intersection(mort, aoi())} else
+  #   {mort[0,]}
+  #   # st_intersection(mort, aoi())
+  # })
+  priority <- reactive({
+    if(input$Calc > 0 & input$Forest != "") {
+      temp <- st_read("data/Outputs/Priorities_Spatial", input$Forest)
+      names(st_geometry(temp)) <- NULL
+      return(temp)
+    } else (forest[0,])
   })
+  # priority <- reactive({
+  #   temp <- st_read("data/Outputs/Priorities_Spatial", "Stanislaus") %>%
+  #     dplyr::select(priority)
+  #   names(st_geometry(temp)) <- NULL
+  #   return(temp)
+  # })
    
    # output$distPlot <- renderPlot({
    #    # generate bins based on input$bins from ui.R
@@ -96,14 +111,14 @@ server <- function(input, output) {
                   opacity = 1,
                   fillOpacity = 0.2,
                   label = forest$FORESTNAME) %>%
-      addPolygons(data = mortshow(),
-                  color = "grey",
-                  opacity = 1,
-                  weight = 0.5,
-                  fill = T,
-                  fillColor = heat.colors(5, alpha = NULL),
-                  fillOpacity = 0.8,
-                  label = mortshow()$TPA) %>%
+      # addPolygons(data = mortshow(),
+      #             color = "grey",
+      #             opacity = 1,
+      #             weight = 0.5,
+      #             fill = T,
+      #             fillColor = heat.colors(5, alpha = NULL),
+      #             fillOpacity = 0.8,
+      #             label = mortshow()$TPA) %>%
       addProviderTiles(provider = "Esri.WorldShadedRelief")#"CartoDB.Positron")
    })
   
@@ -114,7 +129,12 @@ server <- function(input, output) {
       flyToBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
                 lat1 = as.numeric(st_bbox(aoi())$ymin),
                 lng2 = as.numeric(st_bbox(aoi())$xmax),
-                lat2 = as.numeric(st_bbox(aoi())$ymax))
+                lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
+      addPolygons(data = priority(),
+                opacity = 0,
+                fill = T,
+                fillColor = c("#CC9933", "#996600", "#993300"),
+                fillOpacity = 0.8)
   })
 }
 

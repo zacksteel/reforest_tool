@@ -4,7 +4,7 @@
 ## Downstream: app.R
 
 library(sf)
-# library(leaflet)
+library(leaflet)
 library(tidyverse)
 library(cowplot)
 # library(raster)
@@ -81,6 +81,9 @@ for (i in 1:length(forest$FORESTNAME)) {
                            style = north_arrow_fancy_orienteering)
     
   save_plot(p, filename = paste0("maps/", forest1$FORESTNAME, ".png"), base_height = 6)
+  
+  ## Also save individual shapefiles
+  write_sf(sm.for, paste0("data/Outputs/Priorities_Spatial/", forest1$FORESTNAME, ".shp"))
 }
 
 # 
@@ -90,32 +93,52 @@ for (i in 1:length(forest$FORESTNAME)) {
 #   group_by(class) %>%
 #   summarise_all(first)
 
-us <- c(left = -125, bottom = 25.75, right = -67, top = 49)
-map <- get_stamenmap(us, zoom = 5, maptype = "terrain")
-ggmap(map)
-
-
 ## Convert to raster
 # r <- raster()
 # extent(r) <- extent(sn.mort)
 # rp <- rasterize(sn.mort, r, 'TPA1', fun = "max")
 
-leaflet() %>%
-  addTiles() %>%
-  addPolygons(data = es,
-              color = "black",
-              fill = T,
-              weight = 2,
-              opacity = 1,
-              fillOpacity = 0.2) %>%
-  # addRasterImage(x = rp)
-  addPolygons(data = trash2,
-              color = "red",
-              opacity = 0.1,
-              weight = 0.5,
-              fill = T,
-              fillColor = heat.colors(6, alpha = NULL),
-              fillOpacity = 0.8,
-              label = trash2$class)
+# leaflet() %>%
+#   addTiles() %>%
+#   addPolygons(data = es,
+#               color = "black",
+#               fill = T,
+#               weight = 2,
+#               opacity = 1,
+#               fillOpacity = 0.2) %>%
+#   # addRasterImage(x = rp)
+#   addPolygons(data = trash2,
+#               color = "red",
+#               opacity = 0.1,
+#               weight = 0.5,
+#               fill = T,
+#               fillColor = heat.colors(6, alpha = NULL),
+#               fillOpacity = 0.8,
+#               label = trash2$class)
               #~colorFactor(c("yellow", "yellow", "orange", "orange", "red", "red"),
                #                        sm$class))
+
+leaflet() %>%
+  addTiles() %>%
+  # addPolygons(data = aoi(),
+  #             color = "blue",
+  #             fill = F,
+  #             opacity = 0.8,
+  #             weight = 5) %>%
+  # addPolygons(data = forest,
+  #             color = "black",
+  #             fillColor = "green",
+  #             fill = T,
+  #             weight = 2,
+  #             opacity = 1,
+  #             fillOpacity = 0.2,
+  #             label = forest$FORESTNAME) %>%
+  addPolygons(data = trash,
+              color = "grey",
+              opacity = 0.5,
+              fill = T,
+              weight = 2,
+              fillColor = "black",
+              # fillColor = c("#CC9933", "#996600", "#993300"),
+              fillOpacity = 0.5,
+              label = trash$priority)

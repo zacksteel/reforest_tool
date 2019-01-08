@@ -10,7 +10,8 @@
 library(shiny)
 library(sf)
 library(leaflet)
-library(dplyr)
+library(tidyverse)
+library(raster)
 
 ## Must adjust for application directory & leaflet expect lat long data
 fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
@@ -23,9 +24,12 @@ forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
 ## Bring in mortality layer
 # mort <- st_read("data/Spatial", "ADSMort15") %>%
 #   st_transform(crs = "+proj=longlat +datum=WGS84")
-# # mort <- st_read("data/Spatial", "mort15_simple") 
+# mort <- st_read("data/Spatial", "mort15_simple")
 # ## Leaflet doesn't like named geometries, which st_write adds
 # names(st_geometry(mort)) <- NULL
+
+## Bring in accessibility raster layer
+sb <- raster("data/Spatial/scenb_wgs")
 
 
 # Define UI for application that draws a histogram
@@ -38,7 +42,7 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
         selectInput("Forest", "Step 1: Select area of interest",
-                    # selected = "",
+                    selected = "",
                     fn),
         checkboxGroupInput("Databases", "Step 2: Select data layers:",
                            choices = c(
@@ -60,21 +64,32 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   ## Reactive mapping objects
+  ## Limit forest shp to selection forest
   aoi <- reactive({
     filter(forest, FORESTNAME == input$Forest)
   })
+  
+  ## Crop feasibility raster by aoi
+  ra <- reactive({
+    ## Conditional necessary to avoid crop error
+    if(input$Forest == "") {NULL} else {
+      crop(sb, filter(forest, FORESTNAME == input$Forest)) %>%
+        cut(breaks = c(0.5,1)) ## effectively removes zeros (inaccessible places)
+    }
+  })
+  
   # mortshow <- reactive({
   #   if("Mortality (ADS)" %in% input$Databases) {st_intersection(mort, aoi())} else
   #   {mort[0,]}
   #   # st_intersection(mort, aoi())
   # })
-  priority <- reactive({
-    if(input$Calc > 0 & input$Forest != "") {
-      temp <- st_read("data/Outputs/Priorities_Spatial", input$Forest)
-      names(st_geometry(temp)) <- NULL
-      return(temp)
-    } else (forest[0,])
-  })
+  # priority <- reactive({
+  #   if(input$Calc > 0 & input$Forest != "") {
+  #     temp <- st_read("data/Outputs/Priorities_Spatial", input$Forest)
+  #     names(st_geometry(temp)) <- NULL
+  #     return(temp)
+  #   } else (forest[0,])
+  # })
   # priority <- reactive({
   #   temp <- st_read("data/Outputs/Priorities_Spatial", "Stanislaus") %>%
   #     dplyr::select(priority)
@@ -120,21 +135,30 @@ server <- function(input, output) {
       #             fillOpacity = 0.8,
       #             label = mortshow()$TPA) %>%
       addProviderTiles(provider = "Esri.WorldShadedRelief")#"CartoDB.Positron")
+      
    })
   
   
   observe({
-    leafletProxy("map") %>%
-      ## Zoom to selection
-      flyToBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
-                lat1 = as.numeric(st_bbox(aoi())$ymin),
-                lng2 = as.numeric(st_bbox(aoi())$xmax),
-                lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
-      addPolygons(data = priority(),
-                opacity = 0,
-                fill = T,
-                fillColor = c("#CC9933", "#996600", "#993300"),
-                fillOpacity = 0.8)
+    proxy <- leafletProxy("map") 
+    ## If a AOI is selected do some stuff
+    if(input$Forest != "") {
+      ## Set colors for accessibility layer
+      pal <- colorNumeric(c("black"), values(rf.data), na.color = "transparent")
+      proxy %>%
+        ## Zoom to selection
+        flyToBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
+                    lat1 = as.numeric(st_bbox(aoi())$ymin),
+                    lng2 = as.numeric(st_bbox(aoi())$xmax),
+                    lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
+        addRasterImage(x = ra(), colors = pal, opacity = 0.8, project = FALSE) 
+    }
+
+      # addPolygons(data = priority(),
+      #           opacity = 0,
+      #           fill = T,
+      #           fillColor = c("#CC9933", "#996600", "#993300"),
+      #           fillOpacity = 0.8)
   })
 }
 

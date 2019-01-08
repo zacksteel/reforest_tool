@@ -18,18 +18,19 @@ fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado",
         "Stanislaus", "Inyo", "Sequoia", "Sierra")
 forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
   st_buffer(0) %>% ## fixes problems with ring self-intersection
-  st_transform(crs = "+proj=longlat +datum=WGS84") %>%
+  st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 ") %>%
   filter(FORESTNAME %in% fn) 
 
 ## Bring in mortality layer
 # mort <- st_read("data/Spatial", "ADSMort15") %>%
 #   st_transform(crs = "+proj=longlat +datum=WGS84")
-# mort <- st_read("data/Spatial", "mort15_simple")
-# ## Leaflet doesn't like named geometries, which st_write adds
-# names(st_geometry(mort)) <- NULL
+mort <- st_read("data/Spatial", "mort15_simple")
+## Leaflet doesn't like named geometries, which st_write adds
+names(st_geometry(mort)) <- NULL
 
 ## Bring in accessibility raster layer
-sb <- raster("data/Spatial/scenb_wgs")
+#### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somwhere along the way?
+sb <- raster("data/Spatial/scenb_mask") 
 
 
 # Define UI for application that draws a histogram
@@ -73,16 +74,16 @@ server <- function(input, output) {
   ra <- reactive({
     ## Conditional necessary to avoid crop error
     if(input$Forest == "") {NULL} else {
-      crop(sb, filter(forest, FORESTNAME == input$Forest)) %>%
-        cut(breaks = c(0.5,1)) ## effectively removes zeros (inaccessible places)
+      crop(sb, filter(forest, FORESTNAME == input$Forest), snap = "in") %>%
+        ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
+        mask(mask = filter(forest, FORESTNAME == input$Forest)) %>%
+        cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
     }
   })
   
-  # mortshow <- reactive({
-  #   if("Mortality (ADS)" %in% input$Databases) {st_intersection(mort, aoi())} else
-  #   {mort[0,]}
-  #   # st_intersection(mort, aoi())
-  # })
+  mortshow <- reactive({
+    st_intersection(mort, aoi())
+  })
   # priority <- reactive({
   #   if(input$Calc > 0 & input$Forest != "") {
   #     temp <- st_read("data/Outputs/Priorities_Spatial", input$Forest)
@@ -112,12 +113,17 @@ server <- function(input, output) {
    
   output$map <- renderLeaflet({
     leaflet() %>%
-      addTiles() %>%
+      # addTiles() %>%
+      ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
+      addMapPane("overlay", zIndex = 150) %>% #used to define layer order
+      addMapPane("base", zIndex = 100) %>%
+      addProviderTiles(provider = "Esri.WorldShadedRelief", 
+                       options = pathOptions(pane = "base")) %>%#"CartoDB.Positron")
       addPolygons(data = aoi(),
                   color = "blue",
                   fill = F,
                   opacity = 0.8,
-                  weight = 5) %>%
+                  weight = 3) %>%
       addPolygons(data = forest,
                   color = "black",
                   fillColor = "green",
@@ -125,16 +131,8 @@ server <- function(input, output) {
                   weight = 2,
                   opacity = 1,
                   fillOpacity = 0.2,
-                  label = forest$FORESTNAME) %>%
-      # addPolygons(data = mortshow(),
-      #             color = "grey",
-      #             opacity = 1,
-      #             weight = 0.5,
-      #             fill = T,
-      #             fillColor = heat.colors(5, alpha = NULL),
-      #             fillOpacity = 0.8,
-      #             label = mortshow()$TPA) %>%
-      addProviderTiles(provider = "Esri.WorldShadedRelief")#"CartoDB.Positron")
+                  label = forest$FORESTNAME,
+                  options = pathOptions(pane = "overlay")) 
       
    })
   
@@ -143,15 +141,21 @@ server <- function(input, output) {
     proxy <- leafletProxy("map") 
     ## If a AOI is selected do some stuff
     if(input$Forest != "") {
-      ## Set colors for accessibility layer
-      pal <- colorNumeric(c("black"), values(rf.data), na.color = "transparent")
+      ## Set colors for accessibility mask
+      pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
       proxy %>%
         ## Zoom to selection
         flyToBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
                     lat1 = as.numeric(st_bbox(aoi())$ymin),
                     lng2 = as.numeric(st_bbox(aoi())$xmax),
                     lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
-        addRasterImage(x = ra(), colors = pal, opacity = 0.8, project = FALSE) 
+        addPolygons(data = mortshow(),
+                    color = "transparent",
+                    fill = T,
+                    fillColor = c("transparent","red"), #heat.colors(5, alpha = NULL),
+                    fillOpacity = 0.8,
+                    options = pathOptions(pane = "overlay")) %>%
+        addRasterImage(x = ra(), colors = pal, opacity = 0.6, project = FALSE)
     }
 
       # addPolygons(data = priority(),

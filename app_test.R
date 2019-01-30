@@ -10,6 +10,7 @@
 library(shiny)
 library(sf)
 library(leaflet)
+library(mapview)
 library(tidyverse)
 library(rgdal)
 library(raster)
@@ -53,7 +54,7 @@ ui <- fluidPage(
                              choices = fn),
                  checkboxGroupInput("Display", tags$i("Display Layers:"),
                                     choices = c("Mortality (ADS)", "Inaccessible"),
-                                    selected = c("Mortality (ADS)")),
+                                    selected = c("Mortality (ADS)", "Inaccessible")),
                  
                  ## Horrizontal line
                  tags$hr(),
@@ -92,7 +93,8 @@ ui <- fluidPage(
                
                # Show a plot of the generated distribution
                mainPanel(
-                 leafletOutput("map", height = 600, width = 800)
+                 leafletOutput("map"),
+                   mapview:::plainViewOutput("test")
                )
              )
     ),
@@ -159,27 +161,28 @@ server <- function(input, output) {
   # }, ignoreNULL = FALSE)
    
   output$map <- renderLeaflet({
-    leaflet() %>%
-      # addTiles() %>%
-      ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
-      addMapPane("overlay", zIndex = 150) %>% #used to define layer order
-      addMapPane("base", zIndex = 100) %>%
-      addProviderTiles(provider = "Esri.WorldShadedRelief", 
-                       options = pathOptions(pane = "base")) %>%#"CartoDB.Positron")
-      addPolygons(data = aoi(),
-                  color = "blue",
-                  fill = F,
-                  opacity = 0.8,
-                  weight = 3) %>%
-      addPolygons(data = forest,
-                  color = "black",
-                  fillColor = "green",
-                  fill = T,
-                  weight = 2,
-                  opacity = 1,
-                  fillOpacity = 0.2,
-                  label = forest$FORESTNAME,
-                  options = pathOptions(pane = "overlay")) 
+    mapview(list(forest))@map
+    # leaflet() %>%
+    #   # addTiles() %>%
+    #   ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
+    #   addMapPane("overlay", zIndex = 150) %>% #used to define layer order
+    #   addMapPane("base", zIndex = 100) %>%
+    #   addProviderTiles(provider = "Esri.WorldShadedRelief", 
+    #                    options = pathOptions(pane = "base")) %>%#"CartoDB.Positron")
+    #   addPolygons(data = aoi(),
+    #               color = "blue",
+    #               fill = F,
+    #               opacity = 0.8,
+    #               weight = 3) %>%
+    #   addPolygons(data = forest,
+    #               color = "black",
+    #               fillColor = "green",
+    #               fill = T,
+    #               weight = 2,
+    #               opacity = 1,
+    #               fillOpacity = 0.2,
+    #               label = forest$FORESTNAME,
+    #               options = pathOptions(pane = "overlay")) 
       
    })
   

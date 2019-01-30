@@ -12,6 +12,7 @@ library(sf)
 library(leaflet)
 library(tidyverse)
 library(raster)
+library(rgdal)
 
 ## Must adjust for application directory & leaflet expect lat long data
 fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 

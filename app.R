@@ -29,36 +29,74 @@ mort <- st_read("data/Spatial", "mort15_simple")
 names(st_geometry(mort)) <- NULL
 
 ## Bring in accessibility raster layer
-#### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somwhere along the way?
+#### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somewhere along the way?
 sb <- raster("data/Spatial/scenb_mask") 
 
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+  tabsetPanel(
+    tabPanel("Prioritization tool",
+             # Application title
+             titlePanel("Reforestation Prioritization Tool"),
+             
+             # Sidebar with a slider input for number of bins 
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("Forest", h4("Step 1: Select area of interest"),
+                             selected = "",
+                             fn),
+                 checkboxGroupInput("Display", tags$i("Display Layers:"),
+                                    choices = c("Mortality (ADS)", "Inaccessible"),
+                                    selected = c("Mortality (ADS)", "Inaccessible")),
+                 
+                 ## Horrizontal line
+                 tags$hr(),
+                 
+                 # checkboxGroupInput("Databases", "Step 2: Select data layers:",
+                 #                    choices = c("Slope", "Fire Severity", "WUI", "CWD"),
+                 #                    selected = c("Slope")),
+ 
+                 h4("Step 2: Select reforestation need threshold:"),  
+                 
+                 sliderInput("Need", tags$tbody("Need Threshold (TPA mortality)"), 0, 100, 10,
+                             width = '80%'),
+                 
+                 ## Horrizontal line
+                 tags$hr(),
+                 
+                 h4("Step 3: Select data layer weights:"),
+
+                 sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0.5,
+                             width = '80%', step = .25),
+                 sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0.5,
+                             width = '80%', step = .25),
+                 sliderInput("CASPO", "Spotted Owl Habitat", 0, 1, 0,
+                             width = '80%', step = .25),
+                 sliderInput("Fisher", "Fisher Habitat", 0, 1, 0,
+                             width = '80%', step = .25),
+                 sliderInput("Rec", "Recreation Sites", 0, 1, 0,
+                             width = '80%', step = .25),
+                 h4("Step 4: Execute prioritization"),
+                 
+                 ## Horrizontal line
+                 tags$hr(),
+                 
+                 actionButton("Calc", "Execute")
+               ),
+               
+               # Show a plot of the generated distribution
+               mainPanel(
+                 leafletOutput("map", height = 600, width = 800)
+               )
+             )
+    ),
+    ## Plot data tab
+    tabPanel("Stand data summary", "under construction"),
+    tabPanel("BMP guide", "under construction")
+  )
    
-   # Application title
-   titlePanel("Reforestation Prioritization Tool"),
-   
-   # Sidebar with a slider input for number of bins 
-   sidebarLayout(
-      sidebarPanel(
-        selectInput("Forest", "Step 1: Select area of interest",
-                    selected = "",
-                    fn),
-        checkboxGroupInput("Databases", "Step 2: Select data layers:",
-                           choices = c(
-                             "Mortality (ADS)", "Slope", "Fire Severity", "WUI", "CWD"),
-                           selected = c("Mortality (ADS)", "Slope")
-                           ),
-        h5(strong("Step 3: Execute prioritization:")),
-        actionButton("Calc", "Execute")
-      ),
-      
-      # Show a plot of the generated distribution
-      mainPanel(
-         leafletOutput("map", height = 600, width = 600)
-      )
-   )
+
 )
 
 # Define server logic required to draw a histogram
@@ -70,9 +108,10 @@ server <- function(input, output) {
     filter(forest, FORESTNAME == input$Forest)
   })
   
-  ## Crop feasibility raster by aoi
+  ## Crop feasibility raster by aoi; much slower if you don't crop
   ra <- reactive({
     ## Conditional necessary to avoid crop error
+    
     if(input$Forest == "") {NULL} else {
       crop(sb, filter(forest, FORESTNAME == input$Forest), snap = "in") %>%
         ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
@@ -141,22 +180,31 @@ server <- function(input, output) {
     proxy <- leafletProxy("map") 
     ## If a AOI is selected do some stuff
     if(input$Forest != "") {
-      ## Set colors for accessibility mask
-      pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
       proxy %>%
         ## Zoom to selection
         flyToBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
                     lat1 = as.numeric(st_bbox(aoi())$ymin),
                     lng2 = as.numeric(st_bbox(aoi())$xmax),
-                    lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
-        addPolygons(data = mortshow(),
-                    color = "transparent",
-                    fill = T,
-                    fillColor = c("transparent","red"), #heat.colors(5, alpha = NULL),
-                    fillOpacity = 0.8,
-                    options = pathOptions(pane = "overlay")) %>%
-        addRasterImage(x = ra(), colors = pal, opacity = 0.6, project = FALSE)
+                    lat2 = as.numeric(st_bbox(aoi())$ymax)) 
     }
+    ## If Mortality layer is selected add that layer
+    if(input$Forest != "" & ("Mortality (ADS)" %in% input$Display)) {
+      proxy %>%
+        addPolygons(data = mortshow(),
+                  color = "transparent",
+                  fill = T,
+                  fillColor = c("transparent","red"), #heat.colors(5, alpha = NULL),
+                  fillOpacity = 0.8,
+                  options = pathOptions(pane = "overlay")) 
+    }
+    ## If Inaccessible mask is selection add that layer
+    ## Set colors for accessibility mask
+    if(input$Forest != "" & ("Inaccessible" %in% input$Display)) {
+      pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
+      proxy %>%
+        addRasterImage(x = ra(), colors = pal, opacity = 0.5, project = FALSE)
+    }
+      
 
       # addPolygons(data = priority(),
       #           opacity = 0,

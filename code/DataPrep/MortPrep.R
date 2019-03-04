@@ -22,7 +22,7 @@ MortPrep <- function(TPA_threshold = 25) {
     dplyr::select(ID = OBJECTID, es_code = ECOREGION_) %>%
     merge(eswalk) %>%
     filter(es_code %in% c("341D", "M261D", "M261E", "M261F"))
-  
+
   mort <- st_read("data/Spatial", "ADSMort15") %>%
     st_transform(crs = "+proj=longlat +datum=WGS84")
     # st_transform(crs = st_crs(sb))

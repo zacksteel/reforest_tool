@@ -1,27 +1,23 @@
 ## Purpose: Prepare data layers of reforestation feasibility, both for visualizing (feature) and calcultion (raster)
 ## Author: Zack Steel
 ## Date: 1/7/19
+## Upstream: BLossPrep.R
+## Downstream: app.R
 
 FeasPrep <- function() {
   library(tidyverse)
   library(raster)
   library(sf)
   
-  ## Mask by forests for faster on the fly calculations/display
+  ## Resampling mask layer to match biomass layer
+  ## scenario B layer is much finer than 1ha pixels, if processing allows, maybe go down to 30m eventually
   r <- raster("data/Spatial/scenb_wgs")
+  bloss <- raster("data/spatial/biomassloss.tif")
   
-  fn <- c("Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
-          "Stanislaus", "Inyo", "Sequoia", "Sierra")
-  forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
-    st_buffer(0) %>% ## fixes problems with ring self-intersection
-    st_transform(crs = "+proj=longlat +datum=WGS84") %>%
-    filter(FORESTNAME %in% fn) 
+  r2 <- resample(r, bloss) %>%
+    round(0)
   
-  for (fid in fn) {
-    print(paste0("running ", fid))
-    f <- filter(forest, FORESTNAME == fid)
-    
-    rp <- mask(r, f)
-    trash <- crop(r, f)
-  }
+  ## Save for use in app
+  writeRaster(r2, "Data/Spatial/scenb.tif")
+
 }

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<metadata>
+	<idinfo>
+		<citation>
+			<citeinfo>
+				<origin>USDA Forest Service - Pacific Southwest Region - Remote Sensing Lab</origin>
+				<pubdate>August 2007</pubdate>
+				<title Sync="TRUE">DevelopedRecreation06_2</title>
+				<geoform Sync="TRUE">vector digital data</geoform>
+				<pubinfo>
+					<pubplace>McClellan, CA</pubplace>
+					<publish>Remote Sensing Lab</publish>
+				</pubinfo>
+				<onlink>http://www.fs.fed.us/r5/rsl/projects/frdb/layers/drec.html</onlink>
+				<ftname Sync="TRUE">DevelopedRecreation06_2</ftname></citeinfo>
+		</citation>
+		<descript>
+			<abstract>This polygon layer consists of Developed Recreation Areas for the USDA Forest Service, Pacific Southwest Region.</abstract>
+			<purpose>Used for National Forest planning and assessment and other natural resource applications</purpose>
+			<supplinf>
+Procedures_Used:
+
+Update:  Tlindemann GD, Aug 07
+Point data was obtained for the Plumas National Forest (NF) which contained CN Numbers and INFRA Numbers.  This allowed the connection to INFRA for all attributes.  These point data were buffered 2 Acres in order to include in the regional dataset. 
+
+These data are an update to very old Arc Info Coverages.  This layer is a combination of new and old data.  New polygons were obtained by the Regional Office in April 2006.  These data were in various formats and projections.
+
+All these data were projected-on-the-fly during loading to a predesigned Feature Class template.  This template was defined for Teale Albers NAD83 projection.  
+
+These data contain all fields from INFRA which have been joined using the field REC_SITE_CN.  These joined data came from the Oracle View GC_DEV_REC_SITES_VW which is housed at NITC (National Information Technology Center).
+
+April 06 data include:
+
+Six Rivers NF - SRF
+Mendocino NF - MNF
+Klamath NF - KNF
+Shasta-Trinity NF - SHF
+Modoc NF - MDF
+Lassen NF - LNF
+Tahoe NF - TNF
+Lake Tahoe Basin Management Unit - TMU
+Eldorado NF - ENF
+Stanislaus NF - STF
+Sierra NF - SNF
+Inyo NF - INF***
+Sequoia NF - SQF
+Los Padres NF - LPF
+Angeles NF - ANF***
+Cleveland NF - CNF
+
+The above data either included INFRA-ID or CN#.  This is what allowed the succesful join.
+
+***  The INF and ANF did not provide INFRA-ID or CN# populated therefore, there is no attribute data for them, just the spatial.
+
+PNF -  Plumas NF provided a point layer and no polygons.
+BDF - San Bernardino provided nothing.
+For these 2 forests, the legacy RSl Developed Recreation Coverages were used.  For PNF these data were dated 1993.  For BDF these data were dated 2001.
+
+For all forests the corresponding planning fields were added at the RSL:
+FOREST_NUMBER:  Adminforest number
+DRECAC:  Availability Class
+DRECREG:  Regulation Level
+DRECLSC:  Land Suitability Class
+</supplinf>
+			<langdata Sync="TRUE">en</langdata></descript>
+		<timeperd>
+			<timeinfo>
+				<sngdate><caldate>REQUIRED: The year (and optionally month, or month and day) for which the data set corresponds to the ground.</caldate></sngdate>
+			</timeinfo>
+			<current>publication date</current>
+		</timeperd>
+		<status>
+			<progress>In work</progress>
+			<update>As needed</update>
+		</status>
+		<spdom>
+			<bounding>
+				<westbc Sync="TRUE">-124.070548</westbc>
+				<eastbc Sync="TRUE">-115.949114</eastbc>
+				<northbc Sync="TRUE">42.106296</northbc>
+				<southbc Sync="TRUE">32.704768</southbc>
+			</bounding>
+			<lboundng><leftbc Sync="TRUE">-337606.937337</leftbc><rightbc Sync="TRUE">335974.192663</rightbc><bottombc Sync="TRUE">-583319.674839</bottombc><topbc Sync="TRUE">454211.815161</topbc></lboundng></spdom>
+		<keywords>
+			<theme>
+				<themekey>developed Recreation</themekey>
+				<themekt>REQUIRED: Reference to a formally registered thesaurus or a similar authoritative source of theme keywords.</themekt></theme>
+		</keywords>
+		<accconst>None</accconst>
+		<useconst>Not recommended for use at scales greater than 1:24000</useconst>
+		<ptcontac>
+			<cntinfo>
+				<cntperp>
+					<cntper>Dan Studer</cntper>
+					<cntorg>USDA Forest Service - Pacific Southwest Region - Remote Sensing Lab</cntorg>
+				</cntperp>
+				<cntpos>GIS Coordinator</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>3237 Peacekeeper Way, Suite 209</address>
+					<city>McClellan</city>
+					<state>CA</state>
+					<postal>95652</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>(916) 640-1292</cntvoice>
+				<cntvoice>(707) 562-8947</cntvoice>
+				<cntfax>(916) 640-1291</cntfax>
+				<cntemail>dstuder@fs.fed.us</cntemail>
+				<hours>0800 - 1700 M - F, PT</hours>
+				<cntinst>Office is closed on federal holidays</cntinst>
+			</cntinfo>
+		</ptcontac>
+		<secinfo>
+			<secsys>None in place</secsys>
+		</secinfo>
+		<native Sync="TRUE">Microsoft Windows 2000 Version 5.0 (Build 2195) Service Pack 4; ESRI ArcCatalog 9.2.2.1350</native>
+		<natvform Sync="TRUE">Personal GeoDatabase Feature Class</natvform></idinfo>
+	<dataqual>
+		<posacc>
+			<horizpa></horizpa>
+		</posacc>
+		<lineage>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>\</origin>
+						<pubdate></pubdate>
+						<geoform>Source Format: \Capture Method:</geoform>
+						<othercit>Projection: \Datum:</othercit>
+					</citeinfo>
+				</srccite>
+			</srcinfo>
+			<procstep><procdesc Sync="TRUE">Metadata imported.</procdesc><srcused Sync="TRUE">C:\tmp\xmlD5B.tmp</srcused><date Sync="TRUE">20070907</date><time Sync="TRUE">07301700</time></procstep></lineage>
+	</dataqual>
+	<spdoinfo>
+		<direct Sync="TRUE">Vector</direct>
+		<ptvctinf>
+			<sdtsterm Name="DevelopedRecreation06_2">
+				<sdtstype Sync="TRUE">G-polygon</sdtstype>
+				<ptvctcnt Sync="TRUE">2375</ptvctcnt>
+			</sdtsterm>
+			<esriterm Name="DevelopedRecreation06_2"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom Sync="TRUE">Polygon</efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">2375</efeacnt><spindex Sync="TRUE">TRUE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf>
+	</spdoinfo>
+	<spref>
+		<horizsys>
+			<planar>
+				<planci>
+					<plance Sync="TRUE">coordinate pair</plance>
+					<coordrep>
+						<absres Sync="TRUE">0.010000</absres>
+						<ordres Sync="TRUE">0.010000</ordres>
+					</coordrep>
+					<plandu Sync="TRUE">meters</plandu>
+				</planci>
+				<mapproj><mapprojn Sync="TRUE">Albers Conical Equal Area</mapprojn><albers><stdparll Sync="TRUE">34.000000</stdparll><stdparll Sync="TRUE">40.500000</stdparll><longcm Sync="TRUE">-120.000000</longcm><latprjo Sync="TRUE">0.000000</latprjo><feast Sync="TRUE">0.000000</feast><fnorth Sync="TRUE">-4000000.000000</fnorth></albers></mapproj></planar>
+			<geodetic>
+				<horizdn Sync="TRUE">North American Datum of 1983</horizdn>
+				<ellips Sync="TRUE">Geodetic Reference System 80</ellips>
+				<semiaxis Sync="TRUE">6378137.000000</semiaxis>
+				<denflat Sync="TRUE">298.257222</denflat>
+			</geodetic>
+			<cordsysn><geogcsn Sync="TRUE">GCS_North_American_1983</geogcsn><projcsn Sync="TRUE">NAD_1983_Albers</projcsn></cordsysn></horizsys>
+		<vertdef>
+			<altsys>
+				<altres Sync="TRUE">1.000000</altres>
+				<altenc Sync="TRUE">Explicit elevation coordinate included with horizontal coordinates</altenc>
+			</altsys>
+		</vertdef>
+	</spref>
+	<eainfo>
+		<detailed Name="DevelopedRecreation06_2">
+			<enttyp>
+				<enttypl Sync="TRUE">DevelopedRecreation06_2</enttypl>
+				<enttypd>Feature Class Attribute Table</enttypd>
+				<enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">2375</enttypc></enttyp>
+			<attr>
+				<attrlabl>OBJECTID</attrlabl>
+				<attrdef>Internal feature number.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Sequential unique whole numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>SHAPE</attrlabl>
+				<attrdef>Feature geometry.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Coordinates defining the features.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>FOREST_NUMBER</attrlabl>
+				<attrdef>Administrative Forest Code</attrdef>
+				<attrdefs>Remote Sensing Lab</attrdefs>
+				<attrdomv>
+					<edom>
+						<edomv>see FRDB Table @ http://www.fs.fed.us/r5/rsl/projects/frdb/tables/table001.html</edomv>
+					</edom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>DRECAC</attrlabl>
+				<attrdef>Availability Class</attrdef>
+				<attrdefs>Remote Sensing Lab</attrdefs>
+				<attrdomv>
+					<edom>
+						<edomv>see FRDB table @ http://www.fs.fed.us/r5/rsl/projects/frdb/tables/table011.html</edomv>
+					</edom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>DRECREG</attrlabl>
+				<attrdef>Timber Management Regulation Class</attrdef>
+				<attrdefs>Remote Sensing Lab</attrdefs>
+				<attrdomv>
+					<edom>
+						<edomv>see FRDB Table @ http://www.fs.fed.us/r5/rsl/projects/frdb/tables/table023.html</edomv>
+					</edom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>DRECLSC</attrlabl>
+				<attrdef>Land Suitability Class</attrdef>
+				<attrdefs>Remote Sensing Lab</attrdefs>
+				<attrdomv>
+					<edom>
+						<edomv>see FRDB Table @ http://www.fs.fed.us/r5/rsl/projects/frdb/tables/table029.html</edomv>
+					</edom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>NAME</attrlabl>
+				<attrdef>The name of the recreation site</attrdef>
+				<attrdefs>Forest Service I-Web Data Dictionary</attrdefs>
+			</attr>
+			<attr>
+				<attrlabl>STATUS</attrlabl>
+				<attrdef>The current development status of the site</attrdef>
+				<attrdefs>Forest Service I-Web Data Dictionary</attrdefs>
+				<attrdomv>
+					<edom>
+						<edomv>EXISTING - OPERATIONAL, PLANNED, or EXISTING - ABANDONED</edomv>
+					</edom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>LU_SUBTYPE</attrlabl>
+				<attrdef>The type of recreation site</attrdef>
+				<attrdefs>Forest Service I-Web Data Dictionary</attrdefs>
+			</attr>
+			<attr><attrlabl Sync="TRUE">SHAPE_Length</attrlabl><attalias Sync="TRUE">SHAPE_Length</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">8</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Length of feature in internal units.</attrdef><attrdefs Sync="TRUE">ESRI</attrdefs><attrdomv><udom Sync="TRUE">Positive real numbers that are automatically generated.</udom></attrdomv></attr><attr><attrlabl Sync="TRUE">SHAPE_Area</attrlabl><attalias Sync="TRUE">SHAPE_Area</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">8</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Area of feature in internal units squared.</attrdef><attrdefs Sync="TRUE">ESRI</attrdefs><attrdomv><udom Sync="TRUE">Positive real numbers that are automatically generated.</udom></attrdomv></attr></detailed>
+		<overview>
+			<eadetcit>For a description of this dataset and a listing of valid values, go to the Remote Sensing Lab Forest Resource Database Dictionary (FRDB) at http://www.fs.fed.us/r5/rsl/projects/frdb/layers/drec.html</eadetcit>
+		</overview>
+	</eainfo>
+	<distinfo>
+		<resdesc>Downloadable Data</resdesc>
+		<distliab>This product is reproduced from geospatial information prepared by the U.S. Department of Agriculture, Forest Service.  By removing the contents of this package or taking receipt of these files via electronic file transfer methods, you understand that the data stored on this media is in draft condition.  Represented features may not be in an accurate geographic location.  The Forest Service makes no expressed or implied warranty, including warranty of merchantability and fitness, with respect to the character, function, or capabilities of the data or their appropriateness for any user's purposes.  The Forest Service reserves the right to correct, update, modify, or replace this geospatial information without notification.  For more information, contact the Remote Sensing Lab, 916-640-1256.</distliab>
+	</distinfo>
+	<metainfo>
+		<metd Sync="TRUE">20070907</metd>
+		<metc>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>USDA Forest Service - Pacific Southwest Region - Remote Sensing Lab</cntorg>
+					<cntper>Daniel Studer</cntper>
+				</cntorgp>
+				<cntpos>GIS Coordinator</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>3237 Peacekeeper Way, Suite 209</address>
+					<city>McClellan</city>
+					<state>CA</state>
+					<postal>95652</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>(916) 640-1292</cntvoice>
+				<cntfax>(916) 640-1291</cntfax>
+				<cntemail>dstuder@fs.fed.us</cntemail>
+				<hours>0800 - 1700 M - F, PT</hours>
+				<cntinst>Office is closed on federal holidays</cntinst>
+			</cntinfo>
+		</metc>
+		<metstdn Sync="TRUE">FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+		<metstdv Sync="TRUE">FGDC-STD-001-1998</metstdv>
+		<mettc Sync="TRUE">local time</mettc>
+		<metextns>
+			<metprof>ESRI Metadata Profile</metprof>
+		</metextns>
+		<metextns>
+			<onlink>http://www.esri.com/metadata/esriprof80.html</onlink>
+			<metprof>ESRI Metadata Profile</metprof>
+		</metextns>
+		<metextns>
+			<onlink>http://www.esri.com/metadata/esriprof80.html</onlink>
+			<metprof>ESRI Metadata Profile</metprof>
+		</metextns>
+		<metextns>
+			<onlink>http://www.esri.com/metadata/esriprof80.html</onlink>
+			<metprof>ESRI Metadata Profile</metprof>
+		</metextns>
+		<langmeta Sync="TRUE">en</langmeta><metextns><onlink Sync="TRUE">http://www.esri.com/metadata/esriprof80.html</onlink><metprof Sync="TRUE">ESRI Metadata Profile</metprof></metextns></metainfo>
+	<Esri><CreaDate>20190304</CreaDate><CreaTime>11415800</CreaTime><SyncOnce>FALSE</SyncOnce><SyncDate>20070907</SyncDate><SyncTime>07310000</SyncTime><ModDate>20070907</ModDate><ModTime>07310000</ModTime><DataProperties><lineage><Process Name="RepairGeometry_1" ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\RepairGeometry" Date="20070907" Time="073256">RepairGeometry C:\A_PROJECTS\WebUpdates\DevRec\DevelopedRecreation06_2.mdb\DevelopedRecreation06_2 C:\A_PROJECTS\WebUpdates\DevRec\DevelopedRecreation06_2.mdb\DevelopedRecreation06_2</Process></lineage></DataProperties><ArcGISFormat>1.0</ArcGISFormat></Esri><dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows 2000 Version 5.0 (Build 2195) Service Pack 4; ESRI ArcCatalog 9.2.2.1350</envirDesc><dataLang><languageCode Sync="TRUE" value="en"></languageCode></dataLang><idCitation><resTitle Sync="TRUE">DevelopedRecreation06_2</resTitle><presForm><PresFormCd Sync="TRUE" value="005"></PresFormCd></presForm></idCitation><spatRpType><SpatRepTypCd Sync="TRUE" value="001"></SpatRepTypCd></spatRpType><dataExt><geoEle><GeoBndBox esriExtentType="native"><westBL Sync="TRUE">-337606.937337</westBL><eastBL Sync="TRUE">335974.192663</eastBL><northBL Sync="TRUE">454211.815161</northBL><southBL Sync="TRUE">-583319.674839</southBL><exTypeCode Sync="TRUE">1</exTypeCode></GeoBndBox></geoEle></dataExt><geoBox esriExtentType="decdegrees"><westBL Sync="TRUE">-124.070548</westBL><eastBL Sync="TRUE">-115.949114</eastBL><northBL Sync="TRUE">42.106296</northBL><southBL Sync="TRUE">32.704768</southBL><exTypeCode Sync="TRUE">1</exTypeCode></geoBox></dataIdInfo><mdLang><languageCode Sync="TRUE" value="en"></languageCode></mdLang><mdStanName Sync="TRUE">ISO 19115 Geographic Information - Metadata</mdStanName><mdStanVer Sync="TRUE">DIS_ESRI1.0</mdStanVer><mdChar><CharSetCd Sync="TRUE" value="004"></CharSetCd></mdChar><mdHrLv><ScopeCd Sync="TRUE" value="005"></ScopeCd></mdHrLv><mdHrLvName Sync="TRUE">dataset</mdHrLvName><distInfo><distributor><distorTran><onLineSrc><orDesc Sync="TRUE">002</orDesc><linkage Sync="TRUE">file://\\PCDE6X8NH91\A_PROJECTS\WebUpdates\DevRec\Version91Template.mdb</linkage><protocol Sync="TRUE">Local Area Network</protocol></onLineSrc></distorTran><distorFormat><formatName Sync="TRUE">Personal GeoDatabase Feature Class</formatName></distorFormat></distributor></distInfo><refSysInfo><RefSystem><refSysID><identCode Sync="TRUE">NAD_1983_Albers</identCode></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><topLvl><TopoLevCd Sync="TRUE" value="001"></TopoLevCd></topLvl><geometObjs Name="DevelopedRecreation06_2"><geoObjTyp><GeoObjTypCd Sync="TRUE" value="001"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">2375</geoObjCnt></geometObjs></VectSpatRep></spatRepInfo><mdDateSt Sync="TRUE">20070907</mdDateSt></metadata>

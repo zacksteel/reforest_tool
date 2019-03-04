@@ -13,6 +13,7 @@ library(leaflet)
 library(tidyverse)
 library(rgdal)
 library(raster)
+library(colorspace)
 
 
 ## Must adjust for application directory & leaflet expect lat long data
@@ -27,14 +28,20 @@ forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
 ## Bring in mortality layer
 # mort <- st_read("data/Spatial", "ADSMort15") %>%
 #   st_transform(crs = "+proj=longlat +datum=WGS84")
-mort <- st_read("data/Spatial", "mort15_simple") %>%
-  st_buffer(0)
-## Leaflet doesn't like named geometries, which st_write adds
-names(st_geometry(mort)) <- NULL
+# mort <- st_read("data/Spatial", "mort15_simple") %>%
+#   st_buffer(0)
+# ## Leaflet doesn't like named geometries, which st_write adds
+# names(st_geometry(mort)) <- NULL
+
+bloss <- raster("data/Spatial/biomassloss.tif")
 
 ## Bring in accessibility raster layer
 #### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somewhere along the way?
-sb <- raster("data/Spatial/scenb_mask") 
+sb <- raster("data/Spatial/scenb.tif") 
+
+## Bring in land class layers
+rec <- raster("data/Spatial/RecAreas.tif")
+wui <- raster("data/Spatial/WUI.tif")
 
 
 # Define UI for application that draws a histogram
@@ -52,8 +59,8 @@ ui <- fluidPage(
                              selected = "",
                              choices = fn),
                  checkboxGroupInput("Display", tags$i("Display Layers:"),
-                                    choices = c("Mortality (ADS)", "Inaccessible"),
-                                    selected = c("Mortality (ADS)")),
+                                    choices = c("Biomass Loss (2012-16)", "Inaccessible"),
+                                    selected = c("Biomass Loss (2012-16)")),
                  
                  ## Horrizontal line
                  tags$hr(),
@@ -64,7 +71,7 @@ ui <- fluidPage(
  
                  h4("Step 2: Select reforestation need threshold:"),  
                  
-                 sliderInput("Need", tags$tbody("Need Threshold (TPA mortality)"), 0, 100, 10,
+                 sliderInput("Need", tags$tbody("Need Threshold (Biomass loss)"), 0, 100, 10,
                              width = '80%'),
                  
                  ## Horrizontal line
@@ -74,12 +81,12 @@ ui <- fluidPage(
 
                  sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0.5,
                              width = '80%', step = .25),
-                 sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0.5,
-                             width = '80%', step = .25),
-                 sliderInput("CASPO", "Spotted Owl Habitat", 0, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("Fisher", "Fisher Habitat", 0, 1, 0,
-                             width = '80%', step = .25),
+                 # sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0.5,
+                 #             width = '80%', step = .25),
+                 # sliderInput("CASPO", "Spotted Owl Habitat", 0, 1, 0,
+                 #             width = '80%', step = .25),
+                 # sliderInput("Fisher", "Fisher Habitat", 0, 1, 0,
+                 #             width = '80%', step = .25),
                  sliderInput("Rec", "Recreation Sites", 0, 1, 0,
                              width = '80%', step = .25),
                  h4("Step 4: Execute prioritization"),
@@ -129,7 +136,13 @@ server <- function(input, output) {
   })
   
   mortshow <- reactive({
-    st_intersection(mort, aoi())
+    ## Need to convert to spatial object for crop (but not for mask)
+    tmp <- filter(forest, FORESTNAME == input$Forest) %>%
+      as_Spatial()
+    crop(bloss, tmp, snap = "in") %>%
+      ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
+      mask(mask = filter(forest, FORESTNAME == input$Forest))
+    # st_intersection(mort, aoi())
   })
   # priority <- reactive({
   #   if(input$Calc > 0 & input$Forest != "") {
@@ -157,6 +170,8 @@ server <- function(input, output) {
   # points <- eventReactive(input$recalc, {
   #   cbind(rnorm(40) * 2 + 13, rnorm(40) + 48)
   # }, ignoreNULL = FALSE)
+  
+  ## Can't add sierra-wide rasters to full map, too big to render
    
   output$map <- renderLeaflet({
     leaflet() %>%
@@ -196,14 +211,10 @@ server <- function(input, output) {
                     lat2 = as.numeric(st_bbox(aoi())$ymax)) 
     }
     ## If Mortality layer is selected add that layer
-    if(input$Forest != "" & ("Mortality (ADS)" %in% input$Display)) {
+    if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
+      pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
       proxy %>%
-        addPolygons(data = mortshow(),
-                  color = "transparent",
-                  fill = T,
-                  fillColor = c("transparent","red"), #heat.colors(5, alpha = NULL),
-                  fillOpacity = 0.8,
-                  options = pathOptions(pane = "overlay")) 
+        addRasterImage(x = mortshow(), colors = pal, opacity = 0.5, project = FALSE)
     }
     ## If Inaccessible mask is selection add that layer
     ## Set colors for accessibility mask
@@ -219,6 +230,53 @@ server <- function(input, output) {
       #           fill = T,
       #           fillColor = c("#CC9933", "#996600", "#993300"),
       #           fillOpacity = 0.8)
+  })
+  
+  ## When the user executes the prioritization
+  observeEvent(input$Calc, {
+    ## Only run if AOI has been selected
+    if(input$Forest == "") {NULL} else {
+      
+      ## Run raster calculation based on user-defined weights
+      pr <- (bloss + wui*input$WUI + rec*input$Rec) * sb
+      
+      ## Scale to have a max of 1; may want to do after mask step below
+      ## Max will be equal to the number of input layers adjusted for weights
+      maxp <- 1 + input$WUI + input$Rec
+      pr01 <- pr / maxp
+      
+      ## Limit to AOI (this seems to be the slow step so do it last)
+      tmp <- filter(forest, FORESTNAME == input$Forest) %>%
+        as_Spatial()
+      pr_aoi <- crop(pr01, tmp, snap = "in") %>%
+        ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
+        mask(mask = filter(forest, FORESTNAME == input$Forest))
+      
+      ## Prompt user to pick a directory to save to
+      wd <- choose.dir(caption = "Select output directory")
+      setwd(wd)
+      
+      ## Create an output directory to save into
+      new.dir <- "ReforestPriority"
+      ## If one alread exists, add a number until it doesn't
+      x <- 1
+      repeat{
+        if(dir.exists(new.dir)) {
+        new.dir <- paste0("ReforestPriority",x)
+        x <- x + 1
+        } else
+          break
+        }
+      dir.create(new.dir)
+      
+      ## Add products to directory
+      png(paste0(new.dir,"/scratch_priority.png"))
+      plot(pr_aoi)
+      dev.off()
+      
+      writeRaster(pr_aoi, paste0(new.dir,"/priority.tif"))
+    }
+     
   })
 }
 

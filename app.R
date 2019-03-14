@@ -25,14 +25,7 @@ forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
   # st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 ") %>%
   filter(FORESTNAME %in% fn) 
 
-## Bring in mortality layer
-# mort <- st_read("data/Spatial", "ADSMort15") %>%
-#   st_transform(crs = "+proj=longlat +datum=WGS84")
-# mort <- st_read("data/Spatial", "mort15_simple") %>%
-#   st_buffer(0)
-# ## Leaflet doesn't like named geometries, which st_write adds
-# names(st_geometry(mort)) <- NULL
-
+## Bring in "need" layer
 bloss <- raster("data/Spatial/biomassloss.tif")
 
 ## Bring in accessibility raster layer
@@ -246,14 +239,52 @@ server <- function(input, output) {
       pr01 <- pr / maxp
       
       ## Limit to AOI (this seems to be the slow step so do it last)
-      tmp <- filter(forest, FORESTNAME == input$Forest) %>%
+      aoi_shp <- filter(forest, FORESTNAME == input$Forest) %>%
         as_Spatial()
-      pr_aoi <- crop(pr01, tmp, snap = "in") %>%
+      pr_aoi <- crop(pr01, aoi_shp, snap = "in") %>%
         ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
         mask(mask = filter(forest, FORESTNAME == input$Forest))
       
+      ## Reclassify to three classes based on quantile thirds
+      #### occasionally have problems of breaks not being unique. maybe add a bit to upper quantiles
+      q3 <- quantile(pr_aoi, probs = c(0.33, 0.67)) + c(0.000, 0.001)
+      
+      breaks <- c(-0.01, as.numeric(q3), 1.00)
+      pr3 <- cut(pr_aoi, breaks = breaks) %>%
+        subs(data.frame(ID = c(1,2,3), Priority = c("Low", "Moderate", "High")))
+      
+      
+      ##https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot/index.html
+      ##https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf
+
+      ## make a background raster
+      aoi_r <- raster(extent(aoi_shp), res = res(pr3))
+      aoi_r <- rasterize(aoi_shp, aoi_r)
+      aoi_df <- as.data.frame(aoi_r, xy = T) %>%
+        mutate(Priority = ifelse(!is.na(layer_OBJECTID), "None", NA),
+               Priority = factor(Priority, levels = c("High", "Moderate", "Low", "None")))
+      
+      ## Set up dataframe from raster
+      pr3_df <- as.data.frame(pr3, xy = T) %>%
+        rename(Priority = Priority_Priority) %>%
+        mutate(#Priority = ifelse(is.na(Priority), "None", Priority),
+               Priority = factor(Priority, levels = c("High", "Moderate", "Low", "None")))
+      
+      ## Set up palette and replace last level as mask
+      pal <- sequential_hcl(4, palette = "Red-Yellow")
+      pal[4] <- "grey60"
+      
+      p <- ggplot() +
+        geom_raster(data = aoi_df, aes(x = x, y = y, fill = Priority)) +
+        # scale_fill_manual(values = "grey", guide = F) +
+        geom_raster(data = pr3_df, aes(x = x, y = y, fill = Priority)) +
+        scale_fill_manual(values = pal) +
+        theme_bw() +
+        theme(axis.title = element_blank()) + 
+        coord_quickmap()
+      
       ## Prompt user to pick a directory to save to
-      wd <- choose.dir(caption = "Select output directory")
+      wd <- choose.dir(default = "Computer", caption = "Select output directory")
       setwd(wd)
       
       ## Create an output directory to save into
@@ -270,9 +301,10 @@ server <- function(input, output) {
       dir.create(new.dir)
       
       ## Add products to directory
-      png(paste0(new.dir,"/scratch_priority.png"))
-      plot(pr_aoi)
-      dev.off()
+      ggsave(paste0(new.dir,"/scratch_priority.png"), plot = p)
+      # png(paste0(new.dir,"/scratch_priority.png"))
+      # plot(pr_aoi)
+      # dev.off()
       
       writeRaster(pr_aoi, paste0(new.dir,"/priority.tif"))
     }

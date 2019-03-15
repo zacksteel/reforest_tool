@@ -64,8 +64,8 @@ ui <- fluidPage(
  
                  h4("Step 2: Select reforestation need threshold:"),  
                  
-                 sliderInput("Need", tags$tbody("Need Threshold (Biomass loss)"), 0, 100, 10,
-                             width = '80%'),
+                 sliderInput("Need", tags$tbody("Need Threshold (Biomass loss)"), 10, 100, 50,
+                             width = '80%', step = 10),
                  
                  ## Horrizontal line
                  tags$hr(),
@@ -230,8 +230,12 @@ server <- function(input, output) {
     ## Only run if AOI has been selected
     if(input$Forest == "") {NULL} else {
       
+      ## Limit the range of biomass loss considered based on user-defined threshold
+      blmin <- input$Need/100
+      minmask <- cut(bloss, breaks = c(-0.01,blmin,1)) - 1 ## returns a 0 and 1 raste
+        
       ## Run raster calculation based on user-defined weights
-      pr <- (bloss + wui*input$WUI + rec*input$Rec) * sb
+      pr <- (bloss + wui*input$WUI + rec*input$Rec) * sb * minmask
       
       ## Scale to have a max of 1; may want to do after mask step below
       ## Max will be equal to the number of input layers adjusted for weights
@@ -243,15 +247,19 @@ server <- function(input, output) {
         as_Spatial()
       pr_aoi <- crop(pr01, aoi_shp, snap = "in") %>%
         ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
-        mask(mask = filter(forest, FORESTNAME == input$Forest))
+        mask(mask = aoi_shp)
+      ## Create a not treatable layer for AOI
+      nt <- crop(sb, aoi_shp, snap = "in") %>%
+        mask(mask = aoi_shp)
       
-      ## Reclassify to three classes based on quantile thirds
-      #### occasionally have problems of breaks not being unique. maybe add a bit to upper quantiles
-      q3 <- quantile(pr_aoi, probs = c(0.33, 0.67)) + c(0.000, 0.001)
       
-      breaks <- c(-0.01, as.numeric(q3), 1.00)
+      ## Reclassify to three classes based on quantile thirds above the minimum threshold
+      ## occasionally have problems of breaks not being unique. add a bit to upper quantiles
+      q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0.33, 0.67)) + c(0.000, 0.001)
+      
+      breaks <- c(-0.01, blmin, as.numeric(q3), 1.00)
       pr3 <- cut(pr_aoi, breaks = breaks) %>%
-        subs(data.frame(ID = c(1,2,3), Priority = c("Low", "Moderate", "High")))
+        subs(data.frame(ID = c(1,2,3,4), Priority = c("No Need","Low", "Moderate", "High")))
       
       
       ##https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot/index.html
@@ -259,26 +267,36 @@ server <- function(input, output) {
 
       ## make a background raster
       aoi_r <- raster(extent(aoi_shp), res = res(pr3))
+      #### Slow step
       aoi_r <- rasterize(aoi_shp, aoi_r)
       aoi_df <- as.data.frame(aoi_r, xy = T) %>%
-        mutate(Priority = ifelse(!is.na(layer_OBJECTID), "None", NA),
-               Priority = factor(Priority, levels = c("High", "Moderate", "Low", "None")))
+        mutate(Priority = ifelse(!is.na(layer_OBJECTID), "Not Treatable", NA),
+               Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
+        filter(!is.na(Priority))
+
+      ## make not treatable dataframe
+      nt_df <- as.data.frame(nt, xy = T) %>%
+        mutate(Priority = ifelse(scenb == 1, NA, "Not Treatable"),
+               Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
+        filter(!is.na(Priority))
       
       ## Set up dataframe from raster
+      #### This is a slow step
       pr3_df <- as.data.frame(pr3, xy = T) %>%
         rename(Priority = Priority_Priority) %>%
-        mutate(#Priority = ifelse(is.na(Priority), "None", Priority),
-               Priority = factor(Priority, levels = c("High", "Moderate", "Low", "None")))
+        mutate(Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
+        filter(!is.na(Priority))
       
       ## Set up palette and replace last level as mask
-      pal <- sequential_hcl(4, palette = "Red-Yellow")
-      pal[4] <- "grey60"
+      pal <- sequential_hcl(5, palette = "Inferno")
       
       p <- ggplot() +
         geom_raster(data = aoi_df, aes(x = x, y = y, fill = Priority)) +
-        # scale_fill_manual(values = "grey", guide = F) +
         geom_raster(data = pr3_df, aes(x = x, y = y, fill = Priority)) +
-        scale_fill_manual(values = pal) +
+        geom_raster(data = nt_df, aes(x = x, y = y, fill = Priority)) +
+        scale_fill_manual(values = c("High" = pal[1], "Moderate" = pal[2], "Low" = pal[3],
+                                     "No Need" = "grey90", "Not Treatable" = "grey60"),
+                          breaks = c("High", "Moderate", "Low", "No Need", "Not Treatable")) +
         theme_bw() +
         theme(axis.title = element_blank()) + 
         coord_quickmap()

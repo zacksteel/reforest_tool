@@ -10,6 +10,7 @@
 library(shiny)
 library(sf)
 library(leaflet)
+library(mapview)
 library(tidyverse)
 library(rgdal)
 library(raster)
@@ -51,9 +52,10 @@ ui <- fluidPage(
                              label = h4("Step 1: Select area of interest"),
                              selected = "",
                              choices = fn),
-                 checkboxGroupInput("Display", tags$i("Display Layers:"),
-                                    choices = c("Biomass Loss (2012-16)", "Inaccessible"),
-                                    selected = c("Biomass Loss (2012-16)")),
+                 ## Move this display option to map widget
+                 # checkboxGroupInput("Display", tags$i("Display Layers:"),
+                 #                    choices = c("Biomass Loss (2012-16)", "Inaccessible"),
+                 #                    selected = c("Biomass Loss (2012-16)")),
                  
                  ## Horrizontal line
                  tags$hr(),
@@ -87,7 +89,10 @@ ui <- fluidPage(
                  ## Horrizontal line
                  tags$hr(),
                  
-                 actionButton("Calc", "Execute")
+                 actionButton("Calc", "Execute"),
+                 #### Trying to figure out downlaod
+                 actionButton("dl", "Download")
+                 # downloadButton("dl", "Download current map")
                ),
                
                # Show a plot of the generated distribution
@@ -165,20 +170,33 @@ server <- function(input, output) {
   # }, ignoreNULL = FALSE)
   
   ## Can't add sierra-wide rasters to full map, too big to render
-   
-  output$map <- renderLeaflet({
+
+  #### Struggling with how to save map on the screen. From here to ~line 238 prints what is generated in user_created_map(),
+  #### From here: https://community.rstudio.com/t/solved-error-when-using-mapshot-with-shiny-leaflet/6765/7
+  #### But that function doesn't replace proxy functions (i.e. you still need to run the observer(proxy...) code for the user to see the rasters)
+  #### May just be able to make it redundent, code chuck for the user to see and another to render the saved map
+  #### Also, not sure how working directory is interpreted for a remote user, may need to integrate downloadHander() to make this work
+  map_reactive <- reactive({
     leaflet() %>%
-      # addTiles() %>%
-      ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
-      addMapPane("overlay", zIndex = 150) %>% #used to define layer order
-      addMapPane("base", zIndex = 100) %>%
-      addProviderTiles(provider = "Esri.WorldShadedRelief", 
-                       options = pathOptions(pane = "base")) %>%#"CartoDB.Positron")
+      # addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
+      addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
+      addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
+      addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") %>%
+      addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") %>%
+      
+      # add scale bar
+      addMeasure(position = "topleft",
+                 primaryLengthUnit = "meters",
+                 primaryAreaUnit = "sqmeters",
+                 activeColor = "#3D535D",
+                 completedColor = "#7D4479") %>%
+      
       addPolygons(data = aoi(),
                   color = "blue",
                   fill = F,
                   opacity = 0.8,
-                  weight = 3) %>%
+                  weight = 3,
+                  group = "AOI") %>%
       addPolygons(data = forest,
                   color = "black",
                   fillColor = "green",
@@ -187,13 +205,103 @@ server <- function(input, output) {
                   opacity = 1,
                   fillOpacity = 0.2,
                   label = forest$FORESTNAME,
-                  options = pathOptions(pane = "overlay")) 
+                  highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                      bringToFront = TRUE),
+                  group = "Forests") %>%
       
-   })
+      # add controls for basemaps and data
+      addLayersControl(
+        baseGroups = c("Grey", "Topo", "Relief", "Aerial Imagery"),
+        overlayGroups = c("Forests", "AOI", "Inaccessible", "Biomass Loss"),
+        position = c("topright"),
+        options = layersControlOptions(collapsed = T))
+  })
+  
+  output$map <- renderLeaflet({
+    map_reactive()
+  })
+  
+  user_created_map <- reactive({
+    m = map_reactive() %>%
+      setView(lng = input$map_center$lng, lat = input$map_center$lat, 
+              zoom = input$map_zoom)
+    if(input$Forest != "") {
+      pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
+      m %>%
+        addRasterImage(x = mortshow(), colors = pal,opacity = 0.5,
+                       project = FALSE, group = "Biomass Loss")
+    }
+  })
+  
+  observeEvent(input$dl, {
+    mapshot(user_created_map(), file=paste0(getwd(), '/exported_map.png'))
+  })
+  
+  
+  #### Code below saves default map to user-defined location
+  #### from here: https://stackoverflow.com/questions/44259716/how-to-save-a-leaflet-map-in-shiny
+  # map <- reactiveValues(dat = 0)
+  # output$map <- renderLeaflet({
+  #   # map$dat <- 
+  #     leaflet() %>%
+  #     ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
+  #     # addMapPane("overlay", zIndex = 150) %>% #used to define layer order
+  #     # addMapPane("base", zIndex = 100) %>%
+  #     addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
+  #     addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
+  #     #                  options = pathOptions(pane = "base")) %>%
+  #     addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
+  #     #                  options = pathOptions(pane = "base")) %>%
+  #     addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") %>%
+  #     addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") %>%
+  #     
+  #     # add scale bar
+  #     addMeasure(position = "topleft",
+  #                primaryLengthUnit = "meters",
+  #                primaryAreaUnit = "sqmeters",
+  #                activeColor = "#3D535D",
+  #                completedColor = "#7D4479") %>%
+  #     
+  #     addPolygons(data = aoi(),
+  #                 color = "blue",
+  #                 fill = F,
+  #                 opacity = 0.8,
+  #                 weight = 3,
+  #                 group = "AOI") %>%
+  #     addPolygons(data = forest,
+  #                 color = "black",
+  #                 fillColor = "green",
+  #                 fill = T,
+  #                 weight = 2,
+  #                 opacity = 1,
+  #                 fillOpacity = 0.2,
+  #                 label = forest$FORESTNAME,
+  #                 highlightOptions = highlightOptions(color = "white", weight = 2,
+  #                                                     bringToFront = TRUE),
+  #                 group = "Forests") %>%
+  #                 # options = pathOptions(pane = "overlay")) %>%
+  #     
+  #     # add controls for basemaps and data
+  #     addLayersControl(
+  #       baseGroups = c("Grey", "Topo", "Relief", "Aerial Imagery"),
+  #       overlayGroups = c("Forests", "AOI", "Inaccessible", "Biomass Loss"),
+  #       position = c("topright"),
+  #       options = layersControlOptions(collapsed = T))
+  # 
+  #  })
+  
+  ## Function to download current map on button click; when testing Run app external to RStudio or file naming wont work
+  #### Currently this only downloads the defaul, doesn't adjust to user changes ####
+  # output$dl <- downloadHandler(
+  #   filename = "map.png",
+  #   content = function(file = filename) {
+  #     mapshot(map$dat, file = file)
+  #   })
   
   
   observe({
-    proxy <- leafletProxy("map") 
+    proxy <- leafletProxy("map")
+
     ## If a AOI is selected do some stuff
     if(input$Forest != "") {
       proxy %>%
@@ -201,29 +309,44 @@ server <- function(input, output) {
         flyToBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
                     lat1 = as.numeric(st_bbox(aoi())$ymin),
                     lng2 = as.numeric(st_bbox(aoi())$xmax),
-                    lat2 = as.numeric(st_bbox(aoi())$ymax)) 
+                    lat2 = as.numeric(st_bbox(aoi())$ymax))
     }
     ## If Mortality layer is selected add that layer
-    if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
+    if(input$Forest != "") {# & ("Biomass Loss (2012-16)" %in% input$Display)) {
       pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
       proxy %>%
-        addRasterImage(x = mortshow(), colors = pal, opacity = 0.5, project = FALSE)
+        addRasterImage(x = mortshow(), colors = pal,opacity = 0.5,
+                       project = FALSE, group = "Biomass Loss")
+                       # options = tileOptions( minZoom = 10)) ## It seems you can't do this for rasters currently, may fix in future releases...
+
     }
     ## If Inaccessible mask is selection add that layer
     ## Set colors for accessibility mask
-    if(input$Forest != "" & ("Inaccessible" %in% input$Display)) {
+    if(input$Forest != "") {# & ("Inaccessible" %in% input$Display)) {
       pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
       proxy %>%
-        addRasterImage(x = ra(), colors = pal, opacity = 0.5, project = FALSE)
+        addRasterImage(x = ra(), colors = pal, opacity = 0.5,
+                       project = FALSE, group = "Inaccessible")
     }
-      
+
 
       # addPolygons(data = priority(),
       #           opacity = 0,
       #           fill = T,
       #           fillColor = c("#CC9933", "#996600", "#993300"),
       #           fillOpacity = 0.8)
+
+    ## It seems I need to re-run these layer controls here (at least how I currently have it coded)
+    proxy %>%
+      # add controls for basemaps and data
+      addLayersControl(
+        baseGroups = c("Topo", "Relief", "Aerial Imagery", "Grey"),
+        overlayGroups = c("Forests", "AOI", "Inaccessible", "Biomass Loss"),
+        position = c("topright"),
+        options = layersControlOptions(collapsed = F))
+
   })
+  
   
   ## When the user executes the prioritization
   observeEvent(input$Calc, {

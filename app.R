@@ -16,6 +16,10 @@ library(rgdal)
 library(raster)
 library(colorspace)
 
+# library(htmlwidgets)
+# 
+# jsfile <- "https://rawgit.com/rowanwins/leaflet-easyPrint/gh-pages/dist/bundle.js" 
+
 
 ## Must adjust for application directory & leaflet expect lat long data
 fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
@@ -176,82 +180,11 @@ server <- function(input, output) {
   #### But that function doesn't replace proxy functions (i.e. you still need to run the observer(proxy...) code for the user to see the rasters)
   #### May just be able to make it redundent, code chuck for the user to see and another to render the saved map
   #### Also, not sure how working directory is interpreted for a remote user, may need to integrate downloadHander() to make this work
-  map_reactive <- reactive({
-    leaflet() %>%
-      # addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
-      addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
-      addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
-      addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") %>%
-      addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") %>%
-      
-      # add scale bar
-      addMeasure(position = "topleft",
-                 primaryLengthUnit = "meters",
-                 primaryAreaUnit = "sqmeters",
-                 activeColor = "#3D535D",
-                 completedColor = "#7D4479") %>%
-      
-      addPolygons(data = aoi(),
-                  color = "blue",
-                  fill = F,
-                  opacity = 0.8,
-                  weight = 3,
-                  group = "AOI") %>%
-      addPolygons(data = forest,
-                  color = "black",
-                  fillColor = "green",
-                  fill = T,
-                  weight = 2,
-                  opacity = 1,
-                  fillOpacity = 0.2,
-                  label = forest$FORESTNAME,
-                  highlightOptions = highlightOptions(color = "white", weight = 2,
-                                                      bringToFront = TRUE),
-                  group = "Forests") %>%
-      
-      # add controls for basemaps and data
-      addLayersControl(
-        baseGroups = c("Grey", "Topo", "Relief", "Aerial Imagery"),
-        overlayGroups = c("Forests", "AOI", "Inaccessible", "Biomass Loss"),
-        position = c("topright"),
-        options = layersControlOptions(collapsed = T))
-  })
-  
-  output$map <- renderLeaflet({
-    map_reactive()
-  })
-  
-  user_created_map <- reactive({
-    m = map_reactive() %>%
-      setView(lng = input$map_center$lng, lat = input$map_center$lat, 
-              zoom = input$map_zoom)
-    if(input$Forest != "") {
-      pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
-      m %>%
-        addRasterImage(x = mortshow(), colors = pal,opacity = 0.5,
-                       project = FALSE, group = "Biomass Loss")
-    }
-  })
-  
-  observeEvent(input$dl, {
-    mapshot(user_created_map(), file=paste0(getwd(), '/exported_map.png'))
-  })
-  
-  
-  #### Code below saves default map to user-defined location
-  #### from here: https://stackoverflow.com/questions/44259716/how-to-save-a-leaflet-map-in-shiny
-  # map <- reactiveValues(dat = 0)
-  # output$map <- renderLeaflet({
-  #   # map$dat <- 
-  #     leaflet() %>%
-  #     ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
-  #     # addMapPane("overlay", zIndex = 150) %>% #used to define layer order
-  #     # addMapPane("base", zIndex = 100) %>%
-  #     addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
+  # map_reactive <- reactive({
+  #   leaflet() %>%
+  #     # addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
   #     addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
-  #     #                  options = pathOptions(pane = "base")) %>%
   #     addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
-  #     #                  options = pathOptions(pane = "base")) %>%
   #     addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") %>%
   #     addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") %>%
   #     
@@ -279,7 +212,6 @@ server <- function(input, output) {
   #                 highlightOptions = highlightOptions(color = "white", weight = 2,
   #                                                     bringToFront = TRUE),
   #                 group = "Forests") %>%
-  #                 # options = pathOptions(pane = "overlay")) %>%
   #     
   #     # add controls for basemaps and data
   #     addLayersControl(
@@ -287,8 +219,91 @@ server <- function(input, output) {
   #       overlayGroups = c("Forests", "AOI", "Inaccessible", "Biomass Loss"),
   #       position = c("topright"),
   #       options = layersControlOptions(collapsed = T))
+  # })
   # 
-  #  })
+  # output$map <- renderLeaflet({
+  #   map_reactive()
+  # })
+  # 
+  # user_created_map <- reactive({
+  #   m = map_reactive() %>%
+  #     setView(lng = input$map_center$lng, lat = input$map_center$lat, 
+  #             zoom = input$map_zoom)
+  #   if(input$Forest != "") {
+  #     pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
+  #     m %>%
+  #       addRasterImage(x = mortshow(), colors = pal,opacity = 0.5,
+  #                      project = FALSE, group = "Biomass Loss")
+  #   }
+  # })
+  # 
+  # observeEvent(input$dl, {
+  #   mapshot(user_created_map(), file=paste0(getwd(), '/exported_map.png'))
+  # })
+  
+  
+  #### Code below saves default map to user-defined location
+  #### from here: https://stackoverflow.com/questions/44259716/how-to-save-a-leaflet-map-in-shiny
+  # map <- reactiveValues(dat = 0)
+  output$map <- renderLeaflet({
+    # map$dat <-
+      leaflet() %>%
+      ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
+      # addMapPane("overlay", zIndex = 150) %>% #used to define layer order
+      # addMapPane("base", zIndex = 100) %>%
+      addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
+      addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
+      #                  options = pathOptions(pane = "base")) %>%
+      addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
+      #                  options = pathOptions(pane = "base")) %>%
+      addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") %>%
+      addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") %>%
+
+      # add scale bar
+      addMeasure(position = "topleft",
+                 primaryLengthUnit = "meters",
+                 primaryAreaUnit = "sqmeters",
+                 activeColor = "#3D535D",
+                 completedColor = "#7D4479") %>%
+
+      addPolygons(data = aoi(),
+                  color = "blue",
+                  fill = F,
+                  opacity = 0.8,
+                  weight = 3,
+                  group = "AOI") %>%
+      addPolygons(data = forest,
+                  color = "black",
+                  fillColor = "green",
+                  fill = T,
+                  weight = 2,
+                  opacity = 1,
+                  fillOpacity = 0.2,
+                  label = forest$FORESTNAME,
+                  highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                      bringToFront = TRUE),
+                  group = "Forests") %>%
+                  # options = pathOptions(pane = "overlay")) %>%
+
+      # add controls for basemaps and data
+      addLayersControl(
+        baseGroups = c("Grey", "Topo", "Relief", "Aerial Imagery"),
+        overlayGroups = c("Forests", "AOI", "Inaccessible", "Biomass Loss"),
+        position = c("topright"),
+        options = layersControlOptions(collapsed = T)) %>%
+      onRender(
+        "function(el, x) {
+          L.easyPrint({
+            sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+            filename: 'mymap',
+            exportOnly: true,
+            hideControlContainer: true
+          }).addTo(this);
+          }"
+
+        )
+
+   })
   
   ## Function to download current map on button click; when testing Run app external to RStudio or file naming wont work
   #### Currently this only downloads the defaul, doesn't adjust to user changes ####

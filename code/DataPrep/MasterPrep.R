@@ -16,3 +16,6 @@ FeasPrep()
 ## Prep binary land classification layers
 source("code/DataPrep/LandClass.R")
 LandClassPrep()
+
+## Prep climate water deficit layer
+source("code/DataPrep/CWD_Prep.R")

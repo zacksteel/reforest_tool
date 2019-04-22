@@ -26,6 +26,7 @@ fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado",
         "Stanislaus", "Inyo", "Sequoia", "Sierra")
 forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
   st_buffer(0) %>% ## fixes problems with ring self-intersection
+  ### do this ahead to save a little processing time ####
   st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs") %>%
   # st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 ") %>%
   filter(FORESTNAME %in% fn) 
@@ -37,9 +38,10 @@ bloss <- raster("data/Spatial/biomassloss.tif")
 #### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somewhere along the way?
 sb <- raster("data/Spatial/scenb.tif") 
 
-## Bring in land class layers
+## Bring in land class layers; cwd
 rec <- raster("data/Spatial/RecAreas.tif")
 wui <- raster("data/Spatial/WUI.tif")
+cwd <- raster("data/spatial/cwd_sn.tif")
 
 
 # Define UI for application that draws a histogram
@@ -82,8 +84,10 @@ ui <- fluidPage(
                  #             width = '80%', step = .25),
                  # sliderInput("Fisher", "Fisher Habitat", 0, 1, 0,
                  #             width = '80%', step = .25),
-                 sliderInput("Rec", "Recreation Sites", 0, 1, 0,
+                 sliderInput("Rec", "Recreation Sites", 0, 1, 0.5,
                              width = '80%', step = .25),
+                 sliderInput("cwd", "Climate Water Deficit", -1, 0, -0.5,
+                             width = '80%', step = 0.25),
                  h4("Step 4: Run prioritization"),
                  
                  ## Horrizontal line
@@ -126,6 +130,7 @@ server <- function(input, output) {
   ## Reactive mapping objects
   ## Limit forest shp to selection forest
   ## Only run if user wants it displayed to save runtime
+  #### May modify this so that the AOI selection triggers loading of all pre-processed layers here ####
   aoi <- reactive({
     filter(forest, FORESTNAME == input$Forest)
   })
@@ -245,7 +250,7 @@ server <- function(input, output) {
     if(input$Forest != "" & ("Prioritization" %in% input$Display) & !(is.null(priority$raster))) {
       pal <- sequential_hcl(3, palette = "Inferno")
       m <- m %>%
-        addRasterImage(x = priority$raster, colors = pal, opacity = 0.5,
+        addRasterImage(x = priority$raster, colors = pal, opacity = 0.8,
                        project = FALSE, group = "Priority")
     }
     
@@ -287,7 +292,7 @@ server <- function(input, output) {
       mapshot(user_created_map(), file = file)
     })
   
-  #### Currently crashes the site if I haven't run the calculation net, need to fix
+  #### Currently crashes the site if I haven't run the calculation yet, need to fix
   #### Alternatively, would it be possible to have the button only show up after the calculation?
   # if(is.null(priority$raster)) {
   #   output$dl_tif <- showNotification("This is a notification.")
@@ -301,21 +306,24 @@ server <- function(input, output) {
 
   
   ## When the user executes the prioritization
-  #### Currently returns a raster between 0 and 1; need to figure out how to return classes
   observeEvent(input$Calc, {
     ## Only run if AOI has been selected
     if(input$Forest == "") {NULL} else {
 
       ## Limit the range of biomass loss considered based on user-defined threshold
       blmin <- input$Need/100
-      minmask <- cut(bloss, breaks = c(-0.01,blmin,1)) - 1 ## returns a 0 and 1 raste
+      minmask <- cut(bloss, breaks = c(-0.01,blmin,1)) - 1 ## returns a 0 and 1 raster
 
       ## Run raster calculation based on user-defined weights
-      pr <- (bloss + wui*input$WUI + rec*input$Rec) * sb * minmask
+      pr <- (bloss + #More biomass loss increases priority
+               wui*input$WUI + #being in the WUI increases priority
+               rec*input$Rec + #being in a rec area increases priority
+               cwd*input$cwd) * #high cwd decreases priority
+        sb * minmask
 
       ## Scale to have a max of 1; may want to do after mask step below
       ## Max will be equal to the number of input layers adjusted for weights
-      maxp <- 1 + input$WUI + input$Rec
+      maxp <- 1 + input$WUI + input$Rec + input$cwd
       pr01 <- pr / maxp
 
       ## Limit to AOI (this seems to be the slow step so do it last)

@@ -203,18 +203,23 @@ server <- function(input, output) {
                        label = forest$FORESTNAME,
                        highlightOptions = highlightOptions(color = "white", weight = 2,
                                                            bringToFront = TRUE),
-                       group = "Forests") 
+                       group = "Forests") %>%
+        addLegend(position = "bottomright", 
+                  color = "green",
+                  opacity = 0.2,
+                  labels = "Forests")
     }
     
     if("Area of Interest" %in% input$Display) {
+      val <- input$Forest
       m <- addPolygons(m,
                   data = aoi(),
                   color = "blue",
                   fill = F,
                   opacity = 0.8,
                   weight = 4,
-                  group = "AOI")
-    }
+                  group = "AOI") 
+      }
     
     ## Conditional layer groups
     
@@ -225,16 +230,11 @@ server <- function(input, output) {
         fitBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
                     lat1 = as.numeric(st_bbox(aoi())$ymin),
                     lng2 = as.numeric(st_bbox(aoi())$xmax),
-                    lat2 = as.numeric(st_bbox(aoi())$ymax))
-    }
-    
-    ## If Mortality layer is selected add that layer
-    if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
-      pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
-      m <- m %>%
-        addRasterImage(x = mortshow(), colors = pal, opacity = 0.5,
-                       project = FALSE, group = "Biomass Loss")
-                       # options = tileOptions( minZoom = 10)) ## It seems you can't do this for rasters currently, may fix in future releases...
+                    lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
+        addLegend(position = "bottomright", 
+                  colors = "blue",
+                  opacity = 0.8,
+                  labels = "Area of Interest")
     }
     
     ## If Inaccessible mask is selection add that layer
@@ -243,7 +243,30 @@ server <- function(input, output) {
       pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
       m <- m %>%
         addRasterImage(x = ra(), colors = pal, opacity = 0.5,
-                       project = FALSE, group = "Inaccessible")
+                       project = FALSE, group = "Inaccessible") %>%
+        addLegend(position = "bottomright", 
+                  colors = "black",
+                  opacity = 0.5,
+                  labels = "Inaccessible")
+    }
+    
+    ## If Mortality layer is selected add that layer
+    if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
+      pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
+      at <- seq(0, 1, .2)
+      cb <- colorBin(palette = pal, bins = at, domain = at)
+      m <- m %>%
+        addRasterImage(x = mortshow(), colors = pal, opacity = 0.5,
+                       project = FALSE, group = "Biomass Loss") %>%
+        addLegend(position = "bottomright", pal = cb, values = at, 
+                  labFormat = labelFormat(
+                    # prefix = "(", 
+                    suffix = " %", 
+                    between = " - ",
+                    transform = function(x) 100 * x
+                  ), 
+                  title = "Biomass Loss")
+                       # options = tileOptions( minZoom = 10)) ## It seems you can't do this for rasters currently, may fix in future releases...
     }
     
     ## If priority layer select, add that layer
@@ -251,7 +274,8 @@ server <- function(input, output) {
       pal <- sequential_hcl(3, palette = "Inferno")
       m <- m %>%
         addRasterImage(x = priority$raster, colors = pal, opacity = 0.8,
-                       project = FALSE, group = "Priority")
+                       project = FALSE, group = "Priority") #%>%
+        # addLegend(position = "bottomright", pal = pal)
     }
     
     # ## list of layers to display conditional on whether AOI has been assigned

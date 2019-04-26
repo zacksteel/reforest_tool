@@ -15,7 +15,7 @@ FeasPrep <- function() {
   bloss <- raster("data/spatial/biomassloss.tif")
   
   r2 <- resample(r, bloss) %>%
-    round(0)
+    round(0) 
   
   ## Save for use in app
   writeRaster(r2, "Data/Spatial/scenb.tif")

@@ -10,38 +10,28 @@
 library(shiny)
 library(sf)
 library(leaflet)
-library(mapview)
 library(tidyverse)
 library(rgdal)
 library(raster)
 library(colorspace)
 
-# library(htmlwidgets)
-# 
-# jsfile <- "https://rawgit.com/rowanwins/leaflet-easyPrint/gh-pages/dist/bundle.js" 
-
-
-## Must adjust for application directory & leaflet expect lat long data
+## Define forest/aoi options and read in shape file
 fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
         "Stanislaus", "Inyo", "Sequoia", "Sierra")
-forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
-  st_buffer(0) %>% ## fixes problems with ring self-intersection
-  ### do this ahead to save a little processing time ####
-  st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs") %>%
-  # st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 ") %>%
-  filter(FORESTNAME %in% fn) 
+forest <- st_read("data/Spatial", "SN_NFs")
 
+#### Pre-mask rasters according to national forests and reading in when AOI is selected will probably save user time
 ## Bring in "need" layer
-bloss <- raster("data/Spatial/biomassloss.tif")
-
-## Bring in accessibility raster layer
-#### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somewhere along the way?
-sb <- raster("data/Spatial/scenb.tif") 
-
-## Bring in land class layers; cwd
-rec <- raster("data/Spatial/RecAreas.tif")
-wui <- raster("data/Spatial/WUI.tif")
-cwd <- raster("data/spatial/cwd_sn.tif")
+# bloss <- raster("data/Spatial/biomassloss.tif")
+# 
+# ## Bring in accessibility raster layer
+# #### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somewhere along the way?
+# sb <- raster("data/Spatial/scenb.tif") 
+# 
+# ## Bring in land class layers; cwd
+# rec <- raster("data/Spatial/RecAreas.tif")
+# wui <- raster("data/Spatial/WUI.tif")
+# cwd <- raster("data/spatial/cwd_sn.tif")
 
 
 # Define UI for application that draws a histogram
@@ -61,10 +51,6 @@ ui <- fluidPage(
                  
                  ## Horrizontal line
                  tags$hr(),
-                 
-                 # checkboxGroupInput("Databases", "Step 2: Select data layers:",
-                 #                    choices = c("Slope", "Fire Severity", "WUI", "CWD"),
-                 #                    selected = c("Slope")),
  
                  h4("Step 2: Select reforestation need threshold:"),  
                  
@@ -88,6 +74,7 @@ ui <- fluidPage(
                              width = '80%', step = .25),
                  sliderInput("cwd", "Climate Water Deficit", -1, 0, -0.5,
                              width = '80%', step = 0.25),
+                 
                  h4("Step 4: Run prioritization"),
                  
                  ## Horrizontal line
@@ -100,17 +87,22 @@ ui <- fluidPage(
                  
                  ## Move this display option to map widget
                  checkboxGroupInput("Display", tags$i("Select display Layers:"),
-                                    choices = c("Forests", "Area of Interest", 
-                                                "Biomass Loss (2012-16)", "Inaccessible",
+                                    choices = c("Forests", 
+                                                "Area of Interest", 
+                                                "Biomass Loss (2012-16)", 
+                                                "Inaccessible",
                                                 "Prioritization"),
                                     selected = c("Forests", "Area of Interest")),
                  
-                 #### Trying to figure out downlaod
+                 ## Buttons for downloading current map and tif
+                 #### Maybe add one or combine for generating a short "report"
                  downloadButton("dl", "Download Map Image"),
                  downloadButton("dl_tif", "Download Priority GeoTiff")
                ),
                
-               # Show a plot of the generated distribution
+               #### Show a plot of relative weights or data layers?
+               
+               ## Define size of map
                mainPanel(
                  leafletOutput("map", height = 600, width = 800)
                )
@@ -137,15 +129,16 @@ server <- function(input, output) {
   
   ## Crop inaccessibility raster by aoi; much slower if you don't crop
   ra <- reactive({
-    
     ## Conditional necessary to avoid crop error
     if(input$Forest != "" & ("Inaccessible" %in% input$Display)) {
-      ## Need to convert to spatial object for crop (but not for mask)
-      tmp <- filter(forest, FORESTNAME == input$Forest) %>%
-        as_Spatial()
-      crop(sb, tmp, snap = "in") %>%
-        ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
-        mask(mask = filter(forest, FORESTNAME == input$Forest)) %>%
+      ## Read in AOI national forest-specific raster
+      sb <- raster(paste0("data/spatial/nf_limits/sb_",input$Forest, ".tif")) %>%
+      # ## Need to convert to spatial object for crop (but not for mask)
+      # tmp <- filter(forest, FORESTNAME == input$Forest) %>%
+      #   as_Spatial()
+      # crop(sb, tmp, snap = "in") %>%
+      #   ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
+      #   mask(mask = filter(forest, FORESTNAME == input$Forest)) %>%
         cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
     } else 
     {NULL}
@@ -153,30 +146,23 @@ server <- function(input, output) {
   
   mortshow <- reactive({
     if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
+      bloss <- raster(paste0("data/spatial/nf_limits/bloss_", input$Forest, ".tif"))
       ## Need to convert to spatial object for crop (but not for mask)
-      tmp <- filter(forest, FORESTNAME == input$Forest) %>%
-        as_Spatial()
-      crop(bloss, tmp, snap = "in") %>%
-        ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
-        mask(mask = filter(forest, FORESTNAME == input$Forest))
+      # tmp <- filter(forest, FORESTNAME == input$Forest) %>%
+      #   as_Spatial()
+      # crop(bloss, tmp, snap = "in") %>%
+      #   ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
+      #   mask(mask = filter(forest, FORESTNAME == input$Forest))
     } else
     {NULL}
   })
+  
   
   ## Set up Null priority value to be replaced during calculation
   priority <- reactiveValues(raster = NULL)
 
   
   ## Can't add sierra-wide rasters to full map, too big to render
-
-  #### Struggling with how to save map on the screen. From here to ~line 238 prints what is generated in user_created_map(),
-  #### From here: https://community.rstudio.com/t/solved-error-when-using-mapshot-with-shiny-leaflet/6765/7
-  #### But that function doesn't replace proxy functions (i.e. you still need to run the observer(proxy...) code for the user to see the rasters)
-  #### May just be able to make it redundent, code chuck for the user to see and another to render the saved map
-  #### Also, not sure how working directory is interpreted for a remote user, may need to integrate downloadHander() to make this work
-  
-  ## For some reason if I change the basemap, I can no longer display the AOI-dependent layers. 
-  ## Probably something to do with how things are rendered. Trouble shoot later
   
   ## Set up the default map function
   map_reactive <- reactive({
@@ -184,6 +170,9 @@ server <- function(input, output) {
       # addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
       
       # Base Groups
+      #### For some reason if I change the basemap, I can no longer display the AOI-dependent layers. 
+      #### Probably something to do with how things are rendered. Trouble shoot later
+      
       # addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
       # addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
       addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo")
@@ -238,11 +227,10 @@ server <- function(input, output) {
     }
     
     ## If Inaccessible mask is selection add that layer
-    ## Set colors for accessibility mask
     if(input$Forest != "" & ("Inaccessible" %in% input$Display)) {
       pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
       m <- m %>%
-        addRasterImage(x = ra(), colors = pal, opacity = 0.5,
+        addRasterImage(x = ra(), colors = pal, opacity = 0.3,
                        project = FALSE, group = "Inaccessible") %>%
         addLegend(position = "bottomright", 
                   colors = "black",
@@ -270,12 +258,17 @@ server <- function(input, output) {
     }
     
     ## If priority layer select, add that layer
-    if(input$Forest != "" & ("Prioritization" %in% input$Display) & !(is.null(priority$raster))) {
-      pal <- sequential_hcl(3, palette = "Inferno")
+    if(input$Forest != "" & 
+       ("Prioritization" %in% input$Display) & 
+       !(is.null(priority$raster))) {
+      
+      # pal <- sequential_hcl(3, palette = "Inferno")
       m <- m %>%
-        addRasterImage(x = priority$raster, colors = pal, opacity = 0.8,
-                       project = FALSE, group = "Priority") #%>%
-        # addLegend(position = "bottomright", pal = pal)
+        addRasterImage(x = priority$raster, colors = c("grey", "yellow", "orange", "red"), 
+                       opacity = 0.5,
+                       project = FALSE, group = "Priority") %>%
+        addLegend(position = "bottomright", colors = c("grey", "yellow", "orange", "red"),
+                  labels = c("No Need","Low", "Moderate", "High"))
     }
     
     # ## list of layers to display conditional on whether AOI has been assigned
@@ -333,17 +326,30 @@ server <- function(input, output) {
   observeEvent(input$Calc, {
     ## Only run if AOI has been selected
     if(input$Forest == "") {NULL} else {
+      
+      ## read in national forest-specific rasters
+      bloss <- raster(paste0("data/spatial/nf_limits/bloss_", input$Forest, ".tif"))
+      sb <- raster(paste0("data/spatial/nf_limits/sb_",input$Forest, ".tif")) %>%
+        cut(breaks = c(-0.5,0.5))
+
+      rec <- raster(paste0("data/Spatial/nf_limits/rec_", input$Forest, ".tif"))
+      wui <- raster(paste0("data/Spatial/nf_limits/wui_", input$Forest, ".tif"))
+      cwd <- raster(paste0("data/spatial/nf_limits/cwd_", input$Forest, ".tif"))
 
       ## Limit the range of biomass loss considered based on user-defined threshold
       blmin <- input$Need/100
-      minmask <- cut(bloss, breaks = c(-0.01,blmin,1)) - 1 ## returns a 0 and 1 raster
+      minmask <- cut(bloss, breaks = c(-0.01,blmin,1)) - 1 ## cut returns values of 1 & 2, -1 ensures 0 and 1 raster
 
       ## Run raster calculation based on user-defined weights
+      #### Need to make sure I'm thinking through all of this correctly. 
+      #### Currently just returning low priority, I think I'm doing the weighting and/or scaleing wrong
       pr <- (bloss + #More biomass loss increases priority
-               wui*input$WUI + #being in the WUI increases priority
-               rec*input$Rec + #being in a rec area increases priority
-               cwd*input$cwd) * #high cwd decreases priority
-        sb * minmask
+        wui*input$WUI + #being in the WUI increases priority
+           rec*input$Rec + #being in a rec area increases priority
+           ## scale non-binary rasters with max of 1
+           cwd/cellStats(cwd, stat='max')*input$cwd) * #high cwd decreases priority 
+        sb * minmask #mask out areas of mechanical constraints & below need threshold
+
 
       ## Scale to have a max of 1; may want to do after mask step below
       ## Max will be equal to the number of input layers adjusted for weights
@@ -367,87 +373,91 @@ server <- function(input, output) {
       ## occasionally have problems of breaks not being unique. add a bit to upper quantiles
       q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0.33, 0.67)) + c(0.000, 0.001)
 
+      #### Get an error of breaks are not unique for the Sierra with 0.5 need threshold, -1 CWD weight and others at 0 weight
+      #### Having a negative weight expands the possible range of raw priority values
+      #### Need to think more about this and fix
       breaks <- c(-0.01, blmin, as.numeric(q3), 1.00)
       pr3 <- cut(pr_aoi, breaks = breaks) %>%
         subs(data.frame(ID = c(1,2,3,4), Priority = c("No Need","Low", "Moderate", "High")))
 
       ## Return priority raster
       priority$raster <- pr3
-    }
+      }
     })
-  #     
-  #     ## Redefine priority function/layer
-  #     # priority <- reactive({pr_aoi})
-  #     
-  #     ## Everything below was for saving a default map. Obsolete with newer user-led map download.
-  #     ##https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot/index.html
-  #     ##https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf
-  # 
-  #     # ## make a background raster
-  #     # aoi_r <- raster(extent(aoi_shp), res = res(pr3))
-  #     # #### Slow step
-  #     # aoi_r <- rasterize(aoi_shp, aoi_r)
-  #     # aoi_df <- as.data.frame(aoi_r, xy = T) %>%
-  #     #   mutate(Priority = ifelse(!is.na(layer_OBJECTID), "Not Treatable", NA),
-  #     #          Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
-  #     #   filter(!is.na(Priority))
-  #     # 
-  #     # ## make not treatable dataframe
-  #     # nt_df <- as.data.frame(nt, xy = T) %>%
-  #     #   mutate(Priority = ifelse(scenb == 1, NA, "Not Treatable"),
-  #     #          Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
-  #     #   filter(!is.na(Priority))
-  #     # 
-  #     # ## Set up dataframe from raster
-  #     # #### This is a slow step
-  #     # pr3_df <- as.data.frame(pr3, xy = T) %>%
-  #     #   rename(Priority = Priority_Priority) %>%
-  #     #   mutate(Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
-  #     #   filter(!is.na(Priority))
-  #     # 
-  #     # ## Set up palette and replace last level as mask
-  #     # pal <- sequential_hcl(5, palette = "Inferno")
-  #     # 
-  #     # p <- ggplot() +
-  #     #   geom_raster(data = aoi_df, aes(x = x, y = y, fill = Priority)) +
-  #     #   geom_raster(data = pr3_df, aes(x = x, y = y, fill = Priority)) +
-  #     #   geom_raster(data = nt_df, aes(x = x, y = y, fill = Priority)) +
-  #     #   scale_fill_manual(values = c("High" = pal[1], "Moderate" = pal[2], "Low" = pal[3],
-  #     #                                "No Need" = "grey90", "Not Treatable" = "grey60"),
-  #     #                     breaks = c("High", "Moderate", "Low", "No Need", "Not Treatable")) +
-  #     #   theme_bw() +
-  #     #   theme(axis.title = element_blank()) + 
-  #     #   coord_quickmap()
-  #     # 
-  #     # ## Prompt user to pick a directory to save to
-  #     # wd <- choose.dir(default = "Computer", caption = "Select output directory")
-  #     # setwd(wd)
-  #     # 
-  #     # ## Create an output directory to save into
-  #     # new.dir <- "ReforestPriority"
-  #     # ## If one alread exists, add a number until it doesn't
-  #     # x <- 1
-  #     # repeat{
-  #     #   if(dir.exists(new.dir)) {
-  #     #   new.dir <- paste0("ReforestPriority",x)
-  #     #   x <- x + 1
-  #     #   } else
-  #     #     break
-  #     #   }
-  #     # dir.create(new.dir)
-  #     # 
-  #     # ## Add products to directory
-  #     # ggsave(paste0(new.dir,"/scratch_priority.png"), plot = p)
-  #     # # png(paste0(new.dir,"/scratch_priority.png"))
-  #     # # plot(pr_aoi)
-  #     # # dev.off()
-  #     # 
-  #     # writeRaster(pr_aoi, paste0(new.dir,"/priority.tif"))
-  #   }
-  #    
-  # })
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+#     
+#     ## Redefine priority function/layer
+#     # priority <- reactive({pr_aoi})
+#     
+#     ## Everything below was for saving a default map. Obsolete with newer user-led map download.
+#     ##https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot/index.html
+#     ##https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf
+# 
+#     # ## make a background raster
+#     # aoi_r <- raster(extent(aoi_shp), res = res(pr3))
+#     # #### Slow step
+#     # aoi_r <- rasterize(aoi_shp, aoi_r)
+#     # aoi_df <- as.data.frame(aoi_r, xy = T) %>%
+#     #   mutate(Priority = ifelse(!is.na(layer_OBJECTID), "Not Treatable", NA),
+#     #          Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
+#     #   filter(!is.na(Priority))
+#     # 
+#     # ## make not treatable dataframe
+#     # nt_df <- as.data.frame(nt, xy = T) %>%
+#     #   mutate(Priority = ifelse(scenb == 1, NA, "Not Treatable"),
+#     #          Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
+#     #   filter(!is.na(Priority))
+#     # 
+#     # ## Set up dataframe from raster
+#     # #### This is a slow step
+#     # pr3_df <- as.data.frame(pr3, xy = T) %>%
+#     #   rename(Priority = Priority_Priority) %>%
+#     #   mutate(Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
+#     #   filter(!is.na(Priority))
+#     # 
+#     # ## Set up palette and replace last level as mask
+#     # pal <- sequential_hcl(5, palette = "Inferno")
+#     # 
+#     # p <- ggplot() +
+#     #   geom_raster(data = aoi_df, aes(x = x, y = y, fill = Priority)) +
+#     #   geom_raster(data = pr3_df, aes(x = x, y = y, fill = Priority)) +
+#     #   geom_raster(data = nt_df, aes(x = x, y = y, fill = Priority)) +
+#     #   scale_fill_manual(values = c("High" = pal[1], "Moderate" = pal[2], "Low" = pal[3],
+#     #                                "No Need" = "grey90", "Not Treatable" = "grey60"),
+#     #                     breaks = c("High", "Moderate", "Low", "No Need", "Not Treatable")) +
+#     #   theme_bw() +
+#     #   theme(axis.title = element_blank()) + 
+#     #   coord_quickmap()
+#     # 
+#     # ## Prompt user to pick a directory to save to
+#     # wd <- choose.dir(default = "Computer", caption = "Select output directory")
+#     # setwd(wd)
+#     # 
+#     # ## Create an output directory to save into
+#     # new.dir <- "ReforestPriority"
+#     # ## If one alread exists, add a number until it doesn't
+#     # x <- 1
+#     # repeat{
+#     #   if(dir.exists(new.dir)) {
+#     #   new.dir <- paste0("ReforestPriority",x)
+#     #   x <- x + 1
+#     #   } else
+#     #     break
+#     #   }
+#     # dir.create(new.dir)
+#     # 
+#     # ## Add products to directory
+#     # ggsave(paste0(new.dir,"/scratch_priority.png"), plot = p)
+#     # # png(paste0(new.dir,"/scratch_priority.png"))
+#     # # plot(pr_aoi)
+#     # # dev.off()
+#     # 
+#     # writeRaster(pr_aoi, paste0(new.dir,"/priority.tif"))
+#   }
+#    
+# })
 

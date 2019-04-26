@@ -2,9 +2,15 @@
 ## Author: Zack Steel
 ## Date: 1-7-19
 
-## Prep reforestation need layer(s)
+
 # source("code/DataPrep/MortPrep.R")
 # MortPrep(TPA_threshold = 25)
+
+## Limit National forests considered and project
+source("code/DataPrep/ForestPrep.R")
+ForestPrep()
+
+## Prep reforestation need layer(s)
 source("code/DataPrep/BLossPrep.R")
 BLossPrep(path = "J:/My Drive/Projects/ReForestTool/GIS/DataLayers/Biomass/CABiomass_loss12_16.tif")
 
@@ -19,3 +25,7 @@ LandClassPrep()
 
 ## Prep climate water deficit layer
 source("code/DataPrep/CWD_Prep.R")
+
+## Limit each raster layer to each national forest to avoid on-the-fly calculations
+source("code/Data/Prep/NF_Limits.R")
+NF_Limits()

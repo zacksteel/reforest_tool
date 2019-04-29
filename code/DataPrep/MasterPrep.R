@@ -23,6 +23,14 @@ FeasPrep()
 source("code/DataPrep/LandClass.R")
 LandClassPrep()
 
+## Prep high-severity core layer
+source("code/DataPrep/hs_core200.R")
+hs_core200()
+
+## Prep sensitive species layers
+source("code/DataPrep/Sensitive_Spp.R")
+Sensitive_Spp()
+
 ## Prep climate water deficit layer
 source("code/DataPrep/CWD_Prep.R")
 

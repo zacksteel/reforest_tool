@@ -16,13 +16,16 @@ NF_Limits <- function() {
   rec <- raster("data/Spatial/RecAreas.tif") 
   wui <- raster("data/Spatial/WUI.tif")
   cwd <- raster("data/spatial/cwd_sn.tif") #cimate water deficit
+  hs <- raster("data/spatial/hs200.tif") #zone 2 & 3 or high-severity areas 2012-2016
+  spow <- raster("Data/Spatial/spow_pacs.tif") #spotted owl PACs
+  fisher <- raster("Data/Spatial/fisher_cores.tif") # fisher core areas
   
   ## Read in Sierra Nevada national forest shape
   forest_sf <- st_read("data/Spatial", "SN_NFs")
   
   ## Make a list of rasters to work through 
-  r_l <- list(bloss, sb, rec, wui, cwd)
-  names(r_l) <- c("bloss", "sb", "rec", "wui", "cwd")
+  r_l <- list(bloss, sb, rec, wui, cwd, hs, spow, fisher)
+  names(r_l) <- c("bloss", "sb", "rec", "wui", "cwd", "hs", "spow", "fisher")
   
   ## combinations for each national forest and dataset
   d <- expand.grid(forest = unique(forest_sf$FORESTNAME),

@@ -10,6 +10,7 @@
 library(shiny)
 library(sf)
 library(leaflet)
+library(mapview)
 library(tidyverse)
 library(rgdal)
 library(raster)
@@ -62,18 +63,19 @@ ui <- fluidPage(
                  
                  h4("Step 3: Select data layer weights:"),
 
-                 sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0.5,
+                 sliderInput("cwd", "Climatic Water Deficit", 0, 1, 0,
                              width = '80%', step = .25),
-                 # sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0.5,
-                 #             width = '80%', step = .25),
-                 # sliderInput("CASPO", "Spotted Owl Habitat", 0, 1, 0,
-                 #             width = '80%', step = .25),
-                 # sliderInput("Fisher", "Fisher Habitat", 0, 1, 0,
-                 #             width = '80%', step = .25),
-                 sliderInput("Rec", "Recreation Sites", 0, 1, 0.5,
+                 sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0,
                              width = '80%', step = .25),
-                 sliderInput("cwd", "Climate Water Deficit", -1, 0, -0.5,
-                             width = '80%', step = 0.25),
+                 sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
+                             width = '80%', step = .25),
+                 sliderInput("Rec", "Recreation Areas", 0, 1, 0,
+                             width = '80%', step = .25),
+                 sliderInput("CASPO", "Spotted Owl PACs", -1, 1, 0,
+                             width = '80%', step = .25),
+                 sliderInput("Fisher", "Fisher Core Habitat", -1, 1, 0,
+                             width = '80%', step = .25),
+
                  
                  h4("Step 4: Run prioritization"),
                  
@@ -89,8 +91,14 @@ ui <- fluidPage(
                  checkboxGroupInput("Display", tags$i("Select display Layers:"),
                                     choices = c("Forests", 
                                                 "Area of Interest", 
+                                                "Mechanical Constraints",
                                                 "Biomass Loss (2012-16)", 
-                                                "Inaccessible",
+                                                "High-severity Fire (Zone 2)",
+                                                "Climatic Water Deficit",
+                                                "Recreation Areas",
+                                                "Wildland-Urban Interface",
+                                                "Spotted Owl PACs",
+                                                "Fisher Core Habitat",
                                                 "Prioritization"),
                                     selected = c("Forests", "Area of Interest")),
                  
@@ -120,49 +128,75 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   ## Reactive mapping objects
+  ## Call up rasters as needed (alternatively, could read in all when AOI is assigned; would shift around processing)
   ## Limit forest shp to selection forest
   ## Only run if user wants it displayed to save runtime
-  #### May modify this so that the AOI selection triggers loading of all pre-processed layers here ####
   aoi <- reactive({
-    filter(forest, FORESTNAME == input$Forest)
+    if(input$Forest != "" & ("Area of Interest" %in% input$Display)) {
+      filter(forest, FORESTNAME == input$Forest)
+    }
   })
-  
-  ## Crop inaccessibility raster by aoi; much slower if you don't crop
+
   ra <- reactive({
     ## Conditional necessary to avoid crop error
-    if(input$Forest != "" & ("Inaccessible" %in% input$Display)) {
+    if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
       ## Read in AOI national forest-specific raster
       sb <- raster(paste0("data/spatial/nf_limits/sb_",input$Forest, ".tif")) %>%
-      # ## Need to convert to spatial object for crop (but not for mask)
-      # tmp <- filter(forest, FORESTNAME == input$Forest) %>%
-      #   as_Spatial()
-      # crop(sb, tmp, snap = "in") %>%
-      #   ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
-      #   mask(mask = filter(forest, FORESTNAME == input$Forest)) %>%
         cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
-    } else 
-    {NULL}
+    } 
   })
   
   mortshow <- reactive({
     if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
       bloss <- raster(paste0("data/spatial/nf_limits/bloss_", input$Forest, ".tif"))
-      ## Need to convert to spatial object for crop (but not for mask)
-      # tmp <- filter(forest, FORESTNAME == input$Forest) %>%
-      #   as_Spatial()
-      # crop(bloss, tmp, snap = "in") %>%
-      #   ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
-      #   mask(mask = filter(forest, FORESTNAME == input$Forest))
-    } else
-    {NULL}
+    } 
+  })
+  
+  rec <- reactive({
+    if(input$Forest != "" & ("Recreation Areas" %in% input$Display)) {
+      raster(paste0("data/Spatial/nf_limits/rec_", input$Forest, ".tif")) %>%
+        cut(breaks = c(0.5,1.5)) # effectively removes zeros
+    }
+  })
+    
+  wui <- reactive({
+    if(input$Forest != "" & ("Wildland-Urban Interface" %in% input$Display)) {
+      raster(paste0("data/Spatial/nf_limits/wui_", input$Forest, ".tif")) %>%
+        cut(breaks = c(0.5,1.5)) # effectively removes zeros
+    }
+  })
+  
+  cwd <- reactive({
+    if(input$Forest != "" & ("Climatic Water Deficit" %in% input$Display)) {
+      raster(paste0("data/spatial/nf_limits/cwd_", input$Forest, ".tif"))
+    }
+  })
+  
+  hs <- reactive({
+    if(input$Forest != "" & ("High-severity Fire (Zone 2)" %in% input$Display)) {
+      raster(paste0("data/spatial/nf_limits/hs_", input$Forest, ".tif")) %>%
+        cut(breaks = c(0.5,1.5)) # effectively removes zeros; highlighting zone 2
+    }
+  })
+  
+  spow <- reactive({
+    if(input$Forest != "" & ("Spotted Owl PACs" %in% input$Display)) {
+      raster(paste0("data/spatial/nf_limits/spow_", input$Forest, ".tif")) %>%
+        cut(breaks = c(0.5,1.5)) # effectively removes zeros
+    }
+  })
+  
+  fisher <- reactive({
+    if(input$Forest != "" & ("Fisher Core Habitat" %in% input$Display)) {
+      raster(paste0("data/spatial/nf_limits/fisher_", input$Forest, ".tif")) %>%
+        cut(breaks = c(0.5,1.5)) # effectively removes zeros
+    }
   })
   
   
   ## Set up Null priority value to be replaced during calculation
   priority <- reactiveValues(raster = NULL)
 
-  
-  ## Can't add sierra-wide rasters to full map, too big to render
   
   ## Set up the default map function
   map_reactive <- reactive({
@@ -175,8 +209,16 @@ server <- function(input, output) {
       
       # addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
       # addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
-      addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo")
-      # addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") %>%
+      addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") 
+      # addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") 
+    
+    # add controls for basemaps and data
+    # m <- addLayersControl(m,
+    #                       baseGroups = c("Topo", "Relief", "Aerial Imagery", "Grey"))
+    # # overlayGroups = layers,
+    # # position = c("topright"),
+    # # options = layersControlOptions(collapsed = F)) %>%
+    # #   hideGroup(c("Inaccessible", "Biomass Loss"))
 
     # Overlay Groups
     ## Add layers if user-selected
@@ -185,21 +227,21 @@ server <- function(input, output) {
                        data = forest,
                        color = "black",
                        fillColor = "green",
-                       fill = T,
+                       fill = F,
                        weight = 2,
                        opacity = 1,
                        fillOpacity = 0.2,
                        label = forest$FORESTNAME,
                        highlightOptions = highlightOptions(color = "white", weight = 2,
                                                            bringToFront = TRUE),
-                       group = "Forests") %>%
-        addLegend(position = "bottomright", 
-                  color = "green",
-                  opacity = 0.2,
-                  labels = "Forests")
+                       group = "Forests") #%>%
+        # addLegend(position = "bottomright", 
+        #           color = "black",
+        #           opacity = 0.2,
+        #           labels = "Forests")
     }
     
-    if("Area of Interest" %in% input$Display) {
+    if("Area of Interest" %in% input$Display & input$Forest != "") {
       val <- input$Forest
       m <- addPolygons(m,
                   data = aoi(),
@@ -207,54 +249,123 @@ server <- function(input, output) {
                   fill = F,
                   opacity = 0.8,
                   weight = 4,
-                  group = "AOI") 
-      }
-    
-    ## Conditional layer groups
-    
-    ## If a AOI is selected do some more stuff
-    if(input$Forest != "") {
-      m <- m %>%
+                  group = "AOI") %>%
         ## Zoom to selection
+        #### Can we revise this so that this only happens when the AOI changes?
         fitBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
-                    lat1 = as.numeric(st_bbox(aoi())$ymin),
-                    lng2 = as.numeric(st_bbox(aoi())$xmax),
-                    lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
+                  lat1 = as.numeric(st_bbox(aoi())$ymin),
+                  lng2 = as.numeric(st_bbox(aoi())$xmax),
+                  lat2 = as.numeric(st_bbox(aoi())$ymax)) %>%
         addLegend(position = "bottomright", 
                   colors = "blue",
                   opacity = 0.8,
                   labels = "Area of Interest")
-    }
+      }
     
     ## If Inaccessible mask is selection add that layer
-    if(input$Forest != "" & ("Inaccessible" %in% input$Display)) {
+    if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
       pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
       m <- m %>%
         addRasterImage(x = ra(), colors = pal, opacity = 0.3,
-                       project = FALSE, group = "Inaccessible") %>%
+                       project = FALSE, group = "Mechanical Constraints") %>%
         addLegend(position = "bottomright", 
                   colors = "black",
                   opacity = 0.5,
-                  labels = "Inaccessible")
+                  labels = "Mechanical Constraints")
+    }
+    
+    ## SPOW PACs
+    if(input$Forest != "" & ("Spotted Owl PACs" %in% input$Display)) {
+      m <- m %>%
+        addRasterImage(x = spow(), colors = "purple", opacity = 0.3,
+                       project = FALSE) %>%
+        addLegend(position = "bottomright", 
+                  colors = "purple",
+                  opacity = 0.5,
+                  labels = "Spotted Owl PACs")
+    }
+    
+    ## Fisher habitat
+    if(input$Forest != "" & ("Fisher Core Habitat" %in% input$Display)) {
+      m <- m %>%
+        addRasterImage(x = fisher(), colors = "orchid", opacity = 0.3,
+                       project = FALSE) %>%
+        addLegend(position = "bottomright", 
+                  colors = "orchid",
+                  opacity = 0.5,
+                  labels = "Fisher Core Habitat")
+    }
+    
+    ## If Recreation areas selected
+    if(input$Forest != "" & ("Recreation Areas" %in% input$Display)) {
+      m <- m %>%
+        addRasterImage(x = rec(), colors = "darkgreen", opacity = 0.3,
+                       project = FALSE) %>%
+        addLegend(position = "bottomright", 
+                  colors = "darkgreen",
+                  opacity = 0.5,
+                  labels = c("Recreation Areas"))
+    }
+    
+    ## WUI
+    if(input$Forest != "" & ("Wildland-Urban Interface" %in% input$Display)) {
+      m <- m %>%
+        addRasterImage(x = wui(), colors = "midnightblue", opacity = 0.3,
+                       project = FALSE, group = "Wildland-Urban Interface") %>%
+        addLegend(position = "bottomright", 
+                  colors = "midnightblue",
+                  opacity = 0.5,
+                  labels = c("Wildland-Urban Interface"))
+    }
+    
+    ## If wildfire areas selected
+    if(input$Forest != "" & ("High-severity Fire (Zone 2)" %in% input$Display)) {
+      m <- m %>%
+        addRasterImage(x = hs(), colors = "darkred", opacity = 0.3,
+                       project = FALSE) %>%
+        addLegend(position = "bottomright", 
+                  colors = "darkred",
+                  opacity = 0.5,
+                  labels = c("High-severity Fire (Zone 2)"))
+    }
+    
+    ## Climatic water deficit
+    if(input$Forest != "" & ("Climatic Water Deficit" %in% input$Display)) {
+      cwd_min <- cellStats(cwd(), stat = "min") %>%
+        round(0)
+      cwd_max <- cellStats(cwd(), stat = "max") %>%
+        round(0)
+      pal <- colorNumeric("BrBG", domain = c(cwd_min, cwd_max), 
+                          na.color = "transparent", reverse = T)
+      m <- m %>%
+        addRasterImage(x = cwd(), colors = pal, opacity = 0.3,
+                       project = FALSE) %>%
+        addLegend(position = "bottomright", 
+                  pal = pal, 
+                  values = c(cwd_min, cwd_max),
+                  bins = 4,
+                  title = "CWD (mm)")
     }
     
     ## If Mortality layer is selected add that layer
     if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
-      pal <- colorNumeric("Reds", domain = c(0,1), na.color = "transparent")
+      pal <- colorNumeric("Oranges", domain = c(0,1), na.color = "transparent")
       at <- seq(0, 1, .2)
       cb <- colorBin(palette = pal, bins = at, domain = at)
       m <- m %>%
-        addRasterImage(x = mortshow(), colors = pal, opacity = 0.5,
+        addRasterImage(x = mortshow(), colors = pal, opacity = 0.3,
                        project = FALSE, group = "Biomass Loss") %>%
-        addLegend(position = "bottomright", pal = cb, values = at, 
+        addLegend(position = "bottomright", 
+                  pal = cb, values = at,
+                  # pal = pal, values = c(0,1),
+                  # bins = 4,
                   labFormat = labelFormat(
                     # prefix = "(", 
-                    suffix = " %", 
+                    # suffix = " %", 
                     between = " - ",
                     transform = function(x) 100 * x
                   ), 
-                  title = "Biomass Loss")
-                       # options = tileOptions( minZoom = 10)) ## It seems you can't do this for rasters currently, may fix in future releases...
+                  title = "Biomass Loss (%)")
     }
     
     ## If priority layer select, add that layer
@@ -262,7 +373,6 @@ server <- function(input, output) {
        ("Prioritization" %in% input$Display) & 
        !(is.null(priority$raster))) {
       
-      # pal <- sequential_hcl(3, palette = "Inferno")
       m <- m %>%
         addRasterImage(x = priority$raster, colors = c("grey", "yellow", "orange", "red"), 
                        opacity = 0.5,
@@ -270,20 +380,6 @@ server <- function(input, output) {
         addLegend(position = "bottomright", colors = c("grey", "yellow", "orange", "red"),
                   labels = c("No Need","Low", "Moderate", "High"))
     }
-    
-    # ## list of layers to display conditional on whether AOI has been assigned
-    # if(input$Forest != "") {
-    #   layers <- c("Forests", "AOI", "Inaccessible", "Biomass Loss")
-    # } else
-    #   layers <- c("Forests")
-    
-    # add controls for basemaps and data
-    # m <- addLayersControl(m,
-    #     baseGroups = c("Topo", "Relief", "Aerial Imagery", "Grey"),
-    #     overlayGroups = layers,
-    #     position = c("topright"),
-    #     options = layersControlOptions(collapsed = F)) %>%
-    #   hideGroup(c("Inaccessible", "Biomass Loss"))
     
     ## Return map object
     m
@@ -335,28 +431,34 @@ server <- function(input, output) {
       rec <- raster(paste0("data/Spatial/nf_limits/rec_", input$Forest, ".tif"))
       wui <- raster(paste0("data/Spatial/nf_limits/wui_", input$Forest, ".tif"))
       cwd <- raster(paste0("data/spatial/nf_limits/cwd_", input$Forest, ".tif"))
+      hs <- raster(paste0("data/spatial/nf_limits/hs_", input$Forest, ".tif"))
+      spow <- raster(paste0("data/spatial/nf_limits/spow_", input$Forest, ".tif"))
+      fisher <- raster(paste0("data/spatial/nf_limits/fisher_", input$Forest, ".tif"))
 
       ## Limit the range of biomass loss considered based on user-defined threshold
       blmin <- input$Need/100
       minmask <- cut(bloss, breaks = c(-0.01,blmin,1)) - 1 ## cut returns values of 1 & 2, -1 ensures 0 and 1 raster
 
       ## Run raster calculation based on user-defined weights
-      #### Need to make sure I'm thinking through all of this correctly. 
-      #### Currently just returning low priority, I think I'm doing the weighting and/or scaleing wrong
       pr <- (bloss + #More biomass loss increases priority
-        wui*input$WUI + #being in the WUI increases priority
-           rec*input$Rec + #being in a rec area increases priority
-           ## scale non-binary rasters with max of 1
-           cwd/cellStats(cwd, stat='max')*input$cwd) * #high cwd decreases priority 
+               hs*input$HSZ2 + #Zone 2 of high-severity increases priority
+               spow*input$CASPO + #SPOW pacs can either increase or decrease priority
+               fisher*input$Fisher + #Fisher core areas can either increase or decrease priority
+               wui*input$WUI + #being in the WUI increases priority
+               rec*input$Rec - #being in a rec area increases priority
+               ## scale non-binary rasters with max of 1
+               cwd/cellStats(cwd, stat='max')*input$cwd) * #high cwd decreases priority 
         sb * minmask #mask out areas of mechanical constraints & below need threshold
 
 
       ## Scale to have a max of 1; may want to do after mask step below
       ## Max will be equal to the number of input layers adjusted for weights
-      maxp <- 1 + input$WUI + input$Rec + input$cwd
+      maxp <- 1 + input$HSZ2 + input$CASPO + input$Fisher + input$WUI + input$Rec + input$cwd
       pr01 <- pr / maxp
 
       ## Limit to AOI (this seems to be the slow step so do it last)
+      #### Really only necessary when AOI differs from the national forest datasets (i.e. when AOI is at the district level)
+      #### May be able to save a little processing time here
       aoi_shp <- filter(forest, FORESTNAME == input$Forest) %>%
         as_Spatial()
       pr_aoi <- crop(pr01, aoi_shp, snap = "in") %>%
@@ -371,12 +473,19 @@ server <- function(input, output) {
 
       ## Reclassify to three classes based on quantile thirds above the minimum threshold
       ## occasionally have problems of breaks not being unique. add a bit to upper quantiles
-      q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0.33, 0.67)) + c(0.000, 0.001)
+      q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0, 0.33, 0.67, 1)) + c(-0.001, 0.000, 0.001, 0.001)
+      breaks <- c(cellStats(pr_aoi, stat="min")-0.001, q3)
 
       #### Get an error of breaks are not unique for the Sierra with 0.5 need threshold, -1 CWD weight and others at 0 weight
       #### Having a negative weight expands the possible range of raw priority values
       #### Need to think more about this and fix
-      breaks <- c(-0.01, blmin, as.numeric(q3), 1.00)
+      # breaks <- c(cellStats(pr_aoi, stat="min"), #minimum raw priority score
+      #             q3[1], #need threshold
+      #             q3[2], #upper bound of low priority
+      #             q3[3], #upper bound of moderate priority
+      #             q3[4]) #maximum score (should not exceed 1)
+      
+      ## Reclassify into areas of no need and approximate thirds of the remaining
       pr3 <- cut(pr_aoi, breaks = breaks) %>%
         subs(data.frame(ID = c(1,2,3,4), Priority = c("No Need","Low", "Moderate", "High")))
 

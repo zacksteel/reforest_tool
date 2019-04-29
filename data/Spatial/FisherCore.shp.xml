@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+	<idinfo>
+		<descript>
+			<abstract>Polygons with predicted probability of occurrence &gt; 0.4 (from predicted probability of fisher occurrence) and area &gt; 2500 ha (approximately 5 female home ranges). Areas with urban or open water cover types; slopes &gt; 80%; or high severity fires (2005-2010) were removed. Areas within 1260 m of one another were considered as part of the same core. Continuous cores were subdivided at the Merced and San Joaquin Rivers. Some polygons meeting the criteria for potential core habitat were removed based on expert opinion on their occupancy and suitability. 
+ 
+ Predicted probability of fisher occurrence layer was created by CBI from 3 sources:  
+ 
+ Davis, F.W., C. Seo, and W.J. Zielinksi. 2007. Regional variation in home-range-scale habitat models for fisher (Martes pennanti ) in California. Ecological Applications 17:2195-2213. 
+ 
+ Spencer,W., H. Rustigian-Romsos, J. Strittholt, R. Scheller, W. Zielinski, and R. Truex. 2010. Using occupancy and population models to assess habitat conservation opportunities for an isolated  carnivore population. Biological Conservation. In press. doi:10.1016/j.biocon.2010.10.027.
+ 
+ Zielinski, W., J. Dunk, S. Yaeger, and D. LaPlante. 2010. Developing and testing a landscape suitability model for fisher (Martes pennanti ) in forests of interior Northern California. In review.</abstract>
+			<purpose/>
+			<supplinf/>
+		</descript>
+		<useconst>(http://creativecommons.org/licenses/by/3.0)This work is licensed under a Creative Commons Attribution 3.0 License (http://creativecommons.org/licenses/by/3.0).</useconst>
+		<datacred/>
+		<citation>
+			<citeinfo>
+				<title>Fisher potential habitat cores</title>
+				<pubdate/>
+				<othercit>Spencer, W. and H. Rustigian-Romsos. 2011. Unpublished.</othercit>
+				<origin>Conservation Biology Institute</origin>
+				<onlink>http://app.databasin.org/app/pages/datasetPage.jsp?id=ba0ca69e7e024cfdbf816a33b64238a5</onlink>
+				<pubinfo>
+					<publish/>
+					<pubplace/>
+				</pubinfo>
+			</citeinfo>
+		</citation>
+		<ptcontac>
+			<cntinfo>
+				<cntperp>
+					<cntper>Conservation Biology Institute (wendy@consbio.org)</cntper>
+					<cntorg/>
+				</cntperp>
+			</cntinfo>
+		</ptcontac>
+		<status>
+			<progress/>
+			<update/>
+		</status>
+		<timeperd>
+			<timeinfo>
+				<sngdate/>
+				<current/>
+			</timeinfo>
+		</timeperd>
+		<keywords>
+			<theme>
+				<themekey>fisher</themekey>
+				<themekey>Sierra Nevada</themekey>
+				<themekey>carnivore</themekey>
+				<themekt>Data Basin tags</themekt>
+			</theme>
+		</keywords>
+		<spdom>
+			<bounding>
+				<northbc>41.539541902679986</northbc>
+				<eastbc>-117.85309276084195</eastbc>
+				<southbc>35.302081397241736</southbc>
+				<westbc>-122.62897353124949</westbc>
+			</bounding>
+		</spdom>
+	</idinfo>
+	<dataqual>
+		<attracc>
+			<attraccr/>
+		</attracc>
+		<complete/>
+		<lineage>
+			<procstep>
+				<procdesc>Consolidated Data Basin Info: Dataset copied.
+ Dataset copied. (E:\projects\carnivore\cores\fisher_cores\cores_ge_2500ha)
+ Dataset moved. (E:\snc_databasin\cores_ge_2500ha)</procdesc>
+			</procstep>
+		</lineage>
+	</dataqual>
+	<eainfo>
+		<detailed Name="FisherCore">
+			<attr>
+				<attrlabl>FID</attrlabl>
+				<attalias>FID</attalias>
+				<attrdef>Internal feature number.</attrdef>
+				<attrdomv><udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom></attrdomv>
+				<attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdefs Sync="TRUE">Esri</attrdefs></attr>
+			<attr>
+				<attrlabl>Shape</attrlabl>
+				<attalias>Shape</attalias>
+				<attrdef>Feature geometry.</attrdef>
+				<attrdomv><udom Sync="TRUE">Coordinates defining the features.</udom></attrdomv>
+				<attrtype Sync="TRUE">Geometry</attrtype><attwidth Sync="TRUE">0</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdefs Sync="TRUE">Esri</attrdefs></attr>
+			<attr>
+				<attrlabl>id</attrlabl>
+				<attalias>id</attalias>
+				<attrdef>id</attrdef>
+				<attrdomv/>
+				<attrtype Sync="TRUE">Integer</attrtype><attwidth Sync="TRUE">6</attwidth><atprecis Sync="TRUE">6</atprecis><attscale Sync="TRUE">0</attscale></attr>
+			<enttyp><enttypl Sync="TRUE">FisherCore</enttypl><enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">0</enttypc></enttyp></detailed>
+	</eainfo>
+	<distinfo>
+		<distrib>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Data Basin</cntorg>
+					<cntper>Data Basin Administrator</cntper>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>physical address</addrtype>
+					<address>136 SW Washington Ave, Suite 202</address>
+					<city>Corvallis</city>
+					<state>OR</state>
+					<postal>97333</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>541-757-0687</cntvoice>
+				<cntemail>databasin_admin@consbio.org</cntemail>
+			</cntinfo>
+		</distrib>
+		<resdesc>Fisher potential habitat cores</resdesc>
+		<distliab>No warranty is made by Data Basin for use of this dataset.  No warranty is made by Data Basin regarding the accuracy, reliability, or completeness of this dataset. In no event shall Data Basin have any liability whatsoever for payment of any consequential, incidental, indirect, special, or tort damages of any kind, including, but not limited to, any loss of profits arising out of the use or reliance on the geographic or attribute data contained within this dataset or arising out of the delivery, installation, operation, or support by Data Basin.</distliab>
+		<stdorder>
+			<digform>
+				<digtinfo>
+					<formname>Feature Layer</formname>
+					<formvern>ArcGIS  10</formvern>
+					<formspec>Feature Layer</formspec>
+					<filedec>No compression applied</filedec>
+				</digtinfo>
+				<digtopt>
+					<onlinopt>
+						<computer>
+							<networka>
+								<networkr>http://app.databasin.org/app/pages/datasetPage.jsp?id=ba0ca69e7e024cfdbf816a33b64238a5</networkr>
+							</networka>
+						</computer>
+						<accinstr>Download from http://databasin.org</accinstr>
+					</onlinopt>
+				</digtopt>
+			</digform>
+			<fees>None</fees>
+			<ordering>Download from http://databasin.org</ordering>
+		</stdorder>
+		<techpreq>ESRI ArcGIS Desktop and supporting operating systems.</techpreq>
+	</distinfo>
+	<Esri><CreaDate>20120126</CreaDate><CreaTime>23583800</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>FALSE</SyncOnce><DataProperties><itemProps><itemLocation><linkage Sync="TRUE">file://\\VIERSPRE5600\C$\Users\zlsteel\repos\reforest_tool\data\Spatial\FisherCore.shp</linkage><protocol Sync="TRUE">Local Area Network</protocol></itemLocation><itemName Sync="TRUE">FisherCore</itemName><imsContentType Sync="TRUE">002</imsContentType><itemSize Sync="TRUE">0.000</itemSize></itemProps><copyHistory><copy source="D:\arcgisserver\services\im2\ba0ca69e7e024cfdbf816a33b64238a5\commondata\data0\cores_ge2500ha_1_2_13_18_19removed" dest="\\IP-0AC30F0F\D\arcgisserver\services\im2\ba0ca69e7e024cfdbf816a33b64238a5\ba0ca69e7e024cfdbf816a33b64238a5\commondata\data0\cores_ge2500ha_1_2_13_18_19removed" date="20120126" time="23583800"></copy></copyHistory><coordRef><type Sync="TRUE">Projected</type><geogcsn Sync="TRUE">GCS_North_American_1983</geogcsn><csUnits Sync="TRUE">Linear Unit: Meter (1.000000)</csUnits><projcsn Sync="TRUE">NAD_1983_Albers</projcsn><peXml Sync="TRUE">&lt;ProjectedCoordinateSystem xsi:type='typens:ProjectedCoordinateSystem' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.7'&gt;&lt;WKT&gt;PROJCS[&amp;quot;NAD_1983_Albers&amp;quot;,GEOGCS[&amp;quot;GCS_North_American_1983&amp;quot;,DATUM[&amp;quot;D_North_American_1983&amp;quot;,SPHEROID[&amp;quot;GRS_1980&amp;quot;,6378137.0,298.257222101]],PRIMEM[&amp;quot;Greenwich&amp;quot;,0.0],UNIT[&amp;quot;Degree&amp;quot;,0.0174532925199433]],PROJECTION[&amp;quot;Albers&amp;quot;],PARAMETER[&amp;quot;False_Easting&amp;quot;,0.0],PARAMETER[&amp;quot;False_Northing&amp;quot;,-4000000.0],PARAMETER[&amp;quot;Central_Meridian&amp;quot;,-120.0],PARAMETER[&amp;quot;Standard_Parallel_1&amp;quot;,34.0],PARAMETER[&amp;quot;Standard_Parallel_2&amp;quot;,40.5],PARAMETER[&amp;quot;Latitude_Of_Origin&amp;quot;,0.0],UNIT[&amp;quot;Meter&amp;quot;,1.0]]&lt;/WKT&gt;&lt;XOrigin&gt;-16909700&lt;/XOrigin&gt;&lt;YOrigin&gt;-8597000&lt;/YOrigin&gt;&lt;XYScale&gt;266332319.7555542&lt;/XYScale&gt;&lt;ZOrigin&gt;-100000&lt;/ZOrigin&gt;&lt;ZScale&gt;10000&lt;/ZScale&gt;&lt;MOrigin&gt;-100000&lt;/MOrigin&gt;&lt;MScale&gt;10000&lt;/MScale&gt;&lt;XYTolerance&gt;0.001&lt;/XYTolerance&gt;&lt;ZTolerance&gt;0.001&lt;/ZTolerance&gt;&lt;MTolerance&gt;0.001&lt;/MTolerance&gt;&lt;HighPrecision&gt;true&lt;/HighPrecision&gt;&lt;/ProjectedCoordinateSystem&gt;</peXml></coordRef><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.7\ArcToolbox\Toolboxes\Data Management Tools.tbx\Dissolve" Date="20190429" Time="093000">Dissolve "Fisher potential habitat cores" C:\Users\zlsteel\repos\reforest_tool\data\Spatial\FisherCore.shp # # MULTI_PART DISSOLVE_LINES</Process></lineage></DataProperties><SyncDate>20190429</SyncDate><SyncTime>09295900</SyncTime><ModDate>20190429</ModDate><ModTime>09295900</ModTime></Esri><dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.7.0.10450</envirDesc><dataLang><languageCode value="eng" Sync="TRUE"></languageCode><countryCode value="USA" Sync="TRUE"></countryCode></dataLang><idCitation><resTitle Sync="TRUE">FisherCore</resTitle><presForm><PresFormCd value="005" Sync="TRUE"></PresFormCd></presForm></idCitation><spatRpType><SpatRepTypCd value="001" Sync="TRUE"></SpatRepTypCd></spatRpType></dataIdInfo><mdLang><languageCode value="eng" Sync="TRUE"></languageCode><countryCode value="USA" Sync="TRUE"></countryCode></mdLang><mdChar><CharSetCd value="004" Sync="TRUE"></CharSetCd></mdChar><distInfo><distFormat><formatName Sync="TRUE">Shapefile</formatName></distFormat><distTranOps><transSize Sync="TRUE">0.000</transSize></distTranOps></distInfo><mdHrLv><ScopeCd value="005" Sync="TRUE"></ScopeCd></mdHrLv><mdHrLvName Sync="TRUE">dataset</mdHrLvName><refSysInfo><RefSystem><refSysID><identCode code="0" Sync="TRUE"></identCode></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><geometObjs Name="FisherCore"><geoObjTyp><GeoObjTypCd value="002" Sync="TRUE"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">0</geoObjCnt></geometObjs><topLvl><TopoLevCd value="001" Sync="TRUE"></TopoLevCd></topLvl></VectSpatRep></spatRepInfo><spdoinfo><ptvctinf><esriterm Name="FisherCore"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom code="4" Sync="TRUE"></efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">0</efeacnt><spindex Sync="TRUE">FALSE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf></spdoinfo><mdDateSt Sync="TRUE">20190429</mdDateSt></metadata>

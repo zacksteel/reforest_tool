@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<metadata>
+	<idinfo>
+		<citation><citeinfo>
+				<origin>USDA Forest Service - Pacific Southwest Region - Remote Sensing Lab</origin>
+				<pubdate>7/2006</pubdate>
+				<title>Sierra Nevada Northern Spotted Owl Protected Activity Centers in California, USA</title>
+				<geoform>vector digital data</geoform>
+				<pubinfo><pubdate></pubdate>
+					<pubplace>McClellan, CA</pubplace>
+					<publish>Remote Sensing Lab</publish>
+				</pubinfo>
+				<onlink>http://www.fs.fed.us/r5/rsl/projects/frdb/layers/pacs.html</onlink><onlink>http://www.fs.fed.us/r5/snfpa/final-seis/vol1/appendix-a/</onlink>
+				<othercit></othercit></citeinfo>
+			<citeinfo/><citeinfo/></citation>
+		<descript>
+			<abstract>This layer contains polygon features of protected activity centers
+
+(PACS) for Spotted Owls in California. These areas were mapped as
+
+directed by the California Spotted Owl Environmental Assessment as
+
+interim direction adopted in the Region until the Environmental Impact
+
+Statement analysis is complete. Coding is for type of habitat as well as
+
+for timber management constraint.</abstract>
+			<purpose>This data was developed by the USDA Forest Service for use in the Sierra Nevada Forest Plan Amendment Environmental Impact Statement. For more information about the Sierra Nevada Forest Plan Amendment and the signed Record of Decision, see the Forest Service websites http://www.fs.fed.us/r5/snfpa/final-seis/rod/ and http://www.fs.fed.us/r5/snfpa/</purpose>
+			<supplinf></supplinf>
+		</descript>
+		<timeperd><timeinfo><sngdate>2006</sngdate><current/></timeinfo>
+			<current>publication date</current><timeinfo/><timeinfo/></timeperd>
+		<keywords>
+			<theme><themekey>Sierra Nevada Forest Plan</themekey><themekey>California</themekey><themekey>Northern spotted owl</themekey><themekey>California spotted owl</themekey><themekey>Protected Activity Centers (PAC)</themekey><themekt>Data Basin tags</themekt></theme></keywords>
+		<accconst>None</accconst>
+		<useconst>&lt;a rel="license" style="float:right;" href="http://creativecommons.org/licenses/by/3.0/" target="_blank"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="http://creativecommons.org/images/public/somerights20.png" /&gt;&lt;/a&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by/3.0/" target="_blank"&gt;Creative Commons Attribution 3.0 License&lt;/a&gt;.</useconst>
+		<ptcontac>
+			<cntinfo>
+				<cntperp><cntper>Dan Studer</cntper><cntorg>USDA Forest Service - Pacific Southwest Region - Remote Sensing Lab</cntorg></cntperp>
+			</cntinfo>
+			<cntinfo/><cntinfo/></ptcontac>
+		<datacred></datacred>
+		<status><progress>Complete</progress><update>As Needed</update></status><spdom><bounding/><bounding/></spdom></idinfo>
+	<dataqual>
+		<attracc>
+			<attraccr></attraccr></attracc>
+		<lineage>
+			<srcinfo>
+				<srccite><citeinfo>
+						<origin>\</origin>
+						<pubdate/>
+						<title/>
+						<geoform>Source Format: \Capture Method:</geoform>
+						<pubinfo>
+							<pubplace/>
+							<publish/>
+						</pubinfo>
+						<othercit>Projection: \Datum:</othercit>
+					</citeinfo>
+				</srccite>
+				<srctime><srccurr/>
+				</srctime>
+				<srccitea/>
+				<srccontr/>
+			</srcinfo>
+			<procstep>
+				<procdesc>Metadata imported.</procdesc>
+				<srcused>C:\A_PROJECTS\metadata_templates\SNV_Template.xml</srcused>
+			</procstep>
+			<procstep>
+				<procdesc>Dataset copied.</procdesc>
+				<srcused>Server=oracle-idb.rsl.r5; Service=esri_sde; User=fssde; Version=FSSDE.FSSDE</srcused>
+			</procstep>
+			<procstep>
+				<procdesc>Dataset copied.</procdesc>
+				<srcused>\\GARRYANA\C Drive\GISData\inprocess\MAYA\downloads\US\National\USFS_GIS\R5\SNV_CASpotOwlPACsAndBase03_4.mdb</srcused>
+			</procstep>
+		</lineage>
+		<complete></complete></dataqual>
+	<spdoinfo>
+		<direct>Vector</direct>
+		<ptvctinf><esriterm Name="SPOW_PACs"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom code="4" Sync="TRUE"></efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">0</efeacnt><spindex Sync="TRUE">FALSE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf></spdoinfo>
+	<spref>
+		<horizsys>
+			<geograph><latres>0</latres><longres>0</longres><geogunit>Decimal degreees</geogunit></geograph>
+			<geodetic>
+				<horizdn>D_WGS_1984</horizdn><ellips>WGS_1984</ellips><semiaxis>6378137.000000</semiaxis><denflat>298.257224</denflat>
+			</geodetic>
+		</horizsys>/n</spref>
+	<eainfo>
+		<overview>
+			<eaover/>
+		</overview>
+		<detailed Name="SPOW_PACs">
+			<enttyp>
+				<enttypl>SNV_CASpotOwlPACsAndBase03_4</enttypl>/n<enttypd>Feature Class Attribute Table</enttypd>/n<enttypds>see http://www.fs.fed.us/r5/rsl/projects/frdb/layers/pacs.html</enttypds>
+				<enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">0</enttypc></enttyp>
+			<attr><attrlabl>FID</attrlabl><attalias>FID</attalias><attrdef/><attrdomv><udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom></attrdomv><attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdefs Sync="TRUE">Esri</attrdefs></attr><attr><attrlabl>Shape</attrlabl><attalias>Shape</attalias><attrdef/><attrdomv><udom Sync="TRUE">Coordinates defining the features.</udom></attrdomv><attrtype Sync="TRUE">Geometry</attrtype><attwidth Sync="TRUE">0</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdefs Sync="TRUE">Esri</attrdefs></attr><attr><attrlabl Sync="TRUE">Id</attrlabl><attalias Sync="TRUE">Id</attalias><attrtype Sync="TRUE">Integer</attrtype><attwidth Sync="TRUE">6</attwidth><atprecis Sync="TRUE">6</atprecis><attscale Sync="TRUE">0</attscale></attr></detailed>
+	</eainfo>
+	<distinfo>
+		<resdesc>Downloadable Data</resdesc>
+		<stdorder>
+			<digform>
+				<digtopt><onlinopt>
+						<computer><networka><networkr/></networka></computer>
+						<accinstr/>
+					</onlinopt>
+				</digtopt>
+			</digform>
+		</stdorder>
+		<distrib>
+			<cntinfo>
+				<cntperp><cntper/><cntorg/></cntperp>
+				<cntpos/>
+			</cntinfo>
+		</distrib>
+		<distliab>This product is reproduced from geospatial information prepared by the U.S. Department of Agriculture, Forest Service.  By removing the contents of this package or taking receipt of these files via electronic file transfer methods, you understand that the data stored on this media is in draft condition.  Represented features may not be in an accurate geographic location.  The Forest Service makes no expressed or implied warranty, including warranty of merchantability and fitness, with respect to the character, function, or capabilities of the data or their appropriateness for any user's purposes.  The Forest Service reserves the right to correct, update, modify, or replace this geospatial information without notification.  For more information, contact the Remote Sensing Lab, 916-640-1256.</distliab>
+	</distinfo>
+	<metainfo>
+		<metd>20060808</metd>
+		<metc>
+			<cntinfo>
+				<cntorgp><cntorg>USDA Forest Service - Pacific Southwest Region - Remote Sensing Lab</cntorg><cntper>Daniel Studer</cntper></cntorgp>
+				<cntpos>GIS Coordinator</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>3237 Peacekeeper Way, Suite 209</address>
+					<city>McClellan</city>
+					<state>CA</state>
+					<postal>95652</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>(916) 640-1292</cntvoice>
+				<cntvoice>dstuder@fs.fed.us</cntvoice>
+			</cntinfo>
+		</metc>
+		<metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+		<metstdv>FGDC-STD-001-1998</metstdv>
+	</metainfo>
+	<Esri><CreaDate>20100427</CreaDate><CreaTime>10421500</CreaTime><SyncOnce>FALSE</SyncOnce><ArcGISFormat>1.0</ArcGISFormat><DataProperties><lineage><Process ToolSource="D:\Program Files\ArcGIS\Server9.4\ArcToolbox\Toolboxes\Data Management Tools.tbx\Project" Date="20100427" Time="104216">Project D:\\arcgisserver\\services\import\954ba7b56ff64737b446ce52952f1631\data\USFS_owl_protected_areas\USFS_owl_protected_areas.shp D:\\arcgisserver\\services\import\954ba7b56ff64737b446ce52952f1631\data\USFS_owl_protected_areas\p_USFS_owl_protected_areas.shp PROJCS['WGS_1984_Web_Mercator',GEOGCS['GCS_WGS_1984_Major_Auxiliary_Sphere',DATUM['D_WGS_1984_Major_Auxiliary_Sphere',SPHEROID['WGS_1984_Major_Auxiliary_Sphere',6378137.0,0.0]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]],PROJECTION['Mercator'],PARAMETER['False_Easting',0.0],PARAMETER['False_Northing',0.0],PARAMETER['Central_Meridian',0.0],PARAMETER['Standard_Parallel_1',0.0],UNIT['Meter',1.0]] WGS_1984_Major_Auxiliary_Sphere_To_WGS_1984 GEOGCS['GCS_WGS_1984',DATUM['D_WGS_1984',SPHEROID['WGS_1984',6378137.0,298.257223563]],PRIMEM['Greenwich',0.0],UNIT['Degree',0.0174532925199433]]</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.7\ArcToolbox\Toolboxes\Data Management Tools.tbx\Dissolve" Date="20190429" Time="093815">Dissolve USFS_owl_protected_areas C:\Users\zlsteel\repos\reforest_tool\data\Spatial\SPOW_PACs.shp # # MULTI_PART DISSOLVE_LINES</Process></lineage><itemProps><itemName Sync="TRUE">SPOW_PACs</itemName><imsContentType Sync="TRUE">002</imsContentType><itemSize Sync="TRUE">0.000</itemSize><itemLocation><linkage Sync="TRUE">file://\\VIERSPRE5600\C$\Users\zlsteel\repos\reforest_tool\data\Spatial\SPOW_PACs.shp</linkage><protocol Sync="TRUE">Local Area Network</protocol></itemLocation></itemProps><coordRef><type Sync="TRUE">Geographic</type><geogcsn Sync="TRUE">GCS_WGS_1984</geogcsn><csUnits Sync="TRUE">Angular Unit: Degree (0.017453)</csUnits><peXml Sync="TRUE">&lt;GeographicCoordinateSystem xsi:type='typens:GeographicCoordinateSystem' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.7'&gt;&lt;WKT&gt;GEOGCS[&amp;quot;GCS_WGS_1984&amp;quot;,DATUM[&amp;quot;D_WGS_1984&amp;quot;,SPHEROID[&amp;quot;WGS_1984&amp;quot;,6378137.0,298.257223563]],PRIMEM[&amp;quot;Greenwich&amp;quot;,0.0],UNIT[&amp;quot;Degree&amp;quot;,0.0174532925199433],AUTHORITY[&amp;quot;EPSG&amp;quot;,4326]]&lt;/WKT&gt;&lt;XOrigin&gt;-400&lt;/XOrigin&gt;&lt;YOrigin&gt;-400&lt;/YOrigin&gt;&lt;XYScale&gt;11258999068426.238&lt;/XYScale&gt;&lt;ZOrigin&gt;-100000&lt;/ZOrigin&gt;&lt;ZScale&gt;10000&lt;/ZScale&gt;&lt;MOrigin&gt;-100000&lt;/MOrigin&gt;&lt;MScale&gt;10000&lt;/MScale&gt;&lt;XYTolerance&gt;8.983152841195215e-09&lt;/XYTolerance&gt;&lt;ZTolerance&gt;0.001&lt;/ZTolerance&gt;&lt;MTolerance&gt;0.001&lt;/MTolerance&gt;&lt;HighPrecision&gt;true&lt;/HighPrecision&gt;&lt;LeftLongitude&gt;-180&lt;/LeftLongitude&gt;&lt;WKID&gt;4326&lt;/WKID&gt;&lt;LatestWKID&gt;4326&lt;/LatestWKID&gt;&lt;/GeographicCoordinateSystem&gt;</peXml></coordRef></DataProperties><SyncDate>20190429</SyncDate><SyncTime>09381200</SyncTime><ModDate>20190429</ModDate><ModTime>09381200</ModTime></Esri><dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.7.0.10450</envirDesc><dataLang><languageCode value="eng" Sync="TRUE"></languageCode><countryCode value="USA" Sync="TRUE"></countryCode></dataLang><idCitation><resTitle Sync="TRUE">SPOW_PACs</resTitle><presForm><PresFormCd value="005" Sync="TRUE"></PresFormCd></presForm></idCitation><spatRpType><SpatRepTypCd value="001" Sync="TRUE"></SpatRepTypCd></spatRpType></dataIdInfo><mdLang><languageCode value="eng" Sync="TRUE"></languageCode><countryCode value="USA" Sync="TRUE"></countryCode></mdLang><mdChar><CharSetCd value="006" Sync="TRUE"></CharSetCd></mdChar><distInfo><distFormat><formatName Sync="TRUE">Shapefile</formatName></distFormat><distTranOps><transSize Sync="TRUE">0.000</transSize></distTranOps></distInfo><mdHrLv><ScopeCd value="005" Sync="TRUE"></ScopeCd></mdHrLv><mdHrLvName Sync="TRUE">dataset</mdHrLvName><refSysInfo><RefSystem><refSysID><identCode code="4326" Sync="TRUE"></identCode><idCodeSpace Sync="TRUE">EPSG</idCodeSpace><idVersion Sync="TRUE">6.14(3.0.1)</idVersion></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><geometObjs Name="SPOW_PACs"><geoObjTyp><GeoObjTypCd value="002" Sync="TRUE"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">0</geoObjCnt></geometObjs><topLvl><TopoLevCd value="001" Sync="TRUE"></TopoLevCd></topLvl></VectSpatRep></spatRepInfo><mdDateSt Sync="TRUE">20190429</mdDateSt></metadata>

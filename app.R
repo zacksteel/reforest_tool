@@ -17,9 +17,13 @@ library(raster)
 library(colorspace)
 
 ## Define forest/aoi options and read in shape file
-fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
-        "Stanislaus", "Inyo", "Sequoia", "Sierra")
 forest <- st_read("data/Spatial", "SN_NFs")
+district <- st_read("data/Spatial", "SN_districts")
+
+# fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
+#         "Stanislaus", "Inyo", "Sequoia", "Sierra")
+aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
+  sort()
 
 #### Pre-mask rasters according to national forests and reading in when AOI is selected will probably save user time
 ## Bring in "need" layer
@@ -48,7 +52,7 @@ ui <- fluidPage(
                  selectInput(inputId = "Forest", 
                              label = h4("Step 1: Select area of interest"),
                              selected = "",
-                             choices = fn),
+                             choices = aoi_id),
                  
                  ## Horrizontal line
                  tags$hr(),
@@ -129,21 +133,38 @@ server <- function(input, output) {
   
   ## Reactive mapping objects
   ## Call up rasters as needed (alternatively, could read in all when AOI is assigned; would shift around processing)
-  ## Limit forest shp to selection forest
+  ## Limit forest shp to selection forest or district
   ## Only run if user wants it displayed to save runtime
   aoi <- reactive({
-    if(input$Forest != "" & ("Area of Interest" %in% input$Display)) {
-      filter(forest, FORESTNAME == input$Forest)
-    }
+    if(input$Forest %in% as.character(forest$FORESTNAME) & 
+       ("Area of Interest" %in% input$Display)) 
+      {filter(forest, FORESTNAME == input$Forest)} else 
+        {
+        if(input$Forest %in% as.character(district$aoi) & 
+           ("Area of Interest" %in% input$Display)) {
+          filter(district, aoi == input$Forest)
+        }
+      }
   })
+  
+  ## For national forest-level rasters get forest ID
+  # forest_id <- reactiveVal()
+  # forest_id$forest <- {filter(district, aoi == input$forest) %>%
+  #       pull(FORESTNAME) %>%
+  #       as.character()}
+  #"Sequoia - Hume Lake") %>% #
+  forest_id <- reactive(filter(district, aoi == input$forest) %>%
+                          pull(FORESTNAME) %>%
+                          as.character())
 
+  #### breaking here when trying to pass forest name to paste0
   ra <- reactive({
     ## Conditional necessary to avoid crop error
     if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
       ## Read in AOI national forest-specific raster
-      sb <- raster(paste0("data/spatial/nf_limits/sb_",input$Forest, ".tif")) %>%
+      sb <- raster(paste0("data/spatial/nf_limits/sb_",forest_id(), ".tif")) %>%
         cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
-    } 
+    }
   })
   
   mortshow <- reactive({
@@ -234,7 +255,17 @@ server <- function(input, output) {
                        label = forest$FORESTNAME,
                        highlightOptions = highlightOptions(color = "white", weight = 2,
                                                            bringToFront = TRUE),
-                       group = "Forests") #%>%
+                       group = "Forests") %>%
+        addPolygons(data = district,
+                    color = "black",
+                    fillColor = "green",
+                    fill = T,
+                    weight = 1,
+                    fillOpacity = 0.05,
+                    label = district$aoi,
+                    highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                        bringToFront = TRUE),
+                    group = "Forests")
         # addLegend(position = "bottomright", 
         #           color = "black",
         #           opacity = 0.2,

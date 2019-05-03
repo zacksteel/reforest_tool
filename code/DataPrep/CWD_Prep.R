@@ -12,7 +12,7 @@ cwd_prep <- function()
   
   ## Read in biomass loss layer
   ## Pre-projected in Arc to WGS1984
-  cwd <- raster("data/spatial/cwd1981_2010_ave_wgs84.tif") 
+  cwd <- raster("data/Spatial/cwd1981_2010_ave_wgs84.tif") 
   
   ## Limit biomass loss to the Sierra Nevada & environs
   eswalk <- read.csv("data/Reference/EcoSectionXwalk.csv")
@@ -27,7 +27,7 @@ cwd_prep <- function()
     mask(es)
   
   ## Align and resample according to biomass loss layer
-  bloss <- raster("data/spatial/biomassloss.tif")
+  bloss <- raster("data/Spatial/biomassloss.tif")
   cwd_sn2 <- resample(cwd_sn, bloss)
   
   ## Write for use in app; overwriting seems to mess things up. Delete manually if needed.

@@ -30,5 +30,5 @@ hs_core200 <- function()
   hs_r <- rasterize(hs_sn, r, field = "indicator", background = 0)
   
   ## Save for later use
-  writeRaster(hs_r, "Data/Spatial/hs200.tif")
+  writeRaster(hs_r, "data/Spatial/hs200.tif")
 }

@@ -20,112 +20,121 @@ library(colorspace)
 forest <- st_read("data/Spatial", "SN_NFs")
 district <- st_read("data/Spatial", "SN_districts")
 
-# fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
-#         "Stanislaus", "Inyo", "Sequoia", "Sierra")
 aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
   sort()
 
-#### Pre-mask rasters according to national forests and reading in when AOI is selected will probably save user time
-## Bring in "need" layer
-# bloss <- raster("data/Spatial/biomassloss.tif")
-# 
-# ## Bring in accessibility raster layer
-# #### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somewhere along the way?
-# sb <- raster("data/Spatial/scenb.tif") 
-# 
-# ## Bring in land class layers; cwd
-# rec <- raster("data/Spatial/RecAreas.tif")
-# wui <- raster("data/Spatial/WUI.tif")
-# cwd <- raster("data/spatial/cwd_sn.tif")
-
-
-# Define UI for application that draws a histogram
+## Set up user interface
 ui <- fluidPage(
+  ## Change font size everywhere
+  tags$head(tags$style(HTML("
+        .selectize-input {
+          font-size: 70%;
+        }
+        "))),
   tabsetPanel(
     tabPanel("Prioritization tool",
              # Application title
              titlePanel("Reforestation Prioritization Tool"),
              
-             # Sidebar with a slider input for number of bins 
-             sidebarLayout(
-               sidebarPanel(
-                 selectInput(inputId = "Forest", 
+             # Sidebar with user-input widgets
+             # sidebarLayout(
+             #   sidebarPanel(
+             ## Moving sidebar to top with multiple columns
+             fluidRow(
+               column(3,
+                      selectInput(inputId = "Forest", 
                              label = h4("Step 1: Select area of interest"),
                              selected = "",
                              choices = aoi_id),
-                 
-                 ## Horrizontal line
-                 tags$hr(),
- 
-                 h4("Step 2: Select reforestation need threshold:"),  
-                 
-                 sliderInput("Need", tags$tbody("Need Threshold (Biomass loss)"), 10, 100, 50,
-                             width = '80%', step = 10),
-                 
-                 ## Horrizontal line
-                 tags$hr(),
-                 
-                 h4("Step 3: Select data layer weights:"),
-
-                 sliderInput("cwd", "Climatic Water Deficit", 0, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("Rec", "Recreation Areas", 0, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("CASPO", "Spotted Owl PACs", -1, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("Fisher", "Fisher Core Habitat", -1, 1, 0,
-                             width = '80%', step = .25),
-
-                 
-                 h4("Step 4: Run prioritization"),
-                 
-                 ## Horrizontal line
-                 tags$hr(),
-                 
-                 actionButton("Calc", "Calculate"),
-                 
-                 h4("Step 5: Download map and/or data"),
-                 tags$hr(),
-                 
-                 ## Move this display option to map widget
-                 checkboxGroupInput("Display", tags$i("Select display Layers:"),
-                                    choices = c("Forests", 
-                                                "Area of Interest", 
-                                                "Mechanical Constraints",
-                                                "Biomass Loss (2012-16)", 
-                                                "High-severity Fire (Zone 2)",
-                                                "Climatic Water Deficit",
-                                                "Recreation Areas",
-                                                "Wildland-Urban Interface",
-                                                "Spotted Owl PACs",
-                                                "Fisher Core Habitat",
-                                                "Prioritization"),
-                                    selected = c("Forests", "Area of Interest")),
-                 
-                 ## Buttons for downloading current map and tif
-                 #### Maybe add one or combine for generating a short "report"
-                 downloadButton("dl", "Download Map Image"),
-                 downloadButton("dl_tif", "Download Priority GeoTiff")
+                      ## Horrizontal line
+                      tags$hr(),
+       
+                      h4("Step 2: Select reforestation need threshold:"),  
+                       
+                      sliderInput("Need", tags$tbody("Need Threshold (% Biomass loss)"), 
+                                  10, 100, 50,
+                                  width = '80%', step = 10)
                ),
+               h4("Step 3: Select data layer weights:"),
+               column(3,
+
+                      
+                      sliderInput("cwd", "Climatic Water Deficit", 0, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
+                                  width = '80%', step = .25)
+               ),
+               column(3,
+
+                      sliderInput("Rec", "Recreation Areas", 0, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("CASPO", "Spotted Owl PACs", -1, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("Fisher", "Fisher Core Habitat", -1, 1, 0,
+                                  width = '80%', step = .25)
+                      ),
+               
+               column(3,
+                      h4("Step 4: Run prioritization"),
+                      
+                      actionButton("Calc", "Calculate"),
+                      
+                      tags$hr(),
+                      h4("Step 5: Download map and/or data"),
+                      
+                      ## Buttons for downloading current map and tif
+                      #### Maybe add one or combine for generating a short "report"
+                      downloadButton("dl", "Download Map Image"),
+                      downloadButton("dl_tif", "Download Priority GeoTiff")
+                      
+
+               )),
+             tags$hr(),
+             fluidRow(
+               h5(tags$i("  Select display Layers:")),
+               column(12, 
+                      ## Move this display option to map widget
+                      
+                      checkboxGroupInput("Display", label = NULL, #tags$i("Select display Layers:"),
+                                         inline = T,
+                                         choices = c("Forests", 
+                                                     "Area of Interest", 
+                                                     "Mechanical Constraints",
+                                                     "Biomass Loss (2012-16)", 
+                                                     "High-severity Fire (Zone 2)",
+                                                     "Climatic Water Deficit",
+                                                     "Recreation Areas",
+                                                     "Wildland-Urban Interface",
+                                                     "Spotted Owl PACs",
+                                                     "Fisher Core Habitat",
+                                                     "Prioritization"),
+                                         selected = c("Forests", "Area of Interest"))
+                      )
+             ),
+             
+                 
+                 ## Horrizontal line
+                 # tags$hr(),
+                 
+
+
+                 ## Horrizontal line
+                 # tags$hr(),
                
                #### Show a plot of relative weights or data layers?
                
                ## Define size of map
-               mainPanel(
-                 leafletOutput("map", height = 600, width = 800)
-               )
-             )
+               # mainPanel(
+             leafletOutput("map")#, height = 600, width = 800)
+               # )
+             # )
     ),
     ## Plot data tab
     tabPanel("Stand data summary", "under construction"),
     tabPanel("BMP guide", "under construction")
   )
-   
-
 )
 
 # Define server code
@@ -153,73 +162,76 @@ server <- function(input, output) {
   #       pull(FORESTNAME) %>%
   #       as.character()}
   #"Sequoia - Hume Lake") %>% #
-  forest_id <- reactive(filter(district, aoi == input$forest) %>%
-                          pull(FORESTNAME) %>%
-                          as.character())
+  # forest_id <- reactive(filter(district, aoi == input$forest) %>%
+  #                         pull(FORESTNAME) %>%
+  #                         as.character())
 
   #### breaking here when trying to pass forest name to paste0
   ra <- reactive({
     ## Conditional necessary to avoid crop error
     if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
       ## Read in AOI national forest-specific raster
-      sb <- raster(paste0("data/spatial/nf_limits/sb_",forest_id(), ".tif")) %>%
+      sb <- raster(paste0("data/Spatial/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
     }
   })
   
   mortshow <- reactive({
     if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
-      bloss <- raster(paste0("data/spatial/nf_limits/bloss_", input$Forest, ".tif"))
+      bloss <- raster(paste0("data/Spatial/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
     } 
   })
   
   rec <- reactive({
     if(input$Forest != "" & ("Recreation Areas" %in% input$Display)) {
-      raster(paste0("data/Spatial/nf_limits/rec_", input$Forest, ".tif")) %>%
+      raster(paste0("data/Spatial/NF_Limits/rec_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
     
   wui <- reactive({
     if(input$Forest != "" & ("Wildland-Urban Interface" %in% input$Display)) {
-      raster(paste0("data/Spatial/nf_limits/wui_", input$Forest, ".tif")) %>%
+      raster(paste0("data/Spatial/NF_Limits/wui_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
   
   cwd <- reactive({
     if(input$Forest != "" & ("Climatic Water Deficit" %in% input$Display)) {
-      raster(paste0("data/spatial/nf_limits/cwd_", input$Forest, ".tif"))
+      raster(paste0("data/Spatial/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
     }
   })
   
   hs <- reactive({
     if(input$Forest != "" & ("High-severity Fire (Zone 2)" %in% input$Display)) {
-      raster(paste0("data/spatial/nf_limits/hs_", input$Forest, ".tif")) %>%
+      raster(paste0("data/Spatial/NF_Limits/hs_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros; highlighting zone 2
     }
   })
   
   spow <- reactive({
     if(input$Forest != "" & ("Spotted Owl PACs" %in% input$Display)) {
-      raster(paste0("data/spatial/nf_limits/spow_", input$Forest, ".tif")) %>%
+      raster(paste0("data/Spatial/NF_Limits/spow_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
   
   fisher <- reactive({
     if(input$Forest != "" & ("Fisher Core Habitat" %in% input$Display)) {
-      raster(paste0("data/spatial/nf_limits/fisher_", input$Forest, ".tif")) %>%
+      raster(paste0("data/Spatial/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
   
   
   ## Set up Null priority value to be replaced during calculation
-  priority <- reactiveValues(raster = NULL)
+  priority <- reactiveValues(raster = NULL, cu_map = NULL)
 
   
   ## Set up the default map function
+  #### I think this is slowing everything down a lot as currently written. 
+  #### Not sure if leaflet proxy would be more efficient. 
+  #### I think I was having trouble getting proxy to play nicely with the download function
   map_reactive <- reactive({
     m <- leaflet() %>%
       # addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
@@ -422,18 +434,30 @@ server <- function(input, output) {
   })
 
   ## Run a parallel map when saving. If using leafletProxy, duplicate funtionality here. Otherwise just add current view.
-  user_created_map <- reactive({
-    m <- map_reactive() %>%
+  user_created_map <- function(){
+    map_reactive() %>%
       setView(lng = input$map_center$lng, lat = input$map_center$lat,
               zoom = input$map_zoom)
-  })
+  }
   
+  # observeEvent(input$dl, {
+  #   priority$cur_map <- map_reactive() %>%
+  #     setView(lng = input$map_center$lng, lat = input$map_center$lat,
+  #             zoom = input$map_zoom)
+  #   # output$dl <- downloadHandler(
+  #   #   filename = "map.png",
+  #   #   content = function(file = filename) {
+  #   #     # mapshot(user_created_map(), file = file)
+  #   #     mapshot(cur_map, file = file)
+  #     # })
+  # })
 
   ## Save map and geotiff when user requests it
   output$dl <- downloadHandler(
     filename = "map.png",
     content = function(file = filename) {
       mapshot(user_created_map(), file = file)
+      # mapshot(priority$cur_map, file = file)
     })
   
   #### Currently crashes the site if I haven't run the calculation yet, need to fix
@@ -455,16 +479,16 @@ server <- function(input, output) {
     if(input$Forest == "") {NULL} else {
       
       ## read in national forest-specific rasters
-      bloss <- raster(paste0("data/spatial/nf_limits/bloss_", input$Forest, ".tif"))
-      sb <- raster(paste0("data/spatial/nf_limits/sb_",input$Forest, ".tif")) %>%
+      bloss <- raster(paste0("data/Spatial/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
+      sb <- raster(paste0("data/Spatial/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(-0.5,0.5))
 
-      rec <- raster(paste0("data/Spatial/nf_limits/rec_", input$Forest, ".tif"))
-      wui <- raster(paste0("data/Spatial/nf_limits/wui_", input$Forest, ".tif"))
-      cwd <- raster(paste0("data/spatial/nf_limits/cwd_", input$Forest, ".tif"))
-      hs <- raster(paste0("data/spatial/nf_limits/hs_", input$Forest, ".tif"))
-      spow <- raster(paste0("data/spatial/nf_limits/spow_", input$Forest, ".tif"))
-      fisher <- raster(paste0("data/spatial/nf_limits/fisher_", input$Forest, ".tif"))
+      rec <- raster(paste0("data/Spatial/NF_Limits/rec_", aoi()$FORESTNAME, ".tif"))
+      wui <- raster(paste0("data/Spatial/NF_Limits/wui_", aoi()$FORESTNAME, ".tif"))
+      cwd <- raster(paste0("data/Spatial/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
+      hs <- raster(paste0("data/Spatial/NF_Limits/hs_", aoi()$FORESTNAME, ".tif"))
+      spow <- raster(paste0("data/Spatial/NF_Limits/spow_", aoi()$FORESTNAME, ".tif"))
+      fisher <- raster(paste0("data/Spatial/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif"))
 
       ## Limit the range of biomass loss considered based on user-defined threshold
       blmin <- input$Need/100
@@ -488,19 +512,8 @@ server <- function(input, output) {
       pr01 <- pr / maxp
 
       ## Limit to AOI (this seems to be the slow step so do it last)
-      #### Really only necessary when AOI differs from the national forest datasets (i.e. when AOI is at the district level)
-      #### May be able to save a little processing time here
-      aoi_shp <- filter(forest, FORESTNAME == input$Forest) %>%
-        as_Spatial()
-      pr_aoi <- crop(pr01, aoi_shp, snap = "in") %>%
-        ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
-        mask(mask = aoi_shp)
-
-      ## Create a not treatable layer for AOI
-      #### This step may not longer be needed with new user controls of map
-      # nt <- crop(sb, aoi_shp, snap = "in") %>%
-      #   mask(mask = aoi_shp)
-
+      pr_aoi <- crop(pr01, aoi(), snap = "in") %>%
+        mask(mask = aoi())
 
       ## Reclassify to three classes based on quantile thirds above the minimum threshold
       ## occasionally have problems of breaks not being unique. add a bit to upper quantiles

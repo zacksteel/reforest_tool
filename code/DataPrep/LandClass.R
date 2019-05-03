@@ -37,6 +37,6 @@ LandClassPrep <- function() {
   wui_r <- rasterize(wui_sn, r, field = "indicator", background = 0)
   
   ## Save for later use
-  writeRaster(rec_r, "Data/Spatial/RecAreas.tif")
-  writeRaster(wui_r, "Data/Spatial/WUI.tif")
+  writeRaster(rec_r, "data/Spatial/RecAreas.tif")
+  writeRaster(wui_r, "data/Spatial/WUI.tif")
 }

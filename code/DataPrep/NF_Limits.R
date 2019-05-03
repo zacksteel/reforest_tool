@@ -15,10 +15,10 @@ NF_Limits <- function() {
   sb <- raster("data/Spatial/scenb.tif") #treatment feasibility
   rec <- raster("data/Spatial/RecAreas.tif") 
   wui <- raster("data/Spatial/WUI.tif")
-  cwd <- raster("data/spatial/cwd_sn.tif") #cimate water deficit
-  hs <- raster("data/spatial/hs200.tif") #zone 2 & 3 or high-severity areas 2012-2016
-  spow <- raster("Data/Spatial/spow_pacs.tif") #spotted owl PACs
-  fisher <- raster("Data/Spatial/fisher_cores.tif") # fisher core areas
+  cwd <- raster("data/Spatial/cwd_sn.tif") #cimate water deficit
+  hs <- raster("data/Spatial/hs200.tif") #zone 2 & 3 or high-severity areas 2012-2016
+  spow <- raster("data/Spatial/spow_pacs.tif") #spotted owl PACs
+  fisher <- raster("data/Spatial/fisher_cores.tif") # fisher core areas
   
   ## Read in Sierra Nevada national forest shape
   forest_sf <- st_read("data/Spatial", "SN_NFs")

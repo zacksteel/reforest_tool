@@ -28,5 +28,5 @@ ForestPrep <- function() {
     dplyr::select(FORESTNAME, district, aoi, geometry)
   
   write_sf(forest, "data/Spatial/SN_NFs.shp")
-  write_sf(rd, "data/spatial/SN_districts.shp")
+  write_sf(rd, "data/Spatial/SN_districts.shp")
 }

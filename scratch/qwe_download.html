@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <script type="application/shiny-singletons"></script>
+  <script type="application/html-dependencies">json2[2014.02.04];jquery[1.12.4];shiny[1.3.2];selectize[0.11.2];ionrangeslider[2.1.6];strftime[0.9.2];font-awesome[5.3.1];htmlwidgets[1.3];leaflet[1.3.1];leafletfix[1.0.0];Proj4Leaflet[1.0.1];rstudio_leaflet[1.3.1];leaflet-binding[2.0.2];bootstrap[3.3.7]</script>
+<script src="shared/json2-min.js"></script>
+<script src="shared/jquery.min.js"></script>
+<link href="shared/shiny.css" rel="stylesheet" />
+<script src="shared/shiny.min.js"></script>
+<link href="shared/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<!--[if lt IE 9]>
+<script src="shared/selectize/js/es5-shim.min.js"></script>
+<![endif]-->
+<script src="shared/selectize/js/selectize.min.js"></script>
+<link href="shared/ionrangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+<link href="shared/ionrangeslider/css/ion.rangeSlider.skinShiny.css" rel="stylesheet" />
+<script src="shared/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="shared/strftime/strftime-min.js"></script>
+<link href="font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
+<link href="font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
+<script src="htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="leaflet-1.3.1/leaflet.js"></script>
+<link href="leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="leaflet-binding-2.0.2/leaflet.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="shared/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="shared/bootstrap/js/bootstrap.min.js"></script>
+<script src="shared/bootstrap/shim/html5shiv.min.js"></script>
+<script src="shared/bootstrap/shim/respond.min.js"></script>  <style>
+        .selectize-input {
+          font-size: 70%;
+        }
+        </style>
+  <title>Reforestation Prioritization Tool</title>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="tabbable">
+      <ul class="nav nav-tabs" data-tabsetid="7196">
+        <li class="active">
+          <a href="#tab-7196-1" data-toggle="tab" data-value="Prioritization tool">Prioritization tool</a>
+        </li>
+        <li>
+          <a href="#tab-7196-2" data-toggle="tab" data-value="Stand data summary">Stand data summary</a>
+        </li>
+        <li>
+          <a href="#tab-7196-3" data-toggle="tab" data-value="BMP guide">BMP guide</a>
+        </li>
+      </ul>
+      <div class="tab-content" data-tabsetid="7196">
+        <div class="tab-pane active" data-value="Prioritization tool" id="tab-7196-1">
+          <h2>Reforestation Prioritization Tool</h2>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group shiny-input-container">
+                <label class="control-label" for="Forest">
+                  <h4>Step 1: Select area of interest</h4>
+                </label>
+                <div>
+                  <select id="Forest"><option value="" selected></option>
+<option value="Eldorado">Eldorado</option>
+<option value="Eldorado - Amador">Eldorado - Amador</option>
+<option value="Eldorado - Georgetown">Eldorado - Georgetown</option>
+<option value="Eldorado - Pacific">Eldorado - Pacific</option>
+<option value="Eldorado - Placerville">Eldorado - Placerville</option>
+<option value="Inyo">Inyo</option>
+<option value="Inyo - Mammoth">Inyo - Mammoth</option>
+<option value="Inyo - Mono Lake">Inyo - Mono Lake</option>
+<option value="Inyo - Mt. Whitney">Inyo - Mt. Whitney</option>
+<option value="Inyo - White Mountain">Inyo - White Mountain</option>
+<option value="Lake Tahoe Basin">Lake Tahoe Basin</option>
+<option value="Lassen">Lassen</option>
+<option value="Lassen - Almanor">Lassen - Almanor</option>
+<option value="Lassen - Eagle Lake">Lassen - Eagle Lake</option>
+<option value="Lassen - Hat Creek">Lassen - Hat Creek</option>
+<option value="Plumas">Plumas</option>
+<option value="Plumas - Beckwourth">Plumas - Beckwourth</option>
+<option value="Plumas - Feather River">Plumas - Feather River</option>
+<option value="Plumas - Mt. Hough">Plumas - Mt. Hough</option>
+<option value="Sequoia">Sequoia</option>
+<option value="Sequoia - Hume Lake">Sequoia - Hume Lake</option>
+<option value="Sequoia - Kern River">Sequoia - Kern River</option>
+<option value="Sequoia - Western Divide">Sequoia - Western Divide</option>
+<option value="Sierra">Sierra</option>
+<option value="Sierra - Bass Lake">Sierra - Bass Lake</option>
+<option value="Sierra - High Sierra">Sierra - High Sierra</option>
+<option value="Stanislaus">Stanislaus</option>
+<option value="Stanislaus - Calaveras">Stanislaus - Calaveras</option>
+<option value="Stanislaus - Groveland">Stanislaus - Groveland</option>
+<option value="Stanislaus - Mi-Wok">Stanislaus - Mi-Wok</option>
+<option value="Stanislaus - Summit">Stanislaus - Summit</option>
+<option value="Tahoe">Tahoe</option>
+<option value="Tahoe - American River">Tahoe - American River</option>
+<option value="Tahoe - Sierraville">Tahoe - Sierraville</option>
+<option value="Tahoe - Truckee">Tahoe - Truckee</option>
+<option value="Tahoe - Yuba River">Tahoe - Yuba River</option></select>
+                  <script type="application/json" data-for="Forest">{}</script>
+                </div>
+              </div>
+              <hr/>
+              <h4>Step 2: Select reforestation need threshold:</h4>
+              <div class="form-group shiny-input-container" style="width: 80%;">
+                <label class="control-label" for="Need">
+                  <tbody>Need Threshold (% Biomass loss)</tbody>
+                </label>
+                <input class="js-range-slider" id="Need" data-min="10" data-max="100" data-from="50" data-step="10" data-grid="true" data-grid-num="9" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+            </div>
+            <h4>Step 3: Select data layer weights:</h4>
+            <div class="col-sm-3">
+              <div class="form-group shiny-input-container" style="width: 80%;">
+                <label class="control-label" for="cwd">Climatic Water Deficit</label>
+                <input class="js-range-slider" id="cwd" data-min="0" data-max="1" data-from="0" data-step="0.25" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+              <div class="form-group shiny-input-container" style="width: 80%;">
+                <label class="control-label" for="HSZ2">High-severity Fire (Zone 2)</label>
+                <input class="js-range-slider" id="HSZ2" data-min="0" data-max="1" data-from="0" data-step="0.25" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+              <div class="form-group shiny-input-container" style="width: 80%;">
+                <label class="control-label" for="WUI">Wildland Urban Interface</label>
+                <input class="js-range-slider" id="WUI" data-min="0" data-max="1" data-from="0" data-step="0.25" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group shiny-input-container" style="width: 80%;">
+                <label class="control-label" for="Rec">Recreation Areas</label>
+                <input class="js-range-slider" id="Rec" data-min="0" data-max="1" data-from="0" data-step="0.25" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+              <div class="form-group shiny-input-container" style="width: 80%;">
+                <label class="control-label" for="CASPO">Spotted Owl PACs</label>
+                <input class="js-range-slider" id="CASPO" data-min="-1" data-max="1" data-from="0" data-step="0.25" data-grid="true" data-grid-num="8" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+              <div class="form-group shiny-input-container" style="width: 80%;">
+                <label class="control-label" for="Fisher">Fisher Core Habitat</label>
+                <input class="js-range-slider" id="Fisher" data-min="-1" data-max="1" data-from="0" data-step="0.25" data-grid="true" data-grid-num="8" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <h4>Step 4: Run prioritization</h4>
+              <button id="Calc" type="button" class="btn btn-default action-button">Calculate</button>
+              <hr/>
+              <h4>Step 5: Download map and/or data</h4>
+              <a id="dl" class="btn btn-default shiny-download-link " href="" target="_blank" download>
+                <i class="fa fa-download"></i>
+                Download Map Image
+              </a>
+              <a id="dl_tif" class="btn btn-default shiny-download-link " href="" target="_blank" download>
+                <i class="fa fa-download"></i>
+                Download Priority GeoTiff
+              </a>
+            </div>
+          </div>
+          <hr/>
+          <div class="row">
+            <h5>
+              <i>  Select display Layers:</i>
+            </h5>
+            <div class="col-sm-12">
+              <div id="Display" class="form-group shiny-input-checkboxgroup shiny-input-container shiny-input-container-inline">
+                <div class="shiny-options-group">
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Forests" checked="checked"/>
+                    <span>Forests</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Area of Interest" checked="checked"/>
+                    <span>Area of Interest</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Mechanical Constraints"/>
+                    <span>Mechanical Constraints</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Biomass Loss (2012-16)"/>
+                    <span>Biomass Loss (2012-16)</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="High-severity Fire (Zone 2)"/>
+                    <span>High-severity Fire (Zone 2)</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Climatic Water Deficit"/>
+                    <span>Climatic Water Deficit</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Recreation Areas"/>
+                    <span>Recreation Areas</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Wildland-Urban Interface"/>
+                    <span>Wildland-Urban Interface</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Spotted Owl PACs"/>
+                    <span>Spotted Owl PACs</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Fisher Core Habitat"/>
+                    <span>Fisher Core Habitat</span>
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="Display" value="Prioritization"/>
+                    <span>Prioritization</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="map" style="width:100%; height:400px; " class="leaflet html-widget html-widget-output"></div>
+        </div>
+        <div class="tab-pane" data-value="Stand data summary" id="tab-7196-2">under construction</div>
+        <div class="tab-pane" data-value="BMP guide" id="tab-7196-3">under construction</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

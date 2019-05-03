@@ -35,7 +35,7 @@ Sensitive_Spp <- function()
   fisher_r <- rasterize(fisher_sn, r, field = "indicator", background = 0)
   
   ## Save for later use
-  writeRaster(spow_r, "Data/Spatial/spow_pacs.tif")
-  writeRaster(fisher_r, "Data/Spatial/fisher_cores.tif")
+  writeRaster(spow_r, "data/Spatial/spow_pacs.tif")
+  writeRaster(fisher_r, "data/Spatial/fisher_cores.tif")
   
 }

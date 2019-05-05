@@ -14,11 +14,13 @@ library(mapview)
 library(tidyverse)
 library(rgdal)
 library(raster)
-library(colorspace)
+## This extra bit seems necessary for saving from web
+## Not needed locally so can comment out to save time when building
+webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
-forest <- st_read("data/Spatial", "SN_NFs")
-district <- st_read("data/Spatial", "SN_districts")
+forest <- st_read("app_data", "SN_NFs")
+district <- st_read("app_data", "SN_districts")
 
 aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
   sort()
@@ -99,7 +101,7 @@ ui <- fluidPage(
                       
                       checkboxGroupInput("Display", label = NULL, #tags$i("Select display Layers:"),
                                          inline = T,
-                                         choices = c("Forests", 
+                                         choices = c(#"Forests", 
                                                      "Area of Interest", 
                                                      "Mechanical Constraints",
                                                      "Biomass Loss (2012-16)", 
@@ -171,54 +173,54 @@ server <- function(input, output) {
     ## Conditional necessary to avoid crop error
     if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
       ## Read in AOI national forest-specific raster
-      sb <- raster(paste0("data/Spatial/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
+      sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
     }
   })
   
   mortshow <- reactive({
     if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
-      bloss <- raster(paste0("data/Spatial/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
+      bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
     } 
   })
   
   rec <- reactive({
     if(input$Forest != "" & ("Recreation Areas" %in% input$Display)) {
-      raster(paste0("data/Spatial/NF_Limits/rec_", aoi()$FORESTNAME, ".tif")) %>%
+      raster(paste0("app_data/NF_Limits/rec_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
     
   wui <- reactive({
     if(input$Forest != "" & ("Wildland-Urban Interface" %in% input$Display)) {
-      raster(paste0("data/Spatial/NF_Limits/wui_", aoi()$FORESTNAME, ".tif")) %>%
+      raster(paste0("app_data/NF_Limits/wui_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
   
   cwd <- reactive({
     if(input$Forest != "" & ("Climatic Water Deficit" %in% input$Display)) {
-      raster(paste0("data/Spatial/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
+      raster(paste0("app_data/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
     }
   })
   
   hs <- reactive({
     if(input$Forest != "" & ("High-severity Fire (Zone 2)" %in% input$Display)) {
-      raster(paste0("data/Spatial/NF_Limits/hs_", aoi()$FORESTNAME, ".tif")) %>%
+      raster(paste0("app_data/NF_Limits/hs_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros; highlighting zone 2
     }
   })
   
   spow <- reactive({
     if(input$Forest != "" & ("Spotted Owl PACs" %in% input$Display)) {
-      raster(paste0("data/Spatial/NF_Limits/spow_", aoi()$FORESTNAME, ".tif")) %>%
+      raster(paste0("app_data/NF_Limits/spow_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
   
   fisher <- reactive({
     if(input$Forest != "" & ("Fisher Core Habitat" %in% input$Display)) {
-      raster(paste0("data/Spatial/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif")) %>%
+      raster(paste0("app_data/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
     }
   })
@@ -255,25 +257,27 @@ server <- function(input, output) {
 
     # Overlay Groups
     ## Add layers if user-selected
-    if("Forests" %in% input$Display) {
-      m <- addPolygons(m,
-                       data = forest,
-                       color = "black",
-                       fillColor = "green",
-                       fill = F,
-                       weight = 2,
-                       opacity = 1,
-                       fillOpacity = 0.2,
-                       label = forest$FORESTNAME,
-                       highlightOptions = highlightOptions(color = "white", weight = 2,
-                                                           bringToFront = TRUE),
-                       group = "Forests") %>%
-        addPolygons(data = district,
+    ## remove forest layer when zooming to aoi for now; makes saving crash
+    if(input$Forest == "") {
+      # m <- addPolygons(m,
+      #                  data = forest,
+      #                  color = "black",
+      #                  fillColor = "green",
+      #                  fill = F,
+      #                  weight = 2,
+      #                  opacity = 1,
+      #                  fillOpacity = 0.2,
+      #                  label = forest$FORESTNAME,
+      #                  highlightOptions = highlightOptions(color = "white", weight = 2,
+      #                                                      bringToFront = TRUE),
+      #                  group = "Forests") %>%
+        m <- addPolygons(m, data = district,
                     color = "black",
                     fillColor = "green",
                     fill = T,
-                    weight = 1,
-                    fillOpacity = 0.05,
+                    weight = 2,
+                    opacity = 1,
+                    fillOpacity = 0.2,
                     label = district$aoi,
                     highlightOptions = highlightOptions(color = "white", weight = 2,
                                                         bringToFront = TRUE),
@@ -434,12 +438,12 @@ server <- function(input, output) {
   })
 
   ## Run a parallel map when saving. If using leafletProxy, duplicate funtionality here. Otherwise just add current view.
-  user_created_map <- function(){
+  user_created_map <- reactive({
     map_reactive() %>%
       setView(lng = input$map_center$lng, lat = input$map_center$lat,
               zoom = input$map_zoom)
-  }
-  
+  })
+
   # observeEvent(input$dl, {
   #   priority$cur_map <- map_reactive() %>%
   #     setView(lng = input$map_center$lng, lat = input$map_center$lat,
@@ -451,11 +455,16 @@ server <- function(input, output) {
   #   #     mapshot(cur_map, file = file)
   #     # })
   # })
+  
+  # observeEvent(input$dl, {
+  #   m <- map_reactive()
+  #   mapshot(x = m, file='exported_map.png')#, url='exported_map.html')
+  # })
 
   ## Save map and geotiff when user requests it
   output$dl <- downloadHandler(
     filename = "map.png",
-    content = function(file = filename) {
+    content = function(file) {
       mapshot(user_created_map(), file = file)
       # mapshot(priority$cur_map, file = file)
     })
@@ -479,16 +488,16 @@ server <- function(input, output) {
     if(input$Forest == "") {NULL} else {
       
       ## read in national forest-specific rasters
-      bloss <- raster(paste0("data/Spatial/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
-      sb <- raster(paste0("data/Spatial/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
+      bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
+      sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(-0.5,0.5))
 
-      rec <- raster(paste0("data/Spatial/NF_Limits/rec_", aoi()$FORESTNAME, ".tif"))
-      wui <- raster(paste0("data/Spatial/NF_Limits/wui_", aoi()$FORESTNAME, ".tif"))
-      cwd <- raster(paste0("data/Spatial/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
-      hs <- raster(paste0("data/Spatial/NF_Limits/hs_", aoi()$FORESTNAME, ".tif"))
-      spow <- raster(paste0("data/Spatial/NF_Limits/spow_", aoi()$FORESTNAME, ".tif"))
-      fisher <- raster(paste0("data/Spatial/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif"))
+      rec <- raster(paste0("app_data/NF_Limits/rec_", aoi()$FORESTNAME, ".tif"))
+      wui <- raster(paste0("app_data/NF_Limits/wui_", aoi()$FORESTNAME, ".tif"))
+      cwd <- raster(paste0("app_data/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
+      hs <- raster(paste0("app_data/NF_Limits/hs_", aoi()$FORESTNAME, ".tif"))
+      spow <- raster(paste0("app_data/NF_Limits/spow_", aoi()$FORESTNAME, ".tif"))
+      fisher <- raster(paste0("app_data/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif"))
 
       ## Limit the range of biomass loss considered based on user-defined threshold
       blmin <- input$Need/100

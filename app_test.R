@@ -14,216 +14,176 @@ library(mapview)
 library(tidyverse)
 library(rgdal)
 library(raster)
+## This extra bit seems necessary for saving from web
+## Not needed locally so can comment out to save time when building
+webshot::install_phantomjs()
 
+## Define forest/aoi options and read in shape file
+forest <- st_read("app_data", "SN_NFs")
+district <- st_read("app_data", "SN_districts")
 
-## Must adjust for application directory & leaflet expect lat long data
-fn <- c("", "Lassen", "Plumas", "Tahoe", "Lake Tahoe Basin", "Eldorado", 
-        "Stanislaus", "Inyo", "Sequoia", "Sierra")
-forest <- st_read("data/Spatial", "Ca_NFBoundaries") %>%
-  st_buffer(0) %>% ## fixes problems with ring self-intersection
-  st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs") %>%
-  # st_transform(crs = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 ") %>%
-  filter(FORESTNAME %in% fn) 
+aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
+  sort()
 
-## Bring in mortality layer
-# mort <- st_read("data/Spatial", "ADSMort15") %>%
-#   st_transform(crs = "+proj=longlat +datum=WGS84")
-mort <- st_read("data/Spatial", "mort15_simple") %>%
-  st_buffer(0)
-## Leaflet doesn't like named geometries, which st_write adds
-names(st_geometry(mort)) <- NULL
-
-## Bring in accessibility raster layer
-#### scenb and forest layers are slightly mis-aligned. imprecise crs transformation somewhere along the way?
-sb <- raster("data/Spatial/scenb_mask") 
-
-
-# Define UI for application that draws a histogram
+## Set up user interface
 ui <- fluidPage(
+  ## Change font size everywhere
+  tags$head(tags$style(HTML("
+        .selectize-input {
+          font-size: 70%;
+        }
+        "))),
   tabsetPanel(
     tabPanel("Prioritization tool",
              # Application title
              titlePanel("Reforestation Prioritization Tool"),
              
-             # Sidebar with a slider input for number of bins 
-             sidebarLayout(
-               sidebarPanel(
-                 selectInput(inputId = "Forest", 
-                             label = h4("Step 1: Select area of interest"),
-                             selected = "",
-                             choices = fn),
-                 checkboxGroupInput("Display", tags$i("Display Layers:"),
-                                    choices = c("Mortality (ADS)", "Inaccessible"),
-                                    selected = c("Mortality (ADS)", "Inaccessible")),
-                 
-                 ## Horrizontal line
-                 tags$hr(),
-                 
-                 # checkboxGroupInput("Databases", "Step 2: Select data layers:",
-                 #                    choices = c("Slope", "Fire Severity", "WUI", "CWD"),
-                 #                    selected = c("Slope")),
- 
-                 h4("Step 2: Select reforestation need threshold:"),  
-                 
-                 sliderInput("Need", tags$tbody("Need Threshold (TPA mortality)"), 0, 100, 10,
-                             width = '80%'),
-                 
-                 ## Horrizontal line
-                 tags$hr(),
-                 
-                 h4("Step 3: Select data layer weights:"),
-
-                 sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0.5,
-                             width = '80%', step = .25),
-                 sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0.5,
-                             width = '80%', step = .25),
-                 sliderInput("CASPO", "Spotted Owl Habitat", 0, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("Fisher", "Fisher Habitat", 0, 1, 0,
-                             width = '80%', step = .25),
-                 sliderInput("Rec", "Recreation Sites", 0, 1, 0,
-                             width = '80%', step = .25),
-                 h4("Step 4: Execute prioritization"),
-                 
-                 ## Horrizontal line
-                 tags$hr(),
-                 
-                 actionButton("Calc", "Execute")
+             # Sidebar with user-input widgets
+             # sidebarLayout(
+             #   sidebarPanel(
+             ## Moving sidebar to top with multiple columns
+             fluidRow(
+               column(3,
+                      selectInput(inputId = "Forest", 
+                                  label = h4("Step 1: Select area of interest"),
+                                  selected = "",
+                                  choices = aoi_id),
+                      ## Horrizontal line
+                      tags$hr(),
+                      
+                      h4("Step 2: Select reforestation need threshold:"),  
+                      
+                      sliderInput("Need", tags$tbody("Need Threshold (% Biomass loss)"), 
+                                  10, 100, 50,
+                                  width = '80%', step = 10)
+               ),
+               h4("Step 3: Select data layer weights:"),
+               column(3,
+                      
+                      
+                      sliderInput("cwd", "Climatic Water Deficit", 0, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
+                                  width = '80%', step = .25)
+               ),
+               column(3,
+                      
+                      sliderInput("Rec", "Recreation Areas", 0, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("CASPO", "Spotted Owl PACs", -1, 1, 0,
+                                  width = '80%', step = .25),
+                      sliderInput("Fisher", "Fisher Core Habitat", -1, 1, 0,
+                                  width = '80%', step = .25)
                ),
                
-               # Show a plot of the generated distribution
-               mainPanel(
-                 leafletOutput("map"),
-                   mapview:::plainViewOutput("test")
-               )
-             )
-    ),
-    ## Plot data tab
-    tabPanel("Stand data summary", "under construction"),
-    tabPanel("BMP guide", "under construction")
-  )
-   
+               column(3,
+                      h4("Step 4: Run prioritization"),
+                      
+                      actionButton("Calc", "Calculate"),
+                      
+                      tags$hr(),
+                      h4("Step 5: Download map and/or data"),
+                      
+                      ## Buttons for downloading current map and tif
+                      #### Maybe add one or combine for generating a short "report"
+                      downloadButton("dl", "Download Map Image")
+                      # downloadButton("dl_tif", "Download Priority GeoTiff")
+                      
+                      
+               ))
+             ),
 
+             leafletOutput("map")#, height = 600, width = 800)
+    
+  )
 )
 
-# Define server logic required to draw a histogram
+# Define server code
 server <- function(input, output) {
   
-  ## Reactive mapping objects
-  ## Limit forest shp to selection forest
-  aoi <- reactive({
-    filter(forest, FORESTNAME == input$Forest)
+  
+  ## Set up the default map function
+  map_reactive <- reactive({
+    m <- leaflet() %>%
+      # addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") %>%
+      addPolygons(data = forest,
+                       color = "black",
+                       fillColor = "green",
+                       fill = F,
+                       weight = 2,
+                       opacity = 1,
+                       fillOpacity = 0.2,
+                       label = forest$FORESTNAME,
+                       highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                           bringToFront = TRUE),
+                       group = "Forests") #%>%
+        # addPolygons(data = district,
+        #             color = "black",
+        #             fillColor = "green",
+        #             fill = T,
+        #             weight = 1,
+        #             fillOpacity = 0.05,
+        #             label = district$aoi,
+        #             highlightOptions = highlightOptions(color = "white", weight = 2,
+        #                                                 bringToFront = TRUE),
+        #             group = "Forests")
   })
   
-  ## Crop feasibility raster by aoi; much slower if you don't crop
-  ra <- reactive({
-    ## Conditional necessary to avoid crop error
-    
-    if(input$Forest == "") {NULL} else {
-      ## Need to convert to spatial object for crop (but not for mask)
-      tmp <- filter(forest, FORESTNAME == input$Forest) %>%
-        as_Spatial()
-      crop(sb, tmp, snap = "in") %>%
-        ## mask out areas beyond AOI; slower than crop so helps to do this step-wise
-        mask(mask = filter(forest, FORESTNAME == input$Forest)) %>%
-        cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
-    }
-  })
-  
-  mortshow <- reactive({
-    st_intersection(mort, aoi())
-  })
-  # priority <- reactive({
-  #   if(input$Calc > 0 & input$Forest != "") {
-  #     temp <- st_read("data/Outputs/Priorities_Spatial", input$Forest)
-  #     names(st_geometry(temp)) <- NULL
-  #     return(temp)
-  #   } else (forest[0,])
-  # })
-  # priority <- reactive({
-  #   temp <- st_read("data/Outputs/Priorities_Spatial", "Stanislaus") %>%
-  #     dplyr::select(priority)
-  #   names(st_geometry(temp)) <- NULL
-  #   return(temp)
-  # })
-   
-   # output$distPlot <- renderPlot({
-   #    # generate bins based on input$bins from ui.R
-   #    x    <- faithful[, 2] 
-   #    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-   #    
-   #    # draw the histogram with the specified number of bins
-   #    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-   # })
-  
-  # points <- eventReactive(input$recalc, {
-  #   cbind(rnorm(40) * 2 + 13, rnorm(40) + 48)
-  # }, ignoreNULL = FALSE)
-   
+  ## Run default map function
   output$map <- renderLeaflet({
-    mapview(list(forest))@map
-    # leaflet() %>%
-    #   # addTiles() %>%
-    #   ## raster seems to be added with a zIndex between 150 and 200, but can't change, moving everything else instead
-    #   addMapPane("overlay", zIndex = 150) %>% #used to define layer order
-    #   addMapPane("base", zIndex = 100) %>%
-    #   addProviderTiles(provider = "Esri.WorldShadedRelief", 
-    #                    options = pathOptions(pane = "base")) %>%#"CartoDB.Positron")
-    #   addPolygons(data = aoi(),
-    #               color = "blue",
-    #               fill = F,
-    #               opacity = 0.8,
-    #               weight = 3) %>%
-    #   addPolygons(data = forest,
-    #               color = "black",
-    #               fillColor = "green",
-    #               fill = T,
-    #               weight = 2,
-    #               opacity = 1,
-    #               fillOpacity = 0.2,
-    #               label = forest$FORESTNAME,
-    #               options = pathOptions(pane = "overlay")) 
-      
-   })
-  
-  
-  observe({
-    proxy <- leafletProxy("map") 
-    ## If a AOI is selected do some stuff
-    if(input$Forest != "") {
-      proxy %>%
-        ## Zoom to selection
-        flyToBounds(lng1 = as.numeric(st_bbox(aoi())$xmin),
-                    lat1 = as.numeric(st_bbox(aoi())$ymin),
-                    lng2 = as.numeric(st_bbox(aoi())$xmax),
-                    lat2 = as.numeric(st_bbox(aoi())$ymax)) 
-    }
-    ## If Mortality layer is selected add that layer
-    if(input$Forest != "" & ("Mortality (ADS)" %in% input$Display)) {
-      proxy %>%
-        addPolygons(data = mortshow(),
-                  color = "transparent",
-                  fill = T,
-                  fillColor = c("transparent","red"), #heat.colors(5, alpha = NULL),
-                  fillOpacity = 0.8,
-                  options = pathOptions(pane = "overlay")) 
-    }
-    ## If Inaccessible mask is selection add that layer
-    ## Set colors for accessibility mask
-    if(input$Forest != "" & ("Inaccessible" %in% input$Display)) {
-      pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
-      proxy %>%
-        addRasterImage(x = ra(), colors = pal, opacity = 0.5, project = FALSE)
-    }
-      
-
-      # addPolygons(data = priority(),
-      #           opacity = 0,
-      #           fill = T,
-      #           fillColor = c("#CC9933", "#996600", "#993300"),
-      #           fillOpacity = 0.8)
+    map_reactive()
   })
+  
+  ## Run a parallel map when saving. If using leafletProxy, duplicate funtionality here. Otherwise just add current view.
+  user_created_map <- reactive({
+    map_reactive() %>%
+      setView(lng = input$map_center$lng, lat = input$map_center$lat,
+              zoom = input$map_zoom)
+  })
+  
+  # observeEvent(input$dl, {
+  #   priority$cur_map <- map_reactive() %>%
+  #     setView(lng = input$map_center$lng, lat = input$map_center$lat,
+  #             zoom = input$map_zoom)
+  #   # output$dl <- downloadHandler(
+  #   #   filename = "map.png",
+  #   #   content = function(file = filename) {
+  #   #     # mapshot(user_created_map(), file = file)
+  #   #     mapshot(cur_map, file = file)
+  #     # })
+  # })
+  
+  #### Using this returns an html of the full app rather than a png of the map as expected
+  # observeEvent(input$dl, {
+  #   m <- map_reactive()
+  #   mapshot(x = m, file='exported_map.png')#, url='exported_map.html')
+  # })
+  
+  ## Save map and geotiff when user requests it
+  output$dl <- downloadHandler(
+    filename = "map.png",
+    content = function(file) {
+      mapshot(user_created_map(), file = file)
+      # mapshot(priority$cur_map, file = file)
+    })
+  
+  #### Currently crashes the site if I haven't run the calculation yet, need to fix
+  #### Alternatively, would it be possible to have the button only show up after the calculation?
+  # if(is.null(priority$raster)) {
+  #   output$dl_tif <- showNotification("This is a notification.")
+  # } else{
+  # output$dl_tif <- downloadHandler(
+  #   filename = "prioritization.tif",
+  #   content = function(file = filename) {
+  #     writeRaster(priority$raster, file = file)
+  #   })
+  
 }
+  
+  
+  
 
 # Run the application 
 shinyApp(ui = ui, server = server)

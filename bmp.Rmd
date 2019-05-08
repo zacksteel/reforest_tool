@@ -1,0 +1,21 @@
+---
+title: "bmp"
+author: "Zack Steel"
+date: "May 8, 2019"
+output: html_document
+---
+
+
+# Best Management Practices  
+
+
+(1) Seed zonation  
+
+(2) Spatial arrangement (e.g., regular vs. cluster planting)  
+
+(3) Seedling densities  
+
+(4) Species composition  
+
+(5) Other considerations (e.g., competing vegetation).
+

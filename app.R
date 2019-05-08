@@ -14,27 +14,37 @@ library(mapview)
 library(tidyverse)
 library(rgdal)
 library(raster)
+library(shinyjs)
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-webshot::install_phantomjs()
+# webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
 district <- st_read("app_data", "SN_districts")
+## Simplified shapefile for faster display; still use full for calculations
+dist_s <- st_read("app_data", "SN_districts_simple")
 
 aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
   sort()
 
 ## Set up user interface
 ui <- fluidPage(
+  ## initializes shinyjs e.g. for disabling buttons when not ready
+  useShinyjs(),
   ## Change font size everywhere
-  tags$head(tags$style(HTML("
-        .selectize-input {
-          font-size: 70%;
-        }
-        "))),
+  ## Display properties for MapLayers panel
+  tags$head(tags$style(
+    HTML("
+      .selectize-input {font-size: 70%;}
+      #MapLayers {opacity: 0.65;
+                  transition: opacity 500ms;}
+      #MapLayers:hover {opacity: 0.95;}
+         "))),
+  
   tabsetPanel(
     tabPanel("Prioritization tool",
+                 
              # Application title
              titlePanel("Reforestation Prioritization Tool"),
              
@@ -45,19 +55,20 @@ ui <- fluidPage(
              fluidRow(
                column(3,
                       selectInput(inputId = "Forest", 
-                             label = h4("Step 1: Select area of interest"),
+                             label = h4(tags$b("Step 1: Select area of interest")),
                              selected = "",
                              choices = aoi_id),
                       ## Horrizontal line
                       tags$hr(),
        
-                      h4("Step 2: Select reforestation need threshold:"),  
+                      h4(tags$b("Step 2: Select reforestation need threshold:")),  
                        
                       sliderInput("Need", tags$tbody("Need Threshold (% Biomass loss)"), 
                                   10, 100, 50,
                                   width = '80%', step = 10)
                ),
-               h4("Step 3: Select data layer weights:"),
+               
+               h4(tags$b("Step 3: Select data layer weights:")),
                column(3,
 
                       
@@ -68,6 +79,7 @@ ui <- fluidPage(
                       sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
                                   width = '80%', step = .25)
                ),
+               
                column(3,
 
                       sliderInput("Rec", "Recreation Areas", 0, 1, 0,
@@ -79,12 +91,11 @@ ui <- fluidPage(
                       ),
                
                column(3,
-                      h4("Step 4: Run prioritization"),
-                      
+                      h4(tags$b("Step 4: Run prioritization")),
                       actionButton("Calc", "Calculate"),
                       
                       tags$hr(),
-                      h4("Step 5: Download map and/or data"),
+                      h4(tags$b("Step 5: Download map and/or data")),
                       
                       ## Buttons for downloading current map and tif
                       #### Maybe add one or combine for generating a short "report"
@@ -94,15 +105,20 @@ ui <- fluidPage(
 
                )),
              tags$hr(),
+
              fluidRow(
-               h5(tags$i("  Select display Layers:")),
-               column(12, 
+               leafletOutput("map"),
+               
+               absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
+                             draggable = F, top = "auto", left = 20, right = "auto", bottom = 20,
+                             width = 220, height = "auto", 
+               # h5(tags$b("Select display Layers:")),
+               # column(12, 
                       ## Move this display option to map widget
                       
-                      checkboxGroupInput("Display", label = NULL, #tags$i("Select display Layers:"),
-                                         inline = T,
-                                         choices = c(#"Forests", 
-                                                     "Area of Interest", 
+                      checkboxGroupInput("Display", label = tags$b("Select display Layers:"),
+                                         # inline = T,
+                                         choices = c("Area of Interest", 
                                                      "Mechanical Constraints",
                                                      "Biomass Loss (2012-16)", 
                                                      "High-severity Fire (Zone 2)",
@@ -110,49 +126,49 @@ ui <- fluidPage(
                                                      "Recreation Areas",
                                                      "Wildland-Urban Interface",
                                                      "Spotted Owl PACs",
-                                                     "Fisher Core Habitat",
-                                                     "Prioritization"),
-                                         selected = c("Forests", "Area of Interest"))
+                                                     "Fisher Core Habitat"),
+                                                     # "Prioritization"),
+                                         selected = c("Area of Interest"))
                       )
-             ),
-             
-                 
-                 ## Horrizontal line
-                 # tags$hr(),
-                 
-
-
-                 ## Horrizontal line
-                 # tags$hr(),
-               
-               #### Show a plot of relative weights or data layers?
-               
-               ## Define size of map
-               # mainPanel(
-             leafletOutput("map")#, height = 600, width = 800)
-               # )
-             # )
+             )
     ),
+    
     ## Plot data tab
     tabPanel("Stand data summary", "under construction"),
-    tabPanel("BMP guide", "under construction")
+    tabPanel("BMP guide", 
+             includeMarkdown("bmp.Rmd"))
   )
 )
 
 # Define server code
-server <- function(input, output) {
+server <- function(input, output, session) {
   
   ## Reactive mapping objects
   ## Call up rasters as needed (alternatively, could read in all when AOI is assigned; would shift around processing)
   ## Limit forest shp to selection forest or district
   ## Only run if user wants it displayed to save runtime
+  
+  ## Calculate button disabled until AOI is selected
+  observe({
+    shinyjs::disable("Display")
+    shinyjs::disable("Calc")
+    })
+  
   aoi <- reactive({
     if(input$Forest %in% as.character(forest$FORESTNAME) & 
        ("Area of Interest" %in% input$Display)) 
-      {filter(forest, FORESTNAME == input$Forest)} else 
+      {
+      ## Also enable Calculate button
+      shinyjs::enable("Display")
+      shinyjs::enable("Calc")
+      filter(forest, FORESTNAME == input$Forest)
+      } else 
         {
         if(input$Forest %in% as.character(district$aoi) & 
            ("Area of Interest" %in% input$Display)) {
+          ## Also enable Calculate button
+          shinyjs::enable("Display")
+          shinyjs::enable("Calc")
           filter(district, aoi == input$Forest)
         }
       }
@@ -227,7 +243,7 @@ server <- function(input, output) {
   
   
   ## Set up Null priority value to be replaced during calculation
-  priority <- reactiveValues(raster = NULL, cu_map = NULL)
+  priority <- reactiveValues(raster = NULL)
 
   
   ## Set up the default map function
@@ -271,14 +287,14 @@ server <- function(input, output) {
       #                  highlightOptions = highlightOptions(color = "white", weight = 2,
       #                                                      bringToFront = TRUE),
       #                  group = "Forests") %>%
-        m <- addPolygons(m, data = district,
+        m <- addPolygons(m, data = dist_s,
                     color = "black",
                     fillColor = "green",
                     fill = T,
                     weight = 2,
                     opacity = 1,
                     fillOpacity = 0.2,
-                    label = district$aoi,
+                    label = dist_s$aoi,
                     highlightOptions = highlightOptions(color = "white", weight = 2,
                                                         bringToFront = TRUE),
                     group = "Forests")
@@ -295,7 +311,7 @@ server <- function(input, output) {
                   color = "blue",
                   fill = F,
                   opacity = 0.8,
-                  weight = 4,
+                  weight = 2,
                   group = "AOI") %>%
         ## Zoom to selection
         #### Can we revise this so that this only happens when the AOI changes?
@@ -421,7 +437,7 @@ server <- function(input, output) {
        !(is.null(priority$raster))) {
       
       m <- m %>%
-        addRasterImage(x = priority$raster, colors = c("grey", "yellow", "orange", "red"), 
+        addRasterImage(x = priority$raster, colors = c("grey60", "yellow", "orange", "red"), 
                        opacity = 0.5,
                        project = FALSE, group = "Priority") %>%
         addLegend(position = "bottomright", colors = c("grey", "yellow", "orange", "red"),
@@ -466,26 +482,30 @@ server <- function(input, output) {
     filename = "map.png",
     content = function(file) {
       mapshot(user_created_map(), file = file)
-      # mapshot(priority$cur_map, file = file)
     })
   
-  #### Currently crashes the site if I haven't run the calculation yet, need to fix
-  #### Alternatively, would it be possible to have the button only show up after the calculation?
-  # if(is.null(priority$raster)) {
-  #   output$dl_tif <- showNotification("This is a notification.")
-  # } else{
+  observe({
+    ## grey's out download button when no data to download
+    if(is.null(priority$raster))
+      shinyjs::disable("dl_tif")
+    
     output$dl_tif <- downloadHandler(
       filename = "prioritization.tif",
-      content = function(file = filename) {
+      content = function(file) {
         writeRaster(priority$raster, file = file)
       })
-  # }
+  })
 
   
   ## When the user executes the prioritization
   observeEvent(input$Calc, {
     ## Only run if AOI has been selected
-    if(input$Forest == "") {NULL} else {
+    # if(input$Forest == "") {
+    #   showModal(modalDialog(
+    #     "Area of Interest must be selected before running prioritization",
+    #     easyClose = T,
+    #     size = "m"))
+    # } else {
       
       ## read in national forest-specific rasters
       bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
@@ -528,15 +548,6 @@ server <- function(input, output) {
       ## occasionally have problems of breaks not being unique. add a bit to upper quantiles
       q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0, 0.33, 0.67, 1)) + c(-0.001, 0.000, 0.001, 0.001)
       breaks <- c(cellStats(pr_aoi, stat="min")-0.001, q3)
-
-      #### Get an error of breaks are not unique for the Sierra with 0.5 need threshold, -1 CWD weight and others at 0 weight
-      #### Having a negative weight expands the possible range of raw priority values
-      #### Need to think more about this and fix
-      # breaks <- c(cellStats(pr_aoi, stat="min"), #minimum raw priority score
-      #             q3[1], #need threshold
-      #             q3[2], #upper bound of low priority
-      #             q3[3], #upper bound of moderate priority
-      #             q3[4]) #maximum score (should not exceed 1)
       
       ## Reclassify into areas of no need and approximate thirds of the remaining
       pr3 <- cut(pr_aoi, breaks = breaks) %>%
@@ -544,7 +555,27 @@ server <- function(input, output) {
 
       ## Return priority raster
       priority$raster <- pr3
-      }
+      
+      ## Enables download tif button
+      shinyjs::enable("dl_tif")
+      
+      ## Add priority option to checkbox and reset
+      updateCheckboxGroupInput(session,
+                               "Display", label = NULL, 
+                         inline = T,
+                         choices = c(#"Forests", 
+                           "Area of Interest", 
+                           "Mechanical Constraints",
+                           "Biomass Loss (2012-16)", 
+                           "High-severity Fire (Zone 2)",
+                           "Climatic Water Deficit",
+                           "Recreation Areas",
+                           "Wildland-Urban Interface",
+                           "Spotted Owl PACs",
+                           "Fisher Core Habitat",
+                           "Prioritization"),
+                         selected = c("Area of Interest", "Prioritization"))
+      # }
     })
 }
 

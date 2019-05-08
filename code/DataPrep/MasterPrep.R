@@ -6,7 +6,8 @@
 # source("code/DataPrep/MortPrep.R")
 # MortPrep(TPA_threshold = 25)
 
-## Limit National forests considered and project
+## Limit National forests considered and project;
+## Simplify district shapefiles for improved app speed
 source("code/DataPrep/ForestPrep.R")
 ForestPrep()
 

@@ -15,6 +15,7 @@ library(tidyverse)
 library(rgdal)
 library(raster)
 library(shinyjs)
+library(shinycssloaders)
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
 # webshot::install_phantomjs()
@@ -107,29 +108,28 @@ ui <- fluidPage(
              tags$hr(),
 
              fluidRow(
-               leafletOutput("map"),
-               
-               absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
-                             draggable = F, top = "auto", left = 20, right = "auto", bottom = 20,
-                             width = 220, height = "auto", 
-               # h5(tags$b("Select display Layers:")),
-               # column(12, 
-                      ## Move this display option to map widget
-                      
-                      checkboxGroupInput("Display", label = tags$b("Select display Layers:"),
-                                         # inline = T,
-                                         choices = c("Area of Interest", 
-                                                     "Mechanical Constraints",
-                                                     "Biomass Loss (2012-16)", 
-                                                     "High-severity Fire (Zone 2)",
-                                                     "Climatic Water Deficit",
-                                                     "Recreation Areas",
-                                                     "Wildland-Urban Interface",
-                                                     "Spotted Owl PACs",
-                                                     "Fisher Core Habitat"),
-                                                     # "Prioritization"),
-                                         selected = c("Area of Interest"))
-                      )
+                 mainPanel(width = 12,
+                   leafletOutput("map", width = "100%"),
+
+                 absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
+                               draggable = F, top = 10, left = 20, right = "auto", bottom = "auto",
+                               width = 220, height = "auto", 
+                               
+                               checkboxGroupInput("Display", label = tags$b("Select display Layers:"),
+                                                  # inline = T,
+                                                  choices = c("Area of Interest", 
+                                                              "Mechanical Constraints",
+                                                              "Biomass Loss (2012-16)", 
+                                                              "High-severity Fire (Zone 2)",
+                                                              "Climatic Water Deficit",
+                                                              "Recreation Areas",
+                                                              "Wildland-Urban Interface",
+                                                              "Spotted Owl PACs",
+                                                              "Fisher Core Habitat"),
+                                                  # "Prioritization"),
+                                                  selected = c("Area of Interest"))
+                 )
+               )
              )
     ),
     
@@ -152,6 +152,7 @@ server <- function(input, output, session) {
   observe({
     shinyjs::disable("Display")
     shinyjs::disable("Calc")
+    shinyjs::hide("MapLayers")
     })
   
   aoi <- reactive({
@@ -161,6 +162,7 @@ server <- function(input, output, session) {
       ## Also enable Calculate button
       shinyjs::enable("Display")
       shinyjs::enable("Calc")
+      shinyjs::show("MapLayers")
       filter(forest, FORESTNAME == input$Forest)
       } else 
         {
@@ -169,6 +171,7 @@ server <- function(input, output, session) {
           ## Also enable Calculate button
           shinyjs::enable("Display")
           shinyjs::enable("Calc")
+          shinyjs::show("MapLayers")
           filter(district, aoi == input$Forest)
         }
       }
@@ -251,7 +254,11 @@ server <- function(input, output, session) {
   #### Not sure if leaflet proxy would be more efficient. 
   #### I think I was having trouble getting proxy to play nicely with the download function
   map_reactive <- reactive({
-    m <- leaflet() %>%
+    m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+      ## puts zoom control at topright
+      htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)
+    }") %>%
       # addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
       
       # Base Groups
@@ -450,8 +457,9 @@ server <- function(input, output, session) {
 
   ## Run default map function
   output$map <- renderLeaflet({
-    map_reactive()
+      map_reactive()
   })
+  
 
   ## Run a parallel map when saving. If using leafletProxy, duplicate funtionality here. Otherwise just add current view.
   user_created_map <- reactive({
@@ -560,97 +568,24 @@ server <- function(input, output, session) {
       shinyjs::enable("dl_tif")
       
       ## Add priority option to checkbox and reset
-      updateCheckboxGroupInput(session,
-                               "Display", label = NULL, 
-                         inline = T,
-                         choices = c(#"Forests", 
-                           "Area of Interest", 
-                           "Mechanical Constraints",
-                           "Biomass Loss (2012-16)", 
-                           "High-severity Fire (Zone 2)",
-                           "Climatic Water Deficit",
-                           "Recreation Areas",
-                           "Wildland-Urban Interface",
-                           "Spotted Owl PACs",
-                           "Fisher Core Habitat",
-                           "Prioritization"),
-                         selected = c("Area of Interest", "Prioritization"))
+      updateCheckboxGroupInput(session, "Display", 
+                               label = tags$b("Select display Layers:"), 
+                               choices = c(
+                                 "Area of Interest", 
+                                 "Mechanical Constraints",
+                                 "Biomass Loss (2012-16)", 
+                                 "High-severity Fire (Zone 2)",
+                                 "Climatic Water Deficit",
+                                 "Recreation Areas",
+                                 "Wildland-Urban Interface",
+                                 "Spotted Owl PACs",
+                                 "Fisher Core Habitat",
+                                 "Prioritization"),
+                               selected = c("Area of Interest", "Prioritization"))
       # }
     })
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-
-#     
-#     ## Redefine priority function/layer
-#     # priority <- reactive({pr_aoi})
-#     
-#     ## Everything below was for saving a default map. Obsolete with newer user-led map download.
-#     ##https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot/index.html
-#     ##https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf
-# 
-#     # ## make a background raster
-#     # aoi_r <- raster(extent(aoi_shp), res = res(pr3))
-#     # #### Slow step
-#     # aoi_r <- rasterize(aoi_shp, aoi_r)
-#     # aoi_df <- as.data.frame(aoi_r, xy = T) %>%
-#     #   mutate(Priority = ifelse(!is.na(layer_OBJECTID), "Not Treatable", NA),
-#     #          Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
-#     #   filter(!is.na(Priority))
-#     # 
-#     # ## make not treatable dataframe
-#     # nt_df <- as.data.frame(nt, xy = T) %>%
-#     #   mutate(Priority = ifelse(scenb == 1, NA, "Not Treatable"),
-#     #          Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
-#     #   filter(!is.na(Priority))
-#     # 
-#     # ## Set up dataframe from raster
-#     # #### This is a slow step
-#     # pr3_df <- as.data.frame(pr3, xy = T) %>%
-#     #   rename(Priority = Priority_Priority) %>%
-#     #   mutate(Priority = factor(Priority, levels = c("High", "Moderate", "Low", "No Need", "Not Treatable"))) %>%
-#     #   filter(!is.na(Priority))
-#     # 
-#     # ## Set up palette and replace last level as mask
-#     # pal <- sequential_hcl(5, palette = "Inferno")
-#     # 
-#     # p <- ggplot() +
-#     #   geom_raster(data = aoi_df, aes(x = x, y = y, fill = Priority)) +
-#     #   geom_raster(data = pr3_df, aes(x = x, y = y, fill = Priority)) +
-#     #   geom_raster(data = nt_df, aes(x = x, y = y, fill = Priority)) +
-#     #   scale_fill_manual(values = c("High" = pal[1], "Moderate" = pal[2], "Low" = pal[3],
-#     #                                "No Need" = "grey90", "Not Treatable" = "grey60"),
-#     #                     breaks = c("High", "Moderate", "Low", "No Need", "Not Treatable")) +
-#     #   theme_bw() +
-#     #   theme(axis.title = element_blank()) + 
-#     #   coord_quickmap()
-#     # 
-#     # ## Prompt user to pick a directory to save to
-#     # wd <- choose.dir(default = "Computer", caption = "Select output directory")
-#     # setwd(wd)
-#     # 
-#     # ## Create an output directory to save into
-#     # new.dir <- "ReforestPriority"
-#     # ## If one alread exists, add a number until it doesn't
-#     # x <- 1
-#     # repeat{
-#     #   if(dir.exists(new.dir)) {
-#     #   new.dir <- paste0("ReforestPriority",x)
-#     #   x <- x + 1
-#     #   } else
-#     #     break
-#     #   }
-#     # dir.create(new.dir)
-#     # 
-#     # ## Add products to directory
-#     # ggsave(paste0(new.dir,"/scratch_priority.png"), plot = p)
-#     # # png(paste0(new.dir,"/scratch_priority.png"))
-#     # # plot(pr_aoi)
-#     # # dev.off()
-#     # 
-#     # writeRaster(pr_aoi, paste0(new.dir,"/priority.tif"))
-#   }
-#    
-# })
 

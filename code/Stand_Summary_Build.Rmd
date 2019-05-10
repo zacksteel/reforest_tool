@@ -1,0 +1,70 @@
+---
+title: "Stand_Summary_Build"
+output: html_notebook
+---
+
+Building up stand summary tool functionality before moving to shiny app.  
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
+knitr::opts_knit$set(root.dir = "..")
+
+library(tidyverse)
+library(sf)
+
+```
+
+
+Bring in spatial data.  
+
+```{r}
+## Stand location data
+d <- read.csv("data/Stand/Plot_Locations.csv") %>%
+  dplyr::select(plot = PlotID, forest = Forest, loc = Location, 
+         lat = Latitude, long = Longitude, utm_n = UTM_N_Corr, utm_e = UTM_E_Corr,
+         elev = Elevation1)
+
+## Convert to spatial
+pts <- st_as_sf(d, coords = c("long", "lat"), crs = "+proj=longlat +datum=WGS84 +no_defs")
+
+## AOI perimeters
+district <- st_read("app_data", "SN_districts") %>%
+  dplyr::select(aoi)
+
+## Just those with points including yosemite
+yose <- st_read("C:/Users/zlsteel/Documents/geodata/NPSBoundary", "nps_boundary") %>%
+  filter(UNIT_NAME == "Yosemite") %>%
+  mutate(aoi = "Yosemite") %>%
+  dplyr::select(aoi) %>%
+  st_transform(crs = st_crs(district))
+
+keep <- st_intersects(district, pts) %>%
+  apply(1, any)
+
+aois <- district[keep,] %>%
+  rbind(yose) 
+
+```
+
+Which data do we want to display and summarize? tree density, BA, CC, regen, surface fuels, shrub cvr, treatment history (treated, untreated), density by size class.  
+
+```{r}
+## general data with treatment indicator
+gen <- read.csv("data/Stand/GeneralPlot.csv") %>%
+  dplyr::select(plot = Plot.Name, forest = Forest, loc = Location, treated = Treated) %>%
+  filter(!is.na(plot))
+## cover data
+cover <- read.csv("data/Stand/CoverData.csv") %>%
+  dplyr::select(plot = PlotName, live_cc = LiveOverstory, dead_cc = DeadOverstory, shrub_c = ShrubCover,
+                litter = Litter, woody_debris = WoodyDebris)
+```
+
+
+Incorporate into a leaflet map.  
+
+```{r}
+leaflet(d) %>%
+  addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
+  addMarkers(~long, ~lat) %>%
+  addPolygons(data = aois)
+```

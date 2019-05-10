@@ -38,3 +38,6 @@ source("code/DataPrep/CWD_Prep.R")
 ## Limit each raster layer to each national forest to avoid on-the-fly calculations
 source("code/Data/Prep/NF_Limits.R")
 NF_Limits()
+
+## Getting into stand data
+

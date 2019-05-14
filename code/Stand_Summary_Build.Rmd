@@ -11,18 +11,111 @@ knitr::opts_knit$set(root.dir = "..")
 
 library(tidyverse)
 library(sf)
+library(leaflet)
+library(htmltools)
 
 ```
 
+
+Which data do we want to display and summarize? tree density, BA, CC, regen, surface fuels, shrub cvr, treatment history (treated, untreated), density by size class.  
+
+```{r}
+## general data with treatment indicator
+gen <- read.csv("data/Stand/GeneralPlot.csv") %>%
+  dplyr::select(plot = Plot.Name, forest = Forest, loc = Location, treated = Treated) %>%
+  filter(!is.na(plot)) %>%
+  arrange(plot)
+## cover data
+cover <- read.csv("data/Stand/CoverData.csv") %>%
+  dplyr::select(plot = PlotName, live_cc = LiveOverstory, dead_cc = DeadOverstory, 
+                shrub_c = ShrubCover, litter = Litter, woody_debris = WoodyDebris) %>%
+  filter(!is.na(plot)) %>%
+  arrange(plot)
+## Tree data
+trees <- read.csv("data/Stand/TreeData.csv") %>%
+  dplyr::select(plot = PlotName, tree = TreeNumber, species = Species, status = Status, 
+                dbh = DBH, live_crown = LiveCrownPercent, 
+                insect = InsectEvidence, insect_lev = InsectLevel) %>%
+  ## idicator of live or not (including infested trees that have a green crown)
+  mutate(live = ifelse(status %in% c("L", "I"), 1, 0),
+         ## Calculate BA
+         ba = pi * (dbh/2)^2 / 10000, # returns square meters
+         ## Set some size classes
+         class = case_when(dbh < 20 ~ 1,
+                 dbh >= 20 & dbh < 40 ~ 2,
+                 dbh >= 40 & dbh < 60 ~ 3,
+                 dbh >= 60 & dbh < 80 ~ 4,
+                 dbh >= 80 & dbh < 100 ~ 5,
+                 dbh >= 100 & dbh < 120 ~ 6,
+                 dbh >= 120 ~ 7)) 
+
+## Summarise tree data by plot for dead and alive
+## First calculate plot area as a proportion of a hectare
+plot_area <- pi*12.6^2 / 10000 #12.6m radius; returns hectares
+
+liveclass <- group_by(trees, plot) %>%
+  filter(live == 1) %>%
+  select(plot, class) %>%
+  count(class) %>%
+  mutate( tpha = round(n / plot_area, 0),
+          class = paste0("class_live",class)) %>%
+  select(-n) %>%
+  spread(class, tpha, fill = 0) %>%
+  ungroup() %>%
+  mutate(tpha_live = rowSums(.[2:8]))
+
+liveplot <- group_by(trees, plot) %>%
+  filter(live == 1) %>%
+  add_count(class) %>%
+  summarise(ba_live = sum(ba),
+            dbh_mn_live = round(mean(dbh), 0),
+            dbh_max_live = round(max(dbh), 0)) %>%
+  ## Put ba on per hectare basis
+  mutate(ba_live = round(ba_live / plot_area, 2)) %>%
+  merge(liveclass, all.x = T)
+
+deadclass <- group_by(trees, plot) %>%
+  filter(live == 0) %>%
+  select(plot, class) %>%
+  count(class) %>%
+  mutate( tpha = round(n / plot_area, 0),
+          class = paste0("class_dead",class)) %>%
+  select(-n) %>% #needed or spread duplicates rows
+  spread(class, tpha, fill = 0) %>%
+  select(-class_deadNA) %>%
+  ungroup() %>%
+  mutate(tpha_dead = rowSums(.[2:8]))
+
+deadplot <- group_by(trees, plot) %>%
+  filter(live == 0) %>%
+  add_count(class) %>%
+  summarise(ba_dead = sum(ba),
+            dbh_mn_dead = round(mean(dbh), 0),
+            dbh_max_dead = round(max(dbh), 0)) %>%
+  ## Put ba on per hectare basis
+  mutate(ba_dead = round(ba_dead / plot_area, 2)) %>%
+  merge(deadclass, all.x = T)
+
+plot_sum <- merge(liveplot, deadplot, all = T) %>%
+  filter(!is.na(plot)) %>%
+  replace(., is.na(.), 0) %>%
+  arrange(plot)
+```
 
 Bring in spatial data.  
 
 ```{r}
 ## Stand location data
-d <- read.csv("data/Stand/Plot_Locations.csv") %>%
-  dplyr::select(plot = PlotID, forest = Forest, loc = Location, 
+d <- read.csv("data/Stand/Plot_Locations2.csv") %>%
+  ## just those completed
+  # filter(Completed. == "Y") %>%
+  dplyr::select(plot = Plots2017, forest = Forest, loc = Location, 
          lat = Latitude, long = Longitude, utm_n = UTM_N_Corr, utm_e = UTM_E_Corr,
-         elev = Elevation1)
+         elev = Elevation1) %>%
+  mutate(plot = as.factor(plot)) %>%
+  ## A lot of points don't appear to have been surveyed
+  filter(plot %in% gen$plot) %>%
+  arrange(plot)
 
 ## Convert to spatial
 pts <- st_as_sf(d, coords = c("long", "lat"), crs = "+proj=longlat +datum=WGS84 +no_defs")
@@ -44,27 +137,68 @@ keep <- st_intersects(district, pts) %>%
 aois <- district[keep,] %>%
   rbind(yose) 
 
+## Add aoi identifier to data
+d <- st_intersection(pts, district) %>%
+  as.data.frame() %>%
+  select(plot, forest, aoi) %>%
+  merge(d, all = T) %>%
+  mutate(aoi = ifelse(is.na(aoi), as.character(forest), 
+                      as.character(aoi)))
+
 ```
 
-Which data do we want to display and summarize? tree density, BA, CC, regen, surface fuels, shrub cvr, treatment history (treated, untreated), density by size class.  
-
 ```{r}
-## general data with treatment indicator
-gen <- read.csv("data/Stand/GeneralPlot.csv") %>%
-  dplyr::select(plot = Plot.Name, forest = Forest, loc = Location, treated = Treated) %>%
-  filter(!is.na(plot))
-## cover data
-cover <- read.csv("data/Stand/CoverData.csv") %>%
-  dplyr::select(plot = PlotName, live_cc = LiveOverstory, dead_cc = DeadOverstory, shrub_c = ShrubCover,
-                litter = Litter, woody_debris = WoodyDebris)
+## Add everything to make a massive datafile
+## There seems to be some points missing
+# missing <- d$plot[!(d$plot %in% cover$plot)]
+# missing2 <- gen$plot[!(gen$plot %in% d$plot)]
+# 
+# ## Which plots have locations but no data and visa versa
+# plot_d <- select(gen, plot) %>%
+#   mutate(data = 1)
+# plot_l <- select(d, plot) %>%
+#   mutate(loc = 1)
+# missing3 <- merge(plot_d, plot_l, all = T) 
+# write.csv(missing3, "data/Stand/missing.csv", row.names = F)
+
+## Currently a lot of miss-matched plot names, but will fix later
+d2 <- merge(d, gen[,c("plot", "treated")]) %>%
+  merge(cover, all.x = T) %>%
+  merge(plot_sum) %>%
+  mutate(treated = ifelse(treated == "Y", "Yes", "No"))
+
+
+
 ```
 
 
 Incorporate into a leaflet map.  
 
 ```{r}
-leaflet(d) %>%
+leaflet(d2) %>%
   addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
-  addMarkers(~long, ~lat) %>%
-  addPolygons(data = aois)
+  addMarkers(~long, ~lat,
+             popup = paste0("PlotID: ", d2$plot, "<br>",
+                            "Forest: ", d2$forest, "<br>",
+                            "Location: ", d2$loc, "<br>",
+                            "Treated: ", d2$treated, "<br><br>",
+                            
+                            "Canopy Cover (Live): ", d2$live_cc, " (%)<br>",
+                            "Shrub Cover: ", d2$shrub_c, " (%)<br>",
+                            "Litter: ", d2$litter, " (%)<br>",
+                            "Woody Debris: ", d2$woody_debris, " (%)<br><br>",
+                            
+                            "Density (Live): ", d2$tpha_live, " (trees/ha)<br>",
+                            "Basal Area (Live): ", d2$ba_live, " (sq m)<br>",
+                            "Mean DBH (Live): ", d2$dbh_mn_live, " (cm)<br>",
+                            "Max DBH (Live): ", d2$dbh_max_live, " (cm)<br><br>",
+                            
+                            "Density (Dead): ", d2$tpha_dead, " (trees/ha)<br>",
+                            "Basal Area (Dead): ", d2$ba_dead, " (sq m)<br>",
+                            "Mean DBH (Dead): ", d2$dbh_mn_dead, " (cm)<br>",
+                            "Max DBH (Dead): ", d2$dbh_max_dead, " (cm)")) %>%
+  addPolygons(data = aois,
+              label = aois$aoi,
+              highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                  bringToFront = TRUE))
 ```

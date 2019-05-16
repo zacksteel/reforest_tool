@@ -443,7 +443,7 @@ server <- function(input, output, session) {
         addLegend(position = "bottomright", 
                   colors = "darkred",
                   opacity = 0.5,
-                  labels = c("High-severity Fire (Zone 2)"))
+                  labels = c("High-severity Fire Core"))
     }
     
     ## Climatic water deficit

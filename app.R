@@ -18,7 +18,7 @@ library(shinyjs)
 library(shinycssloaders)
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-# webshot::install_phantomjs()
+webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
@@ -29,6 +29,10 @@ dist_s <- st_read("app_data", "SN_districts_simple")
 aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
   sort()
 
+## Read in stand data
+stand <- read.csv("app_data/stand_prepped.csv")
+stand_aois <- st_read("app_data", "stand_aois")
+
 ## Set up user interface
 ui <- fluidPage(
   ## initializes shinyjs e.g. for disabling buttons when not ready
@@ -37,7 +41,7 @@ ui <- fluidPage(
   ## Display properties for MapLayers panel
   tags$head(tags$style(
     HTML("
-      .selectize-input {font-size: 70%;}
+      .selectize-input {font-size: 100%;}
       #MapLayers {opacity: 0.65;
                   transition: opacity 500ms;}
       #MapLayers:hover {opacity: 0.95;}
@@ -47,7 +51,7 @@ ui <- fluidPage(
     tabPanel("Prioritization tool",
                  
              # Application title
-             titlePanel("Reforestation Prioritization Tool"),
+             titlePanel("Post-Mortality Reforestation Prioritization Tool"),
              
              # Sidebar with user-input widgets
              # sidebarLayout(
@@ -73,9 +77,9 @@ ui <- fluidPage(
                column(3,
 
                       
-                      sliderInput("cwd", "Climatic Water Deficit", 0, 1, 0,
+                      sliderInput("cwd", "Drought Risk (CWD)", 0, 1, 0,
                                   width = '80%', step = .25),
-                      sliderInput("HSZ2", "High-severity Fire (Zone 2)", 0, 1, 0,
+                      sliderInput("HSZ2", "High-severity Fire Core", 0, 1, 0,
                                   width = '80%', step = .25),
                       sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
                                   width = '80%', step = .25)
@@ -101,7 +105,7 @@ ui <- fluidPage(
                       ## Buttons for downloading current map and tif
                       #### Maybe add one or combine for generating a short "report"
                       downloadButton("dl", "Download Map Image"),
-                      downloadButton("dl_tif", "Download Priority GeoTiff")
+                      downloadButton("dl_tif", "Download Priority Raster")
                       
 
                )),
@@ -109,7 +113,7 @@ ui <- fluidPage(
 
              fluidRow(
                  mainPanel(width = 12,
-                   leafletOutput("map", width = "100%"),
+                   leafletOutput("map", width = "100%", height = 600),
 
                  absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
                                draggable = F, top = 10, left = 20, right = "auto", bottom = "auto",
@@ -119,9 +123,9 @@ ui <- fluidPage(
                                                   # inline = T,
                                                   choices = c("Area of Interest", 
                                                               "Mechanical Constraints",
-                                                              "Biomass Loss (2012-16)", 
-                                                              "High-severity Fire (Zone 2)",
-                                                              "Climatic Water Deficit",
+                                                              "Forest Biomass Loss (2012-16)", 
+                                                              "High-severity Fire Core",
+                                                              "Drought Risk (CWD)",
                                                               "Recreation Areas",
                                                               "Wildland-Urban Interface",
                                                               "Spotted Owl PACs",
@@ -134,7 +138,9 @@ ui <- fluidPage(
     ),
     
     ## Plot data tab
-    tabPanel("Stand data summary", "under construction"),
+    tabPanel("Stand data summary", 
+             titlePanel("Forestry Plot Data Tool"),
+             leafletOutput("map2", width = "80%", height = 600)),
     tabPanel("BMP guide", 
              includeMarkdown("bmp.Rmd"))
   )
@@ -142,6 +148,47 @@ ui <- fluidPage(
 
 # Define server code
 server <- function(input, output, session) {
+  
+  #### Starting with stand summary tab because it's currently simpler but will modulate soon...
+  output$map2 <- renderLeaflet({
+    leaflet(stand) %>%
+      addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
+      addMarkers(~long, ~lat,
+                 popup = paste0("PlotID: ", stand$plot, "<br>",
+                                "Forest: ", stand$forest, "<br>",
+                                "Location: ", stand$loc, "<br>",
+                                "Treated: ", stand$treated, "<br><br>",
+                                
+                                "Canopy Cover (Live): ", stand$live_cc, " (%)<br>",
+                                "Shrub Cover: ", stand$shrub_c, " (%)<br>",
+                                "Litter: ", stand$litter, " (%)<br>",
+                                "Woody Debris: ", stand$woody_debris, " (%)<br><br>",
+                                
+                                "Density (Live): ", stand$tpha_live, " (trees/ha)<br>",
+                                "Basal Area (Live): ", stand$ba_live, " (sq m)<br>",
+                                "Mean DBH (Live): ", stand$dbh_mn_live, " (cm)<br>",
+                                "Max DBH (Live): ", stand$dbh_max_live, " (cm)<br><br>",
+                                
+                                "Density (Dead): ", stand$tpha_dead, " (trees/ha)<br>",
+                                "Basal Area (Dead): ", stand$ba_dead, " (sq m)<br>",
+                                "Mean DBH (Dead): ", stand$dbh_mn_dead, " (cm)<br>",
+                                "Max DBH (Dead): ", stand$dbh_max_dead, " (cm)")) %>%
+      addPolygons(data = stand_aois,
+                  label = stand_aois$aoi,
+                  highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                      bringToFront = TRUE))
+  })
+  
+  ## Start with a dialog box with basic instructions
+  showModal(modalDialog(
+    title = "Welcome",
+    HTML("Here you will find a: <br> 1) Spatial prioritization tool for post-mortality reforestation <br>
+    2) A tool summarizing stand-level data collected following the 2012-2016 drought <br>
+    3) A best management practices (BMP) guide for post-mortality event reforestation. <br> <br>
+    Good Luck! <br> <br>
+    (This application is still under construction. More instructions and options will be added when we get around to it...)"),
+    easyClose = TRUE
+  ))
   
   ## Reactive mapping objects
   ## Call up rasters as needed (alternatively, could read in all when AOI is assigned; would shift around processing)
@@ -198,7 +245,7 @@ server <- function(input, output, session) {
   })
   
   mortshow <- reactive({
-    if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
+    if(input$Forest != "" & ("Forest Biomass Loss (2012-16)" %in% input$Display)) {
       bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
     } 
   })
@@ -218,13 +265,13 @@ server <- function(input, output, session) {
   })
   
   cwd <- reactive({
-    if(input$Forest != "" & ("Climatic Water Deficit" %in% input$Display)) {
+    if(input$Forest != "" & ("Drought Risk (CWD)" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
     }
   })
   
   hs <- reactive({
-    if(input$Forest != "" & ("High-severity Fire (Zone 2)" %in% input$Display)) {
+    if(input$Forest != "" & ("High-severity Fire Core" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/hs_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros; highlighting zone 2
     }
@@ -389,7 +436,7 @@ server <- function(input, output, session) {
     }
     
     ## If wildfire areas selected
-    if(input$Forest != "" & ("High-severity Fire (Zone 2)" %in% input$Display)) {
+    if(input$Forest != "" & ("High-severity Fire Core" %in% input$Display)) {
       m <- m %>%
         addRasterImage(x = hs(), colors = "darkred", opacity = 0.3,
                        project = FALSE) %>%
@@ -400,7 +447,7 @@ server <- function(input, output, session) {
     }
     
     ## Climatic water deficit
-    if(input$Forest != "" & ("Climatic Water Deficit" %in% input$Display)) {
+    if(input$Forest != "" & ("Drought Risk (CWD)" %in% input$Display)) {
       cwd_min <- cellStats(cwd(), stat = "min") %>%
         round(0)
       cwd_max <- cellStats(cwd(), stat = "max") %>%
@@ -414,11 +461,11 @@ server <- function(input, output, session) {
                   pal = pal, 
                   values = c(cwd_min, cwd_max),
                   bins = 4,
-                  title = "CWD (mm)")
+                  title = "Drought Risk (mm CWD)")
     }
     
     ## If Mortality layer is selected add that layer
-    if(input$Forest != "" & ("Biomass Loss (2012-16)" %in% input$Display)) {
+    if(input$Forest != "" & ("Forest Biomass Loss (2012-16)" %in% input$Display)) {
       pal <- colorNumeric("Oranges", domain = c(0,1), na.color = "transparent")
       at <- seq(0, 1, .2)
       cb <- colorBin(palette = pal, bins = at, domain = at)
@@ -448,7 +495,8 @@ server <- function(input, output, session) {
                        opacity = 0.5,
                        project = FALSE, group = "Priority") %>%
         addLegend(position = "bottomright", colors = c("grey", "yellow", "orange", "red"),
-                  labels = c("No Need","Low", "Moderate", "High"))
+                  labels = c("No Need","Low", "Moderate", "High"),
+                  title = "Priority Level")
     }
     
     ## Return map object
@@ -568,19 +616,20 @@ server <- function(input, output, session) {
       shinyjs::enable("dl_tif")
       
       ## Add priority option to checkbox and reset
-      updateCheckboxGroupInput(session, "Display", 
-                               label = tags$b("Select display Layers:"), 
+      updateCheckboxGroupInput(session, inputId = "Display", 
+                               # label = tags$b("Select display Layers:"),
+                               label = "Select display Layers:",
                                choices = c(
                                  "Area of Interest", 
+                                 "Prioritization",
                                  "Mechanical Constraints",
-                                 "Biomass Loss (2012-16)", 
-                                 "High-severity Fire (Zone 2)",
-                                 "Climatic Water Deficit",
+                                 "Forest Biomass Loss (2012-16)", 
+                                 "High-severity Fire Core",
+                                 "Drought Risk (CWD)",
                                  "Recreation Areas",
                                  "Wildland-Urban Interface",
                                  "Spotted Owl PACs",
-                                 "Fisher Core Habitat",
-                                 "Prioritization"),
+                                 "Fisher Core Habitat"),
                                selected = c("Area of Interest", "Prioritization"))
       # }
     })

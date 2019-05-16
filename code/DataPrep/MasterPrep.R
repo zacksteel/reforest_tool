@@ -36,8 +36,11 @@ Sensitive_Spp()
 source("code/DataPrep/CWD_Prep.R")
 
 ## Limit each raster layer to each national forest to avoid on-the-fly calculations
-source("code/Data/Prep/NF_Limits.R")
+source("code/DataPrep/NF_Limits.R")
 NF_Limits()
 
 ## Getting into stand data
 
+## Summarize stand data for display on a leaflet map
+source("code/DataPrep/stand_prep.R")
+stand_prep()

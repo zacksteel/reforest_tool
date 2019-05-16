@@ -6,6 +6,7 @@
 #
 #    http://shiny.rstudio.com/
 #
+## Setup ####
 
 library(shiny)
 library(sf)
@@ -16,9 +17,10 @@ library(rgdal)
 library(raster)
 library(shinyjs)
 library(shinycssloaders)
+
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-webshot::install_phantomjs()
+# webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
@@ -33,7 +35,7 @@ aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
 stand <- read.csv("app_data/stand_prepped.csv")
 stand_aois <- st_read("app_data", "stand_aois")
 
-## Set up user interface
+## User interface ####
 ui <- fluidPage(
   ## initializes shinyjs e.g. for disabling buttons when not ready
   useShinyjs(),
@@ -77,7 +79,7 @@ ui <- fluidPage(
                column(3,
 
                       
-                      sliderInput("cwd", "Drought Risk (CWD)", 0, 1, 0,
+                      sliderInput("cwd", "Drought Risk (CWD)", -1, 0, 0,
                                   width = '80%', step = .25),
                       sliderInput("HSZ2", "High-severity Fire Core", 0, 1, 0,
                                   width = '80%', step = .25),
@@ -146,40 +148,11 @@ ui <- fluidPage(
   )
 )
 
-# Define server code
+
+## Server code ####
 server <- function(input, output, session) {
   
-  #### Starting with stand summary tab because it's currently simpler but will modulate soon...
-  output$map2 <- renderLeaflet({
-    leaflet(stand) %>%
-      addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
-      addMarkers(~long, ~lat,
-                 popup = paste0("PlotID: ", stand$plot, "<br>",
-                                "Forest: ", stand$forest, "<br>",
-                                "Location: ", stand$loc, "<br>",
-                                "Treated: ", stand$treated, "<br><br>",
-                                
-                                "Canopy Cover (Live): ", stand$live_cc, " (%)<br>",
-                                "Shrub Cover: ", stand$shrub_c, " (%)<br>",
-                                "Litter: ", stand$litter, " (%)<br>",
-                                "Woody Debris: ", stand$woody_debris, " (%)<br><br>",
-                                
-                                "Density (Live): ", stand$tpha_live, " (trees/ha)<br>",
-                                "Basal Area (Live): ", stand$ba_live, " (sq m)<br>",
-                                "Mean DBH (Live): ", stand$dbh_mn_live, " (cm)<br>",
-                                "Max DBH (Live): ", stand$dbh_max_live, " (cm)<br><br>",
-                                
-                                "Density (Dead): ", stand$tpha_dead, " (trees/ha)<br>",
-                                "Basal Area (Dead): ", stand$ba_dead, " (sq m)<br>",
-                                "Mean DBH (Dead): ", stand$dbh_mn_dead, " (cm)<br>",
-                                "Max DBH (Dead): ", stand$dbh_max_dead, " (cm)")) %>%
-      addPolygons(data = stand_aois,
-                  label = stand_aois$aoi,
-                  highlightOptions = highlightOptions(color = "white", weight = 2,
-                                                      bringToFront = TRUE))
-  })
-  
-  ## Start with a dialog box with basic instructions
+  ## Start Dialog ####
   showModal(modalDialog(
     title = "Welcome",
     HTML("Here you will find a: <br> 1) Spatial prioritization tool for post-mortality reforestation <br>
@@ -197,106 +170,70 @@ server <- function(input, output, session) {
   
   ## Calculate button disabled until AOI is selected
   observe({
-    shinyjs::disable("Display")
     shinyjs::disable("Calc")
     shinyjs::hide("MapLayers")
     })
   
   aoi <- reactive({
-    if(input$Forest %in% as.character(forest$FORESTNAME) & 
-       ("Area of Interest" %in% input$Display)) 
+    if(input$Forest %in% as.character(forest$FORESTNAME))
       {
       ## Also enable Calculate button
-      shinyjs::enable("Display")
       shinyjs::enable("Calc")
       shinyjs::show("MapLayers")
       filter(forest, FORESTNAME == input$Forest)
       } else 
         {
-        if(input$Forest %in% as.character(district$aoi) & 
-           ("Area of Interest" %in% input$Display)) {
+        if(input$Forest %in% as.character(district$aoi))
           ## Also enable Calculate button
-          shinyjs::enable("Display")
           shinyjs::enable("Calc")
           shinyjs::show("MapLayers")
           filter(district, aoi == input$Forest)
         }
-      }
   })
-  
-  ## For national forest-level rasters get forest ID
-  # forest_id <- reactiveVal()
-  # forest_id$forest <- {filter(district, aoi == input$forest) %>%
-  #       pull(FORESTNAME) %>%
-  #       as.character()}
-  #"Sequoia - Hume Lake") %>% #
-  # forest_id <- reactive(filter(district, aoi == input$forest) %>%
-  #                         pull(FORESTNAME) %>%
-  #                         as.character())
 
-  #### breaking here when trying to pass forest name to paste0
+  ## NF Rasters ####
+  ## Select rasters specific to the AOI
   ra <- reactive({
-    ## Conditional necessary to avoid crop error
-    if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
-      ## Read in AOI national forest-specific raster
-      sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
-        cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
-    }
+    ## Read in AOI national forest-specific raster
+    sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
+      cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
   })
   
   mortshow <- reactive({
-    if(input$Forest != "" & ("Forest Biomass Loss (2012-16)" %in% input$Display)) {
-      bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
-    } 
+    bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
   })
   
   rec <- reactive({
-    if(input$Forest != "" & ("Recreation Areas" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/rec_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
-    }
   })
     
   wui <- reactive({
-    if(input$Forest != "" & ("Wildland-Urban Interface" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/wui_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
-    }
   })
   
   cwd <- reactive({
-    if(input$Forest != "" & ("Drought Risk (CWD)" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
-    }
   })
   
   hs <- reactive({
-    if(input$Forest != "" & ("High-severity Fire Core" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/hs_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros; highlighting zone 2
-    }
   })
   
   spow <- reactive({
-    if(input$Forest != "" & ("Spotted Owl PACs" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/spow_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
-    }
   })
   
   fisher <- reactive({
-    if(input$Forest != "" & ("Fisher Core Habitat" %in% input$Display)) {
       raster(paste0("app_data/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
-    }
   })
-  
-  
-  ## Set up Null priority value to be replaced during calculation
-  priority <- reactiveValues(raster = NULL)
 
   
-  ## Set up the default map function
+  ## Main Map ####
   #### I think this is slowing everything down a lot as currently written. 
   #### Not sure if leaflet proxy would be more efficient. 
   #### I think I was having trouble getting proxy to play nicely with the download function
@@ -306,7 +243,6 @@ server <- function(input, output, session) {
       htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)
     }") %>%
-      # addTiles(options = tileOptions(minZoom = 2, maxZoom = 18)) %>%
       
       # Base Groups
       #### For some reason if I change the basemap, I can no longer display the AOI-dependent layers. 
@@ -314,7 +250,7 @@ server <- function(input, output, session) {
       
       # addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
       # addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
-      addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo") 
+      addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo", options(zIndex = 0)) 
       # addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") 
     
     # add controls for basemaps and data
@@ -474,11 +410,7 @@ server <- function(input, output, session) {
                        project = FALSE, group = "Biomass Loss") %>%
         addLegend(position = "bottomright", 
                   pal = cb, values = at,
-                  # pal = pal, values = c(0,1),
-                  # bins = 4,
                   labFormat = labelFormat(
-                    # prefix = "(", 
-                    # suffix = " %", 
                     between = " - ",
                     transform = function(x) 100 * x
                   ), 
@@ -507,7 +439,6 @@ server <- function(input, output, session) {
   output$map <- renderLeaflet({
       map_reactive()
   })
-  
 
   ## Run a parallel map when saving. If using leafletProxy, duplicate funtionality here. Otherwise just add current view.
   user_created_map <- reactive({
@@ -516,28 +447,12 @@ server <- function(input, output, session) {
               zoom = input$map_zoom)
   })
 
-  # observeEvent(input$dl, {
-  #   priority$cur_map <- map_reactive() %>%
-  #     setView(lng = input$map_center$lng, lat = input$map_center$lat,
-  #             zoom = input$map_zoom)
-  #   # output$dl <- downloadHandler(
-  #   #   filename = "map.png",
-  #   #   content = function(file = filename) {
-  #   #     # mapshot(user_created_map(), file = file)
-  #   #     mapshot(cur_map, file = file)
-  #     # })
-  # })
-  
-  # observeEvent(input$dl, {
-  #   m <- map_reactive()
-  #   mapshot(x = m, file='exported_map.png')#, url='exported_map.html')
-  # })
-
+  ## Downloads ####
   ## Save map and geotiff when user requests it
   output$dl <- downloadHandler(
     filename = "map.png",
     content = function(file) {
-      mapshot(user_created_map(), file = file)
+      mapshot(user_created_map(), file = file, vwidgth = 1200, vheight = 600)
     })
   
   observe({
@@ -552,16 +467,11 @@ server <- function(input, output, session) {
       })
   })
 
-  
+  #### Prioritization Calculation ####
+  ## Set up Null priority value to be replaced during calculation
+  priority <- reactiveValues(raster = NULL)
   ## When the user executes the prioritization
   observeEvent(input$Calc, {
-    ## Only run if AOI has been selected
-    # if(input$Forest == "") {
-    #   showModal(modalDialog(
-    #     "Area of Interest must be selected before running prioritization",
-    #     easyClose = T,
-    #     size = "m"))
-    # } else {
       
       ## read in national forest-specific rasters
       bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
@@ -585,16 +495,17 @@ server <- function(input, output, session) {
                spow*input$CASPO + #SPOW pacs can either increase or decrease priority
                fisher*input$Fisher + #Fisher core areas can either increase or decrease priority
                wui*input$WUI + #being in the WUI increases priority
-               rec*input$Rec - #being in a rec area increases priority
+               rec*input$Rec + #being in a rec area increases priority
                ## scale non-binary rasters with max of 1
-               cwd/cellStats(cwd, stat='max')*input$cwd) * #high cwd decreases priority 
+               cwd/maxValue(cwd)*input$cwd) *
+               # cwd/cellStats(cwd, stat='max')*input$cwd) * #high cwd decreases priority 
         sb * minmask #mask out areas of mechanical constraints & below need threshold
 
 
       ## Scale to have a max of 1; may want to do after mask step below
       ## Max will be equal to the number of input layers adjusted for weights
-      maxp <- 1 + input$HSZ2 + input$CASPO + input$Fisher + input$WUI + input$Rec + input$cwd
-      pr01 <- pr / maxp
+      # maxp <- 1 + input$HSZ2 + input$CASPO + input$Fisher + input$WUI + input$Rec + input$cwd
+      pr01 <- pr / maxValue(pr) #maxp
 
       ## Limit to AOI (this seems to be the slow step so do it last)
       pr_aoi <- crop(pr01, aoi(), snap = "in") %>%
@@ -633,6 +544,36 @@ server <- function(input, output, session) {
                                selected = c("Area of Interest", "Prioritization"))
       # }
     })
+  
+  ## Stand Summary Map ####
+  output$map2 <- renderLeaflet({
+    leaflet(stand) %>%
+      addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
+      addMarkers(~long, ~lat,
+                 popup = paste0("PlotID: ", stand$plot, "<br>",
+                                "Forest: ", stand$forest, "<br>",
+                                "Location: ", stand$loc, "<br>",
+                                "Treated: ", stand$treated, "<br><br>",
+                                
+                                "Canopy Cover (Live): ", stand$live_cc, " (%)<br>",
+                                "Shrub Cover: ", stand$shrub_c, " (%)<br>",
+                                "Litter: ", stand$litter, " (%)<br>",
+                                "Woody Debris: ", stand$woody_debris, " (%)<br><br>",
+                                
+                                "Density (Live): ", stand$tpha_live, " (trees/ha)<br>",
+                                "Basal Area (Live): ", stand$ba_live, " (sq m)<br>",
+                                "Mean DBH (Live): ", stand$dbh_mn_live, " (cm)<br>",
+                                "Max DBH (Live): ", stand$dbh_max_live, " (cm)<br><br>",
+                                
+                                "Density (Dead): ", stand$tpha_dead, " (trees/ha)<br>",
+                                "Basal Area (Dead): ", stand$ba_dead, " (sq m)<br>",
+                                "Mean DBH (Dead): ", stand$dbh_mn_dead, " (cm)<br>",
+                                "Max DBH (Dead): ", stand$dbh_max_dead, " (cm)")) %>%
+      addPolygons(data = stand_aois,
+                  label = stand_aois$aoi,
+                  highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                      bringToFront = TRUE))
+  })
 }
 
 # Run the application 

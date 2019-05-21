@@ -17,7 +17,12 @@ FeasPrep <- function() {
   r2 <- resample(r, bloss) %>%
     round(0) 
   
+  ## Create a Forest Service or not layer
+  rcl <- matrix(c(0, 1, 1, NA, NA, 0), ncol = 3, byrow = T)
+  fs <- reclassify(r2, rcl, right = NA)
+  
   ## Save for use in app
   writeRaster(r2, "data/Spatial/scenb.tif")
+  writeRaster(fs, "data/Spatial/FS_area.tif")
 
 }

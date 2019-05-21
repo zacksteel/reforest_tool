@@ -6,16 +6,70 @@ output: html_document
 ---
 
 
-# Best Management Practices  
+# Best Management Practices for climate-wise reforestation
+
+This document outlines some recent advances in how to think about approaching reforestation in an age of climate change and altered disturbance regimes. We rely heavy on the 2019 *Tamm Review: Reforestation for resilience in dry western U. S. forests* by North et al. For brevity, conventional reforestation practices are not covered here. It is our hope that practitioners will incorporate these state of the art strategies with previously established forestry knowledge and tailor solutions for each unique project.  
+
+# Table of Contents  
 
 
-(1) Seed zonation  
+(1) Seed Zonation  
 
-(2) Spatial arrangement (e.g., regular vs. cluster planting)  
+(2) Spatial Arrangement 
 
-(3) Seedling densities  
+(3) Seedling Densities  
 
-(4) Species composition  
+(4) Species Composition  
 
-(5) Other considerations (e.g., competing vegetation).
+(5) Other considerations (e.g., competing vegetation)
+
+(6) Limitations and research needs  
+
+# 1 - Seed Zonation  
+
+[Tamm Review Figure 3]("app_data/Photos/Tamm_Fig3.jpg")  
+
+### *1a - Recomendations*  
+
+We suggest areas of recent drought- or wildfire-caused tree mortality be subdivided into three management zones:  
+
+  1) Areas adjacent to green trees (e.g. within ~650 ft). Natural recruitment is expected to be most successful in this zone and active reforestation is discouraged.  
+  2) Areas beyond zone 1 where access does not limit economical reforestation. Active reforestation should be focused within this zone.  
+  3) Remote areas where access is limited or where forests are not the desired state. Founder stands may be planted to facilitate eventual natural tree recruitment or areas can be left to develop as non-forested ecosystems.  
+
+
+### *1b - Justification*  
+
+Conifer tree seed density declines with distance from source. Where tree mortality is a result of drought and/or beetle attack, recently killed trees may serve as sources *[correct?]*. For non-serotinous species, fire-killed trees do not provide a source of seeds, and propogules must come from surviving individuals. Without more detailed information, 200m or approximately 650 feet from living trees can be used as a rough cutoff, where expected natural recruitment falls to non-existent or sparse. Recently, tools have been developed to assess natural recruitement potential in the field and using geospatial information. If utilized such tools can better dilineate areas that are likely to experience natural reforestation (zone 1) from those where active management may be necessary (zone 2).  
+
+In addition to active reforestation often being uncessesary where living seed sources exist, the scale of mortality events are increasing. With limited funds available, it may be infeasible to actively reforest all areas outside of zone 1 and there may be areas where non-forest vegetation communities are desirable for ecological or other purpose (i.e. zone 3). For example, zone 3 may include areas where conventional reforestation would prohibively expensive (e.g. steap slopes and areas isolated from existing roads) or it may it may include areas that prior to the fire-suppression era likely supported meadow or mountain chaparral habitats.  
+
+### *1c - Additional Resources*  
+
+
+# 2 - Spatial Arrangement  
+
+[Tamm Review Figure 1]("app_data/Photos/Tamm_Fig7.jpg")  
+
+### *2a - Recommendations*  
+
+### *2b - Justification*  
+
+### *2c - Additional Resources*  
+
+
+# 3 - Seedling Densities  
+
+[Figure needed]
+
+### *3a - Recommendations*  
+
+### *3b - Justification*  
+
+### *3c - Additional Resources*  
+
+
+# 4 - Species Composition  
+
+[Tamm Review Figure 6]("app_data/Photos/Tamm_Fig6.jpg")
 

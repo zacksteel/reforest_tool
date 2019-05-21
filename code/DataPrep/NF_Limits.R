@@ -16,16 +16,17 @@ NF_Limits <- function() {
   rec <- raster("data/Spatial/RecAreas.tif") 
   wui <- raster("data/Spatial/WUI.tif")
   cwd <- raster("data/Spatial/cwd_sn.tif") #cimate water deficit
-  hs <- raster("data/Spatial/hs200.tif") #zone 2 & 3 or high-severity areas 2012-2016
+  hs <- raster("data/Spatial/hs200.tif") #zone 2 & 3 or high-severity areas 2012-2017
   spow <- raster("data/Spatial/spow_pacs.tif") #spotted owl PACs
   fisher <- raster("data/Spatial/fisher_cores.tif") # fisher core areas
+  fs <- raster("data/Spatial/FS_area.tif") # Forest service land
   
   ## Read in Sierra Nevada national forest shape
   forest_sf <- st_read("data/Spatial", "SN_NFs")
   
   ## Make a list of rasters to work through 
-  r_l <- list(bloss, sb, rec, wui, cwd, hs, spow, fisher)
-  names(r_l) <- c("bloss", "sb", "rec", "wui", "cwd", "hs", "spow", "fisher")
+  r_l <- list(bloss, sb, rec, wui, cwd, hs, spow, fisher, fs)
+  names(r_l) <- c("bloss", "sb", "rec", "wui", "cwd", "hs", "spow", "fisher", "fs")
   
   ## combinations for each national forest and dataset
   d <- expand.grid(forest = unique(forest_sf$FORESTNAME),
@@ -34,7 +35,7 @@ NF_Limits <- function() {
   ## Set up function to subset a datalayer by a forest
   f1 <- function(forest, layer) {
     ## If file already exists, skip
-    fn <- paste0("data/spatial/nf_limits/",
+    fn <- paste0("app_data/nf_limits/",
                  layer, "_", forest, ".tif")
     if(file.exists(fn)) {print(paste0(fn, " exists, moving on"))} else
     {
@@ -46,7 +47,7 @@ NF_Limits <- function() {
       r2 <- crop(r, f) %>%
         mask(mask = f)
       ## Save
-      writeRaster(r2, filename = paste0("data/spatial/nf_limits/",
+      writeRaster(r2, filename = paste0("app_data/nf_limits/",
                                         layer, "_", forest, ".tif")) 
     }
   }

@@ -18,7 +18,7 @@ hs_core200 <- function()
   r <- raster("data/Spatial/biomassloss.tif")
   
   ## Read in high-severity layer; already filtered to high-severity areas between 2012 and 2016 inclusive
-  hs200 <- st_read("data/Spatial", "High_Sev12_16") %>%
+  hs200 <- st_read("data/Spatial", "High_Sev12_17") %>%
     ## Pulling out the zone 2 and 3 areas according to the Tamm Review (aka 200m core areas); slow step ~30min
     st_buffer(-200) 
   

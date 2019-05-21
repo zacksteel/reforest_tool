@@ -124,6 +124,7 @@ ui <- fluidPage(
                                checkboxGroupInput("Display", label = tags$b("Select display Layers:"),
                                                   # inline = T,
                                                   choices = c("Area of Interest", 
+                                                              "USFS Land",
                                                               "Mechanical Constraints",
                                                               "Forest Biomass Loss (2012-16)", 
                                                               "High-severity Fire Core",
@@ -193,6 +194,11 @@ server <- function(input, output, session) {
 
   ## NF Rasters ####
   ## Select rasters specific to the AOI
+  fs <- reactive({
+    ## Read in study area raster
+    raster(paste0("app_data/NF_Limits/fs_",aoi()$FORESTNAME, ".tif"))
+  })
+  
   ra <- reactive({
     ## Read in AOI national forest-specific raster
     sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
@@ -313,7 +319,19 @@ server <- function(input, output, session) {
                   colors = "blue",
                   opacity = 0.8,
                   labels = "Area of Interest")
-      }
+    }
+    
+    ## If Area Considered is selected, add that layer
+    if(input$Forest != "" & ("USFS Land" %in% input$Display)) {
+      
+      m <- m %>%
+        addRasterImage(x = fs(), colors = c("white", "green"), 
+                       opacity = 0.5,
+                       project = FALSE) %>%
+        addLegend(position = "bottomright", colors = c("white", "green"),
+                  labels = c("No", "Yes"),
+                  title = "USFS Land")
+    }
     
     ## If Inaccessible mask is selection add that layer
     if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
@@ -475,9 +493,7 @@ server <- function(input, output, session) {
       
       ## read in national forest-specific rasters
       bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
-      sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
-        cut(breaks = c(-0.5,0.5))
-
+      sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) 
       rec <- raster(paste0("app_data/NF_Limits/rec_", aoi()$FORESTNAME, ".tif"))
       wui <- raster(paste0("app_data/NF_Limits/wui_", aoi()$FORESTNAME, ".tif"))
       cwd <- raster(paste0("app_data/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
@@ -532,6 +548,7 @@ server <- function(input, output, session) {
                                label = "Select display Layers:",
                                choices = c(
                                  "Area of Interest", 
+                                 "USFS Land",
                                  "Prioritization",
                                  "Mechanical Constraints",
                                  "Forest Biomass Loss (2012-16)", 

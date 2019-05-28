@@ -1,0 +1,14 @@
+---
+title: "About"
+author: "Zack Steel"
+date: "5/28/2019"
+output: html_document
+---
+
+# Climate-wise Reforestation Toolkit  
+
+[banner photo at top with examples of nicely spaced and arranged reforestation]  
+
+This site includes three resources intended to inform post-disturbance reforestation practices in the Sierra Nevada mountains: 1) a spatial prioritization tool, 2) a post-drought stand condition summary tool, and 3) reforestation best management practices. The purpose and methodology of each resource is summarized here. More detailed information can be found...  
+
+

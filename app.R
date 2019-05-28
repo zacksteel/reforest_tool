@@ -17,6 +17,7 @@ library(rgdal)
 library(raster)
 library(shinyjs)
 library(shinycssloaders)
+library(shinyBS) #for tooltip funcitonality
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
@@ -49,8 +50,10 @@ ui <- fluidPage(
       #MapLayers:hover {opacity: 0.95;}
          "))),
   
-  tabsetPanel(
-    tabPanel("Prioritization tool",
+  tabsetPanel(id = "tabs",
+    tabPanel("About", 
+             includeMarkdown("about.Rmd")),
+    tabPanel("Prioritization tool", 
                  
              # Application title
              titlePanel("Post-Mortality Reforestation Prioritization Tool"),
@@ -65,6 +68,8 @@ ui <- fluidPage(
                              label = h4(tags$b("Step 1: Select area of interest")),
                              selected = "",
                              choices = aoi_id),
+                      bsTooltip("Forest",
+                                "Prioritization and map layer display will be limited to the national forest or ranger district selected"),
                       ## Horrizontal line
                       tags$hr(),
        
@@ -72,34 +77,52 @@ ui <- fluidPage(
                        
                       sliderInput("Need", tags$tbody("Need Threshold (% Biomass loss)"), 
                                   10, 100, 50,
-                                  width = '80%', step = 10)
+                                  width = '80%', step = 10),
+                      bsTooltip("Need",
+                                "Areas with less biomass loss than the selected threshold will be excluded from prioritization.")
                ),
                
-               h4(tags$b("Step 3: Select data layer weights:")),
+               h4(id = "Step3", tags$b("Step 3: Select data layer weights:")),
+               bsTooltip("Step3",
+                         "Layers assigned a negative value will decrease piority. <br/> Layers assigned a positive value will increase priority. <br/> Layers assigned a zero value will not affect prioritization."),
                column(3,
 
                       
                       sliderInput("cwd", "Drought Risk (CWD)", -1, 0, 0,
                                   width = '80%', step = .25),
+                      bsTooltip("cwd",
+                                "Areas of higher drought risk will decrease priority. Drought Risk is defined as the 1981-2010 average climate water deficit (CWD), as modeled by..."),
                       sliderInput("HSZ2", "High-severity Fire Core", 0, 1, 0,
                                   width = '80%', step = .25),
+                      bsTooltip("HSZ2",
+                                 "Areas within high-severity cores will increase priority. Cores are those areas more than 650ft (200m) from seed trees within high-severity wildfire patches where natural recruitment of non-serotinous conifer species is unlikely. Fires from 2012-2017 included."),
                       sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
-                                  width = '80%', step = .25)
+                                  width = '80%', step = .25),
+                      bsTooltip("WUI",
+                                 "Areas within the WUI will increase priority. The wildland-urban interface is defined by...")
                ),
                
                column(3,
 
                       sliderInput("Rec", "Recreation Areas", 0, 1, 0,
                                   width = '80%', step = .25),
+                      bsTooltip("Red",
+                                "Recreation areas will increase priority. These areas are defined by..."),
                       sliderInput("CASPO", "Spotted Owl PACs", -1, 1, 0,
                                   width = '80%', step = .25),
+                      bsTooltip("CASPO",
+                                "California Spotted Owl PACs can increase or decrease priority depending on management objectives. PACs are defined by..."),
                       sliderInput("Fisher", "Fisher Core Habitat", -1, 1, 0,
-                                  width = '80%', step = .25)
+                                  width = '80%', step = .25),
+                      bsTooltip("Fisher",
+                                "Pacific fisher core habitats can increase or decrease priority depending on management objectives. Core areas are defined by...")
                       ),
                
                column(3,
                       h4(tags$b("Step 4: Run prioritization")),
                       actionButton("Calc", "Calculate"),
+                      bsTooltip("Calc",
+                                "Generates a 3-level priority layer using biomass and weighted data layers. Non-forest service lands, areas with mechanical constraints (i.e. ...), and those with biomass loss below the designated need threshold are excluded."),
                       
                       tags$hr(),
                       h4(tags$b("Step 5: Download map and/or data")),
@@ -107,7 +130,11 @@ ui <- fluidPage(
                       ## Buttons for downloading current map and tif
                       #### Maybe add one or combine for generating a short "report"
                       downloadButton("dl", "Download Map Image"),
-                      downloadButton("dl_tif", "Download Priority Raster")
+                      bsTooltip("dl",
+                                "Generates a map using the current view for download."),
+                      downloadButton("dl_tif", "Download Priority Raster"),
+                      bsTooltip("dl_tif",
+                                "Generates a priority raster layer for download, which can be used in further analysis.")
                       
 
                )),
@@ -153,16 +180,40 @@ ui <- fluidPage(
 ## Server code ####
 server <- function(input, output, session) {
   
-  ## Start Dialog ####
-  showModal(modalDialog(
-    title = "Welcome",
-    HTML("Here you will find a: <br> 1) Spatial prioritization tool for post-mortality reforestation <br>
+  ## Dialogs ####
+  ## The quickstart dialog for prioritization tool
+  observe({
+    if(input$tabs == "Prioritization tool") {
+      showModal(modalDialog(
+        title = "Welcome",
+        HTML("Here you will find a: <br> 1) Spatial prioritization tool for post-mortality reforestation <br>
     2) A tool summarizing stand-level data collected following the 2012-2016 drought <br>
     3) A best management practices (BMP) guide for post-mortality event reforestation. <br> <br>
     Good Luck! <br> <br>
     (This application is still under construction. More instructions and options will be added when we get around to it...)"),
-    easyClose = TRUE
-  ))
+        easyClose = TRUE
+      )) 
+    }
+  })
+  
+  ## Tooltips
+  #### These inexplicably stopped working. implimented using bsTooltip above, but can't delay as you can here
+  # addTooltip(session, id = "Forest",
+  #            "Prioritization and map layer display will be limited to the national forest or ranger district selected",
+  #            placement = "bottom", trigger = "hover",
+  #            options = list(delay = list(show=500, hide=300)))
+  # addTooltip(session, id = "Need",
+  #           title = "Areas with less biomass loss than the selected threshold will be excluded from prioritization",
+  #           placement = "bottom", trigger = "hover",
+  #           options = list(delay = list(show=500, hide=300)))
+  # addTooltip(session, id = "cwd",
+  #           title = "Drought Risk is defined as the 1981-2010 average climate water deficit (CWD), as modeled by...",
+  #           placement = "bottom", trigger = "hover", 
+  #           options = list(delay = list(show=500, hide=300)))
+  # addTooltip(session, id = "HSZ2",
+  #            title = "Areas greater than 650ft (200m) from seed trees within high-severity wildfire patches where natural recruitment of non-serotinous conifer species is unlikely. Fires from 2012-2017 included.",
+  #            placement = "bottom", trigger = "hover", 
+  #            options = list(delay = list(show=500, hide=300)))
   
   ## Reactive mapping objects
   ## Call up rasters as needed (alternatively, could read in all when AOI is assigned; would shift around processing)

@@ -2,26 +2,28 @@
 title: "bmp"
 author: "Zack Steel"
 date: "May 8, 2019"
-output: html_document
+output: 
+  html_document:
+    toc: true
 ---
 
 
 # Best Management Practices for climate-wise reforestation
 
-This document outlines some recent advances in how to think about approaching reforestation in an age of climate change and altered disturbance regimes. We rely heavy on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. For brevity, conventional reforestation practices are not covered here. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
+This document outlines some recent advances in reforestation strategies in an age of climate change and altered disturbance regimes. We rely heavily on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. For brevity, conventional reforestation practices are not covered here. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
 
-## Table of Contents  
+## Table of Contents
 
 
-(1) Seed Zonation  
+1 - Seed Zonation
 
-(2) Seedling Density and Spatial Arrangement  
+2 - Seedling Density and Spatial Arrangement
 
-(3) Species Composition  
+3 - Species Composition
 
-(4) Prescribed Burning in Young Stands
+4 - Prescribed Burning in Young Stands
 
-(5) Example Reforestation Scenario  
+5 - Example Reforestation Scenario
 
 
 ## 1 - Seed Zonation  
@@ -43,14 +45,14 @@ We suggest areas of recent drought- or wildfire-caused tree mortality be subdivi
 
 <!-- ### *1b - Justification*   -->
 
-<!-- Conifer tree seed density declines with distance from source. Where tree mortality is a result of drought and/or beetle attack, recently killed trees may serve as sources *[correct?]*. For non-serotinous species, fire-killed trees do not provide a source of seeds, and propogules must come from surviving individuals. Without more detailed information, 200m or approximately 650 feet from living trees can be used as a rough cutoff, where expected natural recruitment falls to non-existent or sparse. Recently, tools have been developed to assess natural recruitement potential in the field and using geospatial information. If utilized such tools can better dilineate areas that are likely to experience natural reforestation (zone 1) from those where active management may be necessary (zone 2).   -->
+<!-- Conifer tree seed density declines with distance from source. Where tree mortality is a result of drought and/or beetle attack, recently killed trees may serve as sources *[correct?]*. For non-serotinous species, fire-killed trees do not provide a source of seeds, and propogules must come from surviving individuals. Without more detailed information, 200m or approximately 650 feet from living trees can be used as a rough cutoff, where expected natural recruitment falls to non-existent or sparse. Recently, tools have been developed to assess natural recruitment potential in the field and using geospatial information. If utilized such tools can better delineate areas that are likely to experience natural reforestation (zone 1) from those where active management may be necessary (zone 2).   -->
 
-<!-- In addition to active reforestation often being uncessesary where living seed sources exist, the scale of mortality events are increasing. With limited funds available, it may be infeasible to actively reforest all areas outside of zone 1 and there may be areas where non-forest vegetation communities are desirable for ecological or other purpose (i.e. zone 3). For example, zone 3 may include areas where conventional reforestation would prohibively expensive (e.g. steap slopes and areas isolated from existing roads) or it may it may include areas that prior to the fire-suppression era likely supported meadow or mountain chaparral habitats.   -->
+<!-- In addition to active reforestation often being unnecessary where living seed sources exist, the scale of mortality events are increasing. With limited funds available, it may be unfeasible to actively reforest all areas outside of zone 1 and there may be areas where non-forest vegetation communities are desirable for ecological or other purpose (i.e. zone 3). For example, zone 3 may include areas where conventional reforestation would prohibitively expensive (e.g. steep slopes and areas isolated from existing roads) or it may it may include areas that prior to the fire-suppression era likely supported meadow or mountain chaparral habitats.   -->
 
 
 ## 2 - Seedling Density and Spatial Arrangement  
 
-Plant seedlings in lower densities and with higher spatial heterogeniety than conventional "pines in lines" approaches. Plantations that emulate a pattern of individual scattered trees, clumps of trees, and openings (ICO) are more likely to be resilience to increasing rates of droughts and wildfires. Whenever possible, clusters of seedlings and relatively densely planted areas should be aligned with topographic and soil conditions that support greater available water and water holding capacity, as well as areas of potential fire refugia.  
+Plant seedlings in lower densities and with higher spatial heterogeneity than conventional "pines in lines" approaches. Plantations that emulate a pattern of individual scattered trees, clumps of trees, and openings (ICO) are more likely to be resilience to increasing rates of droughts and wildfires. Whenever possible, clusters of seedlings and relatively densely planted areas should be aligned with topographic and soil conditions that support greater available water and water holding capacity, as well as areas of potential fire refugia.  
 
 <img src="./app_data/Photos/Tamm_Fig1.jpg" alt="drawing" width="600"/>
 
@@ -61,11 +63,11 @@ Plant seedlings in lower densities and with higher spatial heterogeniety than co
 
 ## 3 - Species Composition  
 
-Promote mixed-species stands dominated by drought and fire-resistent trees such as pines, particularly in drier areas (e.g. southwest-facing slopes). Within active reforestation areas (i.e. zone 2), the species mix can be determined at the time of planting. In areas of passive reforestation (i.e. zone 1), managers may choose to interplant pines among natural regenerating pines if nearby seed trees are primarily composed on drought and fire-intolerant species (e.g. firs and cedars).  
+Promote mixed-species stands dominated by drought and fire-resistant trees such as pines, particularly in drier areas (e.g. southwest-facing slopes). Within active reforestation areas (i.e. zone 2), the species mix can be determined at the time of planting. In areas of passive reforestation (i.e. zone 1), managers may choose to inter-plant pines among natural regenerating pines if nearby seed trees are primarily composed on drought and fire-intolerant species (e.g. firs and cedars).  
 
 ## 4 - Prescribed Burning in Young Stands  
 
-Introduce prescribed fire to planted stands early to emulate natural fire return intervals of 5-10 years for yellow pine and 10-20 years for mixed conifer forests. Emerging research suggests prescribed fire in yound stands can support multiple management objects while resulting in relatively low levels of tree mortality. Such treatments can be used to reducing surface fuels, maintain the evolutionary selection for fire-resistant trees, promote stand heterogeneity, and avoid the high costs and production of activity furels associated with some mechanical treatments. However, prescriptions developed for mature stands will likely need to be adjusted to accomodate burning in young stands.  
+Introduce prescribed fire to planted stands early to emulate natural fire return intervals of 5-10 years for yellow pine and 10-20 years for mixed conifer forests. Emerging research suggests prescribed fire in young stands can support multiple management objects while resulting in relatively low levels of tree mortality. Such treatments can be used to reducing surface fuels, maintain the evolutionary selection for fire-resistant trees, promote stand heterogeneity, and avoid the high costs and production of activity fuels associated with some mechanical treatments. However, prescriptions developed for mature stands will likely need to be adjusted to accommodate burning in young stands.  
 
 <img src="./app_data/Photos/Tamm_Fig7.jpg" alt="drawing" width="600"/>
 

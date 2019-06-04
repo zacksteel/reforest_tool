@@ -182,19 +182,19 @@ server <- function(input, output, session) {
   
   ## Dialogs ####
   ## The quickstart dialog for prioritization tool
-  observe({
-    if(input$tabs == "Prioritization tool") {
-      showModal(modalDialog(
-        title = "Welcome",
-        HTML("Here you will find a: <br> 1) Spatial prioritization tool for post-mortality reforestation <br>
-    2) A tool summarizing stand-level data collected following the 2012-2016 drought <br>
-    3) A best management practices (BMP) guide for post-mortality event reforestation. <br> <br>
-    Good Luck! <br> <br>
-    (This application is still under construction. More instructions and options will be added when we get around to it...)"),
-        easyClose = TRUE
-      )) 
-    }
-  })
+  # observe({
+  #   if(input$tabs == "Prioritization tool") {
+  #     showModal(modalDialog(
+  #       title = "Welcome",
+  #       HTML("Here you will find a: <br> 1) Spatial prioritization tool for post-mortality reforestation <br>
+  #   2) A tool summarizing stand-level data collected following the 2012-2016 drought <br>
+  #   3) A best management practices (BMP) guide for post-mortality event reforestation. <br> <br>
+  #   Good Luck! <br> <br>
+  #   (This application is still under construction. More instructions and options will be added when we get around to it...)"),
+  #       easyClose = TRUE
+  #     )) 
+  #   }
+  # })
   
   ## Tooltips
   #### These inexplicably stopped working. implimented using bsTooltip above, but can't delay as you can here

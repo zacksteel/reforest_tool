@@ -21,7 +21,7 @@ library(shinyBS) #for tooltip funcitonality
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-# webshot::install_phantomjs()
+webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")

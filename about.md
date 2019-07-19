@@ -1,23 +1,8 @@
----
-# title: "About"
-# author: "Zack Steel"
-# date: "5/28/2019"
-output: 
-  html_fragment
----
 
-```{css, echo=FALSE}
-body .main-container {
-  max-width: 1000px !important;
-}
-body {
-  max-width: 1000px !important;
-}
-```
-  
+
 <br>
 <p align="middle">
-  <img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width = "100%"/>   
+  <img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width="100%"/>   
 </p>
 
 
@@ -49,5 +34,3 @@ Welcome to the climate-wise reforestation toolkit. This site includes three reso
 <p align="middle">
   <img src="./app_data/Photos/Illilouette Basin panoramic.jpg" alt="drawing" width="100%"/> 
 </p>
-
-<br>

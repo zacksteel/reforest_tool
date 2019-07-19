@@ -1,0 +1,6 @@
+body {
+  max-width: 800px !important;
+  margin: auto;
+ padding: 1em;
+ line-height: 20px ; 
+}   

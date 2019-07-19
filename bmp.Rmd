@@ -1,38 +1,45 @@
 ---
-title: "bmp"
-author: "Zack Steel"
-date: "May 8, 2019"
 output: 
-  html_document:
-    toc: true
+  html_fragment #full html_document breaks other parts of shiny app
 ---
 
+```{css, echo=FALSE}
+body .main-container {
+  max-width: 1000px !important;
+}
+body {
+  max-width: 1000px !important;
+}
+```
 
-# Best Management Practices for climate-wise reforestation
+# Best Management Practices for climate-wise reforestation {#top}  
 
-This document outlines some recent advances in reforestation strategies in an age of climate change and altered disturbance regimes. We rely heavily on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. For brevity, conventional reforestation practices are not covered here. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
+This document outlines some recent advances in reforestation strategies in an age of climate change and altered disturbance regimes. We rely heavily on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. A research brief of the article is also available [here](). For brevity, conventional reforestation practices are not covered in this document. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
+
+***
 
 ## Table of Contents
 
 
-1 - Seed Zonation
+1 - [Seed Zonation](#Link1)
 
-2 - Seedling Density and Spatial Arrangement
+2 - [Seedling Density and Spatial Arrangement](#Link2)
 
-3 - Species Composition
+3 - [Species Composition](#Link3)
 
-4 - Prescribed Burning in Young Stands
+4 - [Prescribed Burning in Young Stands](#Link4)
 
-5 - Future Site Suitability 
+5 - [Future Site Suitability](#Link5) 
 
-6 - Example Reforestation Scenario  
+6 - [Example Reforestation Scenario](#Link6)  
 
-7 - Potential Ecological Benefits  
+7 - [Potential Ecological Benefits](#Link7)  
 
-8 - Further Reading  
+8 - [Further Reading](#Link8)  
 
+***
 
-## 1 - Seed Zonation  
+## 1 - Seed Zonation {#Link1}  
 
 We suggest areas of recent drought- or wildfire-caused tree mortality be subdivided into three management zones:  
 
@@ -42,79 +49,131 @@ We suggest areas of recent drought- or wildfire-caused tree mortality be subdivi
   
   3) Stands which would otherwise be included in zone 2 but where reforestation is prohibitively costly due to remoteness or topography, or where non-forested states are desirable.  
 
-<img src="./app_data/Photos/Tamm_Fig3.jpg" alt="drawing" width="600"/>
+<img src="./app_data/Photos/Tamm_Fig3.jpg" alt="drawing" width="100%"/>
 
 <font size="2"> 
 **Tamm Review Figure 3.** *"A partially salvaged area two years after the 2014 Eiler Fire near Burney, California. Zone 1, outlined in green, indicates areas likely to receive seed from adjacent islands of green trees. Zone 2, in the remaining area beyond most natural recruitment, are the areas readily accessible for reforestation. Two areas within this zone, A and B separated by the blue dashed line, indicate gentler, more uniform topography (A) and more variable, steeper sloped conditions (B), each of which could have a different planting strategy discussed in the text. The unsalvaged, snag area in the center could be planted if safety allows (facilitating future forest habitat connectivity) or left to provide wildlife habitat for post-fire specialists. Zone 3, outlined in red in the distant center of the photo, is a steep slope, distant from access roads that might be planted with founder stands (groups of seedlings in mesic, sheltered microsites less likely to burn or become drought stressed)."*  
 </font> 
 
+<p align="right">
+  [top](#top)
+</p>
 
-<!-- ### *1b - Justification*   -->
+***
 
-<!-- Conifer tree seed density declines with distance from source. Where tree mortality is a result of drought and/or beetle attack, recently killed trees may serve as sources *[correct?]*. For non-serotinous species, fire-killed trees do not provide a source of seeds, and propogules must come from surviving individuals. Without more detailed information, 200m or approximately 650 feet from living trees can be used as a rough cutoff, where expected natural recruitment falls to non-existent or sparse. Recently, tools have been developed to assess natural recruitment potential in the field and using geospatial information. If utilized such tools can better delineate areas that are likely to experience natural reforestation (zone 1) from those where active management may be necessary (zone 2).   -->
-
-<!-- In addition to active reforestation often being unnecessary where living seed sources exist, the scale of mortality events are increasing. With limited funds available, it may be unfeasible to actively reforest all areas outside of zone 1 and there may be areas where non-forest vegetation communities are desirable for ecological or other purpose (i.e. zone 3). For example, zone 3 may include areas where conventional reforestation would prohibitively expensive (e.g. steep slopes and areas isolated from existing roads) or it may it may include areas that prior to the fire-suppression era likely supported meadow or mountain chaparral habitats.   -->
-
-
-## 2 - Seedling Density and Spatial Arrangement  
+## 2 - Seedling Density and Spatial Arrangement {#Link2}  
 
 Plant seedlings in lower densities and with higher spatial heterogeneity than conventional "pines in lines" approaches. Plantations that emulate a pattern of individual scattered trees, clumps of trees, and openings (ICO) are more likely to be resilient to increasing rates of droughts and wildfires. Whenever possible, clusters of seedlings and relatively densely planted areas should be aligned with topographic and soil conditions that support greater available water and water holding capacity, as well as areas of potential fire refugia.  
 
-<img src="./app_data/Photos/Tamm_Fig1.jpg" alt="drawing" width="600"/>
+<img src="./app_data/Photos/Tamm_Fig1.jpg" alt="drawing" width="70%"/>
 
 <font size="2"> 
 **Tamm Review Figure 1.** *"Different tree planting patterns compared to an ‘ICO’ stand structure. Upper left is area burned by the 2007 Moonlight Fire seven years after the fire. The left side of the road is private land regularly planted with ponderosa pine and treated with herbicide. The right side of the road, U.S. Forest Service land, was left unsalvaged and unplanted. The upper right photo is a cluster planted area ten years after the 2006 Boulder Fire. Lower left is a 50-year old ponderosa pine plantation nearby but outside the Moonlight and Boulder burns. The lower right photo shows the ‘ICO’ pattern produced by an active fire regime in an unmanaged Jeffrey pine stand in the Sierra San Pedro del Martir, Baja, Mexico."*  
 </font>
 
+<p align="right">
+  [top](#top)
+</p>
 
-## 3 - Species Composition  
+***
+
+## 3 - Species Composition {#Link3}  
 
 Promote mixed-species stands dominated by drought and fire-resistant trees such as pines, particularly in drier areas (e.g. southwest-facing slopes). Within active reforestation areas (i.e. zone 2), the species mix can be determined at the time of planting. In areas of passive reforestation (i.e. zone 1), managers may choose to inter-plant pines among natural regeneration if nearby seed trees are primarily composed of drought and fire-intolerant species (e.g. firs and cedars). In both active and passive reforestation areas, consider the importance of including oaks, aspens and other hardwoods in the species mix. These species diversify wildlife habitat and often serve as natural fuel breaks, making them integral in overall landscape heterogeneity and resilience.  
 
-## 4 - Prescribed Burning in Young Stands  
+<p align="right">
+  [top](#top)
+</p>
+
+***
+
+## 4 - Prescribed Burning in Young Stands {#Link4}  
 
 Introduce prescribed fire to planted stands early to emulate natural fire return intervals of 5-10 years for yellow pine and 10-20 years for mixed conifer forests. Emerging research suggests prescribed fire in young stands can support multiple management objects while resulting in relatively low levels of tree mortality. Such treatments can be used to reducing surface fuels, maintain the evolutionary selection for fire-resistant trees, promote stand heterogeneity, and avoid the high costs and production of activity fuels associated with some mechanical treatments. However, prescriptions developed for mature stands will likely need to be adjusted to accommodate burning in young stands.  
 
-<img src="./app_data/Photos/Tamm_Fig7.jpg" alt="drawing" width="600"/>
+<img src="./app_data/Photos/Tamm_Fig7.jpg" alt="drawing" width="70%"/>
 
 <font size="2"> 
 **Tamm Review Figure 7.** *"Examples of prescribed burning in young stands on the Shasta-Trinity National Forest. The upper pair are before (a) and after (b) photos from a mixed-conifer plantation that was masticated and burned (in spring) 33 years after planting, showing reduction in surface fuels and removal of some understory stems. The lower pair are before (c) and after (d) photos from a plantation with considerable added tree density due to natural regeneration, that was masticated, branch pruned, and burned (in fall) 25 years after planting. In the latter case, the prescribed fire was effectively a pre-commercial thinning, reducing stand density closer to desired levels and also generating within-stand spatial heterogeneity."*  
 </font>
 
-## 5 - Future site suitability  
+<p align="right">
+  [top](#top)
+</p>
 
-[From Marc: *Add a section on Future site suitability that addresses the same subject heading in the Tamm review paper.  The 3rd paragraph in this section is particularly useful to summarize in the BMPs section to inform managers as to how to evaluate future site suitability with climate change.
+***
 
-o   Since we don’t have a photo from the paper for this section, we should insert one of our own, such as the one attached (I can send higher quality version) which shows a low elevation burned landscape with advanced natural conifer regeneration most successful in the drainages and north-facing slopes, especially at higher elevations.  Or we can use some other illustration of this concept.*]
+## 5 - Future site suitability {#Link5}  
 
-<img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width="800"/>
+When determining site suitability, consider current and future suitability in addition to whether a site was previously forested. Specifically, planting could be avoided in sites that are likely to be marginal for the pre-disturbance species. Those areas with low mean annual precipiation and high mean annual temperatures are likely to become increasingly unsuitable with climate change. Local soil and topographic characteristics could also be considered to determine overall site suitability. For example, some hot and dry areas, with shallow soils, and steep slopes could be allowed to transition to more drought-tolerant forest species (e.g. grey pine and oaks) or vegetation types (e.g. montane chaparral or native grasslands). When reforesting with conifer species, selecting appropriate seed sources (e.g. using the [seedlot selection tool](https://seedlotselectiontool.org/sst/)), would improve the likelihood of successful tree establishment.  
 
+<img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width="100%"/>  
 
-## 6 - Example Reforestation Scenario    
+<font size="2"> 
+*Example of a low elevation burned landscape with advanced natural conifer regeneration most successful in the drainages and north-facing slopes. Photo credit: Marc Meyer*  
+</font>
+
+<p align="right">
+  [top](#top)
+</p>
+
+***
+
+## 6 - Example Reforestation Scenario {#Link6}    
 
 From North et al. (2019), a theoretical planting strategy and stand development graphic according to the recommendations highlighted here:  
 
-<img src="./app_data/Photos/Tamm_Fig6.jpg" alt="drawing" width="600"/>
+<img src="./app_data/Photos/Tamm_Fig6.jpg" alt="drawing" width="50%"/>  
 
 <font size="2"> 
 **Tamm Review Fig. 6.** *"Schematic of the initial planting and stand development for a dissected, more fire and drought prone 0.2 ha (0.5 ac, 105 by 210 ft) slope of mixed-conifer forest where favorable cluster microsites are more easily identified. (A) Initial planting schematic (usually within 1–5 years following disturbance). First more mesic microsites (concavities in the figure) are identified and planted with clusters of trees and then the remaining area is planted with individual trees on a regularly spaced grid (here 4.6 m or 15′ by 15′). In this example only 60 of 115 (i.e., if fully planted on a 4.6 m spacing) potential trees are regularly planted, and 22 are planted in four clusters at mesic microsites. (B) After the first burn (15 years after planting). In this hypothetical example, of the 82 original conifers, eight have died over the last period and nine were killed by the prescribed fire, reducing live tree density to 65 on the 0.2 ha (0.5 ac). The prescribed fire, designed to maintain tree and shrub separation, has also killed some shrubs. (C) After 77 years of growth. Fire has been applied every 15 years to reduce fuels and shrub cover. In this example, 22 more trees have been killed by drought and prescribed fire, leaving a mature forest density of 40 conifer and three oak live trees (212 tree/ha or 86 trees/ac), within the estimated historical mixed conifer density range of 59–329 tree/ha (24–133 trees/ac) (Safford and Stevens, 2017)."*  
 </font>
 
-## 7 - Potential Ecological Benefits  
+<p align="right">
+  [top](#top)
+</p>
 
-[From Marc: *After section 5, add another section entitled Potential ecological benefits with a brief explanation followed by a bulleted list of several of the benefits of reforestation activities focused on creating lower-density, structurally heterogeneous stands (e.g., greater ecological resistance and resilience, wildlife habitat, understory plant diversity, watershed benefits).
+***
 
-o   I know this one is not really a BMP, but it’s good to include this information to make it clear as to the advantages of the Tamm review approach.
+## 7 - Potential Ecological Benefits {#Link7}  
 
-o   An accompanying photo, maybe showing a heterogeneous forest stand like the attached photo, is also good but not necessary.*]
+Reforestation strategies that promote variable stand density at local scales and lower densities at watershed scales can have multiple benefits for ecological process and biodiversity. These potential benefits include:
 
-<img src="./app_data/Photos/Illilouette Basin Panoramic.jpg" alt="drawing" width="800"/>
+* Resistence of individual trees and resilience of a stand to future disturbance (wildfire, drought, pests and pathogens)  
 
-## 8 - Further Reading  
+* More stable carbon pools  
 
-[*Tamm Review: Reforestation for resilience in dry western U.S. forests* - North et al. 2019](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub)  
+* Variable microclimates that can serve as climate refugia  
 
-[*Predicting conifer establishment post wildfire in mixed conifer forests of the North American Mediterranean‐climate zone* - Welch et al. 2016](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecs2.1609)  
+* Greater understory plant diversity  
 
-[*From the stand scale to the landscape scale: predicting the spatial patterns of forest regeneration after disturbance* - Shive et al. 2018](https://esajournals.onlinelibrary.wiley.com/doi/10.1002/eap.1756) 
+* Greater wildlife diversity  
+
+* Increased soil moisture and streamflow  
+
+<img src="./app_data/Photos/Illilouette Basin panoramic.jpg" alt="drawing" width="100%"/>  
+
+<font size="2"> 
+*Example of a variable density stand in a frequently burned forest in Yosemite National park. Photo credit: Marc Meyer*  
+</font>
+
+<p align="right">
+  [top](#top)
+</p>
+
+***
+
+## 8 - Additional Reading & Resources {#Link8}  
+
+* [*Tamm Review: Reforestation for resilience in dry western U.S. forests* - North et al. 2019](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub)  
+
+* [*Predicting conifer establishment post wildfire in mixed conifer forests of the North American Mediterranean‐climate zone* - Welch et al. 2016](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecs2.1609)  
+
+* [*From the stand scale to the landscape scale: predicting the spatial patterns of forest regeneration after disturbance* - Shive et al. 2018](https://esajournals.onlinelibrary.wiley.com/doi/10.1002/eap.1756)  
+
+* [*Seedlot Selection Tool*](https://seedlotselectiontool.org/sst/)  
+
+<p align="right">
+  [top](#top)
+</p>
 

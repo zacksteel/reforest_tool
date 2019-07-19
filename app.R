@@ -1,11 +1,4 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+
 ## Setup ####
 
 library(shiny)
@@ -51,8 +44,9 @@ ui <- fluidPage(
          "))),
   
   tabsetPanel(id = "tabs",
-    tabPanel("About", 
-             includeMarkdown("about.Rmd")),
+    tabPanel("About",
+             includeHTML("about.html")),
+             # includeMarkdown("about.Rmd")),
     tabPanel("Prioritization tool", 
                  
              # Application title
@@ -171,8 +165,10 @@ ui <- fluidPage(
     tabPanel("Stand data summary", 
              titlePanel("Forestry Plot Data Tool"),
              leafletOutput("map2", width = "80%", height = 600)),
-    tabPanel("BMP guide", 
-             includeMarkdown("bmp.Rmd"))
+    tabPanel("BMP guide",
+             includeHTML("bmp.html")),
+    tabPanel("Technical Info",
+             includeMarkdown("tech_info.Rmd"))
   )
 )
 
@@ -291,9 +287,7 @@ server <- function(input, output, session) {
 
   
   ## Main Map ####
-  #### I think this is slowing everything down a lot as currently written. 
-  #### Not sure if leaflet proxy would be more efficient. 
-  #### I think I was having trouble getting proxy to play nicely with the download function
+
   map_reactive <- reactive({
     m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
       ## puts zoom control at topright

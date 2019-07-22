@@ -1,6 +1,5 @@
 ---
-output: 
-  html_fragment #full html_document breaks other parts of shiny app
+output: html_fragment #full html_document breaks other parts of shiny app
 ---
 
 ```{css, echo=FALSE}

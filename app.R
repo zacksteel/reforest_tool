@@ -28,6 +28,7 @@ aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
 ## Read in stand data
 stand <- read.csv("app_data/stand_prepped.csv")
 stand_aois <- st_read("app_data", "stand_aois")
+aoi_st <- c("", as.character(stand_aois$aoi), "BLM")
 
 ## User interface ####
 ui <- fluidPage(
@@ -35,18 +36,20 @@ ui <- fluidPage(
   useShinyjs(),
   ## Change font size everywhere
   ## Display properties for MapLayers panel
-  tags$head(tags$style(
+  tags$style(
     HTML("
-      .selectize-input {font-size: 100%;}
+      .selectize-input { font-size: 100%; }
       #MapLayers {opacity: 0.65;
-                  transition: opacity 500ms;}
-      #MapLayers:hover {opacity: 0.95;}
-         "))),
+                  transition: opacity 500ms; }
+      #MapLayers:hover {opacity: 0.95; }
+         ")),
   
   tabsetPanel(id = "tabs",
     tabPanel("About",
              includeHTML("about.html")),
              # includeMarkdown("about.Rmd")),
+    
+    #### Prioritation Tool - UI ####
     tabPanel("Prioritization tool", 
                  
              # Application title
@@ -59,15 +62,18 @@ ui <- fluidPage(
              fluidRow(
                column(3,
                       selectInput(inputId = "Forest", 
-                             label = h4(tags$b("Step 1: Select area of interest")),
+                             label = h4(tags$b("Step 1: Select area of interest"), 
+                                        style = "font-size:120%; color:darkblue"),
                              selected = "",
                              choices = aoi_id),
                       bsTooltip("Forest",
-                                "Prioritization and map layer display will be limited to the national forest or ranger district selected"),
+                                "Prioritization and map layer display will be limited to the area selected",
+                                placement = "right"),
                       ## Horrizontal line
                       tags$hr(),
        
-                      h4(tags$b("Step 2: Select reforestation need threshold:")),  
+                      h4(tags$b("Step 2: Select reforestation need threshold:"), 
+                         style = "font-size:120%; color:darkblue"),  
                        
                       sliderInput("Need", tags$tbody("Need Threshold (% Biomass loss)"), 
                                   10, 100, 50,
@@ -76,7 +82,8 @@ ui <- fluidPage(
                                 "Areas with less biomass loss than the selected threshold will be excluded from prioritization.")
                ),
                
-               h4(id = "Step3", tags$b("Step 3: Select data layer weights:")),
+               h4(id = "Step3", tags$b("Step 3: Select data layer weights:"), 
+                  style = "font-size:120%; color:darkblue"),
                bsTooltip("Step3",
                          "Layers assigned a negative value will decrease piority. <br/> Layers assigned a positive value will increase priority. <br/> Layers assigned a zero value will not affect prioritization."),
                column(3,
@@ -85,50 +92,52 @@ ui <- fluidPage(
                       sliderInput("cwd", "Drought Risk (CWD)", -1, 0, 0,
                                   width = '80%', step = .25),
                       bsTooltip("cwd",
-                                "Areas of higher drought risk will decrease priority. Drought Risk is defined as the 1981-2010 average climate water deficit (CWD), as modeled by..."),
+                                "Areas of higher drought risk will decrease priority. CWD = climate water deficit (1981-2010 average)."),
                       sliderInput("HSZ2", "High-severity Fire Core", 0, 1, 0,
                                   width = '80%', step = .25),
                       bsTooltip("HSZ2",
-                                 "Areas within high-severity cores will increase priority. Cores are those areas more than 650ft (200m) from seed trees within high-severity wildfire patches where natural recruitment of non-serotinous conifer species is unlikely. Fires from 2012-2017 included."),
-                      sliderInput("WUI", "Wildland Urban Interface", 0, 1, 0,
+                                 "Areas within high-severity cores will increase priority. Cores are those areas more than 650ft (200m) from seed trees within high-severity wildfire patches. Fires from 2012-2017 are included."),
+                      sliderInput("WUI", "Wildland-Urban Interface", 0, 1, 0,
                                   width = '80%', step = .25),
                       bsTooltip("WUI",
-                                 "Areas within the WUI will increase priority. The wildland-urban interface is defined by...")
+                                 "Areas within the wildland-urban interface will increase priority.")
                ),
                
                column(3,
 
                       sliderInput("Rec", "Recreation Areas", 0, 1, 0,
                                   width = '80%', step = .25),
-                      bsTooltip("Red",
-                                "Recreation areas will increase priority. These areas are defined by..."),
+                      bsTooltip("Rec",
+                                "Recreation areas will increase priority."),
                       sliderInput("CASPO", "Spotted Owl PACs", -1, 1, 0,
                                   width = '80%', step = .25),
                       bsTooltip("CASPO",
-                                "California Spotted Owl PACs can increase or decrease priority depending on management objectives. PACs are defined by..."),
+                                "California Spotted Owl PACs can increase or decrease priority depending on management objectives."),
                       sliderInput("Fisher", "Fisher Core Habitat", -1, 1, 0,
                                   width = '80%', step = .25),
                       bsTooltip("Fisher",
-                                "Pacific fisher core habitats can increase or decrease priority depending on management objectives. Core areas are defined by...")
+                                "Pacific fisher core habitats can increase or decrease priority depending on management objectives.")
                       ),
                
                column(3,
-                      h4(tags$b("Step 4: Run prioritization")),
+                      h4(tags$b("Step 4: Run prioritization"), 
+                         style = "font-size:120%; color:darkblue"),
                       actionButton("Calc", "Calculate"),
                       bsTooltip("Calc",
-                                "Generates a 3-level priority layer using biomass and weighted data layers. Non-forest service lands, areas with mechanical constraints (i.e. ...), and those with biomass loss below the designated need threshold are excluded."),
+                                "Generates a 3-level priority layer using biomass and weighted data layers. Non-forest service lands, areas with mechanical constraints, and those with biomass loss below the designated need threshold are excluded."),
                       
                       tags$hr(),
-                      h4(tags$b("Step 5: Download map and/or data")),
+                      h4(tags$b("Step 5: Download map and/or data"), 
+                         style = "font-size:120%; color:darkblue"),
                       
                       ## Buttons for downloading current map and tif
                       #### Maybe add one or combine for generating a short "report"
                       downloadButton("dl", "Download Map Image"),
                       bsTooltip("dl",
-                                "Generates a map using the current view for download."),
+                                "Generates and downloads a map using the current view."),
                       downloadButton("dl_tif", "Download Priority Raster"),
                       bsTooltip("dl_tif",
-                                "Generates a priority raster layer for download, which can be used in further analysis.")
+                                "Downloads a priority raster layer for further analysis.")
                       
 
                )),
@@ -161,12 +170,20 @@ ui <- fluidPage(
              )
     ),
     
-    ## Plot data tab
+    #### Stand Summary - UI ####
     tabPanel("Stand data summary", 
              titlePanel("Forestry Plot Data Tool"),
-             leafletOutput("map2", width = "80%", height = 600)),
+             sidebarPanel(
+               selectInput(inputId = "Forest_st", 
+                           label = h4(tags$b("Step 1: Select area of interest")),
+                           selected = "",
+                           choices = aoi_st)
+             ),
+             mainPanel(leafletOutput("map2", width = "100%", height = 600))
+             ),
     tabPanel("BMP guide",
              includeHTML("bmp.html")),
+             # includeMarkdown("bmp.Rmd")),
     tabPanel("Technical Info",
              includeMarkdown("tech_info.Rmd"))
   )
@@ -607,13 +624,26 @@ server <- function(input, output, session) {
       # }
     })
   
-  ## Stand Summary Map ####
+  #### Stand Summary Map ####
+  
+  ## subset data
+  aoi_plots <- reactive({
+      filter(stand, aoi == input$Forest_st) %>%
+      st_as_sf(coords = c("long","lat"),
+               crs = st_crs(stand_aois))
+  })
+  
   output$map2 <- renderLeaflet({
-    leaflet(stand) %>%
+    m2 <- leaflet(stand) %>%
+      ## puts zoom control at topright
+      htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
       addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
       addMarkers(~long, ~lat,
+                 label = paste0("Location: ", stand$loc, 
+                                " - (click for more info)"),
                  popup = paste0("PlotID: ", stand$plot, "<br>",
-                                "Forest: ", stand$forest, "<br>",
+                                "Area: ", stand$aoi, "<br>",
                                 "Location: ", stand$loc, "<br>",
                                 "Treated: ", stand$treated, "<br><br>",
                                 
@@ -634,7 +664,22 @@ server <- function(input, output, session) {
       addPolygons(data = stand_aois,
                   label = stand_aois$aoi,
                   highlightOptions = highlightOptions(color = "white", weight = 2,
-                                                      bringToFront = TRUE))
+                                                      bringToFront = TRUE)) 
+    
+    ## Select and zoom to AOI
+      if(input$Forest_st != "") {
+        m2 <- m2 %>%
+          # addMarkers(~aoi_plots()$long, ~aoi_plots()$lat) %>%
+          ## Zoom to selection
+          #### Can we revise this so that this only happens when the AOI changes?
+          fitBounds(lng1 = as.numeric(st_bbox(aoi_plots())$xmin - 0.0005),
+                    lat1 = as.numeric(st_bbox(aoi_plots())$ymin - 0.0005),
+                    lng2 = as.numeric(st_bbox(aoi_plots())$xmax),
+                    lat2 = as.numeric(st_bbox(aoi_plots())$ymax)) 
+      }
+    
+    ## Return map
+    m2
   })
 }
 

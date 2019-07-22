@@ -12,30 +12,56 @@ body .main-container {
 }
 body {
   max-width: 1000px !important;
-  font-size: 16px;
+}
+
+.about {
+  font-size: 18px;
+}
+
+.container {
+  position: relative;
+  max-width: 1000px !important;
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  padding: 0px;
+}
+
+.centered {
+  position: absolute;
+  top: 20%;
+  left: 1%;
 }
 ```
   
 <br>
-<p align="middle">
+
+<div class = "container" align = "middle>
   <img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width = "100%"/>   
-</p>
+  <div class="centered">Climate-wise Reforestation Toolkit </div>
+</div>
 
 
 
-# Climate-wise Reforestation Toolkit  
+<!-- # Climate-wise Reforestation Toolkit   -->
+
+<!-- <br> -->
+
+<div class = "about">
+
+Welcome to the climate-wise reforestation toolkit. This site includes three resources intended to inform post-disturbance reforestation practices: a) a spatial reforestation prioritization tool, b) a post-drought stand condition summary tool, and c) reforestation best management practices (BMPs). The purpose of and instructions for each resource are briefly summarized below. To navigate to each tool, click on the relevant tab at the top of the page. More detailed information can be found in the Technical Information tab and in a video tutorial of the toolkit. These tools are intended to support communication between stakeholder groups when developing reforestation plans, and to be used as part of an iterative process that supplements site visits, local knowledge, and unique management goals.     
 
 <br>
 
-Welcome to the climate-wise reforestation toolkit. This site includes three resources intended to inform post-disturbance reforestation practices in the Sierra Nevada mountains: a) a spatial reforestation prioritization tool, b) a post-drought stand condition summary tool, and c) reforestation best management practices (BMPs). The purpose of and instructions for each resource are briefly summarized below. To navigate to each tool, click on the relevant tab at the top of the page. More detailed information can be found in the Technical Information tab and in a video tutorial of the toolkit. These tools are intended to support communication between stakeholder groups when developing reforestation plans, and to be used as part of an iterative process that supplements site visits, local knowledge, and unique management goals.     
-
-<br>
-
-a) Prioritization tool: This tool combines remotely-sensed estimates of forest mortality with user-weighted data layers to prioritize areas for reforestation within a given area of interest in the Sierra Nevada mountains. To use the tool, in the Prioritization tool tab, 1) select your area of interest (national forest or rander district), 2) select the level of forest loss which you consider triggers a need for reforestation, 3) weight priority data layers according to your objectives, 4) run the prioritization calculation, and 5) download maps and/or a prioritization raster layer.  
+a) Prioritization tool: This tool combines remotely-sensed estimates of forest mortality with user-weighted data layers to prioritize areas for reforestation within a given area of interest on Forest Service land in the Sierra Nevada mountains. In the Prioritization tool tab, 1) select your area of interest (national forest or rander district), 2) select the level of forest loss which you consider triggers a need for reforestation, 3) weight priority data layers according to your objectives, 4) run the prioritization calculation, and 5) download maps and/or a prioritization raster layer.  
 
 b) Stand condition summary tool: This tool summarizes stand data collected following the recent 2012-16 drought in # areas of the Sierra Nevada.  
 
 c) BMPs: Reforestation Best Management Practices are summarized based on a recent review of the state of the science. Emphasis is placed on strategies that consider climate change and altered disturbance regimes rather than the technical aspects of reforestation, which can be found elsewhere. Users are encouraged to consult literature reviewing the state of the science of forest reforestation strategies, especially [North et al. 2019](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) and associated [research brief]().  
+
+</div>
+
+
   
 <br>
 

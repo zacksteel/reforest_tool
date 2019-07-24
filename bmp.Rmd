@@ -13,7 +13,7 @@ body {
 
 # Best Management Practices for climate-wise reforestation {#top}  
 
-This document outlines some recent advances in reforestation strategies in an age of climate change and altered disturbance regimes. We rely heavily on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. A research brief of the article is also available [here](). For brevity, conventional reforestation practices are not covered in this document. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
+This document outlines some recent advances in reforestation strategies in an age of climate change and altered disturbance regimes. We rely heavily on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. A research brief of the article is also available [here](app_data/TammReview_brief.pdf). For brevity, conventional reforestation practices are not covered in this document. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
 
 ***
 

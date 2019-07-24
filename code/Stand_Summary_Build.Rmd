@@ -202,3 +202,39 @@ leaflet(d2) %>%
               highlightOptions = highlightOptions(color = "white", weight = 2,
                                                   bringToFront = TRUE))
 ```
+
+
+What sort of figures do we want the user to be able to play with? How about boxplots with points overlayed, split by live and dead, and maybe treated and untreated.  
+
+```{r}
+library(plotly)
+stand <- read.csv("data/Stand/stand_prepped.csv")
+
+metrics <- data.frame(label = c("Canopy Cover", "Trees Density", "Basal Area", "Mean DBH", "Max DBH"), 
+                      metric = c("live_cc", "tpha_live", "ba_live", "dbh_mn_live", "dbh_max_live", 
+                              "dead_cc", "tpha_dead", "ba_dead", "dbh_mn_dead", "dbh_max_dead"),
+                      unit = c("%", "trees/ha", "sq m", "cm", "cm", 
+                               "%", "trees/ha", "sq m", "cm", "cm"),
+                      status = c(rep("live",5),rep("dead",5)))
+
+ulab <- "Canopy Cover"
+plab <- paste0(ulab, " (", metrics[metrics$label == ulab, "unit"][1], ")")
+
+vars <- filter(metrics, label == ulab) %>%
+  pull(metric) %>%
+  as.character()
+
+stand2 <- select(stand, plot, aoi, treated, {{vars}}) %>%
+  gather(key = metric, value = value, -plot, -aoi, -treated) %>%
+  merge(metrics, by = "metric") %>%
+  mutate(treat = ifelse(treated == "Yes", "Treated", "Untreated"),
+         text = paste("value:",value))
+
+p <- ggplot(stand2, aes(x = status, y = value)) +
+  geom_boxplot() +
+  geom_jitter() +
+  facet_grid(~ treat) +
+  ylab(plab) + xlab("Drought Mortality")
+
+ggplotly(p)
+```

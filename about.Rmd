@@ -9,9 +9,11 @@ output:
 ```{css, echo=FALSE}
 body .main-container {
   max-width: 1000px !important;
+  min-width: 600px !important;
 }
 body {
   max-width: 1000px !important;
+  min-width: 600px !important;
 }
 
 .about {
@@ -36,8 +38,8 @@ body {
   
 <br>
 
-<div class = "container" align = "middle>
-  <img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width = "100%"/>   
+<div class = "container">
+  <img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width = "100%"/>
   <div class="centered">Climate-wise Reforestation Toolkit </div>
 </div>
 
@@ -57,7 +59,7 @@ a) Prioritization tool: This tool combines remotely-sensed estimates of forest m
 
 b) Stand condition summary tool: This tool summarizes stand data collected following the recent 2012-16 drought in # areas of the Sierra Nevada.  
 
-c) BMPs: Reforestation Best Management Practices are summarized based on a recent review of the state of the science. Emphasis is placed on strategies that consider climate change and altered disturbance regimes rather than the technical aspects of reforestation, which can be found elsewhere. Users are encouraged to consult literature reviewing the state of the science of forest reforestation strategies, especially [North et al. 2019](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) and associated [research brief]().  
+c) BMPs: Reforestation Best Management Practices are summarized based on a recent review of the state of the science. Emphasis is placed on strategies that consider climate change and altered disturbance regimes rather than the technical aspects of reforestation, which can be found elsewhere. Users are encouraged to consult literature reviewing the state of the science of forest reforestation strategies, especially [North et al. 2019](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) and associated [research brief](app_data/TammReview_brief.pdf).  
 
 </div>
 

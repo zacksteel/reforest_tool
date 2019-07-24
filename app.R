@@ -14,7 +14,7 @@ library(shinyBS) #for tooltip funcitonality
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-# webshot::install_phantomjs()
+webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
@@ -28,7 +28,14 @@ aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
 ## Read in stand data
 stand <- read.csv("app_data/stand_prepped.csv")
 stand_aois <- st_read("app_data", "stand_aois")
-aoi_st <- c("", as.character(stand_aois$aoi), "BLM")
+aoi_st <- c("All", as.character(stand_aois$aoi), "BLM")
+## And define some stand metric associations
+metrics <- data.frame(label = c("Stand Density", "Basal Area", "Canopy Cover", "Mean DBH", "Max DBH"), 
+                      metric = c("tpha_live", "ba_live", "live_cc", "dbh_mn_live", "dbh_max_live", 
+                                 "tpha_dead", "ba_dead", "dead_cc", "dbh_mn_dead", "dbh_max_dead"),
+                      unit = c("trees/ha", "sq m", "%", "cm", "cm", 
+                               "trees/ha", "sq m", "%", "cm", "cm"),
+                      status = c(rep("live",5),rep("dead",5)))
 
 ## User interface ####
 ui <- fluidPage(
@@ -175,9 +182,16 @@ ui <- fluidPage(
              titlePanel("Forestry Plot Data Tool"),
              sidebarPanel(
                selectInput(inputId = "Forest_st", 
-                           label = h4(tags$b("Step 1: Select area of interest")),
+                           label = h4(tags$b("Step 1: Select area of interest", 
+                                             style = "font-size:80%; color:darkblue")),
+                           selected = "All",
+                           choices = aoi_st),
+               selectInput(inputId = "metric_st",
+                           label = h4(tags$b("Step 2: Select stand metric to summarize", 
+                                             style = "font-size:80%; color:darkblue")),
                            selected = "",
-                           choices = aoi_st)
+                           choices = metrics$label),
+               plotOutput(outputId = "boxPlot", height = "300px")
              ),
              mainPanel(leafletOutput("map2", width = "100%", height = 600))
              ),
@@ -628,9 +642,14 @@ server <- function(input, output, session) {
   
   ## subset data
   aoi_plots <- reactive({
-      filter(stand, aoi == input$Forest_st) %>%
-      st_as_sf(coords = c("long","lat"),
+    if(input$Forest_st == "All") {
+      st_as_sf(stand, coords = c("long","lat"),
                crs = st_crs(stand_aois))
+    } else {
+      filter(stand, aoi == input$Forest_st) %>%
+        st_as_sf(coords = c("long","lat"),
+                 crs = st_crs(stand_aois))
+    }
   })
   
   output$map2 <- renderLeaflet({
@@ -680,6 +699,37 @@ server <- function(input, output, session) {
     
     ## Return map
     m2
+  })
+  
+  #### Stand Boxplot ####
+  output$boxPlot <- renderPlot({
+    
+    ulab <- input$metric_st
+    plab <- paste0(ulab, " (", metrics[metrics$label == ulab, "unit"][1], ")")
+    
+    vars <- filter(metrics, label == ulab) %>%
+      pull(metric) %>%
+      as.character()
+    
+    ## just plots in aoi
+    if(input$Forest_st == "All") {stand2 <- stand} else
+      {stand2 <- filter(stand, aoi == input$Forest_st)}
+    
+    stand2 <- dplyr::select(stand2, plot, aoi, treated, {{vars}}) %>%
+      gather(key = metric, value = value, -plot, -aoi, -treated) %>%
+      merge(metrics, by = "metric") %>%
+      mutate(treat = ifelse(treated == "Yes", "Treated Plots", "Untreated Plots"),
+             text = paste("value:",value))
+    
+    p <- ggplot(stand2, aes(x = status, y = value)) +
+      geom_boxplot() +
+      geom_jitter() +
+      facet_grid(~ treat) +
+      ylab(plab) + xlab("Tree Status")
+    
+    # ggplotly(p)
+    p
+    
   })
 }
 

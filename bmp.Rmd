@@ -2,14 +2,6 @@
 output: html_fragment #full html_document breaks other parts of shiny app
 ---
 
-```{css, echo=FALSE}
-body .main-container {
-  max-width: 1000px !important;
-}
-body {
-  max-width: 1000px !important;
-}
-```
 
 # Best Management Practices for climate-wise reforestation {#top}  
 

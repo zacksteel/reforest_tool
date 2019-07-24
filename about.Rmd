@@ -7,47 +7,36 @@ output:
 ---
 
 ```{css, echo=FALSE}
-body .main-container {
-  max-width: 1500px !important;
-  min-width: 600px !important;
-}
 body {
-  max-width: 1500px !important;
+  max-width: 1200px !important;
   min-width: 600px !important;
 }
-
 .about {
   font-size: 18px;
 }
-
 .container {
+  max-width: 1200px !important;
+  min-width: 600px !important;
   position: relative;
-  max-width: 1400px !important;
   font-size: 40px;
   color: white;
   font-weight: bold;
-  padding: 0px;
 }
-
 .centered {
   position: absolute;
   top: 20%;
-  left: 1%;
+  left: 5%;
 }
 ```
   
 <br>
 
-<div class = "container">
-  <img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width = "100%"/>
-  <div class="centered">Climate-wise Reforestation Toolkit </div>
+<div class = "container" align = "middle>
+<img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width = "100%"/>
+<div class="centered">Climate-wise Reforestation Toolkit </div>
 </div>
 
-
-
-<!-- # Climate-wise Reforestation Toolkit   -->
-
-<!-- <br> -->
+<br>
 
 <div class = "about">
 

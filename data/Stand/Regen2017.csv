@@ -1,0 +1,1107 @@
+Plot Name,Location,Sapling_Seedling,SaplingSpeciesCode,Status,Count,Treated
+1510207,Nelder Grove,Seedling,PILA,L,2,N
+1510207,Nelder Grove,Sapling,CADE,D,7,N
+1510207,Nelder Grove,Seedling,CADE,L,3,N
+1510207,Nelder Grove,Sapling,ABCO,D,3,N
+1510207,Nelder Grove,Seedling,QUKE,L,2,N
+1510207,Nelder Grove,Seedling,QUCH,L,2,N
+1510207,Nelder Grove,Sapling,ABCO,L,4,N
+1510210,Granddad,Sapling,QUCH,L,1,N
+1510210,Granddad,Seedling,CADE,L,1,N
+1510210,Granddad,Seedling,ABCO,L,8,N
+1510210,Granddad,Seedling,PILA,L,1,N
+1510210,Granddad,Sapling,CADE,D,9,N
+1510210,Granddad,Sapling,QUKE,L,1,N
+1510210,Granddad,Sapling,ABCO,L,3,N
+1510210,Granddad,Sapling,CADE,L,6,N
+155111,Granddad,Sapling,PILA,L,15,N
+155111,Granddad,Sapling,CADE,L,22,N
+155111,Granddad,Seedling,ABCO,L,46,N
+155111,Granddad,Sapling,QUCH,L,2,N
+155111,Granddad,Sapling,ABCO,L,3,N
+155111,Granddad,Sapling,CADE,D,3,N
+155111,Granddad,Seedling,PILA,D,1,N
+155111,Granddad,Seedling,PILA,L,2,N
+155111,Granddad,Seedling,QUCH,L,3,N
+155111,Granddad,Seedling,CADE,D,1,N
+155111,Granddad,Seedling,CADE,L,54,N
+155111,Granddad,Seedling,ABCO,D,4,N
+155111,Granddad,Sapling,ABCO,D,2,N
+155112,Granddad,Sapling,ABCO,D,17,N
+155112,Granddad,Sapling,QUKE,L,3,N
+155112,Granddad,Sapling,PILA,L,2,N
+155112,Granddad,Sapling,QUCH,L,5,N
+155112,Granddad,Sapling,QUCH,D,1,N
+155112,Granddad,Sapling,CADE,D,18,N
+155112,Granddad,Sapling,CADE,L,35,N
+155112,Granddad,Sapling,ABCO,L,58,N
+155112,Granddad,Seedling,CONU,L,1,N
+155112,Granddad,Seedling,CADE,D,2,N
+155112,Granddad,Seedling,PIPO,L,1,N
+155112,Granddad,Seedling,ABCO,L,40,N
+155112,Granddad,Seedling,QUCH,L,5,N
+155112,Granddad,Seedling,CADE,L,57,N
+155112,Granddad,Seedling,ABCO,D,2,N
+155113,Granddad,Sapling,CADE,L,4,N
+155113,Granddad,Seedling,CADE,L,2,N
+155113,Granddad,Seedling,QUCH,L,7,N
+155113,Granddad,Seedling,QUKE,L,1,N
+155113,Granddad,Seedling,ABCO,D,1,N
+155113,Granddad,Sapling,QUCH,L,10,N
+155113,Granddad,Sapling,ABCO,D,2,N
+155113,Granddad,Sapling,PILA,L,3,N
+155113,Granddad,Seedling,ABCO,L,6,N
+155115,Granddad,Sapling,CADE,D,7,N
+155115,Granddad,Sapling,QUCH,D,1,N
+155115,Granddad,Sapling,CADE,L,22,N
+155115,Granddad,Sapling,QUCH,L,8,N
+155115,Granddad,Seedling,CADE,L,4,N
+155115,Granddad,Seedling,QUCH,L,14,N
+155115,Granddad,Seedling,QUKE,L,6,N
+155114,Granddad,Seedling,QUCH,L,4,N
+155114,Granddad,Sapling,CADE,D,16,N
+155114,Granddad,Seedling,CADE,L,4,N
+155114,Granddad,Seedling,CADE,D,2,N
+155114,Granddad,Sapling,PIPO,L,4,N
+155114,Granddad,Sapling,QUCH,L,10,N
+155114,Granddad,Sapling,QUCH,D,1,N
+155114,Granddad,Sapling,ABCO,L,1,N
+155114,Granddad,Seedling,QUKE,L,8,N
+155114,Granddad,Sapling,ABCO,D,2,N
+155131,Pine Grove,Sapling,UNKNHARDWOOD,D,6,Y
+155131,Pine Grove,Sapling,QUKE,D,3,Y
+155131,Pine Grove,Sapling,QUKE,L,63,Y
+155131,Pine Grove,Seedling,QUKE,L,13,Y
+155132,Pine Grove,Sapling,UNKNHARDWOOD,D,10,Y
+155132,Pine Grove,Sapling,QUCH,L,1,Y
+155132,Pine Grove,Seedling,QUKE,L,6,Y
+155132,Pine Grove,Sapling,QUKE,L,13,Y
+155133,Pine Grove,Seedling,QUKE,L,10,Y
+155133,Pine Grove,Sapling,UNKNHARDWOOD,D,7,Y
+155133,Pine Grove,Sapling,QUKE,L,32,Y
+155133,Pine Grove,Sapling,QUKE,D,2,Y
+155133,Pine Grove,Sapling,QUCH,L,5,Y
+155134,Pine Grove,Sapling,QUKE,L,9,Y
+155134,Pine Grove,Sapling,UNKNHARDWOOD,D,10,Y
+155134,Pine Grove,Seedling,QUKE,L,4,Y
+155134,Pine Grove,Sapling,PIPO,D,1,Y
+155135,Pine Grove,Sapling,QUKE,L,14,Y
+155135,Pine Grove,Seedling,QUCH,L,1,Y
+155136,Pine Grove,Seedling,None,NA,,Y
+155136,Pine Grove,Sapling,QUKE,L,4,Y
+155136,Pine Grove,Sapling,QUKE,D,1,Y
+155136,Pine Grove,Sapling,QUCH,L,4,Y
+4022012,Blue Canyon3C,Seedling,None,NA,,N
+4022012,Blue Canyon3C,Sapling,PIPO,L,2,N
+4022022,Blue Canyon3C,Sapling,QUCH,L,1,N
+4022022,Blue Canyon3C,Seedling,QUKE,L,1,N
+4022022,Blue Canyon3C,Seedling,QUCH,L,1,N
+4022022,Blue Canyon3C,Seedling,CADE,L,1,N
+4022022,Blue Canyon3C,Sapling,CADE,L,6,N
+4022042,Blue Canyon3C,Seedling,None,NA,,N
+4022042,Blue Canyon3C,Sapling,None,NA,,N
+4022072,Blue Canyon3C,Sapling,PIPO,D,9,N
+4022072,Blue Canyon3C,Seedling,PIPO,L,1,N
+4022072,Blue Canyon3C,Seedling,QUCH,L,2,N
+4022072,Blue Canyon3C,Seedling,QUKE,L,3,N
+4022072,Blue Canyon3C,Sapling,CADE,D,1,N
+4022072,Blue Canyon3C,Sapling,QUKE,L,1,N
+4022072,Blue Canyon3C,Sapling,PIPO,L,3,N
+405201,Blue Canyon3C,Seedling,None,None,,Y
+405201,Blue Canyon3C,Sapling,None,None,,Y
+405202,Blue Canyon3C,Sapling,QUCH,L,3,Y
+405202,Blue Canyon3C,Sapling,UNKNCONIFER,D,1,Y
+405202,Blue Canyon3C,Seedling,QUKE,L,2,Y
+405204,Blue Canyon3C,Seedling,QUCH,L,1,Y
+405204,Blue Canyon3C,Sapling,QUKE,L,2,Y
+405204,Blue Canyon3C,Seedling,QUKE,L,3,Y
+405204,Blue Canyon3C,Seedling,CADE,L,2,Y
+405204,Blue Canyon3C,Sapling,QUCH,L,9,Y
+405205,Blue Canyon3C,Sapling,UNKNCONIFER,D,1,Y
+405205,Blue Canyon3C,Seedling,QUCH,L,1,Y
+405205,Blue Canyon3C,Sapling,QUCH,L,5,Y
+405206,Blue Canyon3C,Sapling,CADE,D,7,Y
+405206,Blue Canyon3C,Sapling,CADE,L,1,Y
+405206,Blue Canyon3C,Sapling,QUCH,L,1,Y
+405206,Blue Canyon3C,Sapling,PIPO,L,1,Y
+405206,Blue Canyon3C,Seedling,QUCH,L,9,Y
+405206,Blue Canyon3C,Seedling,QUKE,L,16,Y
+405206,Blue Canyon3C,Sapling,PIPO,D,1,Y
+405207,Blue Canyon3C,Seedling,None,None,,Y
+405207,Blue Canyon3C,Sapling,None,None,,Y
+405208,Blue Canyon3C,Seedling,None,NA,,Y
+405208,Blue Canyon3C,Sapling,None,NA,,Y
+405210,Blue Canyon3C,Sapling,CADE,L,2,Y
+405210,Blue Canyon3C,Sapling,PIPO,L,1,Y
+405210,Blue Canyon3C,Sapling,QUCH,L,7,Y
+405210,Blue Canyon3C,Seedling,QUKE,L,4,Y
+405210,Blue Canyon3C,Sapling,QUKE,L,1,Y
+155137,Pine Grove,Sapling,QUKE,L,24,Y
+155137,Pine Grove,Seedling,QUKE,L,4,Y
+155138,Pine Grove,Seedling,None,NA,,Y
+155138,Pine Grove,Sapling,CADE,D,1,Y
+155141,Pine Grove,Seedling,QUKE,L,20,N
+155141,Pine Grove,Sapling,PIPO,L,1,N
+155141,Pine Grove,Sapling,PIPO,D,1,N
+155141,Pine Grove,Sapling,CADE,L,3,N
+155141,Pine Grove,Sapling,CADE,D,6,N
+155142,Pine Grove,Sapling,QUKE,L,1,N
+155142,Pine Grove,Sapling,CADE,D,68,N
+155142,Pine Grove,Sapling,QUCH,L,3,N
+155142,Pine Grove,Sapling,PIPO,L,1,N
+155142,Pine Grove,Sapling,PIPO,D,8,N
+155142,Pine Grove,Seedling,QUCH,L,1,N
+155142,Pine Grove,Seedling,QUKE,L,1,N
+155142,Pine Grove,Sapling,CADE,L,3,N
+155143,Pine Grove,Sapling,QUCH,L,3,N
+155143,Pine Grove,Sapling,PIPO,D,1,N
+155143,Pine Grove,Seedling,QUKE,L,30,N
+155143,Pine Grove,Seedling,PILA,L,2,N
+155143,Pine Grove,Sapling,QUKE,L,7,N
+155143,Pine Grove,Sapling,CADE,D,10,N
+155143,Pine Grove,Seedling,QUCH,L,1,N
+155147,Pine Grove,Sapling,QUKE,L,7,N
+155147,Pine Grove,Sapling,QUCH,L,3,N
+155147,Pine Grove,Sapling,CADE,L,9,N
+155147,Pine Grove,Sapling,CADE,D,54,N
+155147,Pine Grove,Sapling,PIPO,D,58,N
+155147,Pine Grove,Seedling,QUKE,L,24,N
+155147,Pine Grove,Seedling,PIPO,L,8,N
+155147,Pine Grove,Seedling,CADE,L,2,N
+155147,Pine Grove,Seedling,QUCH,L,7,N
+155147,Pine Grove,Sapling,PIPO,L,56,N
+155146,Pine Grove,Sapling,CADE,D,15,N
+155146,Pine Grove,Sapling,CADE,D,1,N
+155146,Pine Grove,Seedling,QUKE,L,5,N
+155146,Pine Grove,Seedling,QUCH,L,2,N
+155146,Pine Grove,Sapling,QUCH,L,11,N
+155146,Pine Grove,Sapling,PIPO,L,2,N
+155146,Pine Grove,Sapling,PIPO,D,5,N
+155146,Pine Grove,Seedling,QUKE,L,11,N
+155146,Pine Grove,Sapling,QUCH,L,1,N
+155146,Pine Grove,Sapling,QUKE,L,2,N
+155146,Pine Grove,Sapling,PIPO,L,3,N
+155146,Pine Grove,Seedling,CADE,L,3,N
+155146,Pine Grove,Sapling,QUKE,L,8,N
+155146,Pine Grove,Seedling,PIPO,L,2,N
+155148,Pine Grove,Seedling,QUKE,L,11,N
+155148,Pine Grove,Seedling,CADE,L,1,N
+155148,Pine Grove,Sapling,CADE,D,10,N
+155148,Pine Grove,Sapling,QUCH,L,4,N
+155148,Pine Grove,Sapling,CADE,L,3,N
+155148,Pine Grove,Seedling,CADE,D,4,N
+155148,Pine Grove,Sapling,PIPO,D,2,N
+155148,Pine Grove,Sapling,PILA,L,2,N
+155149,Pine Grove,Seedling,QUKE,L,6,N
+155149,Pine Grove,Sapling,PILA,D,1,N
+155149,Pine Grove,Sapling,PIPO,D,3,N
+155149,Pine Grove,Sapling,QUKE,L,6,N
+155161,Foster16,Sapling,QUCH,L,2,N
+155161,Foster16,Sapling,CADE,L,2,N
+155161,Foster16,Sapling,ABCO,L,1,N
+155161,Foster16,Seedling,ABCO,L,2,N
+155161,Foster16,Sapling,CADE,D,13,N
+155161,Foster16,Sapling,UNKNCONIFER,D,2,N
+155161,Foster16,Seedling,QUCH,L,5,N
+155161,Foster16,Seedling,CADE,L,2,N
+155162,Foster16,Seedling,CADE,D,5,N
+155162,Foster16,Sapling,CADE,D,4,N
+155162,Foster16,Sapling,PILA,L,4,N
+155162,Foster16,Sapling,ABCO,L,1,N
+155162,Foster16,Seedling,QUKE,L,5,N
+155162,Foster16,Seedling,ABCO,L,30,N
+155162,Foster16,Seedling,PIPO,L,9,N
+155162,Foster16,Seedling,CADE,L,24,N
+155162,Foster16,Seedling,PILA,L,7,N
+155162,Foster16,Sapling,CADE,L,5,N
+155163,Foster16,Sapling,CADE,L,8,N
+155163,Foster16,Seedling,ABCO,L,1,N
+155163,Foster16,Sapling,CADE,D,1,N
+155163,Foster16,Seedling,PIPO,L,1,N
+155163,Foster16,Seedling,PILA,L,4,N
+155163,Foster16,Seedling,QUKE,L,1,N
+155163,Foster16,Seedling,CONU,L,1,N
+155163,Foster16,Seedling,CADE,L,12,N
+155164,Foster16,Sapling,ABCO,L,14,N
+155164,Foster16,Seedling,CADE,D,1,N
+155164,Foster16,Seedling,QUKE,D,1,N
+155164,Foster16,Sapling,CONU,L,8,N
+155164,Foster16,Sapling,ABCO,D,1,N
+155164,Foster16,Sapling,PILA,L,2,N
+155164,Foster16,Sapling,QUKE,L,2,N
+155164,Foster16,Sapling,CADE,L,23,N
+155164,Foster16,Seedling,ABCO,D,1,N
+155164,Foster16,Seedling,PIPO,L,2,N
+155164,Foster16,Seedling,ABCO,L,11,N
+155164,Foster16,Seedling,QUKE,L,13,N
+155164,Foster16,Seedling,CADE,L,68,N
+155168,Foster16,Seedling,CONU,L,2,N
+155168,Foster16,Sapling,CADE,D,4,N
+155168,Foster16,Seedling,ABCO,L,2,N
+155168,Foster16,Seedling,QUKE,L,17,N
+155168,Foster16,Sapling,ABCO,L,8,N
+155168,Foster16,Sapling,QUCH,L,4,N
+167601,Long Shanahan,Seedling,PIPO,L,25,Y
+167601,Long Shanahan,Sapling,PILA,L,3,Y
+167601,Long Shanahan,Sapling,QUCH,L,3,Y
+167601,Long Shanahan,Sapling,QUKE,L,3,Y
+167601,Long Shanahan,Sapling,PIPO,L,7,Y
+167601,Long Shanahan,Seedling,QUCH,L,6,Y
+167601,Long Shanahan,Seedling,PILA,D,1,Y
+167601,Long Shanahan,Seedling,PILA,L,3,Y
+167601,Long Shanahan,Seedling,CADE,L,11,Y
+167601,Long Shanahan,Seedling,QUKE,L,16,Y
+167605,Long Shanahan,Seedling,PIPO,L,14,Y
+167605,Long Shanahan,Sapling,None,NA,,Y
+167605,Long Shanahan,Seedling,PILA,L,7,Y
+167605,Long Shanahan,Seedling,CADE,L,1,Y
+362014,Lincoln,Sapling,CADE,L,14,Y
+362014,Lincoln,Seedling,ABCO,L,11,Y
+362014,Lincoln,Seedling,CADE,L,23,Y
+362014,Lincoln,Sapling,ABCO,L,4,Y
+362014,Lincoln,Sapling,QUKE,L,1,Y
+362014,Lincoln,Seedling,PILA,L,2,Y
+362014,Lincoln,Seedling,QUKE,L,7,Y
+362015,Lincoln,Seedling,ABCO,L,14,Y
+362015,Lincoln,Seedling,PILA,L,1,Y
+362015,Lincoln,Seedling,PIPO,L,3,Y
+362015,Lincoln,Sapling,ABCO,L,1,Y
+362015,Lincoln,Seedling,CADE,L,6,Y
+362026,Lincoln,Seedling,ABCO,L,25,Y
+362026,Lincoln,Sapling,CADE,L,17,Y
+362026,Lincoln,Sapling,ABCO,L,20,Y
+362026,Lincoln,Seedling,PSME,L,1,Y
+362026,Lincoln,Seedling,PIPO,L,1,Y
+362026,Lincoln,Seedling,PILA,L,4,Y
+362026,Lincoln,Seedling,CADE,D,1,Y
+362026,Lincoln,Seedling,CADE,L,26,Y
+362026,Lincoln,Sapling,PIPO,L,2,Y
+362026,Lincoln,Sapling,PILA,L,1,Y
+362027,Lincoln,Sapling,ABCO,L,3,Y
+362027,Lincoln,Seedling,ABCO,L,9,Y
+362027,Lincoln,Seedling,PIPO,L,1,Y
+362027,Lincoln,Seedling,PILA,L,1,Y
+362027,Lincoln,Seedling,CADE,L,6,Y
+362027,Lincoln,Sapling,CADE,L,4,Y
+362034,Lincoln,Sapling,ABCO,L,1,Y
+362034,Lincoln,Sapling,CADE,L,1,Y
+362034,Lincoln,Seedling,CADE,L,3,Y
+362034,Lincoln,Seedling,PIPO,L,1,Y
+1676112,Long Shanahan,Sapling,QUKE,L,33,N
+1676112,Long Shanahan,Seedling,QUCH,L,6,N
+1676112,Long Shanahan,Sapling,QUCH,L,13,N
+1676112,Long Shanahan,Sapling,PIPO,L,17,N
+1676112,Long Shanahan,Sapling,CADE,L,8,N
+1676112,Long Shanahan,Sapling,PIPO,D,3,N
+1676112,Long Shanahan,Sapling,PILA,D,4,N
+1676112,Long Shanahan,Seedling,PILA,L,4,N
+1676112,Long Shanahan,Seedling,PIPO,L,21,N
+1676112,Long Shanahan,Seedling,QUKE,L,18,N
+1676112,Long Shanahan,Seedling,CADE,L,53,N
+1676112,Long Shanahan,Sapling,CADE,D,4,N
+1676122,Long Shanahan,Seedling,QUCH,L,3,N
+1676122,Long Shanahan,Seedling,PIPO,D,2,N
+1676122,Long Shanahan,Seedling,CADE,L,143,N
+1676122,Long Shanahan,Seedling,UNKNCONIFER,D,2,N
+1676122,Long Shanahan,Seedling,PIPO,L,13,N
+1676122,Long Shanahan,Seedling,QUKE,L,9,N
+1676122,Long Shanahan,Seedling,PILA,D,1,N
+1676122,Long Shanahan,Sapling,QUKE,L,24,N
+1676122,Long Shanahan,Sapling,PIPO,L,22,N
+1676122,Long Shanahan,Sapling,CADE,L,9,N
+1676122,Long Shanahan,Sapling,PILA,L,6,N
+1676122,Long Shanahan,Sapling,PILA,D,8,N
+1676122,Long Shanahan,Sapling,CADE,D,1,N
+1676122,Long Shanahan,Sapling,QUCH,L,10,N
+1676122,Long Shanahan,Seedling,PILA,L,4,N
+1676132,Long Shanahan,Sapling,QUCH,L,11,N
+1676132,Long Shanahan,Sapling,CADE,D,2,N
+1676132,Long Shanahan,Sapling,PIPO,L,52,N
+1676132,Long Shanahan,Sapling,CADE,L,9,N
+1676132,Long Shanahan,Sapling,PILA,L,8,N
+1676132,Long Shanahan,Sapling,QUKE,L,31,N
+1676132,Long Shanahan,Seedling,CADE,D,2,N
+1676132,Long Shanahan,Seedling,PILA,D,2,N
+1676132,Long Shanahan,Seedling,PILA,L,8,N
+1676132,Long Shanahan,Seedling,QUKE,L,4,N
+1676132,Long Shanahan,Seedling,CADE,L,28,N
+1676132,Long Shanahan,Seedling,PIPO,L,15,N
+1676132,Long Shanahan,Seedling,QUCH,L,10,N
+1676132,Long Shanahan,Sapling,PILA,D,5,N
+1676152,Long Shanahan,Sapling,CADE,D,1,N
+1676152,Long Shanahan,Seedling,PIPO,L,40,N
+1676152,Long Shanahan,Seedling,QUKE,L,16,N
+1676152,Long Shanahan,Seedling,CADE,L,165,N
+1676152,Long Shanahan,Seedling,UNKNCONIFER,D,1,N
+1676152,Long Shanahan,Seedling,PILA,L,2,N
+1676152,Long Shanahan,Sapling,QUKE,L,20,N
+1676152,Long Shanahan,Sapling,QUCH,L,6,N
+1676152,Long Shanahan,Sapling,PILA,D,6,N
+1676152,Long Shanahan,Sapling,PIPO,L,70,N
+1676152,Long Shanahan,Sapling,PIPO,D,1,N
+1676152,Long Shanahan,Sapling,PILA,L,4,N
+1676152,Long Shanahan,Sapling,CADE,L,1,N
+3620022,Lincoln,Sapling,ABCO,D,1,N
+3620022,Lincoln,Sapling,ABCO,L,38,N
+3620022,Lincoln,Sapling,PIPO,L,62,N
+3620022,Lincoln,Sapling,PILA,L,41,N
+3620022,Lincoln,Seedling,PIPO,L,6,N
+3620022,Lincoln,Seedling,ABCO,L,19,N
+3620022,Lincoln,Seedling,PILA,L,6,N
+3620022,Lincoln,Seedling,CADE,L,33,N
+3620022,Lincoln,Seedling,UNKNCONIFER,D,1,N
+3620022,Lincoln,Sapling,CADE,L,21,N
+3620032,Lincoln,Seedling,PILA,L,7,N
+3620032,Lincoln,Sapling,PIPO,L,30,N
+3620032,Lincoln,Sapling,PILA,L,24,N
+3620032,Lincoln,Sapling,ABCO,L,16,N
+3620032,Lincoln,Seedling,PIPO,L,6,N
+3620032,Lincoln,Seedling,QUKE,L,1,N
+3620032,Lincoln,Seedling,ABCO,D,2,N
+3620032,Lincoln,Seedling,CADE,L,23,N
+3620032,Lincoln,Sapling,CADE,L,35,N
+3620032,Lincoln,Seedling,ABCO,L,17,N
+3620042,Lincoln,Seedling,PIPO,L,16,N
+3620042,Lincoln,Sapling,CADE,D,13,N
+3620042,Lincoln,Sapling,PILA,L,4,N
+3620042,Lincoln,Sapling,ABCO,L,13,N
+3620042,Lincoln,Sapling,PIPO,L,49,N
+3620042,Lincoln,Sapling,QUKE,L,2,N
+3620042,Lincoln,Sapling,CADE,L,6,N
+3620042,Lincoln,Seedling,CADE,D,2,N
+3620042,Lincoln,Seedling,PIPO,D,1,N
+3620042,Lincoln,Seedling,ABCO,L,12,N
+3620042,Lincoln,Seedling,CADE,L,37,N
+3620042,Lincoln,Seedling,QUKE,L,4,N
+3620042,Lincoln,Sapling,ABCO,D,2,N
+3620042,Lincoln,Seedling,PILA,L,5,N
+3620062,Lincoln,Seedling,PIPO,L,18,N
+3620062,Lincoln,Seedling,PILA,L,1,N
+3620062,Lincoln,Seedling,ABCO,L,1,N
+3620062,Lincoln,Sapling,CADE,L,8,N
+3620062,Lincoln,Sapling,PIPO,L,2,N
+3620062,Lincoln,Sapling,ABCO,L,1,N
+3620062,Lincoln,Sapling,ABCO,D,1,N
+3620062,Lincoln,Seedling,PIPO,D,2,N
+3620062,Lincoln,Seedling,CADE,L,7,N
+3620062,Lincoln,Seedling,QUKE,L,2,N
+3620072,Lincoln,Seedling,PIPO,L,2,N
+3620072,Lincoln,Seedling,ABCO,L,4,N
+3620072,Lincoln,Seedling,ABCO,D,1,N
+3620072,Lincoln,Sapling,CADE,D,2,N
+3620072,Lincoln,Seedling,CADE,L,2,N
+3620252,Lincoln,Seedling,CADE,L,59,N
+3620252,Lincoln,Sapling,PILA,L,1,N
+3620252,Lincoln,Seedling,ABCO,L,3,N
+3620252,Lincoln,Sapling,PIPO,L,6,N
+3620252,Lincoln,Sapling,CADE,D,6,N
+3620252,Lincoln,Sapling,ABCO,L,21,N
+3620252,Lincoln,Seedling,PILA,L,1,N
+3620252,Lincoln,Seedling,PIPO,L,1,N
+3620252,Lincoln,Sapling,CADE,L,29,N
+3620282,Lincoln,Seedling,ABCO,L,1,N
+3620282,Lincoln,Sapling,CADE,D,5,N
+3620282,Lincoln,Sapling,ABCO,D,3,N
+3620282,Lincoln,Sapling,ABCO,L,3,N
+3620302,Lincoln,Sapling,ABCO,D,4,N
+3620302,Lincoln,Sapling,CADE,D,3,N
+3620302,Lincoln,Sapling,ABCO,L,2,N
+3620302,Lincoln,Seedling,ABCO,L,1,N
+3620302,Lincoln,Seedling,PIPO,D,1,N
+3620302,Lincoln,Seedling,CADE,L,4,N
+167606,Long Shanahan,Sapling,PILA,L,17,Y
+167606,Long Shanahan,Seedling,PILA,L,2,Y
+167606,Long Shanahan,Seedling,QUCH,L,2,Y
+167606,Long Shanahan,Seedling,CADE,L,2,Y
+167606,Long Shanahan,Sapling,QUCH,L,6,Y
+167606,Long Shanahan,Sapling,CADE,L,6,Y
+167606,Long Shanahan,Seedling,PIPO,L,17,Y
+167606,Long Shanahan,Seedling,QUKE,L,11,Y
+167606,Long Shanahan,Sapling,CADE,D,4,Y
+167616,Long Shanahan,Seedling,QUKE,L,5,Y
+167616,Long Shanahan,Seedling,QUCH,L,7,Y
+167616,Long Shanahan,Seedling,PILA,L,1,Y
+167616,Long Shanahan,Seedling,PIPO,D,1,Y
+167616,Long Shanahan,Seedling,PIPO,L,6,Y
+167616,Long Shanahan,Sapling,CADE,L,1,Y
+167621,Long Shanahan,Seedling,QUKE,L,22,Y
+167621,Long Shanahan,Sapling,UNKNCONIFER,D,1,Y
+167621,Long Shanahan,Sapling,CADE,D,1,Y
+167621,Long Shanahan,Sapling,CADE,L,1,Y
+167621,Long Shanahan,Sapling,QUCH,L,1,Y
+167621,Long Shanahan,Seedling,CADE,L,11,Y
+167621,Long Shanahan,Seedling,QUCH,L,77,Y
+167621,Long Shanahan,Seedling,PIPO,L,2,Y
+167621,Long Shanahan,Seedling,PILA,L,2,Y
+167625,Long Shanahan,Sapling,PIPO,L,1,Y
+167625,Long Shanahan,Sapling,QUCH,L,3,Y
+167625,Long Shanahan,Sapling,PILA,L,7,Y
+167625,Long Shanahan,Seedling,UNKNCONIFER,D,1,Y
+167625,Long Shanahan,Seedling,PIPO,D,1,Y
+167625,Long Shanahan,Seedling,PILA,L,5,Y
+167625,Long Shanahan,Seedling,PIPO,L,7,Y
+167625,Long Shanahan,Seedling,QUKE,L,60,Y
+167625,Long Shanahan,Seedling,CADE,L,102,Y
+167625,Long Shanahan,Seedling,QUCH,L,48,Y
+167644,Long Shanahan,Seedling,QUKE,L,9,Y
+167644,Long Shanahan,Sapling,QUCH,L,1,Y
+167644,Long Shanahan,Seedling,CADE,L,8,Y
+167644,Long Shanahan,Seedling,PILA,L,1,Y
+167644,Long Shanahan,Sapling,CADE,L,1,Y
+167644,Long Shanahan,Sapling,PILA,L,2,Y
+167644,Long Shanahan,Sapling,QUKE,L,8,Y
+167644,Long Shanahan,Seedling,PIPO,L,13,Y
+1676142,Long Shanahan,Seedling,QUKE,L,13,N
+1676142,Long Shanahan,Seedling,UNKNCONIFER,D,1,N
+1676142,Long Shanahan,Seedling,CADE,L,100,N
+1676142,Long Shanahan,Seedling,PIPO,L,5,N
+1676142,Long Shanahan,Seedling,QUCH,L,11,N
+1676142,Long Shanahan,Seedling,CADE,D,7,N
+1676142,Long Shanahan,Sapling,PIPO,D,4,N
+1676142,Long Shanahan,Sapling,PIPO,L,19,N
+1676142,Long Shanahan,Sapling,QUKE,L,18,N
+1676142,Long Shanahan,Sapling,CADE,L,7,N
+1676142,Long Shanahan,Sapling,QUCH,L,3,N
+1676142,Long Shanahan,Sapling,PILA,D,3,N
+1676142,Long Shanahan,Sapling,PILA,L,1,N
+1676142,Long Shanahan,Sapling,CADE,D,10,N
+1676142,Long Shanahan,Seedling,PIPO,D,3,N
+1676502,Long Shanahan,Sapling,QUKE,L,15,N
+1676502,Long Shanahan,Seedling,CADE,L,1,N
+1676502,Long Shanahan,Seedling,PIPO,D,3,N
+1676502,Long Shanahan,Sapling,QUCH,L,9,N
+1676502,Long Shanahan,Seedling,QUCH,L,4,N
+1676502,Long Shanahan,Seedling,QUKE,L,6,N
+1676502,Long Shanahan,Sapling,PIPO,D,1,N
+1676522,Long Shanahan,Seedling,PILA,L,2,N
+1676522,Long Shanahan,Sapling,PIPO,L,55,N
+1676522,Long Shanahan,Sapling,QUCH,L,3,N
+1676522,Long Shanahan,Sapling,CADE,L,4,N
+1676522,Long Shanahan,Sapling,QUKE,L,11,N
+1676522,Long Shanahan,Sapling,PIPO,D,4,N
+1676522,Long Shanahan,Sapling,PILA,D,11,N
+1676522,Long Shanahan,Seedling,PIPO,L,45,N
+1676522,Long Shanahan,Sapling,CADE,D,7,N
+1676522,Long Shanahan,Seedling,CADE,D,1,N
+1676522,Long Shanahan,Seedling,QUCH,L,8,N
+1676522,Long Shanahan,Seedling,PIPO,D,3,N
+1676522,Long Shanahan,Seedling,CADE,L,31,N
+1676522,Long Shanahan,Seedling,QUKE,L,61,N
+1676522,Long Shanahan,Seedling,UNKNCONIFER,D,1,N
+1676522,Long Shanahan,Sapling,PILA,L,18,N
+1676582,Long Shanahan,Seedling,PILA,L,1,N
+1676582,Long Shanahan,Seedling,CADE,L,6,N
+1676582,Long Shanahan,Sapling,PIPO,D,3,N
+1676582,Long Shanahan,Seedling,QUKE,L,14,N
+1676582,Long Shanahan,Sapling,UNKNCONIFER,D,3,N
+1676582,Long Shanahan,Seedling,QUCH,L,9,N
+1676582,Long Shanahan,Sapling,PIPO,L,11,N
+1676582,Long Shanahan,Sapling,CADE,D,41,N
+1676582,Long Shanahan,Sapling,PILA,D,7,N
+1676582,Long Shanahan,Sapling,PILA,L,6,N
+1676582,Long Shanahan,Seedling,PIPO,L,2,N
+1676582,Long Shanahan,Sapling,QUKE,L,2,N
+109002,South Fork,Seedling,PIPO,L,1,Y
+109002,South Fork,Sapling,CADE,D,1,Y
+109004,South Fork,Seedling,PIPO,L,32,Y
+109004,South Fork,Seedling,QUKE,L,3,Y
+109004,South Fork,Sapling,None,NA,,Y
+109005,South Fork,Sapling,None,None,,Y
+109005,South Fork,Seedling,CADE,L,6,Y
+109006,South Fork,Seedling,None,NA,,Y
+109006,South Fork,Sapling,None,NA,,Y
+109007,South Fork,Seedling,ABCO,L,6,Y
+109007,South Fork,Sapling,None,NA,,Y
+109008,South Fork,Seedling,PIPO,D,1,Y
+109008,South Fork,Seedling,ABCO,L,40,Y
+109008,South Fork,Seedling,CADE,L,52,Y
+109008,South Fork,Seedling,QUKE,L,4,Y
+109008,South Fork,Sapling,None,NA,,Y
+109008,South Fork,Seedling,PIPO,L,24,Y
+1090042,South Fork,Seedling,ABCO,L,39,N
+1090042,South Fork,Sapling,ABCO,D,1,N
+1090042,South Fork,Sapling,ABCO,L,3,N
+1090042,South Fork,Sapling,CADE,D,8,N
+1090042,South Fork,Sapling,CADE,L,15,N
+1090042,South Fork,Seedling,PILA,L,10,N
+1090042,South Fork,Seedling,CADE,L,30,N
+1090042,South Fork,Seedling,QUKE,L,4,N
+1090082,South Fork,Sapling,CADE,D,1,N
+1090082,South Fork,Sapling,ABCO,L,33,N
+1090082,South Fork,Seedling,QUKE,L,1,N
+1090082,South Fork,Seedling,CADE,L,3,N
+1090082,South Fork,Seedling,ABCO,L,17,N
+1090082,South Fork,Sapling,ABCO,D,2,N
+1090082,South Fork,Sapling,CADE,L,1,N
+1090092,South Fork,Seedling,QUKE,L,1,N
+1090092,South Fork,Sapling,CADE,L,1,N
+1090092,South Fork,Sapling,CADE,D,5,N
+1090092,South Fork,Sapling,ABCO,L,48,N
+1090092,South Fork,Seedling,CADE,D,1,N
+1090092,South Fork,Seedling,ABCO,L,5,N
+1090092,South Fork,Seedling,ABCO,D,2,N
+1090092,South Fork,Sapling,ABCO,D,11,N
+1090122,South Fork,Sapling,CADE,D,5,N
+1090122,South Fork,Sapling,ABCO,L,9,N
+1090122,South Fork,Sapling,PILA,L,1,N
+1090122,South Fork,Seedling,ABCO,L,1,N
+1090122,South Fork,Seedling,QUKE,L,17,N
+1090122,South Fork,Seedling,CADE,L,36,N
+1090122,South Fork,Sapling,CADE,L,10,N
+1090122,South Fork,Sapling,PIPO,L,1,N
+1090132,South Fork,Sapling,CADE,L,1,N
+1090132,South Fork,Seedling,ABCO,L,4,N
+1090132,South Fork,Seedling,PILA,L,1,N
+1090132,South Fork,Seedling,QUKE,L,1,N
+1090132,South Fork,Sapling,CADE,D,2,N
+1090132,South Fork,Sapling,ABCO,L,3,N
+1090142,South Fork,Sapling,CADE,L,5,N
+1090142,South Fork,Sapling,ABCO,L,4,N
+1090142,South Fork,Sapling,CADE,D,5,N
+1090142,South Fork,Seedling,QUKE,L,2,N
+1090142,South Fork,Seedling,PILA,L,1,N
+1090142,South Fork,Seedling,ABCO,L,3,N
+1090142,South Fork,Seedling,CADE,L,11,N
+1090142,South Fork,Seedling,CADE,D,3,N
+1090152,South Fork,Sapling,PILA,L,1,N
+1090152,South Fork,Seedling,ABCO,D,1,N
+1090152,South Fork,Sapling,CADE,L,6,N
+1090152,South Fork,Seedling,CADE,L,7,N
+1090152,South Fork,Sapling,CADE,D,12,N
+1090152,South Fork,Seedling,ABCO,L,1,N
+1090152,South Fork,Seedling,CADE,D,4,N
+167603,Long Shanahan,Seedling,QUKE,L,59,Y
+167603,Long Shanahan,Seedling,PIPO,L,8,Y
+167603,Long Shanahan,Sapling,CADE,L,1,Y
+167603,Long Shanahan,Sapling,PILA,L,1,Y
+167603,Long Shanahan,Sapling,QUCH,L,18,Y
+167603,Long Shanahan,Seedling,PILA,L,1,Y
+167603,Long Shanahan,Seedling,QUCH,L,18,Y
+1760101,Omanuel Multiprod,Sapling,QUCH,L,54,Y
+1760101,Omanuel Multiprod,Seedling,QUCH,L,20,Y
+1760101,Omanuel Multiprod,Seedling,QUKE,L,3,Y
+1760101,Omanuel Multiprod,Seedling,PIPO,L,1,Y
+1760101,Omanuel Multiprod,Seedling,UNKNCONIFER,D,1,Y
+1760101,Omanuel Multiprod,Sapling,QUKE,L,1,Y
+1760101,Omanuel Multiprod,Sapling,QUCH,D,1,Y
+109009,South Fork,Seedling,PIPO,L,36,Y
+109009,South Fork,Seedling,QUKE,L,3,Y
+109009,South Fork,Seedling,ABCO,L,12,Y
+109009,South Fork,Seedling,CADE,L,8,Y
+109009,South Fork,Sapling,None,NA,,Y
+109010,South Fork,Seedling,QUKE,L,3,Y
+109010,South Fork,Seedling,PIPO,L,110,Y
+109010,South Fork,Seedling,CADE,L,2,Y
+109010,South Fork,Sapling,None,NA,,Y
+155165,Foster16,Sapling,PIPO,L,2,N
+155165,Foster16,Sapling,UNKNHARDWOOD,D,1,N
+155165,Foster16,Sapling,CADE,D,1,N
+155165,Foster16,Sapling,CONU,L,1,N
+155165,Foster16,Sapling,QUCH,L,5,N
+155165,Foster16,Sapling,CADE,L,19,N
+155165,Foster16,Seedling,CONU,L,1,N
+155165,Foster16,Seedling,PILA,L,2,N
+155165,Foster16,Seedling,QUKE,L,4,N
+155165,Foster16,Seedling,QUCH,L,1,N
+155165,Foster16,Seedling,ABCO,L,10,N
+155165,Foster16,Seedling,CADE,L,26,N
+1090012,South Fork,Sapling,CADE,D,5,N
+1090012,South Fork,Seedling,ABCO,L,5,N
+1090012,South Fork,Seedling,PILA,L,2,N
+1090012,South Fork,Seedling,CADE,L,3,N
+1090012,South Fork,Sapling,ABCO,L,2,N
+1090012,South Fork,Sapling,ABCO,D,3,N
+1760106,Omanuel Multiprod,Seedling,QUKE,L,5,Y
+1760106,Omanuel Multiprod,Seedling,PIPO,L,2,Y
+1760106,Omanuel Multiprod,Sapling,QUCH,L,23,Y
+1760106,Omanuel Multiprod,Sapling,QUKE,L,3,Y
+1760106,Omanuel Multiprod,Sapling,PIPO,L,1,Y
+1760106,Omanuel Multiprod,Sapling,ABCO,L,1,Y
+1760106,Omanuel Multiprod,Seedling,QUCH,L,12,Y
+1760116,Omanuel Multiprod,Seedling,PILA,L,1,Y
+1760116,Omanuel Multiprod,Seedling,QUCH,L,10,Y
+1760116,Omanuel Multiprod,Sapling,UNKNCONIFER,D,2,Y
+1760116,Omanuel Multiprod,Seedling,PIPO,L,1,Y
+1760116,Omanuel Multiprod,Sapling,QUCH,L,15,Y
+1760116,Omanuel Multiprod,Sapling,CADE,L,3,Y
+1760116,Omanuel Multiprod,Sapling,QUKE,L,2,Y
+1760116,Omanuel Multiprod,Sapling,PIPO,L,3,Y
+1760116,Omanuel Multiprod,Seedling,QUKE,L,31,Y
+1760118,Omanuel Multiprod,Seedling,PIPO,L,4,Y
+1760118,Omanuel Multiprod,Sapling,QUKE,L,2,Y
+1760118,Omanuel Multiprod,Sapling,QUCH,L,5,Y
+1760118,Omanuel Multiprod,Sapling,CADE,L,3,Y
+1760606,Omanuel Multiprod,Sapling,QUCH,L,1,Y
+1760606,Omanuel Multiprod,Seedling,QUCH,L,2,Y
+1760611,Omanuel Multiprod,Seedling,QUKE,L,24,Y
+1760611,Omanuel Multiprod,Sapling,QUCH,L,3,Y
+1760611,Omanuel Multiprod,Seedling,QUKE,D,2,Y
+1760611,Omanuel Multiprod,Seedling,PIPO,L,1,Y
+1760613,Omanuel Multiprod,Seedling,UNKNCONIFER,L,1,Y
+1760613,Omanuel Multiprod,Sapling,QUCH,L,1,Y
+1760613,Omanuel Multiprod,Seedling,CADE,L,1,Y
+1760613,Omanuel Multiprod,Seedling,QUKE,L,4,Y
+1760613,Omanuel Multiprod,Seedling,QUCH,L,1,Y
+1760622,Omanuel Multiprod,Sapling,PIPO,L,1,Y
+1760622,Omanuel Multiprod,Sapling,QUCH,L,4,Y
+1760622,Omanuel Multiprod,Seedling,PIPO,L,7,Y
+1760622,Omanuel Multiprod,Seedling,QUCH,L,4,Y
+17601032,Omanuel Multiprod controls,Sapling,CADE,L,1,N
+17601032,Omanuel Multiprod controls,Sapling,ABCO,D,1,N
+17601032,Omanuel Multiprod controls,Seedling,QUKE,L,11,N
+17601032,Omanuel Multiprod controls,Seedling,QUCH,L,16,N
+17601032,Omanuel Multiprod controls,Seedling,ABCO,L,7,N
+17601032,Omanuel Multiprod controls,Seedling,PILA,L,1,N
+17601032,Omanuel Multiprod controls,Seedling,CADE,L,1,N
+17601032,Omanuel Multiprod controls,Sapling,ABCO,L,13,N
+17601032,Omanuel Multiprod controls,Sapling,CADE,D,8,N
+17601032,Omanuel Multiprod controls,Sapling,QUCH,L,12,N
+17601032,Omanuel Multiprod controls,Sapling,PILA,L,6,N
+17601032,Omanuel Multiprod controls,Sapling,PILA,D,2,N
+17601032,Omanuel Multiprod controls,Sapling,PSME,L,1,N
+17601032,Omanuel Multiprod controls,Sapling,QUKE,L,3,N
+17601072,Omanuel Multiprod controls,Sapling,QUCH,L,11,N
+17601072,Omanuel Multiprod controls,Seedling,QUCH,L,79,N
+17601072,Omanuel Multiprod controls,Seedling,CADE,L,74,N
+17601072,Omanuel Multiprod controls,Seedling,CADE,D,3,N
+17601072,Omanuel Multiprod controls,Seedling,QUKE,L,3,N
+17601072,Omanuel Multiprod controls,Sapling,CADE,L,11,N
+17601072,Omanuel Multiprod controls,Sapling,CADE,D,13,N
+17601072,Omanuel Multiprod controls,Sapling,QUCH,D,5,N
+17601092,Omanuel Multiprod controls,Sapling,QUCH,D,2,N
+17601092,Omanuel Multiprod controls,Sapling,QUCH,L,8,N
+17601092,Omanuel Multiprod controls,Seedling,QUKE,L,2,N
+17601092,Omanuel Multiprod controls,Seedling,QUCH,L,52,N
+17601112,Omanuel Multiprod controls,Seedling,QUCH,L,4,N
+17601112,Omanuel Multiprod controls,Seedling,QUKE,L,4,N
+17601112,Omanuel Multiprod controls,Sapling,QUKE,L,8,N
+17601112,Omanuel Multiprod controls,Sapling,QUCH,L,1,N
+17601132,Omanuel Multiprod controls,Seedling,QUCH,L,11,N
+17601132,Omanuel Multiprod controls,Seedling,QUKE,L,1,N
+17601132,Omanuel Multiprod controls,Sapling,QUCH,L,21,N
+17601132,Omanuel Multiprod controls,Sapling,PIPO,L,1,N
+17601142,Omanuel Multiprod controls,Seedling,QUCH,L,52,N
+17601142,Omanuel Multiprod controls,Sapling,QUCH,L,18,N
+17601142,Omanuel Multiprod controls,Sapling,QUKE,L,1,N
+17606082,Omanuel Multiprod controls,Sapling,PIPO,L,35,N
+17606082,Omanuel Multiprod controls,Seedling,CADE,L,68,N
+17606082,Omanuel Multiprod controls,Seedling,PIPO,L,12,N
+17606082,Omanuel Multiprod controls,Seedling,QUKE,L,3,N
+17606082,Omanuel Multiprod controls,Seedling,CADE,D,10,N
+17606082,Omanuel Multiprod controls,Seedling,QUCH,L,2,N
+17606082,Omanuel Multiprod controls,Sapling,UNKNHARDWOOD,D,1,N
+17606082,Omanuel Multiprod controls,Sapling,PIPO,D,5,N
+17606082,Omanuel Multiprod controls,Sapling,QUCH,L,5,N
+17606082,Omanuel Multiprod controls,Sapling,CADE,D,5,N
+17606082,Omanuel Multiprod controls,Sapling,ABCO,L,1,N
+17606082,Omanuel Multiprod controls,Sapling,CADE,L,85,N
+17606082,Omanuel Multiprod controls,Seedling,PIPO,D,1,N
+17606102,Omanuel Multiprod,Sapling,CADE,L,34,N
+17606102,Omanuel Multiprod,Seedling,PILA,L,2,N
+17606102,Omanuel Multiprod,Seedling,CADE,L,27,N
+17606102,Omanuel Multiprod,Seedling,PIPO,L,6,N
+17606102,Omanuel Multiprod,Seedling,ABCO,L,2,N
+17606102,Omanuel Multiprod,Sapling,PIPO,L,67,N
+17606102,Omanuel Multiprod,Sapling,CADE,D,21,N
+17606102,Omanuel Multiprod,Sapling,QUCH,L,2,N
+17606102,Omanuel Multiprod,Sapling,PILA,L,2,N
+17606102,Omanuel Multiprod,Seedling,QUKE,L,3,N
+155157,Foster16,Seedling,None,None,,Y
+155157,Foster16,Sapling,CADE,D,3,Y
+155158,Foster16,Seedling,QUKE,L,23,Y
+155158,Foster16,Sapling,QUKE,L,12,Y
+155158,Foster16,Sapling,CADE,D,3,Y
+155158,Foster16,Sapling,UNKNCONIFER,D,6,Y
+155158,Foster16,Sapling,QUKE,D,1,Y
+155166,Foster16,Seedling,PILA,L,2,N
+155166,Foster16,Seedling,PIPO,L,2,N
+155166,Foster16,Sapling,QUKE,L,3,N
+155166,Foster16,Seedling,CADE,L,2,N
+155166,Foster16,Sapling,QUCH,L,1,N
+155166,Foster16,Seedling,PILA,D,1,N
+155166,Foster16,Sapling,CADE,L,6,N
+155166,Foster16,Seedling,QUKE,L,9,N
+155166,Foster16,Sapling,PILA,L,6,N
+155166,Foster16,Seedling,PIPO,D,3,N
+155166,Foster16,Sapling,PIPO,D,3,N
+155166,Foster16,Sapling,PIPO,L,29,N
+155166,Foster16,Sapling,ABCO,L,3,N
+155167,Foster16,Seedling,QUKE,L,4,N
+155167,Foster16,Sapling,QUKE,L,5,N
+155167,Foster16,Sapling,CADE,L,1,N
+155167,Foster16,Sapling,PIPO,L,11,N
+155167,Foster16,Sapling,SALIX,L,1,N
+155167,Foster16,Sapling,PIPO,D,1,N
+245000,StudHorse N,Sapling,CADE,L,1,Y
+245000,StudHorse N,Seedling,CADE,L,21,Y
+245000,StudHorse N,Seedling,PILA,L,2,Y
+245000,StudHorse N,Seedling,PIPO,L,1,Y
+249000,StudHorse N,Seedling,CADE,L,37,Y
+249000,StudHorse N,Seedling,PIPO,L,18,Y
+249000,StudHorse N,Seedling,PILA,L,1,Y
+249000,StudHorse N,Seedling,QUKE,L,1,Y
+249000,StudHorse N,Seedling,QUCH,L,1,Y
+249000,StudHorse N,Sapling,CADE,D,1,Y
+249000,StudHorse N,Sapling,PIPO,L,1,Y
+362002,Lincoln,Sapling,ABCO,D,1,Y
+362002,Lincoln,Seedling,QUKE,L,1,Y
+362002,Lincoln,Seedling,CADE,L,4,Y
+362002,Lincoln,Seedling,ABCO,L,15,Y
+362002,Lincoln,Seedling,ABCO,D,3,Y
+362002,Lincoln,Sapling,CADE,L,5,Y
+362002,Lincoln,Sapling,ABCO,L,17,Y
+362012,Lincoln,Sapling,CADE,L,31,Y
+362012,Lincoln,Seedling,QUKE,L,1,Y
+362012,Lincoln,Seedling,ABCO,L,14,Y
+362012,Lincoln,Seedling,CADE,L,58,Y
+362012,Lincoln,Sapling,PIPO,L,1,Y
+362012,Lincoln,Sapling,CADE,L,7,Y
+362012,Lincoln,Sapling,ABCO,L,50,Y
+362012,Lincoln,Seedling,PIPO,L,11,Y
+362012,Lincoln,Seedling,ABCO,L,9,Y
+362012,Lincoln,Seedling,CADE,L,1,Y
+362012,Lincoln,Seedling,ABCO,D,1,Y
+362012,Lincoln,Seedling,QUKE,L,1,Y
+402000,Lily gap phase 1,Sapling,PIPO,L,10,Y
+402000,Lily gap phase 1,Sapling,QUKE,L,1,Y
+402000,Lily gap phase 1,Sapling,QUCH,L,10,Y
+402000,Lily gap phase 1,Seedling,QUCH,L,3,Y
+402000,Lily gap phase 1,Sapling,PIPO,D,2,Y
+404000,Lily gap phase 1,Sapling,PIPO,L,3,Y
+404000,Lily gap phase 1,Seedling,QUKE,L,3,Y
+404000,Lily gap phase 1,Sapling,PIPO,D,2,Y
+410000,Lily gap phase 1,Seedling,QUCH,L,1,Y
+410000,Lily gap phase 1,Seedling,QUKE,L,1,Y
+410000,Lily gap phase 1,Sapling,None,None,,Y
+411000,Lily gap phase 1,Sapling,PIPO,L,1,Y
+411000,Lily gap phase 1,Sapling,QUCH,L,1,Y
+411000,Lily gap phase 1,Sapling,QUKE,L,13,Y
+411000,Lily gap phase 1,Seedling,QUKE,L,29,Y
+414000,Lily gap phase 1,Sapling,PIPO,L,1,Y
+414000,Lily gap phase 1,Sapling,CADE,L,1,Y
+414000,Lily gap phase 1,Seedling,QUKE,L,1,Y
+414000,Lily gap phase 1,Seedling,QUCH,L,1,Y
+432000,Lily gap phase 1,Seedling,CADE,D,2,Y
+432000,Lily gap phase 1,Seedling,QUKE,L,4,Y
+432000,Lily gap phase 1,Seedling,CADE,L,10,Y
+432000,Lily gap phase 1,Seedling,PIPO,L,13,Y
+432000,Lily gap phase 1,Sapling,CADE,L,28,Y
+432000,Lily gap phase 1,Sapling,PIPO,D,1,Y
+432000,Lily gap phase 1,Sapling,CADE,D,1,Y
+435000,Lily gap phase 1,Sapling,ABCO,L,1,Y
+435000,Lily gap phase 1,Seedling,QUKE,L,1,Y
+435000,Lily gap phase 1,Seedling,PIPO,L,5,Y
+435000,Lily gap phase 1,Seedling,QUCH,L,6,Y
+435000,Lily gap phase 1,Seedling,CADE,L,8,Y
+435000,Lily gap phase 1,Seedling,ABCO,L,3,Y
+435000,Lily gap phase 1,Sapling,CADE,L,7,Y
+435000,Lily gap phase 1,Sapling,CADE,D,2,Y
+435000,Lily gap phase 1,Sapling,PILA,L,3,Y
+435000,Lily gap phase 1,Sapling,PSME,L,1,Y
+435000,Lily gap phase 1,Sapling,PIPO,L,1,Y
+435000,Lily gap phase 1,Sapling,QUCH,L,1,Y
+439000,Lily gap phase 1,Seedling,QUKE,L,1,N
+439000,Lily gap phase 1,Sapling,PIPO,L,1,N
+561000,Lily gap phase 2,Sapling,PIPO,L,17,N
+561000,Lily gap phase 2,Sapling,PSME,L,1,N
+561000,Lily gap phase 2,Sapling,PILA,D,1,N
+561000,Lily gap phase 2,Sapling,PIPO,D,3,N
+561000,Lily gap phase 2,Seedling,QUKE,L,1,N
+561000,Lily gap phase 2,Seedling,CADE,L,1,N
+561000,Lily gap phase 2,Sapling,CADE,L,6,N
+561000,Lily gap phase 2,Sapling,PILA,L,4,N
+562000,Lily gap phase 2,Sapling,CADE,L,27,N
+562000,Lily gap phase 2,Sapling,CADE,D,1,N
+562000,Lily gap phase 2,Sapling,PIPO,L,25,N
+562000,Lily gap phase 2,Sapling,PIPO,D,6,N
+562000,Lily gap phase 2,Sapling,PSME,L,5,N
+562000,Lily gap phase 2,Seedling,CADE,L,1,N
+562000,Lily gap phase 2,Sapling,PILA,L,25,N
+562000,Lily gap phase 2,Seedling,QUKE,L,26,N
+562000,Lily gap phase 2,Seedling,PILA,L,1,N
+564000,Lily gap phase 2,Seedling,PIPO,L,1,N
+564000,Lily gap phase 2,Sapling,PSME,L,1,N
+564000,Lily gap phase 2,Sapling,PILA,L,3,N
+564000,Lily gap phase 2,Sapling,PIPO,D,5,N
+564000,Lily gap phase 2,Sapling,QUKE,L,1,N
+564000,Lily gap phase 2,Sapling,PIPO,L,2,N
+564000,Lily gap phase 2,Seedling,CADE,L,2,N
+564000,Lily gap phase 2,Seedling,PILA,L,1,N
+564000,Lily gap phase 2,Seedling,QUKE,L,1,N
+564000,Lily gap phase 2,Sapling,CADE,L,9,N
+570000,Lily gap phase 2,Seedling,PSME,L,1,N
+570000,Lily gap phase 2,Seedling,QUKE,L,3,N
+570000,Lily gap phase 2,Sapling,PSME,L,4,N
+570000,Lily gap phase 2,Sapling,PILA,L,9,N
+570000,Lily gap phase 2,Sapling,QUCH,L,2,N
+632000,Bummerville,Sapling,CADE,D,1,N
+632000,Bummerville,Sapling,CADE,L,4,N
+632000,Bummerville,Sapling,PIPO,L,14,N
+632000,Bummerville,Sapling,PIPO,D,3,N
+632000,Bummerville,Seedling,None,None,,N
+632000,Bummerville,Sapling,PSME,L,1,N
+632000,Bummerville,Sapling,UNKNCONIFER,D,2,N
+632000,Bummerville,Sapling,QUCH,L,3,N
+634000,Bummerville,Sapling,PIPO,D,1,N
+634000,Bummerville,Sapling,QUKE,L,8,N
+634000,Bummerville,Sapling,PIPO,L,8,N
+634000,Bummerville,Seedling,QUKE,L,1,N
+634000,Bummerville,Sapling,PSME,L,1,N
+634000,Bummerville,Sapling,CADE,L,5,N
+634000,Bummerville,Seedling,PIPO,L,2,N
+636000,Bummerville,Seedling,CADE,L,21,N
+636000,Bummerville,Seedling,QUKE,L,7,N
+636000,Bummerville,Seedling,PIPO,L,37,N
+636000,Bummerville,Seedling,QUCH,L,32,N
+636000,Bummerville,Seedling,PIPO,D,11,N
+636000,Bummerville,Sapling,PIPO,L,7,N
+636000,Bummerville,Sapling,QUKE,L,24,N
+636000,Bummerville,Sapling,PILA,L,1,N
+637000,Bummerville,Seedling,QUKE,L,6,N
+637000,Bummerville,Sapling,PIPO,L,2,N
+637000,Bummerville,Seedling,PIPO,D,18,N
+637000,Bummerville,Seedling,PIPO,L,16,N
+637000,Bummerville,Sapling,QUKE,L,4,N
+155151,Foster16,Seedling,PILA,L,2,Y
+155151,Foster16,Seedling,CADE,L,9,Y
+155151,Foster16,Seedling,QUKE,L,2,Y
+155151,Foster16,Seedling,PIJE,L,1,Y
+155151,Foster16,Seedling,ABCO,L,11,Y
+155152,Foster16,Sapling,ABCO,D,2,Y
+155152,Foster16,Seedling,CADE,L,132,Y
+155152,Foster16,Seedling,PILA,L,12,Y
+155152,Foster16,Seedling,CADE,D,5,Y
+155152,Foster16,Seedling,ABCO,D,3,Y
+155152,Foster16,Seedling,ABCO,L,82,Y
+155153,Foster16,Sapling,ABCO,D,7,Y
+155153,Foster16,Sapling,CADE,D,1,Y
+155153,Foster16,Sapling,QUKE,D,4,Y
+155153,Foster16,Sapling,QUKE,L,2,Y
+155153,Foster16,Seedling,QUKE,L,1,Y
+155154,Foster16,Sapling,ABCO,D,5,Y
+155154,Foster16,Sapling,ABCO,L,2,Y
+155154,Foster16,Seedling,CADE,D,1,Y
+155154,Foster16,Sapling,CADE,L,5,Y
+155155,Foster16,Sapling,ABCO,D,2,Y
+155155,Foster16,Sapling,ABCO,L,1,Y
+155155,Foster16,Sapling,CADE,D,1,Y
+155155,Foster16,Seedling,ABCO,L,4,Y
+155155,Foster16,Seedling,QUKE,L,1,Y
+155155,Foster16,Seedling,CADE,L,2,Y
+155155,Foster16,Sapling,QUKE,L,2,Y
+155156,Foster16,Sapling,QUKE,D,1,Y
+155156,Foster16,Sapling,QUKE,L,18,Y
+4022052,Blue Canyon3C,Seedling,None,None,,N
+4022052,Blue Canyon3C,Sapling,QUCH,L,1,N
+4022062,Blue Canyon3C,Seedling,QUCH,L,1,N
+4022062,Blue Canyon3C,Sapling,PIPO,D,3,N
+4022062,Blue Canyon3C,Sapling,CADE,D,1,N
+4022062,Blue Canyon3C,Seedling,ABCO,L,1,N
+4022062,Blue Canyon3C,Sapling,PIPO,L,1,N
+4022062,Blue Canyon3C,Sapling,QUCH,L,3,N
+4022082,Blue Canyon3C,Sapling,QUKE,L,3,N
+4022082,Blue Canyon3C,Sapling,PIPO,D,1,N
+4022082,Blue Canyon3C,Sapling,CADE,D,1,N
+4022082,Blue Canyon3C,Seedling,QUCH,L,2,N
+4022082,Blue Canyon3C,Seedling,QUKE,L,6,N
+4022082,Blue Canyon3C,Sapling,QUCH,L,2,N
+4022082,Blue Canyon3C,Sapling,CADE,L,1,N
+4022092,Blue Canyon3C,Sapling,QUCH,L,11,N
+4022092,Blue Canyon3C,Seedling,QUCH,L,13,N
+4022092,Blue Canyon3C,Seedling,QUKE,L,33,N
+241000,StudHorse N,Sapling,QUCH,L,3,Y
+241000,StudHorse N,Seedling,CADE,L,17,Y
+241000,StudHorse N,Sapling,CADE,D,2,Y
+247000,StudHorse N,Sapling,QUCH,L,2,Y
+247000,StudHorse N,Seedling,CADE,L,4,Y
+247000,StudHorse N,Seedling,PIPO,L,1,Y
+247000,StudHorse N,Sapling,CADE,D,2,Y
+248000,StudHorse N,Seedling,PIPO,L,39,Y
+248000,StudHorse N,Seedling,PILA,L,16,Y
+248000,StudHorse N,Seedling,QUKE,L,2,Y
+248000,StudHorse N,Seedling,CADE,L,32,Y
+248000,StudHorse N,Sapling,UNKNCONIFER,D,1,Y
+248000,StudHorse N,Seedling,ABCO,L,11,Y
+248000,StudHorse N,Sapling,CADE,D,17,Y
+248000,StudHorse N,Sapling,ABCO,D,1,Y
+301000,StudHorse N,Seedling,QUKE,L,17,N
+301000,StudHorse N,Seedling,PILA,L,2,N
+301000,StudHorse N,Seedling,CADE,L,6,N
+301000,StudHorse N,Seedling,QUCH,L,6,N
+301000,StudHorse N,Sapling,PILA,D,2,N
+301000,StudHorse N,Sapling,ABCO,L,1,N
+301000,StudHorse N,Sapling,UNKNCONIFER,D,2,N
+301000,StudHorse N,Seedling,CADE,D,4,N
+301000,StudHorse N,Sapling,PILA,L,11,N
+301000,StudHorse N,Sapling,QUCH,L,1,N
+301000,StudHorse N,Sapling,CADE,D,165,N
+301000,StudHorse N,Sapling,CADE,L,9,N
+301000,StudHorse N,Seedling,PIPO,L,1,N
+301000,StudHorse N,Sapling,PIPO,D,9,N
+301000,StudHorse N,Sapling,PIPO,L,7,N
+301000,StudHorse N,Sapling,ABCO,D,1,N
+302000,StudHorse N,Sapling,PIPO,L,1,N
+302000,StudHorse N,Seedling,PILA,L,5,N
+302000,StudHorse N,Seedling,ABCO,L,4,N
+302000,StudHorse N,Seedling,CADE,D,1,N
+302000,StudHorse N,Sapling,CADE,L,9,N
+302000,StudHorse N,Seedling,CADE,L,54,N
+302000,StudHorse N,Seedling,QUKE,L,4,N
+302000,StudHorse N,Sapling,ABCO,L,2,N
+302000,StudHorse N,Seedling,PIPO,L,7,N
+302000,StudHorse N,Sapling,PILA,L,12,N
+302000,StudHorse N,Sapling,CADE,D,8,N
+304000,StudHorse N,Sapling,PILA,D,1,N
+304000,StudHorse N,Seedling,QUKE,L,23,N
+304000,StudHorse N,Sapling,CADE,D,104,N
+304000,StudHorse N,Seedling,ABCO,L,1,N
+304000,StudHorse N,Seedling,QUCH,L,1,N
+304000,StudHorse N,Sapling,PILA,L,3,N
+304000,StudHorse N,Seedling,PILA,L,3,N
+304000,StudHorse N,Seedling,PILA,D,1,N
+304000,StudHorse N,Seedling,CADE,D,1,N
+304000,StudHorse N,Seedling,PILA,D,3,N
+304000,StudHorse N,Sapling,CADE,L,23,N
+304000,StudHorse N,Sapling,QUCH,L,1,N
+304000,StudHorse N,Sapling,UNKNCONIFER,D,3,N
+304000,StudHorse N,Sapling,ABCO,L,1,N
+304000,StudHorse N,Seedling,CADE,L,1,N
+305000,StudHorse N,Seedling,QUKE,L,3,N
+305000,StudHorse N,Seedling,CADE,L,9,N
+305000,StudHorse N,Seedling,PILA,L,8,N
+305000,StudHorse N,Sapling,CADE,D,20,N
+305000,StudHorse N,Seedling,ABCO,L,44,N
+305000,StudHorse N,Seedling,PIPO,L,3,N
+305000,StudHorse N,Sapling,CADE,L,8,N
+305000,StudHorse N,Sapling,ABCO,D,1,N
+305000,StudHorse N,Sapling,PILA,D,1,N
+305000,StudHorse N,Sapling,PILA,L,4,N
+305000,StudHorse N,Sapling,QUCH,L,2,N
+305000,StudHorse N,Sapling,CADE,L,4,N
+305000,StudHorse N,Sapling,ABCO,L,34,N
+307000,StudHorse N,Sapling,UNKNCONIFER,D,3,N
+307000,StudHorse N,Sapling,ABCO,L,10,N
+307000,StudHorse N,Sapling,PILA,L,14,N
+307000,StudHorse N,Sapling,PIPO,L,1,N
+307000,StudHorse N,Seedling,PILA,L,1,N
+307000,StudHorse N,Sapling,QUKE,L,3,N
+307000,StudHorse N,Sapling,QUCH,L,2,N
+307000,StudHorse N,Sapling,PILA,D,2,N
+307000,StudHorse N,Sapling,ABCO,D,1,N
+307000,StudHorse N,Sapling,PSME,L,1,N
+307000,StudHorse N,Sapling,CADE,D,30,N
+307000,StudHorse N,Seedling,CADE,D,9,N
+307000,StudHorse N,Seedling,ABCO,L,24,N
+307000,StudHorse N,Seedling,CADE,L,50,N
+307000,StudHorse N,Sapling,CADE,L,19,N
+307000,StudHorse N,Seedling,UNKNCONIFER,D,3,N
+308000,StudHorse N,Seedling,QUCH,L,2,N
+308000,StudHorse N,Sapling,UNKNCONIFER,D,5,N
+308000,StudHorse N,Sapling,ABCO,D,5,N
+308000,StudHorse N,Sapling,CADE,L,3,N
+308000,StudHorse N,Sapling,PILA,D,1,N
+308000,StudHorse N,Sapling,PIPO,D,3,N
+308000,StudHorse N,Sapling,PILA,L,2,N
+308000,StudHorse N,Sapling,PIPO,L,2,N
+308000,StudHorse N,Seedling,CADE,L,85,N
+308000,StudHorse N,Seedling,CADE,D,7,N
+308000,StudHorse N,Seedling,ABCO,L,10,N
+308000,StudHorse N,Seedling,QUKE,L,3,N
+308000,StudHorse N,Sapling,CADE,D,77,N
+311000,StudHorse N,Sapling,CADE,L,12,N
+311000,StudHorse N,Seedling,CADE,L,6,N
+311000,StudHorse N,Sapling,PIPO,D,7,N
+311000,StudHorse N,Sapling,CADE,D,31,N
+311000,StudHorse N,Sapling,UNKNCONIFER,D,1,N
+311000,StudHorse N,Sapling,PIPO,L,6,N
+312000,StudHorse N,Sapling,QUCH,L,1,N
+312000,StudHorse N,Sapling,CADE,L,2,N
+312000,StudHorse N,Sapling,CADE,D,12,N
+312000,StudHorse N,Seedling,PILA,L,2,N
+312000,StudHorse N,Seedling,CADE,L,6,N
+312000,StudHorse N,Seedling,PIPO,L,7,N
+242000,StudHorse N,Sapling,UNKNCONIFER,D,1,Y
+242000,StudHorse N,Sapling,CADE,D,10,Y
+242000,StudHorse N,Seedling,QUCH,L,1,Y
+243000,StudHorse N,Sapling,PIPO,D,2,Y
+243000,StudHorse N,Sapling,CADE,D,10,Y
+155101,Granddad,Sapling,CADE,L,1,Y
+155101,Granddad,Seedling,QUKE,L,2,Y
+155101,Granddad,Seedling,ABCO,L,2,Y
+155101,Granddad,Seedling,CADE,L,3,Y
+155101,Granddad,Seedling,PILA,L,1,Y
+155101,Granddad,Sapling,QUKE,L,1,Y
+155101,Granddad,Sapling,QUCH,L,2,Y
+155101,Granddad,Seedling,QUCH,L,3,Y
+155102,Granddad,Sapling,ABCO,D,1,Y
+155102,Granddad,Sapling,CADE,L,1,Y
+155102,Granddad,Sapling,PIPO,L,1,Y
+155102,Granddad,Sapling,unknown,D,1,Y
+155102,Granddad,Seedling,PILA,L,3,Y
+155102,Granddad,Seedling,PIPO,L,5,Y
+155102,Granddad,Seedling,ABCO,L,1,Y
+155102,Granddad,Sapling,CADE,D,2,Y
+155102,Granddad,Seedling,QUKE,L,1,Y
+155102,Granddad,Seedling,QUCH,L,1,Y
+155102,Granddad,Seedling,CADE,L,1,Y
+155103,Granddad,Sapling,CADE,D,1,Y
+155103,Granddad,Seedling,QUCH,L,3,Y
+155103,Granddad,Seedling,QUKE,L,1,Y
+155103,Granddad,Sapling,PIPO,L,1,Y
+155103,Granddad,Sapling,QUCH,L,8,Y
+155104,Granddad,Seedling,ABCO,L,3,Y
+155104,Granddad,Seedling,PILA,L,4,Y
+155104,Granddad,Sapling,QUCH,L,12,Y
+155104,Granddad,Sapling,CADE,D,1,Y
+155104,Granddad,Sapling,PILA,L,1,Y
+155104,Granddad,Sapling,ABCO,L,2,Y
+155104,Granddad,Sapling,QUKE,L,1,Y
+155104,Granddad,Seedling,QUCH,L,6,Y
+155104,Granddad,Seedling,QUKE,L,12,Y
+155104,Granddad,Seedling,CADE,L,2,Y
+155104,Granddad,Seedling,PIPO,L,6,Y
+155105,Granddad,Sapling,CADE,L,1,Y
+155105,Granddad,Seedling,QUCH,L,1,Y
+155105,Granddad,Sapling,CADE,D,1,Y
+155105,Granddad,Seedling,CADE,L,1,Y
+155105,Granddad,Seedling,ABCO,L,3,Y
+155105,Granddad,Seedling,PIPO,L,1,Y
+155105,Granddad,Seedling,PILA,L,3,Y
+155105,Granddad,Seedling,QUKE,L,16,Y
+155105,Granddad,Sapling,UNKNCONIFER,D,1,Y
+155106,Granddad,Sapling,ABCO,L,1,Y
+155106,Granddad,Seedling,PILA,L,1,Y
+155106,Granddad,Seedling,ABCO,L,2,Y
+155106,Granddad,Seedling,QUKE,L,2,Y
+155106,Granddad,Sapling,ABCO,D,3,Y
+155107,Granddad,Sapling,QUCH,L,3,Y
+155107,Granddad,Sapling,QUKE,L,3,Y
+155107,Granddad,Sapling,ABCO,L,1,Y
+155107,Granddad,Sapling,ABCO,D,1,Y
+155107,Granddad,Sapling,CADE,L,1,Y
+155107,Granddad,Seedling,PIPO,L,1,Y
+155107,Granddad,Seedling,CADE,L,1,Y
+155107,Granddad,Seedling,PILA,L,5,Y
+155107,Granddad,Seedling,ABCO,L,3,Y
+155107,Granddad,Seedling,QUKE,L,3,Y
+155107,Granddad,Seedling,QUCH,L,2,Y
+155108,Granddad,Seedling,PIPO,L,1,Y
+155108,Granddad,Seedling,CADE,L,5,Y
+155108,Granddad,Seedling,QUCH,L,4,Y
+155108,Granddad,Seedling,ABCO,L,3,Y
+155108,Granddad,Seedling,Unknown,L,1,Y
+155108,Granddad,Sapling,CADE,L,2,Y
+155108,Granddad,Sapling,ABCO,L,10,Y
+155108,Granddad,Sapling,QUCH,L,4,Y
+155108,Granddad,Sapling,ABCO,D,5,Y
+1510206,Granddad,Seedling,QUCH,L,1,N
+1510206,Granddad,Seedling,ABCO,L,14,N
+1510206,Granddad,Seedling,PIPO,L,1,N
+1510206,Granddad,Seedling,CADE,L,4,N
+1510206,Granddad,Seedling,QUKE,L,4,N
+1510206,Granddad,Sapling,ABCO,L,15,N
+1510206,Granddad,Sapling,ABCO,D,18,N
+1510206,Granddad,Sapling,CADE,L,4,N
+1510206,Granddad,Sapling,PILA,L,2,N
+1510206,Granddad,Seedling,PILA,L,6,N
+1510206,Granddad,Sapling,CADE,D,2,N

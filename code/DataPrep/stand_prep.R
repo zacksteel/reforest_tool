@@ -135,7 +135,7 @@ stand_prep <- function() {
     mutate(treated = ifelse(treated == "Y", "Yes", "No"))
   
   ## Save for later use
-  write.csv(d2, "data/Stand/stand_prepped.csv", row.names = F)
+  write.csv(d2, "app_data/Stand/stand_prepped.csv", row.names = F)
   st_write(aois, "data/Stand/stand_aois.shp")
   st_write(aois, "app_data/stand_aois.shp")
 }

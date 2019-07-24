@@ -170,6 +170,8 @@ Reforestation strategies that promote variable stand density at local scales and
 
 * [*From the stand scale to the landscape scale: predicting the spatial patterns of forest regeneration after disturbance* - Shive et al. 2018](https://esajournals.onlinelibrary.wiley.com/doi/10.1002/eap.1756)  
 
+* [*Forest structure and climate mediate drought‐induced tree mortality in forests of the Sierra Nevada, USA* - Restaino et al. 2019](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/eap.1902)
+
 * [*Seedlot Selection Tool*](https://seedlotselectiontool.org/sst/)  
 
 <p align="right">

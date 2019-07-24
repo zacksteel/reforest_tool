@@ -29,13 +29,15 @@ aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
 stand <- read.csv("app_data/stand_prepped.csv")
 stand_aois <- st_read("app_data", "stand_aois")
 aoi_st <- c("All", sort(as.character(stand_aois$aoi)), "BLM")
+regen <- read.csv("app_data/regen_prepped.csv")
 ## And define some stand metric associations
-metrics <- data.frame(label = c("Stand Density", "Basal Area", "Canopy Cover", "Mean DBH", "Max DBH"), 
-                      metric = c("tpha_live", "ba_live", "live_cc", "dbh_mn_live", "dbh_max_live", 
+metrics <- data.frame(label = c("Stand Density","Regeneration","Basal Area","Canopy Cover","Mean DBH","Max DBH",
+                                "Stand Density","Basal Area","Canopy Cover","Mean DBH","Max DBH"), 
+                      metric = c("tpha_live", "spha","ba_live", "live_cc", "dbh_mn_live", "dbh_max_live", 
                                  "tpha_dead", "ba_dead", "dead_cc", "dbh_mn_dead", "dbh_max_dead"),
-                      unit = c("trees/ha", "sq m", "%", "cm", "cm", 
+                      unit = c("trees/ha", "Stems/ha", "sq m", "%", "cm", "cm", 
                                "trees/ha", "sq m", "%", "cm", "cm"),
-                      status = c(rep("live",5),rep("dead",5)))
+                      status = c(rep("live",6),rep("dead",5)))
 
 ## User interface ####
 ui <- fluidPage(
@@ -701,7 +703,7 @@ server <- function(input, output, session) {
     m2
   })
   
-  #### Stand Boxplot ####
+  #### Stand plot ####
   output$boxPlot <- renderPlot({
     
     ulab <- input$metric_st
@@ -712,22 +714,40 @@ server <- function(input, output, session) {
       as.character()
     
     ## just plots in aoi
-    if(input$Forest_st == "All") {stand2 <- stand} else
-      {stand2 <- filter(stand, aoi == input$Forest_st)}
+    if(input$Forest_st == "All") {
+      stand2 <- stand
+      regen2 <- regen} else
+      {stand2 <- filter(stand, aoi == input$Forest_st)
+      regen2 <- filter(regen, aoi == input$Forest_st)}
     
-    stand2 <- dplyr::select(stand2, plot, aoi, treated, {{vars}}) %>%
-      gather(key = metric, value = value, -plot, -aoi, -treated) %>%
-      merge(metrics, by = "metric") %>%
-      mutate(treat = ifelse(treated == "Yes", "Treated Plots", "Untreated Plots"),
-             text = paste("value:",value))
+    ## Different plot for regen
+    if(ulab == "Regeneration") {
+      regen2 <- dplyr::select(regen2, plot, aoi, treated, species, spha) %>%
+        mutate(treat = ifelse(treated == "Yes", "Treated Plots", "Untreated Plots"))
+      
+      p <- ggplot(regen2, aes(x = species, y = spha, color = species)) +
+        geom_boxplot() +
+        geom_jitter() +
+        facet_grid(~ treat) +
+        ylab(plab) + xlab(NULL) +
+        theme(legend.position = "none",
+              axis.text.x = element_text(angle = 45, hjust = 1, size = 10))
+      
+    } else {
+      ## For other metrics
+      stand2 <- dplyr::select(stand2, plot, aoi, treated, {{vars}}) %>%
+        gather(key = metric, value = value, -plot, -aoi, -treated) %>%
+        merge(metrics, by = "metric") %>%
+        mutate(treat = ifelse(treated == "Yes", "Treated Plots", "Untreated Plots"),
+               text = paste("value:",value))
+      
+      p <- ggplot(stand2, aes(x = status, y = value)) +
+        geom_boxplot() +
+        geom_jitter() +
+        facet_grid(~ treat) +
+        ylab(plab) + xlab("Tree Status")
+    }
     
-    p <- ggplot(stand2, aes(x = status, y = value)) +
-      geom_boxplot() +
-      geom_jitter() +
-      facet_grid(~ treat) +
-      ylab(plab) + xlab("Tree Status")
-    
-    # ggplotly(p)
     p
     
   })

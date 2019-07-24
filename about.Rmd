@@ -8,11 +8,11 @@ output:
 
 ```{css, echo=FALSE}
 body .main-container {
-  max-width: 1000px !important;
+  max-width: 1500px !important;
   min-width: 600px !important;
 }
 body {
-  max-width: 1000px !important;
+  max-width: 1500px !important;
   min-width: 600px !important;
 }
 
@@ -22,7 +22,7 @@ body {
 
 .container {
   position: relative;
-  max-width: 1000px !important;
+  max-width: 1400px !important;
   font-size: 40px;
   color: white;
   font-weight: bold;
@@ -57,7 +57,7 @@ Welcome to the climate-wise reforestation toolkit. This site includes three reso
 
 * Prioritization tool: This tool combines remotely-sensed estimates of forest mortality with user-weighted data layers to prioritize areas for reforestation within a given area of interest on Forest Service land in the Sierra Nevada mountains. In the Prioritization tool tab, 1) select your area of interest (national forest or rander district), 2) select the level of forest loss which you consider triggers a need for reforestation, 3) weight priority data layers according to your objectives, 4) run the prioritization calculation, and 5) download maps and/or a prioritization raster layer.  
 
-* Post-drought stand condition summary tool: This tool summarizes stand data collected following the recent 2012-16 drought in # areas of the Sierra Nevada.  
+* Post-drought stand condition summary tool: This tool summarizes stand data collected following the recent 2012-16 drought in # areas of the Sierra Nevada. Research analyzing these data can also be found [here](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/eap.1902 ), and [here](https://github.com/zacksteel/reforest_tool/blob/master/app_data/Restaino2019_Brief.pdf).  
 
 * Best management practices (BMPs): Reforestation Best Management Practices are summarized based on a recent review of the state of the science. Emphasis is placed on strategies that consider climate change and altered disturbance regimes rather than the technical aspects of reforestation, which can be found elsewhere. Users are encouraged to consult literature reviewing the state of the science of forest reforestation strategies, especially [North et al. 2019](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) and associated [research brief](https://github.com/zacksteel/reforest_tool/blob/master/app_data/TammReview_brief.pdf).  
 

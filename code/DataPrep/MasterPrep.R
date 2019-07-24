@@ -44,3 +44,7 @@ NF_Limits()
 ## Summarize stand data for display on a leaflet map
 source("code/DataPrep/stand_prep.R")
 stand_prep()
+
+## Summarize regen data
+source("code/DataPrep/regen_prep.R")
+regen_prep()

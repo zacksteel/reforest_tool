@@ -14,7 +14,7 @@ library(shinyBS) #for tooltip funcitonality
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-webshot::install_phantomjs()
+# webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
@@ -28,7 +28,7 @@ aoi_id <- c("", as.character(forest$FORESTNAME), as.character(district$aoi)) %>%
 ## Read in stand data
 stand <- read.csv("app_data/stand_prepped.csv")
 stand_aois <- st_read("app_data", "stand_aois")
-aoi_st <- c("All", as.character(stand_aois$aoi), "BLM")
+aoi_st <- c("All", sort(as.character(stand_aois$aoi)), "BLM")
 ## And define some stand metric associations
 metrics <- data.frame(label = c("Stand Density", "Basal Area", "Canopy Cover", "Mean DBH", "Max DBH"), 
                       metric = c("tpha_live", "ba_live", "live_cc", "dbh_mn_live", "dbh_max_live", 
@@ -178,8 +178,8 @@ ui <- fluidPage(
     ),
     
     #### Stand Summary - UI ####
-    tabPanel("Stand data summary", 
-             titlePanel("Forestry Plot Data Tool"),
+    tabPanel("Stand summary tool", 
+             titlePanel("Post-drought Stand Condition Summary Tool"),
              sidebarPanel(
                selectInput(inputId = "Forest_st", 
                            label = h4(tags$b("Step 1: Select area of interest", 

@@ -6,7 +6,7 @@ output: html_fragment
 
 ## Overview  
 
-This document provides additional technical information associated with the prioritization and stand summary tools. Content within the Climate-wise Reforestation Toolkit was developed by Zack Steel, Marc Myer, Amarina Wuenschel, Steve Ostoja, and Malcolm North with funding provided by the US Forest Service.  
+This document provides additional technical information associated with the prioritization and stand summary tools. Content within the Climate-wise Reforestation Toolkit was developed by Zack Steel, Marc Meyer, Amarina Wuenschel, Steve Ostoja, and Malcolm North with funding provided by the US Forest Service.  
 
 ## Data processing & sources  
 

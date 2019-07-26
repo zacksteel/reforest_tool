@@ -34,6 +34,19 @@ Spotted Owl Protected Activity Centers (PACs)
 Fisher Core Habitat areas  
 * Data Source: [Data Basin]("https://databasin.org/datasets/ba0ca69e7e024cfdbf816a33b64238a5")  
 
+Mechanical Treatments Opportunities  
+* Scenario B is used which...  
+* Data Source: [USDA Forest Service Geospatial Data]("https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833")  
+
 
 ## Prioritization calculation  
+
+Reforestation prioritization is calculated in three steps:  
+
+1) The forested area considered is limited to national forest ownership within an area of interest, areas of mechanical treatment opportunity (scenario B), and areas where mortality was significant. The area of interest, and threshold for significant mortality or reforestation need is defined by the user. Areas that do not meet the above criteria are masked out of the calculation.  
+
+2) For each 1 hectare pixel, all data layers are summed to get a continous absolute priority level. Most data layers are binary with values of 0 or 1 (e.g. spotted owl PAC). Continuous data layers (forest biomass loss and CWD) are scaled with a maximum of 1 prior to summation. With the exception of the biomass loss layer, a user can weight each data layer to scale it's influence on prioritization. For example, a weight of zero means a data layer has no effect on prioritization. A weight of -1 or 1, will give equal weight to a given data layer as the biomass loss layer, with the weighted layer reducing or increasing priority, respectively.  
+
+3) Raw priority values are re-classified to 3 relative levels of priority: low, moderate, and high. For each calculation, a third of the area considered in need of reforestation is partitioned to each priority level.  
+
 

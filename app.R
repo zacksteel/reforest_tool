@@ -14,7 +14,7 @@ library(shinyBS) #for tooltip funcitonality
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-# webshot::install_phantomjs()
+webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
@@ -133,7 +133,7 @@ ui <- fluidPage(
                          style = "font-size:120%; color:darkblue"),
                       actionButton("Calc", "Calculate"),
                       bsTooltip("Calc",
-                                "Generates a 3-level priority layer using biomass and weighted data layers. Non-forest service lands, areas with mechanical constraints, and those with biomass loss below the designated need threshold are excluded."),
+                                "Generates a 3-level priority layer using biomass and weighted data layers. Non-forest service lands, areas with mechanical constraints, and those with biomass loss below the designated need threshold are excluded. This will likely take a few seconds to run."),
                       
                       tags$hr(),
                       h4(tags$b("Step 5: Download map and/or data"), 

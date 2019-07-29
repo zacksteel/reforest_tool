@@ -12,7 +12,7 @@ body {
   min-width: 600px !important;
 }
 .about {
-  font-size: 18px;
+  font-size: 17px;
 }
 .container {
   max-width: 1200px !important;
@@ -39,7 +39,7 @@ body {
 
 <div class = "about">
 
-  
+<br> 
 
 Welcome to the **climate-wise reforestation toolkit**. Due to significant levels of tree mortality during the 2012 to 2016 California drought, there is now a need to reforest in areas where much of the forest over-story has been lost. The toolkit consists of three resources that can be used individually or together to inform reforestation decisions in context of tree mortality and climate change. The  **reforestation prioritization tool** was designed to help locate where to reforest based on the level of tree mortality and other user-defined variables. The **post-drought stand condition tool** was designed to allow users to explore newly changed conditions on their National Forest area of interest. And finally, to help guide planting techniques, we have compiled a brief **best management practices (BMPs)** summary.   These tools can be used along with site visits, local knowledge, and individual management goals to help facilitate communication among stakeholder groups during project planning. Tools can be accessed using the tabs above.  
 

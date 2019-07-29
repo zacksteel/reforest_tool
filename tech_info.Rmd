@@ -35,7 +35,7 @@ Fisher Core Habitat areas
 * Data Source: [Data Basin]("https://databasin.org/datasets/ba0ca69e7e024cfdbf816a33b64238a5")  
 
 Mechanical Treatments Opportunities  
-* Scenario B is used which...  
+* We define areas available for mechanical operations using scenario B from [North et al. 2015]("https://academic.oup.com/jof/article/113/1/40/4599106"). This scenario can be considered moderately strict in its adherence to current standards and guides, and allows operations on <35% slopes, within 2,000 ft of existing roads. Additionally, this and all scenarios (A-D), limit operations to previously forested lands, areas outside of wilderness and roadless areas, and areas outside of special administrative designations.  
 * Data Source: [USDA Forest Service Geospatial Data]("https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833")  
 
 

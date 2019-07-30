@@ -8,6 +8,8 @@ output: html_fragment
 
 This document provides additional technical information associated with the prioritization and stand summary tools. Content within the Climate-wise Reforestation Toolkit was developed by Zack Steel, Marc Meyer, Amarina Wuenschel, Steve Ostoja, and Malcolm North with funding provided by the US Forest Service.  
 
+***
+
 ## Data processing & sources  
 
 Forest biomass loss  
@@ -38,6 +40,7 @@ Mechanical Treatments Opportunities
 * We define areas available for mechanical operations using scenario B from [North et al. 2015]("https://academic.oup.com/jof/article/113/1/40/4599106"). This scenario can be considered moderately strict in its adherence to current standards and guides, and allows operations on <35% slopes, within 2,000 ft of existing roads. Additionally, this and all scenarios (A-D), limit operations to previously forested lands, areas outside of wilderness and roadless areas, and areas outside of special administrative designations.  
 * Data Source: [USDA Forest Service Geospatial Data]("https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833")  
 
+***
 
 ## Prioritization calculation  
 

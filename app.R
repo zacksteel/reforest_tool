@@ -14,7 +14,7 @@ library(shinyBS) #for tooltip funcitonality
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-webshot::install_phantomjs()
+# webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
@@ -70,7 +70,7 @@ ui <- fluidPage(
              ## Moving sidebar to top with multiple columns
              # fluidRow(
                column(4,
-                      sidebarPanel(width = 12,
+                      sidebarPanel(width = 12, style = "overflow-y:scroll; max-height: 600px",
                                    selectInput(inputId = "Forest", 
                                                label = h4(tags$b("Step 1: Select area of interest"), 
                                                           style = "font-size:110%; color:darkblue"),
@@ -144,19 +144,19 @@ ui <- fluidPage(
                                        style = "font-size:110%; color:darkblue"),
                                     
                                    ## Buttons for downloading current map and tif
-                                   #### Maybe add one or combine for generating a short "report"
                                    downloadButton("dl", "Download Map Image"),
                                    bsTooltip("dl",
                                               "Generates and downloads a map using the current view."),
                                    downloadButton("dl_tif", "Download Priority Raster"),
                                    bsTooltip("dl_tif",
-                                              "Downloads a priority raster layer for further analysis.")
+                                             "Downloads a priority raster layer for further analysis.")
                       ),
                       tags$hr()),
+
           
              column(8,
                  mainPanel(width = 12,
-                   leafletOutput("map", width = "100%", height = 800),
+                   leafletOutput("map", width = "100%", height = 600),
 
                  absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
                                draggable = T, top = 10, left = 20, right = "auto", bottom = "auto",

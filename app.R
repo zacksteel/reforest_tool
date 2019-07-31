@@ -2,6 +2,7 @@
 ## Setup ####
 
 library(shiny)
+library(shinyBS) #for tooltip funcitonality
 library(sf)
 library(leaflet)
 library(mapview)
@@ -10,7 +11,7 @@ library(rgdal)
 library(raster)
 library(shinyjs)
 library(shinycssloaders)
-library(shinyBS) #for tooltip funcitonality
+
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
@@ -70,116 +71,109 @@ ui <- fluidPage(
              ## Moving sidebar to top with multiple columns
              # fluidRow(
                column(4,
-                      sidebarPanel(width = 12, style = "overflow-y:scroll; max-height: 600px",
-                                   selectInput(inputId = "Forest", 
-                                               label = h4(tags$b("Step 1: Select area of interest"), 
-                                                          style = "font-size:110%; color:darkblue"),
+                      sidebarPanel(
+                        width = 12, style = "overflow-y:scroll; max-height: 600px",
+                        selectInput(inputId = "Forest", 
+                                    label = h4(tags$b("Step 1: Select area of interest"), 
+                                               style = "font-size:110%; color:darkblue"),
                                                selected = "",
                                                choices = aoi_id),
-                                   bsTooltip("Forest",
-                                             "Prioritization and map layer display will be limited to the area selected",
-                                             placement = "right"),
+                        bsPopover("Forest", title = NULL, 
+                                  content = "Prioritization and map layer display will be limited to the area selected",
+                                  placement = "right"),
+                        
+                        ## Horrizontal line
+                        tags$hr(),
                                           
-                                   ## Horrizontal line
-                                   tags$hr(),
+                        h4(tags$b("Step 2: Select reforestation need threshold:"), 
+                           style = "font-size:110%; color:darkblue"),
+                        sliderInput("Need", tags$p("Need Threshold (% Biomass loss)", style = "font-size:90%;"),
+                                    10, 100, 50,
+                                    width = '80%', step = 10),
+                        bsPopover("Need", title = NULL,
+                                  "Areas with less biomass loss than the selected threshold will be excluded from prioritization."),
+                                   
+                        ## Horrizontal line
+                        tags$hr(),
+                                   
+                        h4(id = "Step3", tags$b("Step 3: Select data layer weights:"), 
+                           style = "font-size:110%; color:darkblue"),
+                        bsPopover("Step3", title = NULL,
+                                  "Layers assigned a negative value will decrease piority. <br/> Layers assigned a positive value will increase priority. <br/> Layers assigned a zero value will not affect prioritization."),
+                        sliderInput("cwd", tags$p("Drought Risk (CWD)", style = "font-size:90%;"), 
+                                    -1, 0, 0, width = '80%', step = .25),
+                        bsPopover("cwd", title = NULL,
+                                  "Areas of higher drought risk will decrease priority. CWD = climate water deficit (1981-2010 average)."),
+                        sliderInput("HSZ2", tags$p("High-severity Fire Core", style = "font-size:90%;"), 
+                                    0, 1, 0, width = '80%', step = .25),
+                        bsPopover("HSZ2", title = NULL,
+                                  "Areas within high-severity cores will increase priority. Cores are those areas more than 650ft (200m) from seed trees within high-severity wildfire patches. Fires from 2012-2017 are included."),
+                        sliderInput("WUI", tags$p("Wildland-Urban Interface", style = "font-size:90%;"), 
+                                    0, 1, 0, width = '80%', step = .25),
+                        bsPopover("WUI", title = NULL,
+                                  "Areas within the wildland-urban interface will increase priority."),
+                        sliderInput("Rec", tags$p("Recreation Areas", style = "font-size:90%;"), 
+                                    0, 1, 0, width = '80%', step = .25),
+                        bsPopover("Rec", title = NULL,
+                                  "Recreation areas will increase priority."),
+                        sliderInput("CASPO", tags$p("Spotted Owl PACs", style = "font-size:90%;"), 
+                                    -1, 1, 0, width = '80%', step = .25),
+                        bsPopover("CASPO", title = NULL,
+                                  "California Spotted Owl PACs can increase or decrease priority depending on management objectives."),
+                        sliderInput("Fisher", tags$p("Fisher Core Habitat", style = "font-size:90%;"), 
+                                    -1, 1, 0, width = '80%', step = .25),
+                        bsPopover("Fisher", title = NULL,
+                                  "Pacific fisher core habitats can increase or decrease priority depending on management objectives."),
                                           
-                                   h4(tags$b("Step 2: Select reforestation need threshold:"), 
-                                             style = "font-size:110%; color:darkblue"),  
-                                   sliderInput("Need", tags$p("Need Threshold (% Biomass loss)", style = "font-size:90%;"),
-                                               10, 100, 50,
-                                               width = '80%', step = 10),
-                                   bsTooltip("Need",
-                                             "Areas with less biomass loss than the selected threshold will be excluded from prioritization."),
+                        ## Horrizontal line
+                        tags$hr(),
                                    
-                                   ## Horrizontal line
-                                   tags$hr(),
-                                   
-                                   h4(id = "Step3", tags$b("Step 3: Select data layer weights:"), 
-                                      style = "font-size:110%; color:darkblue"),
-                                   bsTooltip("Step3",
-                                       "Layers assigned a negative value will decrease piority. <br/> Layers assigned a positive value will increase priority. <br/> Layers assigned a zero value will not affect prioritization."),
-                                   sliderInput("cwd", tags$p("Drought Risk (CWD)", style = "font-size:90%;"), 
-                                                -1, 0, 0,
-                                                width = '80%', step = .25),
-                                   bsTooltip("cwd",
-                                              "Areas of higher drought risk will decrease priority. CWD = climate water deficit (1981-2010 average)."),
-                                   sliderInput("HSZ2", tags$p("High-severity Fire Core", style = "font-size:90%;"), 
-                                                0, 1, 0,
-                                                width = '80%', step = .25),
-                                   bsTooltip("HSZ2",
-                                              "Areas within high-severity cores will increase priority. Cores are those areas more than 650ft (200m) from seed trees within high-severity wildfire patches. Fires from 2012-2017 are included."),
-                                   sliderInput("WUI", tags$p("Wildland-Urban Interface", style = "font-size:90%;"), 
-                                                0, 1, 0,
-                                                width = '80%', step = .25),
-                                   bsTooltip("WUI",
-                                              "Areas within the wildland-urban interface will increase priority."),
-                                   sliderInput("Rec", tags$p("Recreation Areas", style = "font-size:90%;"), 
-                                                0, 1, 0,
-                                                width = '80%', step = .25),
-                                   bsTooltip("Rec",
-                                              "Recreation areas will increase priority."),
-                                   sliderInput("CASPO", tags$p("Spotted Owl PACs", style = "font-size:90%;"), 
-                                                -1, 1, 0,
-                                                width = '80%', step = .25),
-                                   bsTooltip("CASPO",
-                                              "California Spotted Owl PACs can increase or decrease priority depending on management objectives."),
-                                   sliderInput("Fisher", tags$p("Fisher Core Habitat", style = "font-size:90%;"), 
-                                               -1, 1, 0,
-                                               width = '80%', step = .25),
-                                   bsTooltip("Fisher",
-                                               "Pacific fisher core habitats can increase or decrease priority depending on management objectives."),
-                                          
-                                   ## Horrizontal line
-                                   tags$hr(),
-                                   
-                                   h4(tags$b("Step 4: Run prioritization"), 
-                                      style = "font-size:110%; color:darkblue"),
-                                   actionButton("Calc", "Calculate"),
-                                   bsTooltip("Calc",
-                                              "Generates a 3-level priority layer using biomass and weighted data layers. Non-forest service lands, areas with mechanical constraints, and those with biomass loss below the designated need threshold are excluded. This will likely take a few seconds to run."),
+                        h4(tags$b("Step 4: Run prioritization"), 
+                           style = "font-size:110%; color:darkblue"),
+                        actionButton("Calc", "Calculate"),
+                        bsPopover("Calc", title = NULL,
+                                  "Generates a 3-level priority layer using biomass and weighted data layers. Non-forest service lands, areas with mechanical constraints, and those with biomass loss below the designated need threshold are excluded. This will likely take a few seconds to run."),
                                     
-                                   tags$hr(),
+                        tags$hr(),
                                    
-                                   h4(tags$b("Step 5: Download map and/or data"), 
-                                       style = "font-size:110%; color:darkblue"),
+                        h4(tags$b("Step 5: Download map and/or data"), 
+                           style = "font-size:110%; color:darkblue"),
                                     
-                                   ## Buttons for downloading current map and tif
-                                   downloadButton("dl", "Download Map Image"),
-                                   bsTooltip("dl",
-                                              "Generates and downloads a map using the current view."),
-                                   downloadButton("dl_tif", "Download Priority Raster"),
-                                   bsTooltip("dl_tif",
-                                             "Downloads a priority raster layer for further analysis.")
-                      ),
+                        ## Buttons for downloading current map and tif
+                        downloadButton("dl", "Download Map Image"),
+                        bsPopover("dl", title = NULL,
+                                  "Generates and downloads a map using the current view."),
+                        downloadButton("dl_tif", "Download Priority Raster"),
+                        bsPopover("dl_tif", title = NULL,
+                                  "Downloads a priority raster layer for further analysis.")
+                        ),
+                      
                       tags$hr()),
-
-          
+             
              column(8,
-                 mainPanel(width = 12,
-                   leafletOutput("map", width = "100%", height = 600),
-
-                 absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
-                               draggable = T, top = 10, left = 20, right = "auto", bottom = "auto",
-                               width = 220, height = "auto", 
-                               
-                               checkboxGroupInput("Display", label = tags$b("Select display Layers:"),
-                                                  # inline = T,
-                                                  choices = c("Area of Interest", 
-                                                              "USFS Land",
-                                                              "Mechanical Constraints",
-                                                              "Forest Biomass Loss (2012-16)", 
-                                                              "High-severity Fire Core",
-                                                              "Drought Risk (CWD)",
-                                                              "Recreation Areas",
-                                                              "Wildland-Urban Interface",
-                                                              "Spotted Owl PACs",
-                                                              "Fisher Core Habitat"),
-                                                  # "Prioritization"),
-                                                  selected = c("Area of Interest"))
-                 )
-               )
-             )
-    ),
+                    mainPanel(width = 12,
+                              leafletOutput("map", width = "100%", height = 600),
+                              
+                              absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
+                                            draggable = T, top = 10, left = 20, right = "auto", bottom = "auto",
+                                            width = 220, height = "auto", 
+                                            checkboxGroupInput("Display", label = tags$b("Select display Layers:"),
+                                                               choices = c("Area of Interest", 
+                                                                           "USFS Land",
+                                                                           "Mechanical Constraints",
+                                                                           "Forest Biomass Loss (2012-16)", 
+                                                                           "High-severity Fire Core",
+                                                                           "Drought Risk (CWD)",
+                                                                           "Recreation Areas",
+                                                                           "Wildland-Urban Interface",
+                                                                           "Spotted Owl PACs",
+                                                                           "Fisher Core Habitat"),
+                                                               # "Prioritization"),
+                                                               selected = c("Area of Interest"))
+                                            )
+                              )
+                    )
+             ),
     
     #### Stand Summary - UI ####
     tabPanel("Stand summary tool", 
@@ -192,12 +186,20 @@ ui <- fluidPage(
                                                       style = "font-size:90%; color:darkblue")),
                                     selected = "All",
                                     choices = aoi_st),
+                        bsPopover("Forest_st", title = NULL, 
+                                  content = "Summary statistics and map layer display will be limited to the area selected",
+                                  placement = "right"),
                         selectInput(inputId = "metric_st",
                                     label = h4(tags$b("Step 2: Select stand metric to summarize", 
                                                       style = "font-size:90%; color:darkblue")),
                                     selected = "",
                                     choices = metrics$label),
-                        plotOutput(outputId = "boxPlot", height = "300px")
+                        plotOutput(outputId = "boxPlot", height = "300px"),
+                        tags$br(),
+                        h4(id = "info", tags$b("More info"), 
+                           style = "font-size:80%; color:blue"),
+                        bsPopover("info", title = NULL, 
+                                  "This tool summarizes forestry plot data collected in 2016 and 2017 following the 2012-2016 drought. Stand structure and condition statistics for individual plots can be viewed by clicking on a marker in the map. Summary statistics for plots within a given area can be viewed using the boxplots above. Half of the surveyed plots were wihtin pre-drought fuels reduction treatments.")
                       )),
                column(8,
                       leafletOutput("map2", height = "500px"),

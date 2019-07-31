@@ -24,7 +24,7 @@ body {
 }
 .centered {
   position: absolute;
-  top: 20%;
+  top: 25%;
   left: 5%;
 }
 ```
@@ -32,7 +32,7 @@ body {
 <br>
 
 <div class = "container" align = "middle>
-<img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width = "100%"/>
+<img src="./app_data/Photos/CraterFirePanoramic.jpg" alt="drawing" width = "100%"/>
 <div class="centered">Climate-wise Reforestation Toolkit </div>
 </div>
 

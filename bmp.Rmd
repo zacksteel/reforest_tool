@@ -5,7 +5,7 @@ output: html_fragment #full html_document breaks other parts of shiny app
 
 # Best Management Practices for climate-wise reforestation {#top}  
 
-This document outlines some recent advances in reforestation strategies in an age of climate change and altered disturbance regimes. We rely heavily on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. A research brief of the article is also available [here](https://github.com/zacksteel/reforest_tool/blob/master/app_data/TammReview_brief.pdf). For brevity, conventional reforestation practices are not covered in this document. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
+This document outlines some recent advances in reforestation strategies in an age of climate change and altered disturbance regimes. We rely heavily on the 2019 [*Tamm Review: Reforestation for resilience in dry western U. S. forests*](https://www.sciencedirect.com/science/article/pii/S0378112718313161?via%3Dihub) by North et al, which readers are encouraged to review for further details. A research brief of the article is also available [here](https://static1.squarespace.com/static/545a90ede4b026480c02c5c7/t/5d39fa76fd459b0001ac7f39/1564080760389/North_etal_TammReview_7.22.19_F.pdf). For brevity, conventional reforestation practices are not covered in this document. It is our hope that practitioners will incorporate these state of the science strategies with previously established forestry knowledge and tailor solutions for each unique project.  
 
 ***
 
@@ -98,10 +98,10 @@ Introduce prescribed fire to planted stands early to emulate natural fire return
 
 When determining site suitability, consider current and future suitability in addition to whether a site was previously forested. Specifically, planting could be avoided in sites that are likely to be marginal for the pre-disturbance species. Those areas with low mean annual precipiation and high mean annual temperatures are likely to become increasingly unsuitable with climate change. Local soil and topographic characteristics could also be considered to determine overall site suitability. For example, some hot and dry areas, with shallow soils, and steep slopes could be allowed to transition to more drought-tolerant forest species (e.g. grey pine and oaks) or vegetation types (e.g. montane chaparral or native grasslands). When reforesting with conifer species, selecting appropriate seed sources (e.g. using the [seedlot selection tool](https://seedlotselectiontool.org/sst/)), would improve the likelihood of successful tree establishment.  
 
-<img src="./app_data/Photos/Pilot fire panoramic2.jpg" alt="drawing" width="100%"/>  
+<img src="./app_data/Photos/CraterFirePanoramic.jpg" alt="drawing" width="100%"/>  
 
 <font size="2"> 
-*Example of a low elevation burned landscape with advanced natural conifer regeneration most successful in the drainages and north-facing slopes. Photo credit: Marc Meyer*  
+*Example of a reforested area in the 2001 Crater Fire on the Inyo NF near Mono Lake. Here, Jeffrey pine is on the drier margins of its current geographic distribution. Photo credit: Marc Meyer*  
 </font>
 
 <p align="right">

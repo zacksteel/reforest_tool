@@ -8,7 +8,9 @@ stand_prep <- function() {
   
   ## general data with treatment indicator
   gen <- read.csv("data/Stand/GeneralPlot.csv") %>%
-    dplyr::select(plot = Plot.Name, forest = Forest, loc = Location, treated = Treated) %>%
+    mutate(year = as.Date(Date, format = c("%m/%d/%Y")),
+           year = format(year, "%Y")) %>%
+    dplyr::select(plot = Plot.Name, forest = Forest, loc = Location, year, treated = Treated) %>%
     filter(!is.na(plot)) %>%
     arrange(plot)
   ## cover data

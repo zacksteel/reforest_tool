@@ -15,7 +15,7 @@ library(shinycssloaders)
 
 ## This extra bit seems necessary for saving from web
 ## Not needed locally so can comment out to save time when building
-# webshot::install_phantomjs()
+webshot::install_phantomjs()
 
 ## Define forest/aoi options and read in shape file
 forest <- st_read("app_data", "SN_NFs")
@@ -753,8 +753,8 @@ server <- function(input, output, session) {
         mutate(treat = ifelse(treated == "Yes", "Treated Plots", "Untreated Plots"))
       
       p <- ggplot(regen2, aes(x = species, y = spha, color = species)) +
-        geom_boxplot() +
-        geom_jitter() +
+        geom_boxplot(na.rm = T) +
+        geom_jitter(na.rm = T) +
         facet_grid(~ treat) +
         ylab(plab) + xlab(NULL) +
         theme(legend.position = "none",
@@ -769,8 +769,8 @@ server <- function(input, output, session) {
                text = paste("value:",value))
       
       p <- ggplot(stand2, aes(x = status, y = value)) +
-        geom_boxplot() +
-        geom_jitter() +
+        geom_boxplot(na.rm = T) +
+        geom_jitter(na.rm = T) +
         facet_grid(~ treat) +
         ylab(plab) + xlab("Tree Status")
     }

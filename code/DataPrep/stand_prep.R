@@ -14,11 +14,15 @@ stand_prep <- function() {
     filter(!is.na(plot)) %>%
     arrange(plot)
   ## cover data
-  cover <- read.csv("data/Stand/CoverData.csv") %>%
-    dplyr::select(plot = PlotName, live_cc = LiveOverstory, dead_cc = DeadOverstory, 
-                  shrub_c = ShrubCover, litter = Litter, woody_debris = WoodyDebris) %>%
-    filter(!is.na(plot)) %>%
-    arrange(plot)
+  # cover <- read.csv("data/Stand/CoverData.csv") %>%
+  #   dplyr::select(plot = PlotName, live_cc = LiveOverstory, dead_cc = DeadOverstory, 
+  #                 shrub_c = ShrubCover, litter = Litter, woody_debris = WoodyDebris) %>%
+  #   filter(!is.na(plot)) %>%
+  #   arrange(plot)
+  ## 2016 cover data
+  cover <- read.csv("data/Stand/cover16.csv") %>%
+    dplyr::select(plot = PlotName, live_cc = Live.Overstory, dead_cc = Dead.Overstory,
+                  shrub_c = Shrub.Cover, litter = Litter, woody_debris = Woody.Debris)
   ## Tree data
   trees <- read.csv("data/Stand/TreeData.csv") %>%
     dplyr::select(plot = PlotName, tree = TreeNumber, species = Species, status = Status, 
@@ -137,7 +141,7 @@ stand_prep <- function() {
     mutate(treated = ifelse(treated == "Y", "Yes", "No"))
   
   ## Save for later use
-  write.csv(d2, "app_data/Stand/stand_prepped.csv", row.names = F)
+  write.csv(d2, "app_data/stand_prepped.csv", row.names = F)
   st_write(aois, "data/Stand/stand_aois.shp")
   st_write(aois, "app_data/stand_aois.shp")
 }

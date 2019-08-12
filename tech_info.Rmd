@@ -14,31 +14,31 @@ This document provides additional technical information associated with the prio
 
 Forest biomass loss  
 * Calculated as the percentage change from 2012 to 2016 estimates  
-* Original data from the [LEMMA lab at Oregon State University]("https://lemma.forestry.oregonstate.edu/") and the USDA Forest Service Region 5.  
+* Original data from the [LEMMA lab at Oregon State University](https://lemma.forestry.oregonstate.edu/) and the USDA Forest Service Region 5.  
 
 Climate Water Deficit (CWD)  
 * 1981-2010 average potential minus actual evapotranspiration -
-* Data layer developed as part of the California Basin Characterization Model and acquired from [California Climate Commons]("http://climate.calcommons.org/variable/climatic-water-deficit")  
+* Data layer developed as part of the California Basin Characterization Model and acquired from [California Climate Commons](http://climate.calcommons.org/variable/climatic-water-deficit)  
 
 High-severity Fire Core  
 * Defined as areas within high-severity patches that are a minimum of 200m away from a lower severity edge (i.e. areas far from living tree seed sources).  
-* Data source: [USDA Forest Service Geospatial Data]("https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833")  
+* Data source: [USDA Forest Service Geospatial Data](https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833)  
 
 Wildland urban Interface (WUI)  
-* Data source: Cal Fire [Fire and Resource Assessment Program]("https://frap.fire.ca.gov/mapping/gis-data/")  
+* Data source: Cal Fire [Fire and Resource Assessment Program](https://frap.fire.ca.gov/mapping/gis-data/)  
 
 Recreation Areas  
-* Data Source: [USDA Forest Service Geospatial Data]("https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833")   
+* Data Source: [USDA Forest Service Geospatial Data](https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833)   
 
 Spotted Owl Protected Activity Centers (PACs)  
-* Data Source: [Data Basin]("https://databasin.org/datasets/ee608449-2619-4c72-816c-0a75b1801015")  
+* Data Source: [Data Basin](https://databasin.org/datasets/ee608449-2619-4c72-816c-0a75b1801015)  
 
 Fisher Core Habitat areas  
-* Data Source: [Data Basin]("https://databasin.org/datasets/ba0ca69e7e024cfdbf816a33b64238a5")  
+* Data Source: [Data Basin](https://databasin.org/datasets/ba0ca69e7e024cfdbf816a33b64238a5)  
 
 Mechanical Treatments Opportunities  
-* We define areas available for mechanical operations using scenario B from [North et al. 2015]("https://academic.oup.com/jof/article/113/1/40/4599106"). This scenario can be considered moderately strict in its adherence to current standards and guides, and allows operations on <35% slopes, within 2,000 ft of existing roads. Additionally, this and all scenarios (A-D), limit operations to previously forested lands, areas outside of wilderness and roadless areas, and areas outside of special administrative designations.  
-* Data Source: [USDA Forest Service Geospatial Data]("https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833")  
+* We define areas available for mechanical operations using scenario B from [North et al. 2015](https://academic.oup.com/jof/article/113/1/40/4599106). This scenario can be considered moderately strict in its adherence to current standards and guides, and allows operations on <35% slopes, within 2,000 ft of existing roads. Additionally, this and all scenarios (A-D), limit operations to previously forested lands, areas outside of wilderness and roadless areas, and areas outside of special administrative designations.  
+* Data Source: [USDA Forest Service Geospatial Data](https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833)  
 
 ***
 

@@ -17,12 +17,19 @@ FeasPrep <- function() {
   r2 <- resample(r, bloss) %>%
     round(0) 
   
+  ## prep scenario D as well
+  rd <- raster("data/spatial/scend_wgs") / 10 # converts 10 to 1
+
+  rd2 <- resample(rd, bloss) %>%
+    round(0)
+  
   ## Create a Forest Service or not layer
   rcl <- matrix(c(0, 1, 1, NA, NA, 0), ncol = 3, byrow = T)
   fs <- reclassify(r2, rcl, right = NA)
   
   ## Save for use in app
   writeRaster(r2, "data/Spatial/scenb.tif")
+  writeRaster(rd2, "data/Spatial/scend.tif")
   writeRaster(fs, "data/Spatial/FS_area.tif")
 
 }

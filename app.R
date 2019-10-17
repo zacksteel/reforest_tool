@@ -87,18 +87,27 @@ ui <- fluidPage(
                                           
                         h4(tags$b("Step 2: Select reforestation need threshold:"), 
                            style = "font-size:110%; color:darkblue"),
-                        sliderInput("Need", tags$p("Need Threshold (% Biomass loss)", style = "font-size:90%;"),
+                        sliderInput("Need", tags$p("Mortality Threshold (% Biomass loss)", style = "font-size:90%;"),
                                     10, 100, 50,
                                     width = '80%', step = 10),
                         bsPopover("Need", title = NULL,
                                   "Areas with less biomass loss than the selected threshold will be excluded from prioritization."),
                                    
+                        tags$hr(),
+                        
+                        h4(id = "Step3", tags$b("Step 3: Select mechanical constraint scenario:"),
+                           style = "font-size:110%; color:darkblue"),
+                        radioButtons("MechScen", label = NULL, choices = c("Moderate constraints",
+                                                                           "Fewer constraints")),
+                        bsPopover(id = "MechScen", title = NULL,
+                                   "The 'Few constraints' scenario extends access further from existing roads and to steaper slopes. <br/>See Technical Info for more details"),
+                        
                         ## Horrizontal line
                         tags$hr(),
                                    
-                        h4(id = "Step3", tags$b("Step 3: Select data layer weights:"), 
+                        h4(id = "Step4", tags$b("Step 4: Select data layer weights:"), 
                            style = "font-size:110%; color:darkblue"),
-                        bsPopover("Step3", title = NULL,
+                        bsPopover("Step4", title = NULL,
                                   "Layers assigned a negative value will decrease piority. <br/> Layers assigned a positive value will increase priority. <br/> Layers assigned a zero value will not affect prioritization."),
                         sliderInput("cwd", tags$p("Drought Risk (CWD)", style = "font-size:90%;"), 
                                     -1, 0, 0, width = '80%', step = .25),
@@ -128,7 +137,7 @@ ui <- fluidPage(
                         ## Horrizontal line
                         tags$hr(),
                                    
-                        h4(tags$b("Step 4: Run prioritization"), 
+                        h4(tags$b("Step 5: Run prioritization"), 
                            style = "font-size:110%; color:darkblue"),
                         actionButton("Calc", "Calculate"),
                         bsPopover("Calc", title = NULL,
@@ -136,7 +145,7 @@ ui <- fluidPage(
                                     
                         tags$hr(),
                                    
-                        h4(tags$b("Step 5: Download map and/or data"), 
+                        h4(tags$b("Step 6: Download map and/or data"), 
                            style = "font-size:110%; color:darkblue"),
                                     
                         ## Buttons for downloading current map and tif
@@ -307,8 +316,14 @@ server <- function(input, output, session) {
   
   ra <- reactive({
     ## Read in AOI national forest-specific raster
-    sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
-      cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
+    if(input$MechScen == "Moderate constraints") {
+      raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) %>%
+        cut(breaks = c(-0.5,0.5)) # effectively removes ones; highlighting inaccesible areas
+    } else
+      if(input$MechScen == "Fewer constraints") {
+        raster(paste0("app_data/NF_Limits/sd_",aoi()$FORESTNAME, ".tif")) %>%
+          cut(breaks = c(-0.5,0.5))
+      }
   })
   
   mortshow <- reactive({
@@ -549,7 +564,7 @@ server <- function(input, output, session) {
                        opacity = 0.5,
                        project = FALSE, group = "Priority") %>%
         addLegend(position = "bottomright", colors = c("grey", "yellow", "orange", "red"),
-                  labels = c("No Need","Low", "Moderate", "High"),
+                  labels = c("Lower Mortality","3rd Priority", "2nd Priority", "1st Priority"),
                   title = "Priority Level")
     }
     
@@ -597,7 +612,12 @@ server <- function(input, output, session) {
       
       ## read in national forest-specific rasters
       bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
-      sb <- raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) 
+      ra <- if(input$MechScen == "Moderate constraints") {
+        raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) } else {
+          if(input$MechScen == "Fewer constraints") {
+            raster(paste0("app_data/NF_Limits/sd_",aoi()$FORESTNAME, ".tif"))
+          }
+        }
       rec <- raster(paste0("app_data/NF_Limits/rec_", aoi()$FORESTNAME, ".tif"))
       wui <- raster(paste0("app_data/NF_Limits/wui_", aoi()$FORESTNAME, ".tif"))
       cwd <- raster(paste0("app_data/NF_Limits/cwd_", aoi()$FORESTNAME, ".tif"))
@@ -619,7 +639,7 @@ server <- function(input, output, session) {
                ## scale non-binary rasters with max of 1
                cwd/maxValue(cwd)*input$cwd) *
                # cwd/cellStats(cwd, stat='max')*input$cwd) * #high cwd decreases priority 
-        sb * minmask #mask out areas of mechanical constraints & below need threshold
+        ra * minmask #mask out areas of mechanical constraints & below need threshold
 
 
       ## Scale to have a max of 1; may want to do after mask step below
@@ -638,7 +658,8 @@ server <- function(input, output, session) {
       
       ## Reclassify into areas of no need and approximate thirds of the remaining
       pr3 <- cut(pr_aoi, breaks = breaks) %>%
-        subs(data.frame(ID = c(1,2,3,4), Priority = c("No Need","Low", "Moderate", "High")))
+        subs(data.frame(ID = c(1,2,3,4), Priority = c("Lower mortality",
+                                                      "3rd Priority", "2nd Priority", "1st Priority")))
 
       ## Return priority raster
       priority$raster <- pr3
@@ -662,7 +683,7 @@ server <- function(input, output, session) {
                                  "Wildland-Urban Interface",
                                  "Spotted Owl PACs",
                                  "Fisher Core Habitat"),
-                               selected = c("Area of Interest", "Prioritization"))
+                               selected = c("Area of Interest", "Mechanical Constraints", "Prioritization"))
       # }
     })
   

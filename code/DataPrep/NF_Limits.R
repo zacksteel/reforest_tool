@@ -13,6 +13,7 @@ NF_Limits <- function() {
   ## Read in Sierra-wide rasters
   bloss <- raster("data/Spatial/biomassloss.tif") #biomass loss
   sb <- raster("data/Spatial/scenb.tif") #treatment feasibility
+  sd <- raster("data/Spatial/scend.tif")
   rec <- raster("data/Spatial/RecAreas.tif") 
   wui <- raster("data/Spatial/WUI.tif")
   cwd <- raster("data/Spatial/cwd_sn.tif") #cimate water deficit
@@ -25,8 +26,8 @@ NF_Limits <- function() {
   forest_sf <- st_read("data/Spatial", "SN_NFs")
   
   ## Make a list of rasters to work through 
-  r_l <- list(bloss, sb, rec, wui, cwd, hs, spow, fisher, fs)
-  names(r_l) <- c("bloss", "sb", "rec", "wui", "cwd", "hs", "spow", "fisher", "fs")
+  r_l <- list(bloss, sb, sd, rec, wui, cwd, hs, spow, fisher, fs)
+  names(r_l) <- c("bloss", "sb", "sd", "rec", "wui", "cwd", "hs", "spow", "fisher", "fs")
   
   ## combinations for each national forest and dataset
   d <- expand.grid(forest = unique(forest_sf$FORESTNAME),

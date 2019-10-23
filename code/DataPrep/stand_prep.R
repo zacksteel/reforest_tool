@@ -20,7 +20,7 @@ stand_prep <- function() {
   #   filter(!is.na(plot)) %>%
   #   arrange(plot)
   ## 2016 cover data
-  cover <- read.csv("data/Stand/cover16.csv") %>%
+  cover <- read.csv("data/Stand/Cover16.csv") %>%
     dplyr::select(plot = PlotName, live_cc = Live.Overstory, dead_cc = Dead.Overstory,
                   shrub_c = Shrub.Cover, litter = Litter, woody_debris = Woody.Debris)
   ## Tree data

@@ -1,0 +1,57 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <CategoryNames>
+      <Category></Category>
+      <Category>Alpine Dwarf Shrub</Category>
+      <Category>Annual Grass</Category>
+      <Category>Alkali Desert Scrub</Category>
+      <Category>Aspen</Category>
+      <Category>Barren</Category>
+      <Category>Bitterbrush</Category>
+      <Category>Cropland</Category>
+      <Category></Category>
+      <Category>Desert Riparian</Category>
+      <Category>Desert Scrub</Category>
+      <Category>Desert Wash</Category>
+      <Category>Eastside Pine</Category>
+      <Category>Fresh Emergent Wetland</Category>
+      <Category>Jeffrey Pine</Category>
+      <Category>Juniper</Category>
+      <Category>Lacustrine</Category>
+      <Category>Lodgepole Pine</Category>
+      <Category>Low Sage</Category>
+      <Category>Mixed Chaparral</Category>
+      <Category>Montane Chaparral</Category>
+      <Category>Montane Hardwood - Conifer</Category>
+      <Category>Montane Hardwood</Category>
+      <Category>Montane Riparian</Category>
+      <Category></Category>
+      <Category>Perennial Grass</Category>
+      <Category>Pinyon - Juniper</Category>
+      <Category>Ponderosa Pine</Category>
+      <Category>Red Fir</Category>
+      <Category></Category>
+      <Category>Subalpine Conifer</Category>
+      <Category>Sagebrush</Category>
+      <Category>Sierran Mixed Conifer</Category>
+      <Category>Urban</Category>
+      <Category>White Fir</Category>
+      <Category>Wet Meadow</Category>
+      <Category>Blue Oak - Foothill Pine</Category>
+      <Category>Blue Oak Woodland</Category>
+      <Category>Closed Cone Pine - Cypress</Category>
+      <Category></Category>
+      <Category>Klamath Mixed Conifer</Category>
+      <Category></Category>
+      <Category></Category>
+      <Category>Valley Oak Woodland</Category>
+      <Category>Valley Foothill Riparian</Category>
+      <Category>Chamise - Redshank Chaparral</Category>
+      <Category>Coastal Scrub</Category>
+      <Category>Douglas-Fir</Category>
+      <Category></Category>
+      <Category></Category>
+      <Category>Joshua Tree</Category>
+    </CategoryNames>
+  </PAMRasterBand>
+</PAMDataset>

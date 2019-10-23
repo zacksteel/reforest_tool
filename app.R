@@ -72,7 +72,7 @@ ui <- fluidPage(
              # fluidRow(
                column(4,
                       sidebarPanel(
-                        width = 12, style = "overflow-y:scroll; max-height: 600px",
+                        width = 12, style = "overflow-y:scroll; max-height: 800px",
                         selectInput(inputId = "Forest", 
                                     label = h4(tags$b("Step 1: Select area of interest"), 
                                                style = "font-size:110%; color:darkblue"),
@@ -161,7 +161,7 @@ ui <- fluidPage(
              
              column(8,
                     mainPanel(width = 12,
-                              leafletOutput("map", width = "100%", height = 600),
+                              leafletOutput("map", width = "100%", height = 500),
                               
                               absolutePanel(id = "MapLayers", class = "panel panel-default", fixed = F,
                                             draggable = T, top = 10, left = 20, right = "auto", bottom = "auto",
@@ -179,7 +179,8 @@ ui <- fluidPage(
                                                                            "Fisher Core Habitat"),
                                                                # "Prioritization"),
                                                                selected = c("Area of Interest"))
-                                            )
+                                            ),
+                              plotOutput(outputId = "vegPlot", height = "300px")
                               )
                     )
              ),
@@ -358,6 +359,8 @@ server <- function(input, output, session) {
       raster(paste0("app_data/NF_Limits/fisher_", aoi()$FORESTNAME, ".tif")) %>%
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
   })
+  
+  cveg <- raster("app_data/cwhr.grd")
 
   
   ## Main Map ####
@@ -686,6 +689,43 @@ server <- function(input, output, session) {
                                selected = c("Area of Interest", "Mechanical Constraints", "Prioritization"))
       # }
     })
+  
+  #### Veg plot ####
+  output$vegPlot <- renderPlot({
+    
+    if(!is.null(priority$raster)) {
+      r2 <- crop(cveg, priority$raster) %>%
+        raster::resample(priority$raster, method = "ngb")
+      
+      ptab <- data.frame(Priority = c(1,2,3,4), 
+                         p_lab = c("Lower mortality",
+                                   "3rd Priority", "2nd Priority", "1st Priority"))
+      
+      ct <- crosstab(priority$raster, r2, long = T) %>%
+        merge(levels(cveg)[[1]], by.x = "layer", by.y = "ID") %>%
+        merge(ptab) %>%
+        group_by(type, p_lab) %>%
+        summarize(freq = sum(Freq)) %>%
+        filter(p_lab != "Lower mortality") %>%
+        nest(data = c(p_lab, freq)) %>%
+        mutate(type_tot = map_dbl(data, ~{sum(.x$freq)})) %>%
+        unnest(cols = c(data)) %>%
+        arrange(desc(type_tot), desc(freq)) %>%
+        ungroup() 
+      
+      mutate(ct, type = fct_relevel(type, as.character(unique(ct$type)))) %>%
+        ggplot(aes(x = type, y = freq, fill = p_lab)) +
+        geom_bar(position = position_dodge(preserve = "single"), 
+                 stat = "identity", color = "grey30") +
+        scale_fill_manual(name = NULL, values = c("yellow", "orange", "red")) +
+        ylab("Hectares") + xlab(NULL) +
+        scale_y_continuous(trans='log10') +
+        theme_bw() +
+        theme(legend.position = c(1,.99), legend.justification = c(1,1),
+              axis.text.x = element_text(angle = 45, hjust = 1, size = 10))
+    }
+
+  })
   
   #### Stand Summary Map ####
   

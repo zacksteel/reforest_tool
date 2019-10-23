@@ -1,222 +1,222 @@
-Calveg Type,CV Code,CWHR Description,CWHR Code
-Agriculture,AG,Cropland,CRP
-Alkaline Flats,AK,Barren,BAR
-Alkaline Mixed Grasses/Forbs,HA,Alkali Desert Scrub,ASC
-Alkaline Mixed Scrub,NA,Alkali Desert Scrub,ASC
-Alluvial Fan Sage Scrub,RS,Desert Wash,DSW
-Alpine Grasses/Forbs,AC,Alpine Dwarf Shrub,ADS
-Alpine Mixed Scrub,AX,Alpine Dwarf Shrub,ADS
-Annual Grasses/Forbs,HG,Annual Grass,AGS
-Arrowweed,DE,Desert Riparian (modified),DRI
-Baccharis (riparian),ML,Desert Riparian (modified),DRI
-Baker Cypress,MO,Closed Cone Pine - Cypress,CPC
-Barren,BA,Barren,BAR
-Basin Mixed Scrub,BQ,Sagebrush,SGB
-Basin Sagebrush,BS,Sagebrush,SGB
-Basin Transition (Desert) Scrub,BZ,Sagebrush,SGB
-Big Basin Sagebrush,TT,Sagebrush,SGB
-Big Tree (Giant Sequoia),BT,Sierran Mixed Conifer,SMC
-Bigcone Douglas-fir,DM,Montane Hardwood - Conifer,MHC
-Bigleaf Maple,QM,Montane Riparian,MRI
-Birchleaf Mountain Mahogany,WM,Mixed Chaparral,MCH
-Bishop Pine,PM,Closed Cone Pine - Cypress,CPC
-Bitterbrush,BB,Bitterbrush,BBR
-Bitterbrush - Sagebrush,TB,Bitterbrush,BBR
-Black Cottonwood,QX,Montane Riparian,MRI
-Black Sagebrush,TN,Low Sage,LSG
-Black Walnut,QV,Valley Oak Woodland,VOW
-Blackbush,DA,Desert Scrub,DSC
-Bladderpod,SI,Mixed Chaparral,MCH
-Blue Oak,QD,Blue Oak Woodland,BOW
-Blueblossom Ceanothus,SC,Coastal Scrub,CSC
-Brewer Oak,CJ,Montane Chaparral,MCP
-Brewer Spruce,PB,Klamath Mixed Conifer,KMC
-Bristlecone Pine,BP,Subalpine Conifer,SCN
-Bush Chinquapin,CP,Montane Chaparral,MCP
-California Bay,QB,Coastal Oak Woodland,COW
-California Black Oak,QK,Montane Hardwood,MHW
-California Buckeye,QI,Montane Hardwood,MHW
-California Buckwheat,SB,Mixed Chaparral,MCH
-California Juniper (shrub),JC,Juniper (modified),JUN
-California Juniper (tree),JT,Juniper,JUN
-California Sagebrush,SS,Coastal Scrub,CSC
-California Sycamore,QP,Valley Foothill Riparian,VRI
-Canyon Live Oak,QC,Montane Hardwood,MHW
-Catclaw Acacia,UL,Desert Wash,DSW
-Ceanothus Chaparral,CC,Mixed Chaparral,MCH
-Chamise,CA,Chamise - Redshank Chaparral,CRC
-Chaparral Yucca,SY,Mixed Chaparral,MCH
-Cheesebush (Burrobush),HS,Desert Scrub,DSC
-Cholla,DC,Desert Succulent Scrub,DSS
-Coast Live Oak,QA,Coastal Oak Woodland,COW
-Coastal Bluff Scrub,SH,Coastal Scrub,CSC
-Coastal Cactus,SO,Coastal Scrub,CSC
-Coastal Lupine,SL,Coastal Scrub,CSC
-Coastal Mixed Hardwood,EX,Coastal Oak Woodland,COW
-Cottonwood-Alder,QJ,Montane Riparian,MRI
-Coulter Pine,PC,Montane Hardwood - Conifer,MHC
-Coyote Brush,CK,Coastal Scrub,CSC
-Coyote Brush,CK,Mixed Chaparral,MCH
-Creosote Bush,DL,Desert Scrub,DSC
-Croton,DD,Desert Wash,DSW
-Curlleaf Mountain Mahogany (shrub form),BM,Sagebrush,SGB
-Curlleaf Mountain Mahogany (tree form),FM,Sagebrush (modified),SGB
-Cuyamaca Cypress,MC,Closed Cone Pine - Cypress,CPC
-Deerbrush,CI,Montane Chaparral,MCP
-Desert - Montane Chaparral Shrub,BX,Montane Chaparral,MCP
-Desert Buckwheat,DB,Desert Scrub,DSC
-Desert Ironwood,UI,Desert Wash (modified),DSW
-Desert Willow,UD,Desert Riparian,DRI
-Dogwood,WD,Montane Riparian,MRI
-Douglas-fir-Grand Fir,DG,Douglas-Fir,DFR
-Douglas-fir-Ponderosa Pine,DP,Douglas-Fir,DFR
-Douglas-fir-White Fir,DW,Douglas-Fir,DFR
-Dune,DU,Barren,BAR
-Eastside Pine,EP,Eastside Pine,EPN
-Elephant Tree,ET,Desert Scrub,DSC
-Encelia Scrub,SE,Desert Scrub,DSC
-Engelmann Oak,QN,Coastal Oak Woodland,COW
-Engelmann Spruce,EA,Klamath Mixed Conifer,KMC
-Ephedra (Mormon Tea),FD,Desert Scrub,DSC
-Eucalyptus,QZ,Eucalyptus,EUC
-Fan Palm,UW,Palm Oasis,POS
-Fourneedle Pinyon Pine,PQ,Pinyon - Juniper,PJN
-Foxtail Pine,FP,Subalpine Conifer,SCN
-Fremont Cottonwood,QF,Montane Riparian,MRI
-General Barren,BA,Barren,BAR
-Giant Reed/Pampas Grass,IA,Valley Foothill Riparian (modified),VRI
-Gowen Cypress,MG,Closed Cone Pine - Cypress,CPC
-Grand Fir,GF,Redwood,RDW
-Gray Pine,PD,Blue Oak - Foothill Pine,BOP
-Greasewood,BG,Alkali Desert Scrub,ASC
-Greenleaf Manzanita,CG,Montane Chaparral,MCP
-Horsebrush (Cottonthorn),TM,Desert Scrub,DSC
-Huckleberry Oak,CH,Montane Chaparral,MCP
-Incense-Cedar,MD,Sierran Mixed Conifer,SMC
-Indigo Bush,DI,Desert Wash,DSW
-Interior Live Oak,QW,Montane Hardwood,MHW
-Interior Mixed Hardwood,NX,Montane Hardwood,MHW
-Jeffrey Pine,JP,Jeffrey Pine,JPN
-Joshua Tree,UJ,Joshua Tree,JST
-Klamath Mixed Conifer,MK,Klamath Mixed Conifer,KMC
-Knobcone Pine,KP,Closed Cone Pine - Cypress,CPC
-Limber Pine,PL,Subalpine Conifer,SCN
-Littleleaf Mountain Mahogany,BI,Sagebrush,SGB
-Live Oak-Madrone,Q1,Coastal Oak Woodland,COW
-Lodgepole Pine,LP,Lodgepole Pine,LPN
-Low Sagebrush,BL,Low Sage,LSG
-Lower Montane Mixed Chaparral,CQ,Mixed Chaparral,MCH
-Manzanita Chaparral,SD,Mixed Chaparral,MCH
-McNab Cypress,MN,Closed Cone Pine - Cypress,CPC
-Mendocino Manzanita,AN,Coastal Scrub,CSC
-Mesquite,UM,Desert Riparian,DRI
-Mixed Conifer - Fir,MF,Klamath Mixed Conifer,KMC
-Mixed Conifer - Fir,MF,Sierran Mixed Conifer,SMC
-Mixed Conifer - Pine,MP,Klamath Mixed Conifer,KMC
-Mixed Conifer - Pine,MP,Jeffrey Pine,JPN
-Mixed Conifer - Pine,MP,Sierran Mixed Conifer,SMC
-Mixed Conifer - Giant Sequoia,MB,Sierran Mixed Conifer,SMC
-Mixed Desert Scrub,DX,Desert Scrub,DSC
-Mixed Desert Succulent,DV,Desert Succulent Scrub,DSS
-Mixed Desert Wash Scrub,NB,Desert Wash,DSW
-Mixed High Desert Scrub,NQ,Desert Scrub,DSC
-Mixed Riparian Hardwood,NR,Montane Riparian,MRI
-Mixed Soft Scrub-Chaparral,SQ,Coastal Scrub,CSC
-Montane Mixed Hardwood,TX,Montane Hardwood,MHW
-Monterey Cypress,MM,Closed Cone Pine - Cypress,CPC
-Monterey Pine,PR,Closed Cone Pine - Cypress,CPC
-Mountain Alder,TA,Montane Riparian,MRI
-Mountain Hemlock,MH,Subalpine Conifer,SCN
-Mountain Misery,CE,Montane Chaparral,MCP
-Mountain Sagebrush,TV,Sagebrush,SGB
-Mountain Whitethorn,CY,Montane Chaparral,MCP
-Non-native/Ornamental and Invasive Shrub,IS,Urban,URB
-Non-native/Ornamental Conifer,IC,Urban,URB
-Non-native/Ornamental Con/Hwd Mixture,IM,Urban,URB
-Non-native/Ornamental Grass,IG,Urban,URB
-Non-native/Ornamental Hardwood,IH,Urban,URB
-North Coastal Mixed Shrub,NC,Coastal Scrub,CSC
-Ocotillo,DO,Desert Succulent Scrub,DSS
-Oregon White Oak,QG,Montane Hardwood,MHW
-Pacific Douglas-fir,DF,Douglas-Fir,DFR
-Pacific Madrone,QH,Coastal Oak Woodland,COW
-Palo Verde,UP,Desert Wash (modified),DSW
-Perennial Grasses/Forbs,HM,Perennial Grass,PGS
-Pickleweed-Cordgrass,HC,Saline Emergent Wetland,SEW
-Pinemat Manzanita,CN,Montane Chaparral,MCP
-Piute Cypress,MI,Closed Cone Pine - Cypress,CPC
-Ponderosa Pine,PP,Ponderosa Pine,PPN
-Ponderosa Pine-White Fir,PW,Sierran Mixed Conifer,SMC
-Port Orford-Cedar,PO,Klamath Mixed Conifer,KMC
-Pygmy Cypress,MY,Closed Cone Pine - Cypress,CPC
-Quaking Aspen,QQ,Aspen,ASP
-Rabbitbrush,BR,Bitterbrush,BBR
-Red Alder,QR,Montane Riparian,MRI
-Red Fir,RF,Red Fir,RFR
-Red Shanks Chaparral,CR,Chamise - Redshank Chaparral,CRC
-Redwood,RW,Redwood,RDW
-Redwood-Douglas-Fir,RD,Redwood,RDW
-Riparian Mixed Shrub,NM,Montane Riparian (modified),MRI
-Rothrock Sagebrush,TR,Alpine Dwarf Shrub,ADS
-Sage (Salvia sp.),SP,Coastal Scrub,CSC
-Salal-California Huckleberry Shrub,CB,Coastal Scrub,CSC
-Saltbush,BC,Alkali Desert Scrub,ASC
-Santa Cruz Cypress,MZ,Closed Cone Pine - Cypress,CPC
-Santa Lucia Fir,AB,Montane Hardwood - Conifer,MHC
-Sargent Cypress,MS,Closed Cone Pine - Cypress,CPC
-Scalebroom,LS,Desert Wash,DSW
-Scrub Oak,CS,Mixed Chaparral,MCH
-Semi-Desert Chaparral,CZ,Mixed Chaparral,MCH
-Shadescale,DS,Alkali Desert Scrub,ASC
-Shore Pine,PS,Closed Cone Pine - Cypress,CPC
-Singleleaf Pinyon Pine,PJ,Pinyon - Juniper,PJN
-Sitka Spruce,SK,Douglas-Fir,DFR
-Sitka Spruce-Grand Fir,SG,Redwood,RDW
-Sitka Spruce-Redwood,SR,Redwood,RDW
-Smoke Tree,UX,Desert Wash (modified),DSW
-Snow/Ice,SN,Barren,BAR
-Snowberry,TS,Montane Chaparral,MCP
-Snowbrush,CV,Montane Chaparral,MCP
-Southern Mixed Chaparral,CD,Mixed Chaparral,MCH
-Spiny Mendora,DJ,Desert Scrub,DSC
-Subalpine Conifers,SA,Subalpine Conifer,SCN
-Sumac Shrub,SM,Mixed Chaparral,MCH
-Tamarisk,UT,Desert Riparian,DRI
-Tanoak,QT,Montane Hardwood,MHW
-Tecate Cypress,MT,Closed Cone Pine - Cypress,CPC
-Torrey Pine,PT,Closed Cone Pine - Cypress,CPC
-Tree Chinquapin,TC,Montane Hardwood,MHW
-Tucker- Miller Scrub Oak,CT,Mixed Chaparral,MCH
-Tule-Cattail,HT,Fresh Emergent Wetland,FEW
-Ultramafic Mixed Conifer,MU,Klamath Mixed Conifer,KMC
-Ultramafic Mixed Conifer,MU,Sierran Mixed Conifer,SMC
-Ultramafic Mixed Shrub,C1,Mixed Chaparral,MCH
-Unknown Conifer,XC,(no crosswalk),ZZ
-Unknown Grass/Forbs,XG,Annual Grass,AGS
-Unknown Hardwood,XH,(no crosswalk),ZZ
-Unknown Non-vegetated,XZ,Barren,BAR
-Unknown Shrub,XS,(no crosswalk),ZZ
-Unknown Urban/Non-native Vegetation,XI,Urban,URB
-Unknown Wet Grasses/Forbs,XJ,Wet Meadow,WTM
-Upper Montane Mixed Chaparral,CX,Montane Chaparral,MCP
-Upper Montane Mixed Shrub,CM,Montane Chaparral,MCP
-Urban,UB,Urban,URB
-Utah Juniper,JU,Juniper,JUN
-Valley Oak,QL,Valley Oak Woodland,VOW
-Washoe Pine,WP,Eastside Pine,EPN
-Water,WA,Lacustrine,LAC
-Water Birch,FO,Desert Riparian (modified),DRI
-Wedgeleaf Ceanothus,CL,Mixed Chaparral,MCH
-Western Juniper,WJ,Juniper,JUN
-Western White Pine,WW,Subalpine Conifer,SCN
-Wet Grass/Forbs,HJ,Wet Meadow,WTM
-White Alder,QE,Montane Riparian,MRI
-White Bursage,AD,Desert Scrub,DSC
-White Fir,WF,White Fir,WFR
-Whitebark Pine,WB,Subalpine Conifer,SCN
-Whiteleaf Manzanita,CW,Mixed Chaparral,MCH
-Willow,QO,Montane Riparian,MRI
-Willow (riparian scrub),WL,Montane Riparian (modified),MRI
-Willow-Alder,QY,Montane Riparian,MRI
-Willow-Aspen,QS,Montane Riparian,MRI
-Wyoming Sagebrush,TW,Sagebrush,SGB
+Calveg Type,CV Code,CWHR Description,CWHR Code,treed
+Agriculture,AG,Cropland,CRP,0
+Alkaline Flats,AK,Barren,BAR,0
+Alkaline Mixed Grasses/Forbs,HA,Alkali Desert Scrub,ASC,0
+Alkaline Mixed Scrub,NA,Alkali Desert Scrub,ASC,0
+Alluvial Fan Sage Scrub,RS,Desert Wash,DSW,0
+Alpine Grasses/Forbs,AC,Alpine Dwarf Shrub,ADS,0
+Alpine Mixed Scrub,AX,Alpine Dwarf Shrub,ADS,0
+Annual Grasses/Forbs,HG,Annual Grass,AGS,0
+Arrowweed,DE,Desert Riparian (modified),DRI,1
+Baccharis (riparian),ML,Desert Riparian (modified),DRI,1
+Baker Cypress,MO,Closed Cone Pine - Cypress,CPC,1
+Barren,BA,Barren,BAR,0
+Basin Mixed Scrub,BQ,Sagebrush,SGB,0
+Basin Sagebrush,BS,Sagebrush,SGB,0
+Basin Transition (Desert) Scrub,BZ,Sagebrush,SGB,0
+Big Basin Sagebrush,TT,Sagebrush,SGB,0
+Big Tree (Giant Sequoia),BT,Sierran Mixed Conifer,SMC,1
+Bigcone Douglas-fir,DM,Montane Hardwood - Conifer,MHC,1
+Bigleaf Maple,QM,Montane Riparian,MRI,1
+Birchleaf Mountain Mahogany,WM,Mixed Chaparral,MCH,0
+Bishop Pine,PM,Closed Cone Pine - Cypress,CPC,1
+Bitterbrush,BB,Bitterbrush,BBR,0
+Bitterbrush - Sagebrush,TB,Bitterbrush,BBR,0
+Black Cottonwood,QX,Montane Riparian,MRI,1
+Black Sagebrush,TN,Low Sage,LSG,0
+Black Walnut,QV,Valley Oak Woodland,VOW,1
+Blackbush,DA,Desert Scrub,DSC,0
+Bladderpod,SI,Mixed Chaparral,MCH,0
+Blue Oak,QD,Blue Oak Woodland,BOW,1
+Blueblossom Ceanothus,SC,Coastal Scrub,CSC,0
+Brewer Oak,CJ,Montane Chaparral,MCP,0
+Brewer Spruce,PB,Klamath Mixed Conifer,KMC,1
+Bristlecone Pine,BP,Subalpine Conifer,SCN,1
+Bush Chinquapin,CP,Montane Chaparral,MCP,0
+California Bay,QB,Coastal Oak Woodland,COW,1
+California Black Oak,QK,Montane Hardwood,MHW,1
+California Buckeye,QI,Montane Hardwood,MHW,1
+California Buckwheat,SB,Mixed Chaparral,MCH,0
+California Juniper (shrub),JC,Juniper (modified),JUN,1
+California Juniper (tree),JT,Juniper,JUN,1
+California Sagebrush,SS,Coastal Scrub,CSC,0
+California Sycamore,QP,Valley Foothill Riparian,VRI,1
+Canyon Live Oak,QC,Montane Hardwood,MHW,1
+Catclaw Acacia,UL,Desert Wash,DSW,0
+Ceanothus Chaparral,CC,Mixed Chaparral,MCH,0
+Chamise,CA,Chamise - Redshank Chaparral,CRC,0
+Chaparral Yucca,SY,Mixed Chaparral,MCH,0
+Cheesebush (Burrobush),HS,Desert Scrub,DSC,0
+Cholla,DC,Desert Succulent Scrub,DSS,0
+Coast Live Oak,QA,Coastal Oak Woodland,COW,1
+Coastal Bluff Scrub,SH,Coastal Scrub,CSC,0
+Coastal Cactus,SO,Coastal Scrub,CSC,0
+Coastal Lupine,SL,Coastal Scrub,CSC,0
+Coastal Mixed Hardwood,EX,Coastal Oak Woodland,COW,1
+Cottonwood-Alder,QJ,Montane Riparian,MRI,1
+Coulter Pine,PC,Montane Hardwood - Conifer,MHC,1
+Coyote Brush,CK,Coastal Scrub,CSC,0
+Coyote Brush,CK,Mixed Chaparral,MCH,0
+Creosote Bush,DL,Desert Scrub,DSC,0
+Croton,DD,Desert Wash,DSW,0
+Curlleaf Mountain Mahogany (shrub form),BM,Sagebrush,SGB,0
+Curlleaf Mountain Mahogany (tree form),FM,Sagebrush (modified),SGB,0
+Cuyamaca Cypress,MC,Closed Cone Pine - Cypress,CPC,1
+Deerbrush,CI,Montane Chaparral,MCP,0
+Desert - Montane Chaparral Shrub,BX,Montane Chaparral,MCP,0
+Desert Buckwheat,DB,Desert Scrub,DSC,0
+Desert Ironwood,UI,Desert Wash (modified),DSW,0
+Desert Willow,UD,Desert Riparian,DRI,1
+Dogwood,WD,Montane Riparian,MRI,1
+Douglas-fir-Grand Fir,DG,Douglas-Fir,DFR,1
+Douglas-fir-Ponderosa Pine,DP,Douglas-Fir,DFR,1
+Douglas-fir-White Fir,DW,Douglas-Fir,DFR,1
+Dune,DU,Barren,BAR,0
+Eastside Pine,EP,Eastside Pine,EPN,1
+Elephant Tree,ET,Desert Scrub,DSC,0
+Encelia Scrub,SE,Desert Scrub,DSC,0
+Engelmann Oak,QN,Coastal Oak Woodland,COW,1
+Engelmann Spruce,EA,Klamath Mixed Conifer,KMC,1
+Ephedra (Mormon Tea),FD,Desert Scrub,DSC,0
+Eucalyptus,QZ,Eucalyptus,EUC,1
+Fan Palm,UW,Palm Oasis,POS,1
+Fourneedle Pinyon Pine,PQ,Pinyon - Juniper,PJN,1
+Foxtail Pine,FP,Subalpine Conifer,SCN,1
+Fremont Cottonwood,QF,Montane Riparian,MRI,1
+General Barren,BA,Barren,BAR,0
+Giant Reed/Pampas Grass,IA,Valley Foothill Riparian (modified),VRI,1
+Gowen Cypress,MG,Closed Cone Pine - Cypress,CPC,1
+Grand Fir,GF,Redwood,RDW,1
+Gray Pine,PD,Blue Oak - Foothill Pine,BOP,1
+Greasewood,BG,Alkali Desert Scrub,ASC,0
+Greenleaf Manzanita,CG,Montane Chaparral,MCP,0
+Horsebrush (Cottonthorn),TM,Desert Scrub,DSC,0
+Huckleberry Oak,CH,Montane Chaparral,MCP,0
+Incense-Cedar,MD,Sierran Mixed Conifer,SMC,1
+Indigo Bush,DI,Desert Wash,DSW,0
+Interior Live Oak,QW,Montane Hardwood,MHW,1
+Interior Mixed Hardwood,NX,Montane Hardwood,MHW,1
+Jeffrey Pine,JP,Jeffrey Pine,JPN,1
+Joshua Tree,UJ,Joshua Tree,JST,1
+Klamath Mixed Conifer,MK,Klamath Mixed Conifer,KMC,1
+Knobcone Pine,KP,Closed Cone Pine - Cypress,CPC,1
+Limber Pine,PL,Subalpine Conifer,SCN,1
+Littleleaf Mountain Mahogany,BI,Sagebrush,SGB,0
+Live Oak-Madrone,Q1,Coastal Oak Woodland,COW,1
+Lodgepole Pine,LP,Lodgepole Pine,LPN,1
+Low Sagebrush,BL,Low Sage,LSG,0
+Lower Montane Mixed Chaparral,CQ,Mixed Chaparral,MCH,0
+Manzanita Chaparral,SD,Mixed Chaparral,MCH,0
+McNab Cypress,MN,Closed Cone Pine - Cypress,CPC,1
+Mendocino Manzanita,AN,Coastal Scrub,CSC,0
+Mesquite,UM,Desert Riparian,DRI,1
+Mixed Conifer - Fir,MF,Klamath Mixed Conifer,KMC,1
+Mixed Conifer - Fir,MF,Sierran Mixed Conifer,SMC,1
+Mixed Conifer - Pine,MP,Klamath Mixed Conifer,KMC,1
+Mixed Conifer - Pine,MP,Jeffrey Pine,JPN,1
+Mixed Conifer - Pine,MP,Sierran Mixed Conifer,SMC,1
+Mixed Conifer - Giant Sequoia,MB,Sierran Mixed Conifer,SMC,1
+Mixed Desert Scrub,DX,Desert Scrub,DSC,0
+Mixed Desert Succulent,DV,Desert Succulent Scrub,DSS,0
+Mixed Desert Wash Scrub,NB,Desert Wash,DSW,0
+Mixed High Desert Scrub,NQ,Desert Scrub,DSC,0
+Mixed Riparian Hardwood,NR,Montane Riparian,MRI,1
+Mixed Soft Scrub-Chaparral,SQ,Coastal Scrub,CSC,0
+Montane Mixed Hardwood,TX,Montane Hardwood,MHW,1
+Monterey Cypress,MM,Closed Cone Pine - Cypress,CPC,1
+Monterey Pine,PR,Closed Cone Pine - Cypress,CPC,1
+Mountain Alder,TA,Montane Riparian,MRI,1
+Mountain Hemlock,MH,Subalpine Conifer,SCN,1
+Mountain Misery,CE,Montane Chaparral,MCP,0
+Mountain Sagebrush,TV,Sagebrush,SGB,0
+Mountain Whitethorn,CY,Montane Chaparral,MCP,0
+Non-native/Ornamental and Invasive Shrub,IS,Urban,URB,0
+Non-native/Ornamental Conifer,IC,Urban,URB,0
+Non-native/Ornamental Con/Hwd Mixture,IM,Urban,URB,0
+Non-native/Ornamental Grass,IG,Urban,URB,0
+Non-native/Ornamental Hardwood,IH,Urban,URB,0
+North Coastal Mixed Shrub,NC,Coastal Scrub,CSC,0
+Ocotillo,DO,Desert Succulent Scrub,DSS,0
+Oregon White Oak,QG,Montane Hardwood,MHW,1
+Pacific Douglas-fir,DF,Douglas-Fir,DFR,1
+Pacific Madrone,QH,Coastal Oak Woodland,COW,1
+Palo Verde,UP,Desert Wash (modified),DSW,0
+Perennial Grasses/Forbs,HM,Perennial Grass,PGS,0
+Pickleweed-Cordgrass,HC,Saline Emergent Wetland,SEW,0
+Pinemat Manzanita,CN,Montane Chaparral,MCP,0
+Piute Cypress,MI,Closed Cone Pine - Cypress,CPC,1
+Ponderosa Pine,PP,Ponderosa Pine,PPN,1
+Ponderosa Pine-White Fir,PW,Sierran Mixed Conifer,SMC,1
+Port Orford-Cedar,PO,Klamath Mixed Conifer,KMC,1
+Pygmy Cypress,MY,Closed Cone Pine - Cypress,CPC,1
+Quaking Aspen,QQ,Aspen,ASP,1
+Rabbitbrush,BR,Bitterbrush,BBR,0
+Red Alder,QR,Montane Riparian,MRI,1
+Red Fir,RF,Red Fir,RFR,1
+Red Shanks Chaparral,CR,Chamise - Redshank Chaparral,CRC,0
+Redwood,RW,Redwood,RDW,1
+Redwood-Douglas-Fir,RD,Redwood,RDW,1
+Riparian Mixed Shrub,NM,Montane Riparian (modified),MRI,1
+Rothrock Sagebrush,TR,Alpine Dwarf Shrub,ADS,0
+Sage (Salvia sp.),SP,Coastal Scrub,CSC,0
+Salal-California Huckleberry Shrub,CB,Coastal Scrub,CSC,0
+Saltbush,BC,Alkali Desert Scrub,ASC,0
+Santa Cruz Cypress,MZ,Closed Cone Pine - Cypress,CPC,1
+Santa Lucia Fir,AB,Montane Hardwood - Conifer,MHC,1
+Sargent Cypress,MS,Closed Cone Pine - Cypress,CPC,1
+Scalebroom,LS,Desert Wash,DSW,0
+Scrub Oak,CS,Mixed Chaparral,MCH,0
+Semi-Desert Chaparral,CZ,Mixed Chaparral,MCH,0
+Shadescale,DS,Alkali Desert Scrub,ASC,0
+Shore Pine,PS,Closed Cone Pine - Cypress,CPC,1
+Singleleaf Pinyon Pine,PJ,Pinyon - Juniper,PJN,1
+Sitka Spruce,SK,Douglas-Fir,DFR,1
+Sitka Spruce-Grand Fir,SG,Redwood,RDW,1
+Sitka Spruce-Redwood,SR,Redwood,RDW,1
+Smoke Tree,UX,Desert Wash (modified),DSW,0
+Snow/Ice,SN,Barren,BAR,0
+Snowberry,TS,Montane Chaparral,MCP,0
+Snowbrush,CV,Montane Chaparral,MCP,0
+Southern Mixed Chaparral,CD,Mixed Chaparral,MCH,0
+Spiny Mendora,DJ,Desert Scrub,DSC,0
+Subalpine Conifers,SA,Subalpine Conifer,SCN,1
+Sumac Shrub,SM,Mixed Chaparral,MCH,0
+Tamarisk,UT,Desert Riparian,DRI,1
+Tanoak,QT,Montane Hardwood,MHW,1
+Tecate Cypress,MT,Closed Cone Pine - Cypress,CPC,1
+Torrey Pine,PT,Closed Cone Pine - Cypress,CPC,1
+Tree Chinquapin,TC,Montane Hardwood,MHW,1
+Tucker- Miller Scrub Oak,CT,Mixed Chaparral,MCH,0
+Tule-Cattail,HT,Fresh Emergent Wetland,FEW,0
+Ultramafic Mixed Conifer,MU,Klamath Mixed Conifer,KMC,1
+Ultramafic Mixed Conifer,MU,Sierran Mixed Conifer,SMC,1
+Ultramafic Mixed Shrub,C1,Mixed Chaparral,MCH,0
+Unknown Conifer,XC,(no crosswalk),ZZ,0
+Unknown Grass/Forbs,XG,Annual Grass,AGS,0
+Unknown Hardwood,XH,(no crosswalk),ZZ,0
+Unknown Non-vegetated,XZ,Barren,BAR,0
+Unknown Shrub,XS,(no crosswalk),ZZ,0
+Unknown Urban/Non-native Vegetation,XI,Urban,URB,0
+Unknown Wet Grasses/Forbs,XJ,Wet Meadow,WTM,0
+Upper Montane Mixed Chaparral,CX,Montane Chaparral,MCP,0
+Upper Montane Mixed Shrub,CM,Montane Chaparral,MCP,0
+Urban,UB,Urban,URB,0
+Utah Juniper,JU,Juniper,JUN,1
+Valley Oak,QL,Valley Oak Woodland,VOW,1
+Washoe Pine,WP,Eastside Pine,EPN,1
+Water,WA,Lacustrine,LAC,0
+Water Birch,FO,Desert Riparian (modified),DRI,1
+Wedgeleaf Ceanothus,CL,Mixed Chaparral,MCH,0
+Western Juniper,WJ,Juniper,JUN,1
+Western White Pine,WW,Subalpine Conifer,SCN,1
+Wet Grass/Forbs,HJ,Wet Meadow,WTM,0
+White Alder,QE,Montane Riparian,MRI,1
+White Bursage,AD,Desert Scrub,DSC,0
+White Fir,WF,White Fir,WFR,1
+Whitebark Pine,WB,Subalpine Conifer,SCN,1
+Whiteleaf Manzanita,CW,Mixed Chaparral,MCH,0
+Willow,QO,Montane Riparian,MRI,1
+Willow (riparian scrub),WL,Montane Riparian (modified),MRI,1
+Willow-Alder,QY,Montane Riparian,MRI,1
+Willow-Aspen,QS,Montane Riparian,MRI,1
+Wyoming Sagebrush,TW,Sagebrush,SGB,0

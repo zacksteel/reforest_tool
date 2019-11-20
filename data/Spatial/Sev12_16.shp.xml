@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata><idinfo><citation><citeinfo><title>VegBurnSeverityBA</title><edition>18_1</edition><geoform>vector digital data</geoform></citeinfo></citation><descript><abstract>This polygon feature class represents vegetation burn severity calibrated to percent change in tree basal area for selected fires in California.</abstract><purpose>These data were created by the USDA Forest Service fire and fuels monitoring project to support monitoring of wildland fire and fire regimes. These data will allow better understanding of current fire regimes, improve the accuracy of fire perimeter data, and add spatial data on fire severity and complexity.</purpose><supplinf>These data are derived from Landsat Thematic Mapper imagery. The pre-fire and post-fire subscenes were used to create a Relative Differenced Normalized Burn Ratio (RdNBR). The RdNBR is correlated to the variation of burn severity within a fire. The RdNBR data are calibrated with the Composite Burn Index (CBI). The severity ratings provided by the derived products listed below are based on the severity to vegetation. 
+
+For a description of RdNBR see: 
+
+Miller, J.D. and Thode, A.E. (2007). Quantifying burn severity in a heterogeneous landscape with a relative version of the delta Normalized Burn Ratio(dNBR). Remote Sensing of Environment 109(1):66-80. 
+
+For a description of the calibration of RdNBR to severity measures see: 
+
+Miller, J.D., Knapp, E.E., Key, C.H., Skinner, C.N., Isbell, C.J., Creasy, R.M. and Sherlock, J.W. (2009). Calibration and validation of the relative differenced Normalized Burn Ratio (RdNBR) to three measures of fire severity in the Sierra Nevada and Klamath Mountains, California, USA. Remote Sensing of Environment 113(3): 645-656. 
+
+Miller, J.D. and Quayle, B. (2015). Calibration and validation of immediate post-fire satellite derived data to three severity metrics. Fire Ecology 11(2): 12-30.
+
+This database may contain more than one assessment for each fire: initial and/or extended. Initial assessement data can differ from extended assessment data because: 1.) The calibrations used to derive the severity data are based on one year post-fire field data. Calibrations for Initial assessments were derived through regression modeling of satellite reflectance values from imagery collected one year post-fire to imagery acquired immediate post-fire. 2.) Imagery used to make initial assessments are acquired immediately after containment which can be late in the year when sun angles are low due to fire containment dates and therefore fire effects on north facing slopes can be hidden due to topographic shadows caused by low sun angles causing high severity fire effects in these data to be under represented. Low to moderate severity in dense stands on east, west or south aspects may also be under-represented due to a low sun illumination angle. 3.) Imagery used for extended assessments are acquired the year after the fire occurred and can therefore include effects due to resprouting vegetation, delayed mortality of trees, and any management actions that have taken place between the fire containment date and image acquisition date.</supplinf></descript><status><progress>Complete</progress><update>As needed</update></status><spdom><bounding><westbc>-124.225543</westbc><eastbc>-115.83414</eastbc><northbc>42.645173</northbc><southbc>32.546059</southbc></bounding></spdom><keywords><place><placekt>None</placekt><placekey>California</placekey><placekey>Pacific Southwest Region</placekey></place><theme><themekey>fire severity</themekey><themekey>burn severity</themekey><themekey>normalized burn ratio (nbr)</themekey><themekey>percent change in basal area</themekey></theme></keywords><accconst>None</accconst><useconst>There are no restrictions on use, except for reasonable and proper acknowledgement of information sources.</useconst><ptcontac><cntinfo><cntorgp><cntorg>USDA Forest Service, Pacific Southwest Region, Fire and Aviation Mgmt.</cntorg></cntorgp><cntaddr><addrtype>mailing and physical address</addrtype><address>3237 Peacekeeper Way, Suite 101</address><city>McClellan</city><state>CA</state><postal>95652</postal><country>US</country></cntaddr><cntvoice>(916) 640-1000</cntvoice><hours>M-F, 0800-1700</hours><cntpos>GIS Coordinator</cntpos></cntinfo></ptcontac><crossref><citeinfo><origin>USDA Forest Service, Pacifica Southwest Region, Fire, Fuels and Aviation Mgmt.</origin><title>VegBurnSeverityBA</title><edition>18_1</edition><geoform>vector digital data</geoform></citeinfo></crossref></idinfo><dataqual><logic>Satellite data for initial assessments may have been acquired before final containment. Therefore additional fire effects may have occurred after satellite acquisition date. See metadata for dates of satellite imagery. The user should reconcile dates with fire containment dates before use. Data used for initial assessments may be acquired by more than one satellite due to lack of satellite availability. When Landsat TM data are available intial assessments are based upon the NBR index, otherwise the assessments are based upon NDVI. See the metadata for each fire to determine imagery used in the assessement.</logic><lineage><procstep><procdesc>Version 10_3 includes updates for fires 200-1000 ac in size that occured in the Sierra Nevada during 1984-2009, and extended assessments for 2009 fires for all of Region 5 Forests. Added the VB_ID field to link the perimeters to the severity data records.</procdesc></procstep><procstep><procdesc>Version 11_1 includes updates for fires 2001WHITE_SQF, 2006MAGGIE, 2011LION, 2011COUGAR, 2011MOTOR, 2011RUTH</procdesc></procstep><procstep><procdesc>Version 12_1 includes updates to existing and additional new fires:
+1985 GORDA_RAT, 1985 SECO, 1985 USF05071985000999, 1989 MOLERA2, 1992 SECO, 1992 USF05071992000032, 2000 PLASKETT2, 2007 HAWKEN, 2010 BAR, 2010 BODFISH, 2010 BUCKHORN, 2010 BULL, 2010 BULLARDS, 2010 CANYON, 2010 CONSTANTIA, 2010 MONO, 2010 MONTE, 2010 PINECREST, 2010 POST, 2010 POZO, 2010 SHEEP, 2010 WOLF_CREEK, 2011 ANNIE, 2011 BUTTERMILK, 2011 HILL, 2011 MAMMOTH, 2011 ONION, 2011 SCORPION, 2011 WILLOWS, 2012 BEAR, 2012 CHIPS, 2012 FLAT, 2012 GEORGE, 2012 MILL, 2012 READING, 2012 SALT_CREEK
+</procdesc></procstep><procstep><procdesc>Version 12_2 includes new 2012 fires: Barry Point, Bagley, Ramsey, Stafford, Williams, Goff, North Pass</procdesc></procstep><procstep><procdesc>Version 13_1 added initial assessments for 5 older fires,  2002 Showers, 2004 Deep, 2004 Sims, 2004 Straylor, 2005 Harding, Set "BEST_ASSESS" to YES for 2004 Deep initial assessment.
+</procdesc></procstep><procstep><procdesc>Version 14_1 added initial assessments for 13 2013 fires and 4 older fires: 2010 BRIGGS, 2011 MINT, 2011 BRECKENRIDGE COMPLEX, 2011 COVE, 2013 AMERICAN, 2013 ASPEN, 2013 BUTLER, 2013 CARSTENS, 2013 CORRAL CMPLX, 2013 FISH, 2013 HATHAWAY, 2013 MOUNTAIN, 2013 PANTHER, 2013 POWERHOUSE, 2013 RIM, 2013 SALMON RIVER CMPLX, 2013 SILVER
+</procdesc></procstep><procstep><procdesc>Version 14_2: Migrated personal geodatabase to file geodatabase: Masked out lakes in 2012 Reading initial assessment; Added initial assessment for 2000 Storrie; Added extended assessment for 2010 Bar; Added extended assessments for 17 fires on USFS lands in 2012: Bagley, Barry Point, Bear, Chips, Clear, Flat, George, Goff, Mill, Mill, North Pass, Peak, Ramsey, Reading, Salt Creek, Stafford, Williams; Added 113 wildfires greater than 200 acres in four National Parks: Lassen, Yosemite, Sequoia and Kings Canyon
+</procdesc></procstep><procstep><procdesc>Version 14_3: Added initial assessments for 2001 Martis, and 14 fires in 2014: Bald, Beaver, Coffee Complex, Day, Eiler, El Portal, Frnech, Happy Camp Complex, King, Little Deer, Log, Nicolls, Soda, White; 
+Added extended assessments for 6 fires in 2013: American, Aspen, Carstens, Fish, Rim, Power;
+Initial assessments for 2013 Aspen and 2013 Rim were reprocessed to reflect final perimeters
+</procdesc></procstep><procstep><procdesc>Version 15_1: Added initial assessments for 2013 fires: Chariot, Deer, Falls, Grand, Ridge/Heights, Summit, White, Windy Peak. Initial assessments for 2013 Corral Complex and 2013 Panther were reprocessed to reflect final perimeters. Added extended assessments for 2013 fires: Butler, Corral Complex, Kyburz, Panther, Ridge/Heights, Salmon River Cmplx, Shirley, Windy Peak.</procdesc></procstep><procstep><procdesc>Version 16_1: 
+THIS VERSION CONTAINS NEW FIRES AND/OR ASSESSMENTS AT THE REQUEST OF CALFIRE AS WELL AS NEW AND UPDATED USFS AND NPS FIRES 
+NEW INITIAL ASSESSMENTS:
+1999: CANYON #4, DOE MILL, ELEANOR, FIRE #3, JUNIPER, LECONTE, LOST BEAR, LOWDEN, MUSTY, SOUTH, WOODLAND
+2000: CONCOW, GOAT, HAPPY, MORGAN, NORTH FORK
+2001: LEONARD, PONDEROSA
+2002: CROY, FIELD, PALISADE, WOLF
+2003: ANNIE, CANOE, DEVIL, HONEYDEW, KINKAID, MOUNTAIN, TUOLUMNE, OLD/GRANDPRIX/PADUA, WHISKEY, WHITMORE
+2004: BLUFF, GATOS, HWY 4 #2, IRONGATE, KINCAID, OLD HWY/MPUD 149, MEADOW WFU, OREGON, PATTISON, RUMSEY, STEVENS
+2005: 36, BAILEY, HALLORAN, MILLWOOD, TOVEY, WAPAMA, WILDHORSE
+2006: COTTONWOOD, CREEK INCIDENT, ESPERANZA, FROG, JUNCTION, NOBLE, PUSHWALLA, RICO, SAGE, SAWTOOTH COMPLEX, WHISPERING PINES
+2007: LICK, LOS FLORES, POWER, TAR, WHITE
+2008: BUTCH, CLIFF RIDGE, COWSHED LIGHTNING, CRAIG, HARDY CREEK LIGHTNING, HIDDEN, HUMBOLDT, INDIAN, JACK SMITH, KIRKMAN, LOST PIPE, LOW GAP, LOWER, MIDDLE, MOON, NAVAROO, ORR SERIES, PARADISE, PINE 2, RED MOUNTAIN LIGHTNING, SUGARLOAF, SUMMIT, TRAVIS 1, TWENTY, WILD
+2009: BRYSON, COFFIN, GROUSE, HARDEN, LOCKHEED, WILDCAT, YUBA
+2010: SLOPE, VERNON, WEST
+2011: BAKER, BLACK, CANYON, INDIAN, STAGE
+2012: CASCADE, CLEAR, DALE, JAWBONE BRANCH, LAKE, LIKLEY, MILL, PONDEROSA, RIM BRANCH, ROBBERS, RUSH, SIXTEEN COMPLEX, WYE
+2013: CLOVER, DELUZ, MCCABE, SWEDES
+2014: COLBY, GULCH, WAY
+2015: BARKER, BEAR, BLUE, BUCK, BUTTE, CABIN, CASTLE, COON, FROG, GOBBLER, JOHNSON, LAKE, LASSIC, NICKOWITZ, PATTISON, PEAK (SRF), PEAK (SHF), PICKETT, PINE, RAIL, RIVER COMPLEX, ROUND, ROUGH, SADDLE, SHIELL, TASSAJARA, VALLEY, WALKER, WASHINGTON
+
+NEW EXTENDED ASSESSMENTS:
+1999: CANYON #4, DOE MILL, FIRE #3, JUNIPER, LOWDEN, MUSTY, SOUTH, WOODLAND
+2000: CONCOW, GOAT, HAPPY, MORGAN
+2001: LEONARD, PONDEROSA
+2002: CROY
+2003: ANNIE, CANOE, DEVIL, HONEYDEW, MOUNTAIN, WHITMORE
+2004: GATOS, IRONGATE, KINCAID, OLD HWY/MPUD 149, OREGON, RUMSEY, STEVENS
+2005: 36, BAILEY
+2006: COTTONWOOD, CREEK INCIDENT, ESPERANZA, JUNCTION, NOBLE, PUSHWALLA, SAGE, SAWTOOTH COMPLEX, WHISPERING PINES
+2007: LICK, LOS FLORES, POWER, TAR, WHITE
+2008: BUTCH, CLIFF RIDGE, COWSHED LIGHTNING, CRAIG, HARDY CREEK LIGHTNING, INDIAN, LOST PIPE, LOW GAP, LOWER, MIDDLE, MOON, NAVAROO, ORR SERIES, PARADISE, PINE 2, RED MOUNTAIN LIGHTNING, SUGARLOAF, SUMMIT, TRAVIS 1
+2009: COFFIN, LOCKHEED, YUBA
+2012: DALE, JAWBONE BRANCH, PONDEROSA, RIM BRANCH, ROBBERS
+2013: SWEDES
+2014: CAMPBELL, COURTNEY, DARK HOLE, MEADOW, SHIRLEY
+
+UPDATED:
+2003: OLD/GRANDPRIX/PADUA
+2004: MEADOW WFU
+2006: FROG
+2009: GROUSE, HARDEN, WILDCAT
+2012: CLEAR, MILL, STAFFORD
+2013: CHARIOT, GRAND
+2014: SODA</procdesc></procstep><procstep><procdesc>Version 17_1: 
+
+THIS VERSION CONTAINS NEW FIRES AND/OR ASSESSMENTS AT THE REQUEST OF CALFIRE AS WELL AS NEW AND UPDATED USFS AND NPS FIRES 
+NEW INITIAL ASSESSMENTS:
+2014: LODGE COMPLEX, OREGON GULCH, SAND
+2015: CUESTA, HIGHWAY, JERUSALEM, LOWELL, LUMPKIN, NORTH, PARKHILL, ROCKY, SKY, STEELHEAD, WRAGG
+2016: BLUECUT, CEDAR, CLARK, ERSKINE, FISH, GAP, JACOBSON, OWENS RIVER, PILOT, PINE, PONY, REY, SACATA, SAND, SOBERANES, SOUP COMPLEX, TRAILHEAD
+
+NEW EXTENDED ASSESSMENTS:
+2014: LODGE COMPLEX, OREGON GULCH, SAND
+2015: BARKER, BEAR, BIG CREEK, BIG FIVE, BLUE, BUCK, BUTTE, CABIN, CASTLE (SOUTH COMPLEX), COON, CORRINE, CUESTA, FROG, GOBBLER, HIGHWAY, JERUSALEM, JOHNSON (ROUTE COMPLEX), LAKE, LASSIC, LOWELL, LUMPKIN, MIDDLE, NICKOWITZ, PARKHILL, PATTISON (SOUTH COMPLEX), PEAK (SHF), PEAK (SRF), PICKETT, PINE, RAIL, RIVER COMPLEX, ROCKY, ROUGH, SADDLE, SHIELL, SKY, STEELHEAD, TASSAJARA, TENAYA, WASHINGTON, WILLOW, WRAGG
+
+UPDATED:
+2015: BUTTE, CASTLE (SOUTH COMPLEX), JOHNSON (ROUTE COMPLEX), PATTISON (SOUTH COMPLEX), ROUGH</procdesc></procstep><procstep><procdesc>Version 18_1: 
+NEW INITIAL ASSESSMENTS:
+2002: COPPER
+2003: PIRU
+2016: BOGURT, COLEMAN, HORSESHOE, HOWARD, MARINA, MEADOW, MOKELUMNE, RESERVOIR, SHERPA, TOBIN, TULE, WILLARD
+2017: ABNEY, BERRY, BUCK, BUMMERS, BURNEY, BUTTE, CALDWELL, CANYON, CEDAR, CLARK, COVE, CREEK(ANF), CREEK(STF), DETWILER, DOUGLAS, DUTCHMAN, GARDEN, EMPIRE, EUREKA, GRANT, HAYPRESS, HELENA+FORK, HIGHWAY, HOLCOMB, INDIAN, LAKE, LION, MCCORMICK, MINERVA 5, MISSION, OAK, PARKER 2, PIER, PONDEROSA, RAILROAD, RIMROCK, SCHAEFFER, SLINKARD, STEELE, SOUTH FORK, TABLE, THOMAS, UKONOM, WALLOW, WHITTIER, WILLIE
+
+NEW EXTENDED ASSESSMENTS:
+2016: BLUECUT, BOGART, CEDAR, CLARK, COLEMAN, CROWN, ERSKINE, FISH, GAP, HIDDEN, HORSESHOE, HOWARD, JACOBSON, LAKES, MEADOW,  MOKELUMNE, RESERVOIR, SLATE, OWENS RIVER, PILOT, PINE, PONY, SAND, SOBERANES, SOUP 2, TRAILHEAD, TULE, WILLARD
+
+UPDATED:
+2003: CEDAR
+
+ADDED MISSING DATA:
+2001 TAR</procdesc></procstep></lineage></dataqual><spdoinfo><direct>Vector</direct><ptvctinf><esriterm Name="VegBurnSeverityBA"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom code="4" Sync="TRUE"></efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">10241</efeacnt><spindex Sync="TRUE">TRUE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf></spdoinfo><spref><horizsys><planar><planci><plance>coordinate pair</plance><coordrep><absres>0.0005381287315472967</absres><ordres>0.0005381287315472967</ordres></coordrep><plandu>Meter</plandu></planci></planar><geodetic><horizdn>D North American 1983</horizdn><ellips>GRS 1980</ellips><semiaxis>6378137.0</semiaxis><denflat>298.257222101</denflat></geodetic></horizsys></spref><eainfo><detailed Name="VegBurnSeverityBA" xmlns=""><enttyp><enttypl Sync="TRUE">VegBurnSeverityBA</enttypl><enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">10241</enttypc></enttyp><attr xmlns=""><attrlabl>OBJECTID</attrlabl><attrdef>Internal feature number.</attrdef><attrdefs>ESRI</attrdefs><attrdomv><udom>Sequential unique whole numbers that are automatically generated.</udom></attrdomv><attalias Sync="TRUE">OBJECTID</attalias><attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>Shape</attrlabl><attrdef>Feature geometry.</attrdef><attrdefs>ESRI</attrdefs><attrdomv><udom>Coordinates defining the features.</udom></attrdomv><attalias Sync="TRUE">Shape</attalias><attrtype Sync="TRUE">Geometry</attrtype><attwidth Sync="TRUE">0</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>BURNSEV</attrlabl><attrdef>Burn severity to vegetation classification</attrdef><attrdomv><edom><edomv>1</edomv><edomvd>0% change in BA</edomvd></edom></attrdomv><attrdomv><edom><edomv>2</edomv><edomvd>0% &lt; change in BA &lt; 10%</edomvd></edom></attrdomv><attrdomv><edom><edomv>3</edomv><edomvd>10% &lt;= change in BA &lt; 25%</edomvd></edom></attrdomv><attrdomv><edom><edomv>4</edomv><edomvd>25% &lt;= change in BA &lt; 50%</edomvd></edom></attrdomv><attrdomv><edom><edomv>5</edomv><edomvd>50% &lt;= change in BA &lt; 75%</edomvd></edom></attrdomv><attrdomv><edom><edomv>6</edomv><edomvd>75% &lt;= change in BA &lt; 90%</edomvd></edom></attrdomv><attrdomv><edom><edomv>7</edomv><edomvd>Change in BA &gt;= 90 %</edomvd></edom></attrdomv><attrdomv><edom><edomv>255</edomv><edomvd>Not mapped; clouds, etc.</edomvd></edom></attrdomv><attalias Sync="TRUE">BURNSEV</attalias><attrtype Sync="TRUE">SmallInteger</attrtype><attwidth Sync="TRUE">2</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>VB_ID</attrlabl><attrdef>Unique Id field composed of FIRE_YEAR and abreviated fire name, used to link to veg severity perimeter record</attrdef><attalias Sync="TRUE">VB_ID</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">34</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>BEST_ASSESS</attrlabl><attrdef>This field is a recommendation as to which assessment best represents fire effects. For example, when salvage logging occurred before the extended assessment was made and an initial assessment exists the initial assessment is usually flagged as the best assessment, otherwise the extended assessment is flagged. When the fire burned primarily in shrubs/chaparral then the initial assessment, if it exists, is usually set to “best”. Other conditions that may influence choice of “best” assessment include late season imagery acquisition or satellite image issues. If the post-fire image is too late in the year, which sometimes occurs in initial assessments, then the extended assessment is “best”.  Note, the assessment which is set to “best” may change between database versions because additional assessments may be added to the database at different times (e.g. initial assessments are usually added a year before extended assessments).</attrdef><attrdomv><edom xmlns=""><edomv>YES</edomv><edomvd>Best assessment</edomvd></edom><edom xmlns=""><edomv>NO</edomv><edomvd>Not best assessment</edomvd></edom></attrdomv><attalias Sync="TRUE">BEST_ASSESS</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">3</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>ASSESS_TYPE</attrlabl><attrdef>Assessment Type - Initial assessments are derived from immediate post-fire imagery and therefore reflect first order effects to the vegetation. Extended assessments are derived from imagery acquired after one full growing season to capture delayed mortality and resprouting that may occur</attrdef><attrdefs>ESRI</attrdefs><attrdomv><edom><edomv>a</edomv><edomvd>Initial</edomvd></edom></attrdomv><attrdomv><edom><edomv>b</edomv><edomvd>Extended yr1</edomvd></edom></attrdomv><attrdomv><edom><edomv>c</edomv><edomvd>Extended yr2</edomvd></edom></attrdomv><attrdomv><udom>Positive real numbers that are automatically generated.</udom></attrdomv><attalias Sync="TRUE">ASSESS_TYPE</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">1</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>FIRE_YEAR</attrlabl><attrdef>Year fire occurred</attrdef><attalias Sync="TRUE">FIRE_YEAR</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>Shape_Length</attrlabl><attrdef>Length of feature in internal units.</attrdef><attrdefs>ESRI</attrdefs><attrdomv><udom>Positive real numbers that are automatically generated.</udom></attrdomv><attalias Sync="TRUE">Shape_Length</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">8</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr xmlns=""><attrlabl>Shape_Area</attrlabl><attrdef>Area of feature in internal units squared.</attrdef><attrdefs>ESRI</attrdefs><attrdomv><udom>Positive real numbers that are automatically generated.</udom></attrdomv><attalias Sync="TRUE">Shape_Area</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">8</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr></detailed></eainfo><distinfo><distrib><cntinfo><cntorgp><cntorg>USDA Forest Service, Pacific Southwest Region, Fire and Aviation Mgmt.</cntorg></cntorgp><cntpos>GIS Coordinator</cntpos><cntaddr><addrtype>mailing and physical address</addrtype><address>3237 Peacekeeper Way, Suite 101</address><city>McClellan</city><state>CA</state><postal>95652</postal><country>US</country></cntaddr><cntvoice>916-640-1000</cntvoice><hours>M-F, 0800-1700</hours></cntinfo></distrib><distliab>Distribution_Liability This product is reproduced from geospatial information prepared by the U.S. Department of Agriculture, Forest Service. By removing the contents of this package or taking receipt of these files via electronic file transfer methods, you understand that the data stored on this media is in draft condition. Represented features may not be in an accurate geographic location. The Forest Service makes no expressed or implied warranty, including warranty of merchantability and fitness, with respect to the character, function, or capabilities of the data or their appropriateness for any user's purposes. The Forest Service reserves the right to correct, update, modify, or replace this geospatial information without notification.</distliab></distinfo><metainfo><metd>20180215</metd><metc><cntinfo><cntorgp><cntorg>USDA Forest Service, Pacific Southwest Region, Fire and Aviation Mgmt</cntorg></cntorgp><cntpos>GIS Coordinator</cntpos><cntaddr><addrtype>mailing and physical address</addrtype><address>3237 Peacekeeper Way, Suite 101</address><city>McClellan</city><state>California</state><postal>95652</postal><country>US</country></cntaddr><cntvoice>916-640-1000</cntvoice><hours>M-F, 0800-1700</hours></cntinfo></metc><metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn><metstdv>FGDC-STD-001-1998</metstdv><mettc>local time</mettc></metainfo><Esri><DataProperties><itemProps><itemName Sync="TRUE">VegBurnSeverityBA</itemName><nativeExtBox><westBL Sync="TRUE">-360185.999965</westBL><eastBL Sync="TRUE">427703.000037</eastBL><southBL Sync="TRUE">-600512.999768</southBL><northBL Sync="TRUE">513916.999974</northBL><exTypeCode Sync="TRUE">1</exTypeCode></nativeExtBox><itemLocation><linkage Sync="TRUE">file://\\AFSPCHPL01906PY\D$\arcws\vegseverity\VegBurnSeverityBA18_1.gdb</linkage><protocol Sync="TRUE">Local Area Network</protocol></itemLocation><imsContentType Sync="TRUE">002</imsContentType></itemProps><coordRef><type Sync="TRUE">Projected</type><geogcsn Sync="TRUE">GCS_North_American_1983</geogcsn><csUnits Sync="TRUE">Linear Unit: Meter (1.000000)</csUnits><projcsn Sync="TRUE">NAD_1983_Albers</projcsn><peXml Sync="TRUE">&lt;ProjectedCoordinateSystem xsi:type='typens:ProjectedCoordinateSystem' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.3'&gt;&lt;WKT&gt;PROJCS[&amp;quot;NAD_1983_Albers&amp;quot;,GEOGCS[&amp;quot;GCS_North_American_1983&amp;quot;,DATUM[&amp;quot;D_North_American_1983&amp;quot;,SPHEROID[&amp;quot;GRS_1980&amp;quot;,6378137.0,298.257222101]],PRIMEM[&amp;quot;Greenwich&amp;quot;,0.0],UNIT[&amp;quot;Degree&amp;quot;,0.0174532925199433]],PROJECTION[&amp;quot;Albers&amp;quot;],PARAMETER[&amp;quot;False_Easting&amp;quot;,0.0],PARAMETER[&amp;quot;False_Northing&amp;quot;,-4000000.0],PARAMETER[&amp;quot;Central_Meridian&amp;quot;,-120.0],PARAMETER[&amp;quot;Standard_Parallel_1&amp;quot;,34.0],PARAMETER[&amp;quot;Standard_Parallel_2&amp;quot;,40.5],PARAMETER[&amp;quot;Latitude_Of_Origin&amp;quot;,0.0],UNIT[&amp;quot;Meter&amp;quot;,1.0]]&lt;/WKT&gt;&lt;XOrigin&gt;-16909699.999754958&lt;/XOrigin&gt;&lt;YOrigin&gt;-8596999.9994712994&lt;/YOrigin&gt;&lt;XYScale&gt;7433.1656451397548&lt;/XYScale&gt;&lt;ZOrigin&gt;-100000&lt;/ZOrigin&gt;&lt;ZScale&gt;10000&lt;/ZScale&gt;&lt;MOrigin&gt;-100000&lt;/MOrigin&gt;&lt;MScale&gt;10000&lt;/MScale&gt;&lt;XYTolerance&gt;0.0010762574630945934&lt;/XYTolerance&gt;&lt;ZTolerance&gt;0.001&lt;/ZTolerance&gt;&lt;MTolerance&gt;0.001&lt;/MTolerance&gt;&lt;HighPrecision&gt;true&lt;/HighPrecision&gt;&lt;/ProjectedCoordinateSystem&gt;</peXml></coordRef><lineage><Process ToolSource="c:\program files\arcgis\desktop10.0\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20121114" Time="122127" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_bagley_a_12ba7 VegBurnSeverityBA TEST # #</Process><Process ToolSource="c:\program files\arcgis\desktop10.0\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20121114" Time="122354" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_barry_point_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_ramsey_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_stafford_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_williams_a_12ba7 VegBurnSeverityBA TEST # #</Process><Process ToolSource="C:\Program Files\ArcGIS\Desktop10.0\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20121114" Time="122453" Name="" export="">CalculateField VegBurnSeverityBA BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files\arcgis\desktop10.0\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20121119" Time="110934" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_goff_a_12ba7 VegBurnSeverityBA TEST # #</Process><Process ToolSource="c:\program files\arcgis\desktop10.0\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20121126" Time="134506" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_north_pass_a_12ba7 "VegBurnSeverityBA 12_2" TEST # #</Process><Process ToolSource="c:\program files\arcgis\desktop10.0\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20130325" Time="102449" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_deep_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_harding_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_showers_a_02ba7;D:\fires\archive\outWorkspace.gdb\zz_sims_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_straylor_a_04ba7 "VegBurnSeverityBA 13_1" TEST # #</Process><Process ToolSource="C:\Program Files\ArcGIS\Desktop10.0\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20130325" Time="103805" Name="" export="">CalculateField "VegBurnSeverityBA 13_1" BEST_ASSESS "NO" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20140122" Time="103547" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_american_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_aspen_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_breckenridge_cmplx_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_briggs_a_10ba7;D:\fires\archive\outWorkspace.gdb\zz_carstens_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_corral_cmplx_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_cove_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_fish_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_hathaway_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_mint_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_mountain_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_panther_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_powerhouse_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_rim_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_salmon_river_cmplx_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_silver_a_13ba7 "VegBurnSeverityBA 14_1" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20140122" Time="103725" Name="" export="">CalculateField "VegBurnSeverityBA 14_1" BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20140122" Time="150018" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_butler_a_13ba7 "VegBurnSeverityBA 14_1" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20140122" Time="150152" Name="" export="">CalculateField "VegBurnSeverityBA 14_1" BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Conversion Tools.tbx\FeatureClassToFeatureClass" Date="20140626" Time="103437" Name="" export="">FeatureClassToFeatureClass "VegBurnSeverityBA 14_1" D:\arcws\vegseverity\VegBurnSeverityBA14_2.gdb VegBurnSeverityBA # "BURNSEV "BURNSEV" true true false 2 Short 0 0 ,First,#,D:\arcws\vegseverity\VegBurnSeverityBA14_1.mdb\VegBurnSeverityBA,BURNSEV,-1,-1;ASSESS_TYPE "ASSESS_TYPE" true true false 1 Text 0 0 ,First,#,D:\arcws\vegseverity\VegBurnSeverityBA14_1.mdb\VegBurnSeverityBA,ASSESS_TYPE,-1,-1;BEST_ASSESS "BEST_ASSESS" true true false 3 Text 0 0 ,First,#,D:\arcws\vegseverity\VegBurnSeverityBA14_1.mdb\VegBurnSeverityBA,BEST_ASSESS,-1,-1;FIRE_YEAR "FIRE_YEAR" true true false 4 Text 0 0 ,First,#,D:\arcws\vegseverity\VegBurnSeverityBA14_1.mdb\VegBurnSeverityBA,FIRE_YEAR,-1,-1;VB_ID "VB_ID" true true false 34 Text 0 0 ,First,#,D:\arcws\vegseverity\VegBurnSeverityBA14_1.mdb\VegBurnSeverityBA,VB_ID,-1,-1;Shape_Length "Shape_Length" false true true 8 Double 0 0 ,First,#,D:\arcws\vegseverity\VegBurnSeverityBA14_1.mdb\VegBurnSeverityBA,Shape_Length,-1,-1;Shape_Area "Shape_Area" false true true 8 Double 0 0 ,First,#,D:\arcws\vegseverity\VegBurnSeverityBA14_1.mdb\VegBurnSeverityBA,Shape_Area,-1,-1" #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20140627" Time="135519" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_amphitheater_b_97ba7;D:\fires\archive\outWorkspace.gdb\zz_avalanche_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_avalanche_b_90ba7;D:\fires\archive\outWorkspace.gdb\zz_bagley_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_bald_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_baldy_b_86ba7;D:\fires\archive\outWorkspace.gdb\zz_bar_b_10ba7;D:\fires\archive\outWorkspace.gdb\zz_barry_point_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_bear_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_big_arroyo_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_bluff_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_buck_peak_b_93ba7;D:\fires\archive\outWorkspace.gdb\zz_buckeye_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_burnt_b_01ba7;D:\fires\archive\outWorkspace.gdb\zz_burnt_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_camp_creek_b_86ba7;D:\fires\archive\outWorkspace.gdb\zz_cascade_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_castle_b_95ba7;D:\fires\archive\outWorkspace.gdb\zz_castle_complex_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_chagoopa_b_92ba7;D:\fires\archive\outWorkspace.gdb\zz_chips_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_clear_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_deer_creek_b_91ba7;D:\fires\archive\outWorkspace.gdb\zz_dog_creek_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_dorst_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_dougherty_b_85ba7;D:\fires\archive\outWorkspace.gdb\zz_fairfield_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_flat_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_george_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_giant_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_goff_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_halstead3_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_hidden_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_hmrs_nos2_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_horse_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_horseshoe_b_05ba7;D:\fires\archive\outWorkspace.gdb\zz_hospital_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_hot_springs_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_huffer_b_97ba7;D:\fires\archive\outWorkspace.gdb\zz_kaweah_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_kern_b_05ba7;D:\fires\archive\outWorkspace.gdb\zz_mill_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_mill_cdf_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_north_pass_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_palisade_b_02ba7;D:\fires\archive\outWorkspace.gdb\zz_paradise2_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_peak_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_ramsey_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_rattlesnake_b_92ba7;D:\fires\archive\outWorkspace.gdb\zz_reading_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_reading_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_roaring_ridge_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_salt_creek_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_simpson_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_slope_b_10ba7;D:\fires\archive\outWorkspace.gdb\zz_snag_cmplx_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_stafford_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_storrie_a_00ba7;D:\fires\archive\outWorkspace.gdb\zz_sugarloaf_b_85ba7;D:\fires\archive\outWorkspace.gdb\zz_sugarloaf_b_97ba7;D:\fires\archive\outWorkspace.gdb\zz_tamarack_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_tombstone_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_vernon_b_10ba7;D:\fires\archive\outWorkspace.gdb\zz_williams_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_williams_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_willow_b_93ba7;D:\fires\archive\outWorkspace.gdb\zz_woods_creek_b_12ba7 "VegBurnSeverityBA 14_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20140630" Time="092600" Name="" export="">CalculateField "VegBurnSeverityBA 14_2" BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20140707" Time="123154" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_adam_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_alaska_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_anita_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_babcock_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_bald_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_bartlett_b_85ba7;D:\fires\archive\outWorkspace.gdb\zz_betty_blake_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_boundary_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_buck_b_85ba7;D:\fires\archive\outWorkspace.gdb\zz_campground_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_cascade_creek_b_86ba7;D:\fires\archive\outWorkspace.gdb\zz_dark_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_devil_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_dome_b_92ba7;D:\fires\archive\outWorkspace.gdb\zz_east_leconte_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_echo_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_edson_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_elbow_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_eleanor_b_86ba7;D:\fires\archive\outWorkspace.gdb\zz_eleanor_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_frog_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_frog_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_frog_b_91ba7;D:\fires\archive\outWorkspace.gdb\zz_frog2_b_90ba7;D:\fires\archive\outWorkspace.gdb\zz_glacier_point_b_86ba7;D:\fires\archive\outWorkspace.gdb\zz_glen_aulin_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_grouse_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_harden_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_hetchy_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_hoover_b_01ba7;D:\fires\archive\outWorkspace.gdb\zz_horizon_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_horizon_b_94ba7;D:\fires\archive\outWorkspace.gdb\zz_ill_b_91ba7;D:\fires\archive\outWorkspace.gdb\zz_ill_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_jack_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_kendrick_b_85ba7;D:\fires\archive\outWorkspace.gdb\zz_kendrick_b_96ba7;D:\fires\archive\outWorkspace.gdb\zz_king_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_laurel_b_05ba7;D:\fires\archive\outWorkspace.gdb\zz_laurel_lake2_b_90ba7;D:\fires\archive\outWorkspace.gdb\zz_leconte_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_lost_bear_b_85ba7;D:\fires\archive\outWorkspace.gdb\zz_lost_bear_b_87ba7;D:\fires\archive\outWorkspace.gdb\zz_lost_bear_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_lost_valley_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_meadow_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_middlet_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_morrison_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_ostrander_b_92ba7;D:\fires\archive\outWorkspace.gdb\zz_pate_valley_b_85ba7;D:\fires\archive\outWorkspace.gdb\zz_piute_b_90ba7;D:\fires\archive\outWorkspace.gdb\zz_quartzite_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_ranch_b_02ba7;D:\fires\archive\outWorkspace.gdb\zz_so_turner_b_95ba7;D:\fires\archive\outWorkspace.gdb\zz_steamboat_b_90ba7;D:\fires\archive\outWorkspace.gdb\zz_t_grove4_b_90ba7;D:\fires\archive\outWorkspace.gdb\zz_tuolumne_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_vern_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_w_turner_b_86ba7;D:\fires\archive\outWorkspace.gdb\zz_walker_b_88ba7;D:\fires\archive\outWorkspace.gdb\zz_wapama_b_05ba7;D:\fires\archive\outWorkspace.gdb\zz_whiskey_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_wildcat_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_wolf_ynp_b_02ba7;D:\fires\archive\outWorkspace.gdb\zz_ynp_023_b_84ba7 "VegBurnSeverityBA 14_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20140707" Time="131419" Name="" export="">CalculateField "VegBurnSeverityBA 14_2" BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20141110" Time="112416" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_american_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_aspen_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_bald_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_beaver_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_carstens_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_coffee_cmplx_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_day_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_eiler_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_el_portal_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_fish_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_french_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_happy_camp_cmplx_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_king_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_little_deer_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_log_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_martis_a_01ba7;D:\fires\archive\outWorkspace.gdb\zz_nicolls_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_power_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_rim_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_soda_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_whites_a_14ba7 D:\arcws\vegseverity\VegBurnSeverityBA14_3.gdb\VegBurnSeverityBA TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20141112" Time="094359" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_aspen_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_rim_a_13ba7 D:\arcws\vegseverity\VegBurnSeverityBA14_3.gdb\VegBurnSeverityBA TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20141112" Time="100817" Name="" export="">CalculateField "VegBurnSeverityBA 14_3" BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20150421" Time="124943" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_butler_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_chariot_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_corral_cmplx_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_corral_cmplx_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_deer_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_falls_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_grand_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_kyburz_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_panther_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_panther_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_ridge_heights_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_ridge_heights_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_salmon_river_cmplx_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_shirley_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_summit_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_white_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_windy_peak_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_windy_peak_b_13ba7 "VegBurnSeverityBA 15_1" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20151026" Time="080320" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_annie_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_annie_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_bailey_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_bailey_b_05ba7;D:\fires\archive\outWorkspace.gdb\zz_baker_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_barker_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_beaver_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_black_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_blue_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_bluff_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_bryson_a_09ba7;D:\fires\archive\outWorkspace.gdb\zz_buck_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_burnt_a_01ba7;D:\fires\archive\outWorkspace.gdb\zz_butch_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_butch_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_cabin_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_campbell_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_canoe_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_canoe_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_canyon_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_canyon4_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_canyon4_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_castle_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_chariot_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_clif_ridge_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_clif_ridge_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_clover_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_coffee_cmplx_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_coffin_a_09ba7;D:\fires\archive\outWorkspace.gdb\zz_coffin_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_colby_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_concow_a_00ba7;D:\fires\archive\outWorkspace.gdb\zz_concow_b_00ba7;D:\fires\archive\outWorkspace.gdb\zz_coon_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_cottonwood_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_cottonwood_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_courtney_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_cowshed_lightning_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_cowshed_lightning_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_craig_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_craig_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_creek_incident_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_creek_incident_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_croy_a_02ba7;D:\fires\archive\outWorkspace.gdb\zz_croy_b_02ba7;D:\fires\archive\outWorkspace.gdb\zz_dark_hole_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_day_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_deluz_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_devil_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_devil_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_doe_mill_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_doe_mill_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_eiler_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_el_portal_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_eleanor_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_field_a_02ba7;D:\fires\archive\outWorkspace.gdb\zz_fire3_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_fire3_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_french_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_frog_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_frog_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_gatos_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_gatos_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_goat_a_00ba7;D:\fires\archive\outWorkspace.gdb\zz_goat_b_00ba7;D:\fires\archive\outWorkspace.gdb\zz_gobbler_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_grand_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_grouse_a_09ba7;D:\fires\archive\outWorkspace.gdb\zz_gulch_cdf_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_gulch_mdf_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_halloran_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_happy_a_00ba7;D:\fires\archive\outWorkspace.gdb\zz_happy_b_00ba7;D:\fires\archive\outWorkspace.gdb\zz_happy_camp_cmplx_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_harden_a_09ba7;D:\fires\archive\outWorkspace.gdb\zz_hardy_creek_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_hardy_creek_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_hidden_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_honeydew_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_honeydew_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_hoover_a_01ba7;D:\fires\archive\outWorkspace.gdb\zz_humboldt_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_hwy4_2_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_indian_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_indian_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_indian_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_irongate_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_jack_smith_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_johnson_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_junction_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_junction_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_juniper_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_juniper_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_kincaid_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_kincaid_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_king_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_kinkaid_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_kirkman_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_lake_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_lassic_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_leconte_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_leonard_a_01ba7;D:\fires\archive\outWorkspace.gdb\zz_leonard_b_01ba7;D:\fires\archive\outWorkspace.gdb\zz_lick_a_07ba7;D:\fires\archive\outWorkspace.gdb\zz_lick_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_little_deer_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_lockheed_a_09ba7;D:\fires\archive\outWorkspace.gdb\zz_lockheed_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_log_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_los_flores_a_07ba7;D:\fires\archive\outWorkspace.gdb\zz_lost_bear_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_lost_pipe_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_lost_pipe_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_low_gap_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_low_gap_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_lowden_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_lowden_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_lower_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_lower_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_mccabe_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_meadow_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_meadow_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_middle_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_middle_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_millwood_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_moon_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_moon_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_morgan_a_00ba7;D:\fires\archive\outWorkspace.gdb\zz_morgan_b_00ba7;D:\fires\archive\outWorkspace.gdb\zz_mountain_cdf_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_mountain_cdf_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_musty_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_musty_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_navaroo_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_navaroo_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_nicolls_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_noble_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_noble_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_north_fork_a_00ba7;D:\fires\archive\outWorkspace.gdb\zz_old_grandprix_padua_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_old_hwy_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_old_hwy_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_oregon_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_oregon_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_orr_series_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_orr_series_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_palisade_a_02ba7;D:\fires\archive\outWorkspace.gdb\zz_paradise_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_paradise_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_pattison_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_pattison_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_peak_shf_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_pickett_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_pine_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_pine2_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_pine2_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_ponderosa_a_01ba7;D:\fires\archive\outWorkspace.gdb\zz_ponderosa_b_01ba7;D:\fires\archive\outWorkspace.gdb\zz_power_a_07ba7;D:\fires\archive\outWorkspace.gdb\zz_power_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_pushwalla_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_pushwalla_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_rail_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_red_mountain_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_red_mountain_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_rico_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_rumsey_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_rumsey_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_saddle_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_sage_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_sage_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_sawtooth_cmplx_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_sawtooth_cmplx_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_shiell_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_shirley_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_slope_a_10ba7;D:\fires\archive\outWorkspace.gdb\zz_south_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_south_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_stage_a_11ba7;D:\fires\archive\outWorkspace.gdb\zz_stevens_a_04ba7;D:\fires\archive\outWorkspace.gdb\zz_stevens_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_sugarloaf_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_sugarloaf_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_summit_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_summit_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_swedes_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_swedes_b_13ba7;D:\fires\archive\outWorkspace.gdb\zz_tar_a_07ba7;D:\fires\archive\outWorkspace.gdb\zz_tar_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_thirtysix_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_thirtysix_b_05ba7;D:\fires\archive\outWorkspace.gdb\zz_tovey_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_travis1_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_travis1_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_tuolumne_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_twenty_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_walker_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_wapama_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_washington_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_way_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_west_a_10ba7;D:\fires\archive\outWorkspace.gdb\zz_whiskey_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_whispering_pines_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_whispering_pines_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_white_a_07ba7;D:\fires\archive\outWorkspace.gdb\zz_white_b_07ba7;D:\fires\archive\outWorkspace.gdb\zz_whites_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_whitmore_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_whitmore_b_03ba7;D:\fires\archive\outWorkspace.gdb\zz_wild_a_08ba7;D:\fires\archive\outWorkspace.gdb\zz_wildcat_a_09ba7;D:\fires\archive\outWorkspace.gdb\zz_wildhorse_a_05ba7;D:\fires\archive\outWorkspace.gdb\zz_willow_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_wolf_ynp_a_02ba7;D:\fires\archive\outWorkspace.gdb\zz_woodland_a_99ba7;D:\fires\archive\outWorkspace.gdb\zz_woodland_b_99ba7;D:\fires\archive\outWorkspace.gdb\zz_yuba_a_09ba7;D:\fires\archive\outWorkspace.gdb\zz_yuba_b_09ba7 "VegBurnSeverityBA 15_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20151028" Time="100900" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_frog_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_grouse_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_harden_b_09ba7;D:\fires\archive\outWorkspace.gdb\zz_little_deer_b_14ba7;D:\fires\archive\outWorkspace.gdb\zz_meadow_b_04ba7;D:\fires\archive\outWorkspace.gdb\zz_wildcat_b_09ba7 "VegBurnSeverityBA 15_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20151028" Time="110400" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_little_deer_b_14ba7 "VegBurnSeverityBA 15_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20151029" Time="130906" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_hardy_creek_b_08ba7;D:\fires\archive\outWorkspace.gdb\zz_river_cmplx_a_15ba7 "VegBurnSeverityBA 15_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\CompressFileGeodatabaseData" Date="20151103" Time="071017" Name="" export="">CompressFileGeodatabaseData D:\arcws\vegseverity\VegBurnSeverityBA15_2.gdb\VegBurnSeverityBA true</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\UncompressFileGeodatabaseData" Date="20151223" Time="105919" Name="" export="">UncompressFileGeodatabaseData "VegBurnSeverityBA 15_2" #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20151224" Time="100403" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_bear_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_cascade_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_clear_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_dale_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_dale_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_devil_a_03ba7;D:\fires\archive\outWorkspace.gdb\zz_esperanza_a_06ba7;D:\fires\archive\outWorkspace.gdb\zz_esperanza_b_06ba7;D:\fires\archive\outWorkspace.gdb\zz_jawbone_branch_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_jawbone_branch_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_lake_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_likley_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_mill_cdf_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_nickowitz_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_peak_srf_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_ponderosa_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_ponderosa_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_rim_branch_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_rim_branch_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_robbers_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_robbers_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_rough_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_round_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_rush_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_sixteen_cmplx_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_stafford_a_12ba7;D:\fires\archive\outWorkspace.gdb\zz_vernon_a_10ba7;D:\fires\archive\outWorkspace.gdb\zz_wye_a_12ba7 D:\arcws\vegseverity\VegBurnSeverityBA15_2.gdb\VegBurnSeverityBA TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20160111" Time="151002" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_stafford_a_12ba7 "VegBurnSeverityBA 15_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20160112" Time="143311" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_clear_b_12ba7;D:\fires\archive\outWorkspace.gdb\zz_mill_cdf_b_12ba7 "VegBurnSeverityBA 15_2" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20160127" Time="095639" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_butte_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_tassajara_a_15ba7;D:\fires\archive\outWorkspace.gdb\zz_valley_a_15ba7 "VegBurnSeverityBA 16_1" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20160128" Time="133430" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_soda_a_14ba7;D:\fires\archive\outWorkspace.gdb\zz_soda_b_14ba7 "VegBurnSeverityBA 16_1" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\Append" Date="20160204" Time="084008" Name="" export="">Append D:\fires\archive\outWorkspace.gdb\zz_chariot_a_13ba7;D:\fires\archive\outWorkspace.gdb\zz_grand_a_13ba7 "VegBurnSeverityBA 16_1" TEST # #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20180109" Time="133259" Name="" export="">CalculateField "VegBurnSeverityBA 18_1" BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20180124" Time="110342" Name="" export="">CalculateField "VegBurnSeverityBA 18_1" BEST_ASSESS "YES" VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20180215" Time="134316" Name="" export="">CalculateField "VegBurnSeverityBA 18_1" BEST_ASSESS "YES" VB #</Process></lineage></DataProperties><SyncDate>20180215</SyncDate><SyncTime>14143600</SyncTime><ModDate>20180215</ModDate><ModTime>14143600</ModTime><ArcGISFormat>1.0</ArcGISFormat><ArcGISProfile>FGDC</ArcGISProfile><scaleRange><minScale>150000000</minScale><maxScale>5000</maxScale></scaleRange><CreaDate>20191119</CreaDate><CreaTime>14072000</CreaTime><SyncOnce>TRUE</SyncOnce></Esri><mdLang><languageCode value="eng"/><countryCode value="USA" Sync="TRUE"/></mdLang><mdHrLv><ScopeCd value="005"/></mdHrLv><mdContact xmlns=""><rpOrgName>USDA Forest Service, Pacific Southwest Region, Fire and Aviation Mgmt</rpOrgName><rpPosName>GIS Coordinator</rpPosName><rpCntInfo xmlns=""><cntPhone><voiceNum tddtty="">916-640-1000</voiceNum></cntPhone><cntAddress addressType="both"><delPoint>3237 Peacekeeper Way, Suite 101</delPoint><city>McClellan</city><adminArea>California</adminArea><postCode>95652</postCode><country>US</country></cntAddress><cntHours>M-F, 0800-1700</cntHours></rpCntInfo><role><RoleCd value="007"/></role></mdContact><mdDateSt Sync="TRUE">20180215</mdDateSt><mdStanName>ArcGIS Metadata</mdStanName><mdStanVer>1.0</mdStanVer><distInfo xmlns=""><distributor xmlns=""><distorCont xmlns=""><rpOrgName>USDA Forest Service, Pacific Southwest Region, Fire and Aviation Mgmt.</rpOrgName><rpPosName>GIS Coordinator</rpPosName><rpCntInfo xmlns=""><cntPhone><voiceNum tddtty="">916-640-1000</voiceNum></cntPhone><cntAddress addressType=""><delPoint>3237 Peacekeeper Way, Suite 101</delPoint><city>McClellan</city><adminArea>CA</adminArea><postCode>95652</postCode><country>US</country></cntAddress><cntHours>M-F, 0800-1700</cntHours></rpCntInfo><role><RoleCd value="007"/></role></distorCont></distributor><distFormat xmlns=""><formatName Sync="TRUE">File Geodatabase Feature Class</formatName></distFormat></distInfo><dataIdInfo><idCitation xmlns=""><resTitle Sync="TRUE">VegBurnSeverityBA</resTitle><resEd>18_1</resEd><presForm xmlns=""><PresFormCd value="005"/></presForm><presForm xmlns=""><fgdcGeoform>vector digital data</fgdcGeoform></presForm><date><pubDate>2018-02-15T00:00:00</pubDate><createDate>2018-02-15T00:00:00</createDate><reviseDate>2018-02-15T00:00:00</reviseDate></date></idCitation><idAbs>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;This polygon feature class represents vegetation burn severity calibrated to percent change in tree basal area for selected fires in California.&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;&lt;/DIV&gt;</idAbs><idPurp>These data were created by the USDA Forest Service fire and fuels monitoring project to support monitoring of wildland fire and fire regimes. These data will allow better understanding of current fire regimes, improve the accuracy of fire perimeter data, and add spatial data on fire severity and complexity.</idPurp><idStatus><ProgCd value="001"/></idStatus><idPoC xmlns=""><rpOrgName>USDA Forest Service, Pacific Southwest Region, Fire and Aviation Mgmt.</rpOrgName><rpCntInfo xmlns=""><cntPhone><voiceNum tddtty="">(916) 640-1000</voiceNum></cntPhone><cntAddress addressType="both"><delPoint>3237 Peacekeeper Way, Suite 101</delPoint><city>McClellan</city><adminArea>CA</adminArea><postCode>95652</postCode><country>US</country></cntAddress><cntHours>M-F, 0800-1700</cntHours></rpCntInfo><role><RoleCd value="007"/></role><rpPosName>GIS Coordinator</rpPosName></idPoC><resMaint xmlns=""><maintFreq><MaintFreqCd value="009"/></maintFreq></resMaint><placeKeys><keyword>California</keyword><keyword>Pacific Southwest Region</keyword></placeKeys><themeKeys><keyword>fire severity</keyword><keyword>burn severity</keyword><keyword>normalized burn ratio (nbr)</keyword><keyword>percent change in basal area</keyword></themeKeys><searchKeys><keyword>California</keyword><keyword>fire severity</keyword><keyword>burn severity</keyword><keyword>Pacific Southwest Region</keyword><keyword>normalized burn ratio (nbr)</keyword><keyword>percent change in basal area</keyword></searchKeys><resConst><LegConsts xmlns=""><useLimit>Distribution_Liability This product is reproduced from geospatial information prepared by the U.S. Department of Agriculture, Forest Service. By removing the contents of this package or taking receipt of these files via electronic file transfer methods, you understand that the data stored on this media is in draft condition. Represented features may not be in an accurate geographic location. The Forest Service makes no expressed or implied warranty, including warranty of merchantability and fitness, with respect to the character, function, or capabilities of the data or their appropriateness for any user's purposes. The Forest Service reserves the right to correct, update, modify, or replace this geospatial information without notification.</useLimit></LegConsts></resConst><resConst><Consts xmlns=""><useLimit>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;There are no restrictions on use, except for reasonable and proper acknowledgement of information sources.&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;&lt;/DIV&gt;</useLimit></Consts></resConst><spatRpType><SpatRepTypCd value="001"/></spatRpType><dataLang><languageCode value="eng"/><countryCode value="USA" Sync="TRUE"/></dataLang><envirDesc Sync="TRUE">Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.3.1.4959</envirDesc><dataExt><geoEle xmlns=""><GeoBndBox esriExtentType="search"><westBL>-124.225543</westBL><eastBL>-115.83414</eastBL><southBL>32.546059</southBL><northBL>42.645173</northBL></GeoBndBox></geoEle></dataExt><suppInfo>These data are derived from Landsat Thematic Mapper imagery. The pre-fire and post-fire subscenes were used to create a Relative Differenced Normalized Burn Ratio (RdNBR). The RdNBR is correlated to the variation of burn severity within a fire. The RdNBR data are calibrated with the Composite Burn Index (CBI). The severity ratings provided by the derived products listed below are based on the severity to vegetation. 
+
+For a description of RdNBR see: 
+
+Miller, J.D. and Thode, A.E. (2007). Quantifying burn severity in a heterogeneous landscape with a relative version of the delta Normalized Burn Ratio(dNBR). Remote Sensing of Environment 109(1):66-80. 
+
+For a description of the calibration of RdNBR to severity measures see: 
+
+Miller, J.D., Knapp, E.E., Key, C.H., Skinner, C.N., Isbell, C.J., Creasy, R.M. and Sherlock, J.W. (2009). Calibration and validation of the relative differenced Normalized Burn Ratio (RdNBR) to three measures of fire severity in the Sierra Nevada and Klamath Mountains, California, USA. Remote Sensing of Environment 113(3): 645-656. 
+
+Miller, J.D. and Quayle, B. (2015). Calibration and validation of immediate post-fire satellite derived data to three severity metrics. Fire Ecology 11(2): 12-30.
+
+This database may contain more than one assessment for each fire: initial and/or extended. Initial assessement data can differ from extended assessment data because: 1.) The calibrations used to derive the severity data are based on one year post-fire field data. Calibrations for Initial assessments were derived through regression modeling of satellite reflectance values from imagery collected one year post-fire to imagery acquired immediate post-fire. 2.) Imagery used to make initial assessments are acquired immediately after containment which can be late in the year when sun angles are low due to fire containment dates and therefore fire effects on north facing slopes can be hidden due to topographic shadows caused by low sun angles causing high severity fire effects in these data to be under represented. Low to moderate severity in dense stands on east, west or south aspects may also be under-represented due to a low sun illumination angle. 3.) Imagery used for extended assessments are acquired the year after the fire occurred and can therefore include effects due to resprouting vegetation, delayed mortality of trees, and any management actions that have taken place between the fire containment date and image acquisition date.</suppInfo><dataExt><geoEle><GeoBndBox esriExtentType="search"><exTypeCode Sync="TRUE">1</exTypeCode><westBL Sync="TRUE">-124.375614</westBL><eastBL Sync="TRUE">-114.805687</eastBL><northBL Sync="TRUE">42.645173</northBL><southBL Sync="TRUE">32.514697</southBL></GeoBndBox></geoEle></dataExt><dataChar><CharSetCd value="004"/></dataChar></dataIdInfo><dqInfo xmlns=""><dqScope><scpLvl><ScopeCd value="005"/></scpLvl></dqScope><report type="DQConcConsis" dimension="" xmlns=""><measDesc>Satellite data for initial assessments may have been acquired before final containment. Therefore additional fire effects may have occurred after satellite acquisition date. See metadata for dates of satellite imagery. The user should reconcile dates with fire containment dates before use. Data used for initial assessments may be acquired by more than one satellite due to lack of satellite availability. When Landsat TM data are available intial assessments are based upon the NBR index, otherwise the assessments are based upon NDVI. See the metadata for each fire to determine imagery used in the assessement.</measDesc></report><dataLineage><prcStep xmlns=""><stepDesc>Version 10_3 includes updates for fires 200-1000 ac in size that occured in the Sierra Nevada during 1984-2009, and extended assessments for 2009 fires for all of Region 5 Forests. Added the VB_ID field to link the perimeters to the severity data records.
+</stepDesc></prcStep><prcStep xmlns=""><stepDesc>Version 11_1 includes updates for fires 2001WHITE_SQF, 2006MAGGIE, 2011LION, 2011COUGAR, 2011MOTOR, 2011RUTH
+</stepDesc></prcStep><prcStep xmlns=""><stepDesc>Version 12_1 includes updates to existing and additional new fires:
+1985 GORDA_RAT, 1985 SECO, 1985 USF05071985000999, 1989 MOLERA2, 1992 SECO, 1992 USF05071992000032, 2000 PLASKETT2, 2007 HAWKEN, 2010 BAR, 2010 BODFISH, 2010 BUCKHORN, 2010 BULL, 2010 BULLARDS, 2010 CANYON, 2010 CONSTANTIA, 2010 MONO, 2010 MONTE, 2010 PINECREST, 2010 POST, 2010 POZO, 2010 SHEEP, 2010 WOLF_CREEK, 2011 ANNIE, 2011 BUTTERMILK, 2011 HILL, 2011 MAMMOTH, 2011 ONION, 2011 SCORPION, 2011 WILLOWS, 2012 BEAR, 2012 CHIPS, 2012 FLAT, 2012 GEORGE, 2012 MILL, 2012 READING, 2012 SALT_CREEK
+</stepDesc></prcStep><prcStep xmlns=""><stepDesc>Version 12_2 includes new 2012 fires: Barry Point, Bagley, Ramsey, Stafford, Williams, Goff, North Pass
+</stepDesc></prcStep><prcStep xmlns=""><stepDesc>Version 13_1 added initial assessments for 5 older fires,  2002 Showers, 2004 Deep, 2004 Sims, 2004 Straylor, 2005 Harding, Set "BEST_ASSESS" to YES for 2004 Deep initial assessment.
+</stepDesc></prcStep><prcStep xmlns=""><stepDesc>Version 14_1 added initial assessments for 13 2013 fires and 4 older fires: 2010 BRIGGS, 2011 MINT, 2011 BRECKENRIDGE COMPLEX, 2011 COVE, 2013 AMERICAN, 2013 ASPEN, 2013 BUTLER, 2013 CARSTENS, 2013 CORRAL CMPLX, 2013 FISH, 2013 HATHAWAY, 2013 MOUNTAIN, 2013 PANTHER, 2013 POWERHOUSE, 2013 RIM, 2013 SALMON RIVER CMPLX, 2013 SILVER
+</stepDesc><stepDateTm>2014-01-23T00:00:00</stepDateTm></prcStep><prcStep xmlns=""><stepDesc>Version 14_2: Migrated personal geodatabase to file geodatabase: Masked out lakes in 2012 Reading initial assessment; Added initial assessment for 2000 Storrie; Added extended assessment for 2010 Bar; Added extended assessments for 17 fires on USFS lands in 2012: Bagley, Barry Point, Bear, Chips, Clear, Flat, George, Goff, Mill, Mill, North Pass, Peak, Ramsey, Reading, Salt Creek, Stafford, Williams; Added 113 wildfires greater than 200 acres in four National Parks: Lassen, Yosemite, Sequoia and Kings Canyon
+</stepDesc><stepDateTm>2014-07-08T00:00:00</stepDateTm></prcStep><prcStep xmlns=""><stepDesc>Version 14_3: Added initial assessments for 2001 Martis, and 14 fires in 2014: Bald, Beaver, Coffee Complex, Day, Eiler, El Portal, Frnech, Happy Camp Complex, King, Little Deer, Log, Nicolls, Soda, White; 
+Added extended assessments for 6 fires in 2013: American, Aspen, Carstens, Fish, Rim, Power;
+Initial assessments for 2013 Aspen and 2013 Rim were reprocessed to reflect final perimeters</stepDesc><stepDateTm>2014-11-12T00:00:00</stepDateTm></prcStep><prcStep xmlns=""><stepDesc>Version 15_1: Added initial assessments for 2013 fires: Chariot, Deer, Falls, Grand, Ridge/Heights, Summit, White, Windy Peak. Initial assessments for 2013 Corral Complex and 2013 Panther were reprocessed to reflect final perimeters. Added extended assessments for 2013 fires: Butler, Corral Complex, Kyburz, Panther, Ridge/Heights, Salmon River Cmplx, Shirley, Windy Peak.</stepDesc><stepDateTm>2015-04-22T00:00:00</stepDateTm></prcStep><prcStep xmlns=""><stepDesc>Version 16_1: 
+THIS VERSION CONTAINS NEW FIRES AND/OR ASSESSMENTS AT THE REQUEST OF CALFIRE AS WELL AS NEW AND UPDATED USFS AND NPS FIRES 
+NEW INITIAL ASSESSMENTS:
+1999: CANYON #4, DOE MILL, ELEANOR, FIRE #3, JUNIPER, LECONTE, LOST BEAR, LOWDEN, MUSTY, SOUTH, WOODLAND
+2000: CONCOW, GOAT, HAPPY, MORGAN, NORTH FORK
+2001: LEONARD, PONDEROSA
+2002: CROY, FIELD, PALISADE, WOLF
+2003: ANNIE, CANOE, DEVIL, HONEYDEW, KINKAID, MOUNTAIN, TUOLUMNE, OLD/GRANDPRIX/PADUA, WHISKEY, WHITMORE
+2004: BLUFF, GATOS, HWY 4 #2, IRONGATE, KINCAID, OLD HWY/MPUD 149, MEADOW WFU, OREGON, PATTISON, RUMSEY, STEVENS
+2005: 36, BAILEY, HALLORAN, MILLWOOD, TOVEY, WAPAMA, WILDHORSE
+2006: COTTONWOOD, CREEK INCIDENT, ESPERANZA, FROG, JUNCTION, NOBLE, PUSHWALLA, RICO, SAGE, SAWTOOTH COMPLEX, WHISPERING PINES
+2007: LICK, LOS FLORES, POWER, TAR, WHITE
+2008: BUTCH, CLIFF RIDGE, COWSHED LIGHTNING, CRAIG, HARDY CREEK LIGHTNING, HIDDEN, HUMBOLDT, INDIAN, JACK SMITH, KIRKMAN, LOST PIPE, LOW GAP, LOWER, MIDDLE, MOON, NAVAROO, ORR SERIES, PARADISE, PINE 2, RED MOUNTAIN LIGHTNING, SUGARLOAF, SUMMIT, TRAVIS 1, TWENTY, WILD
+2009: BRYSON, COFFIN, GROUSE, HARDEN, LOCKHEED, WILDCAT, YUBA
+2010: SLOPE, VERNON, WEST
+2011: BAKER, BLACK, CANYON, INDIAN, STAGE
+2012: CASCADE, CLEAR, DALE, JAWBONE BRANCH, LAKE, LIKLEY, MILL, PONDEROSA, RIM BRANCH, ROBBERS, RUSH, SIXTEEN COMPLEX, WYE
+2013: CLOVER, DELUZ, MCCABE, SWEDES
+2014: COLBY, GULCH, WAY
+2015: BARKER, BEAR, BLUE, BUCK, BUTTE, CABIN, CASTLE, COON, FROG, GOBBLER, JOHNSON, LAKE, LASSIC, NICKOWITZ, PATTISON, PEAK (SRF), PEAK (SHF), PICKETT, PINE, RAIL, RIVER COMPLEX, ROUND, ROUGH, SADDLE, SHIELL, TASSAJARA, VALLEY, WALKER, WASHINGTON
+
+NEW EXTENDED ASSESSMENTS:
+1999: CANYON #4, DOE MILL, FIRE #3, JUNIPER, LOWDEN, MUSTY, SOUTH, WOODLAND
+2000: CONCOW, GOAT, HAPPY, MORGAN
+2001: LEONARD, PONDEROSA
+2002: CROY
+2003: ANNIE, CANOE, DEVIL, HONEYDEW, MOUNTAIN, WHITMORE
+2004: GATOS, IRONGATE, KINCAID, OLD HWY/MPUD 149, OREGON, RUMSEY, STEVENS
+2005: 36, BAILEY
+2006: COTTONWOOD, CREEK INCIDENT, ESPERANZA, JUNCTION, NOBLE, PUSHWALLA, SAGE, SAWTOOTH COMPLEX, WHISPERING PINES
+2007: LICK, LOS FLORES, POWER, TAR, WHITE
+2008: BUTCH, CLIFF RIDGE, COWSHED LIGHTNING, CRAIG, HARDY CREEK LIGHTNING, INDIAN, LOST PIPE, LOW GAP, LOWER, MIDDLE, MOON, NAVAROO, ORR SERIES, PARADISE, PINE 2, RED MOUNTAIN LIGHTNING, SUGARLOAF, SUMMIT, TRAVIS 1
+2009: COFFIN, LOCKHEED, YUBA
+2012: DALE, JAWBONE BRANCH, PONDEROSA, RIM BRANCH, ROBBERS
+2013: SWEDES
+2014: CAMPBELL, COURTNEY, DARK HOLE, MEADOW, SHIRLEY
+
+UPDATED:
+2003: OLD/GRANDPRIX/PADUA
+2004: MEADOW WFU
+2006: FROG
+2009: GROUSE, HARDEN, WILDCAT
+2012: CLEAR, MILL, STAFFORD
+2013: CHARIOT, GRAND
+2014: SODA</stepDesc><stepDateTm>2016-02-04T00:00:00</stepDateTm></prcStep><prcStep xmlns=""><stepDesc>Version 17_1: 
+
+THIS VERSION CONTAINS NEW FIRES AND/OR ASSESSMENTS AT THE REQUEST OF CALFIRE AS WELL AS NEW AND UPDATED USFS AND NPS FIRES 
+NEW INITIAL ASSESSMENTS:
+2014: LODGE COMPLEX, OREGON GULCH, SAND
+2015: CUESTA, HIGHWAY, JERUSALEM, LOWELL, LUMPKIN, NORTH, PARKHILL, ROCKY, SKY, STEELHEAD, WRAGG
+2016: BLUECUT, CEDAR, CLARK, ERSKINE, FISH, GAP, JACOBSON, OWENS RIVER, PILOT, PINE, PONY, REY, SACATA, SAND, SOBERANES, SOUP COMPLEX, TRAILHEAD
+
+NEW EXTENDED ASSESSMENTS:
+2014: LODGE COMPLEX, OREGON GULCH, SAND
+2015: BARKER, BEAR, BIG CREEK, BIG FIVE, BLUE, BUCK, BUTTE, CABIN, CASTLE (SOUTH COMPLEX), COON, CORRINE, CUESTA, FROG, GOBBLER, HIGHWAY, JERUSALEM, JOHNSON (ROUTE COMPLEX), LAKE, LASSIC, LOWELL, LUMPKIN, MIDDLE, NICKOWITZ, PARKHILL, PATTISON (SOUTH COMPLEX), PEAK (SHF), PEAK (SRF), PICKETT, PINE, RAIL, RIVER COMPLEX, ROCKY, ROUGH, SADDLE, SHIELL, SKY, STEELHEAD, TASSAJARA, TENAYA, WASHINGTON, WILLOW, WRAGG
+
+UPDATED:
+2015: BUTTE, CASTLE (SOUTH COMPLEX), JOHNSON (ROUTE COMPLEX), PATTISON (SOUTH COMPLEX), ROUGH
+</stepDesc><stepDateTm>2016-12-20T00:00:00</stepDateTm></prcStep><prcStep xmlns=""><stepDesc>Version 18_1: 
+NEW INITIAL ASSESSMENTS:
+2002: COPPER
+2003: PIRU
+2016: BOGURT, COLEMAN, HORSESHOE, HOWARD, MARINA, MEADOW, MOKELUMNE, RESERVOIR, SHERPA, TOBIN, TULE, WILLARD
+2017: ABNEY, BERRY, BUCK, BUMMERS, BURNEY, BUTTE, CALDWELL, CANYON, CEDAR, CLARK, COVE, CREEK(ANF), CREEK(STF), DETWILER, DOUGLAS, DUTCHMAN, GARDEN, EMPIRE, EUREKA, GRANT, HAYPRESS, HELENA+FORK, HIGHWAY, HOLCOMB, INDIAN, LAKE, LION, MCCORMICK, MINERVA 5, MISSION, OAK, PARKER 2, PIER, PONDEROSA, RAILROAD, RIMROCK, SCHAEFFER, SLINKARD, STEELE, SOUTH FORK, TABLE, THOMAS, UKONOM, WALLOW, WHITTIER, WILLIE
+
+NEW EXTENDED ASSESSMENTS:
+2016: BLUECUT, BOGART, CEDAR, CLARK, COLEMAN, CROWN, ERSKINE, FISH, GAP, HIDDEN, HORSESHOE, HOWARD, JACOBSON, LAKES, MEADOW,  MOKELUMNE, RESERVOIR, SLATE, OWENS RIVER, PILOT, PINE, PONY, SAND, SOBERANES, SOUP 2, TRAILHEAD, TULE, WILLARD
+
+UPDATED:
+2003: CEDAR
+
+ADDED MISSING DATA:
+2001 TAR</stepDesc><stepDateTm>2018-02-15T00:00:00</stepDateTm></prcStep></dataLineage></dqInfo><Binary><Enclosure><Descript>original metadata</Descript><Data SourceMetadata="yes" OriginalFileName="source_metadata.xml" SourceMetadataDigest="6ab8d530c3bda8d43be9d05cbbd3c4" EsriPropertyType="Base64" SourceMetadataSchema="fgdc">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxtZXRhZGF0YT4NCiAgPGlk
+aW5mbz4NCiAgICA8Y2l0YXRpb24+DQogICAgICA8Y2l0ZWluZm8+DQogICAgICAgIDx0aXRsZT5W
+ZWdCdXJuU2V2ZXJpdHlCQTwvdGl0bGU+DQogICAgICAgIDxlZGl0aW9uPjExXzE8L2VkaXRpb24+
+DQogICAgICAgIDxnZW9mb3JtPnZlY3RvciBkaWdpdGFsIGRhdGE8L2dlb2Zvcm0+DQogICAgICA8
+L2NpdGVpbmZvPg0KICAgIDwvY2l0YXRpb24+DQogICAgPGRlc2NyaXB0Pg0KICAgICAgPGFic3Ry
+YWN0PlRoaXMgcG9seWdvbiBmZWF0dXJlIGNsYXNzIHJlcHJlc2VudHMgdmVnZXRhdGlvbiBidXJu
+IHNldmVyaXR5IGNhbGlicmF0ZWQgdG8gcGVyY2VudCBjaGFuZ2UgaW4gdHJlZSBiYXNhbCBhcmVh
+IGZvciBzZWxlY3RlZCBmaXJlcyBpbiBQYWNpZmljIFNvdXRod2VzdCBSZWdpb24gTmF0aW9uYWwg
+Rm9yZXN0cy48L2Fic3RyYWN0Pg0KICAgICAgPHB1cnBvc2U+VGhlc2UgZGF0YSB3ZXJlIGNyZWF0
+ZWQgYnkgdGhlIFVTREEgRm9yZXN0IFNlcnZpY2UgZmlyZSBhbmQgZnVlbHMgbW9uaXRvcmluZyBw
+cm9qZWN0IHRvIHN1cHBvcnQgbW9uaXRvcmluZyBvZiB3aWxkbGFuZCBmaXJlIGFuZCBmaXJlIHJl
+Z2ltZXMuIFRoZXNlIGRhdGEgd2lsbCBhbGxvdyBiZXR0ZXIgdW5kZXJzdGFuZGluZyBvZiBjdXJy
+ZW50IGZpcmUgcmVnaW1lcywgaW1wcm92ZSB0aGUgYWNjdXJhY3kgb2YgZmlyZSBwZXJpbWV0ZXIg
+ZGF0YSwgYW5kIGFkZCBzcGF0aWFsIGRhdGEgb24gZmlyZSBzZXZlcml0eSBhbmQgY29tcGxleGl0
+eS48L3B1cnBvc2U+DQogICAgICA8c3VwcGxpbmY+VGhlc2UgZGF0YSBhcmUgZGVyaXZlZCBmcm9t
+IExhbmRzYXQgVGhlbWF0aWMgTWFwcGVyIGltYWdlcnkuIFRoZSBwcmUtZmlyZSBhbmQgcG9zdC1m
+aXJlIHN1YnNjZW5lcyB3ZXJlIHVzZWQgdG8gY3JlYXRlIGEgUmVsYXRpdmUgRGlmZmVyZW5jZWQg
+Tm9ybWFsaXplZCBCdXJuIFJhdGlvIChSZE5CUikuIFRoZSBSZE5CUiBpcyBjb3JyZWxhdGVkIHRv
+IHRoZSB2YXJpYXRpb24gb2YgYnVybiBzZXZlcml0eSB3aXRoaW4gYSBmaXJlLiBUaGUgUmROQlIg
+ZGF0YSBhcmUgY2FsaWJyYXRlZCB0byBwZXJjZW50IGNoYW5nZSBpbiB0cmVlIGJhc2FsIGFyZWEu
+IEZvciBhIGRlc2NyaXB0aW9uIG9mIFJkTkJSIHNlZTogTWlsbGVyLCBKLiBELiBhbmQgQS4gRS4g
+VGhvZGUgKDIwMDcpLiBRdWFudGlmeWluZyBidXJuIHNldmVyaXR5IGluIGEgaGV0ZXJvZ2VuZW91
+cyBsYW5kc2NhcGUgd2l0aCBhIHJlbGF0aXZlIHZlcnNpb24gb2YgdGhlIGRlbHRhIE5vcm1hbGl6
+ZWQgQnVybiBSYXRpbyhkTkJSKS4gUmVtb3RlIFNlbnNpbmcgb2YgRW52aXJvbm1lbnQgMTA5KDEp
+OjY2LTgwLiBGb3IgYSBkZXNjcmlwdGlvbiBvZiB0aGUgY2FsaWJyYXRpb24gb2YgUmROQlIgdG8g
+c2V2ZXJpdHkgbWVhc3VyZXMgc2VlOiBNaWxsZXIsIEouRC4sIEUuRS4gS25hcHAsIEMuSC4gS2V5
+LCBDLk4uIFNraW5uZXIsIEMuSi4gSXNiZWxsLCBSLk0uIENyZWFzeSwgYW5kIEouVy4gU2hlcmxv
+Y2sgKDIwMDkpLiBDYWxpYnJhdGlvbiBhbmQgdmFsaWRhdGlvbiBvZiB0aGUgcmVsYXRpdmUgZGlm
+ZmVyZW5jZWQgTm9ybWFsaXplZCBCdXJuIFJhdGlvIChSZE5CUikgdG8gdGhyZWUgbWVhc3VyZXMg
+b2YgZmlyZSBzZXZlcml0eSBpbiB0aGUgU2llcnJhIE5ldmFkYSBhbmQgS2xhbWF0aCBNb3VudGFp
+bnMsIENhbGlmb3JuaWEsIFVTQS4gUmVtb3RlIFNlbnNpbmcgb2YgRW52aXJvbm1lbnQgMTEzKDMp
+OiA2NDUtNjU2LiBUaGlzIGRhdGFiYXNlIG1heSBjb250YWluIG1vcmUgdGhhbiBvbmUgYXNzZXNz
+bWVudCBmb3IgZWFjaCBmaXJlOiBpbml0aWFsIGFuZC9vciBleHRlbmRlZC4gSW5pdGlhbCBhc3Nl
+c3NlbWVudCBkYXRhIGNhbiBkaWZmZXIgZnJvbSBleHRlbmRlZCBhc3Nlc3NtZW50IGRhdGEgYmVj
+YXVzZTogMS4pIFRoZSBjYWxpYnJhdGlvbnMgdXNlZCB0byBkZXJpdmUgdGhlIHNldmVyaXR5IGRh
+dGEgYXJlIGJhc2VkIG9uIG9uZSB5ZWFyIHBvc3QtZmlyZSBmaWVsZCBkYXRhLiBDYWxpYnJhdGlv
+bnMgZm9yIEluaXRpYWwgYXNzZXNzbWVudHMgd2VyZSBkZXJpdmVkIHRocm91Z2ggcmVncmVzc2lv
+biBtb2RlbGluZyBvZiBzYXRlbGxpdGUgcmVmbGVjdGFuY2UgdmFsdWVzIGZyb20gaW1hZ2VyeSBj
+b2xsZWN0ZWQgb25lIHllYXIgcG9zdC1maXJlIHRvIGltYWdlcnkgYWNxdWlyZWQgaW1tZWRpYXRl
+IHBvc3QtZmlyZS4gMi4pIEltYWdlcnkgdXNlZCB0byBtYWtlIGluaXRpYWwgYXNzZXNzbWVudHMg
+YXJlIGFjcXVpcmVkIGltbWVkaWF0ZWx5IGFmdGVyIGNvbnRhaW5tZW50IHdoaWNoIGNhbiBiZSBs
+YXRlIGluIHRoZSB5ZWFyIHdoZW4gc3VuIGFuZ2xlcyBhcmUgbG93IGR1ZSB0byBmaXJlIGNvbnRh
+aW5tZW50IGRhdGVzIGFuZCB0aGVyZWZvcmUgZmlyZSBlZmZlY3RzIG9uIG5vcnRoIGZhY2luZyBz
+bG9wZXMgY2FuIGJlIGhpZGRlbiBkdWUgdG8gdG9wb2dyYXBoaWMgc2hhZG93cyBjYXVzZWQgYnkg
+bG93IHN1biBhbmdsZXMgY2F1c2luZyBoaWdoIHNldmVyaXR5IGZpcmUgZWZmZWN0cyBpbiB0aGVz
+ZSBkYXRhIHRvIGJlIHVuZGVyIHJlcHJlc2VudGVkLiBMb3cgdG8gbW9kZXJhdGUgc2V2ZXJpdHkg
+aW4gZGVuc2Ugc3RhbmRzIG9uIGVhc3QsIHdlc3Qgb3Igc291dGggYXNwZWN0cyBtYXkgYWxzbyBi
+ZSB1bmRlci1yZXByZXNlbnRlZCBkdWUgdG8gYSBsb3cgc3VuIGlsbHVtaW5hdGlvbiBhbmdsZS4g
+My4pIEltYWdlcnkgdXNlZCBmb3IgZXh0ZW5kZWQgYXNzZXNzbWVudHMgYXJlIGFjcXVpcmVkIHRo
+ZSB5ZWFyIGFmdGVyIHRoZSBmaXJlIG9jY3VycmVkIGFuZCBjYW4gdGhlcmVmb3JlIGluY2x1ZGUg
+ZWZmZWN0cyBkdWUgdG8gcmVzcHJvdXRpbmcgdmVnZXRhdGlvbiwgZGVsYXllZCBtb3J0YWxpdHkg
+b2YgdHJlZXMsIGFuZCBhbnkgbWFuYWdlbWVudCBhY3Rpb25zIHRoYXQgaGF2ZSB0YWtlbiBwbGFj
+ZSBiZXR3ZWVuIHRoZSBmaXJlIGNvbnRhaW5tZW50IGRhdGUgYW5kIGltYWdlIGFjcXVpc2l0aW9u
+IGRhdGUuPC9zdXBwbGluZj4NCiAgICA8L2Rlc2NyaXB0Pg0KICAgIDxzdGF0dXM+DQogICAgICA8
+cHJvZ3Jlc3M+Q29tcGxldGU8L3Byb2dyZXNzPg0KICAgICAgPHVwZGF0ZT5BcyBuZWVkZWQ8L3Vw
+ZGF0ZT4NCiAgICA8L3N0YXR1cz4NCiAgICA8c3Bkb20+DQogICAgICA8Ym91bmRpbmc+DQogICAg
+ICAgIDx3ZXN0YmM+LTEyNC4yMjU1NDM8L3dlc3RiYz4NCiAgICAgICAgPGVhc3RiYz4tMTE1Ljgz
+NDE0PC9lYXN0YmM+DQogICAgICAgIDxub3J0aGJjPjQyLjY0NTE3Mzwvbm9ydGhiYz4NCiAgICAg
+ICAgPHNvdXRoYmM+MzIuNTQ2MDU5PC9zb3V0aGJjPg0KICAgICAgPC9ib3VuZGluZz4NCiAgICA8
+L3NwZG9tPg0KICAgIDxrZXl3b3Jkcz4NCiAgICAgIDx0aGVtZT4NCiAgICAgICAgPHRoZW1la3Q+
+Tm9uZTwvdGhlbWVrdD4NCiAgICAgICAgPHRoZW1la2V5PmZpcmUgc2V2ZXJpdHk8L3RoZW1la2V5
+Pg0KICAgICAgICA8dGhlbWVrZXk+YnVybiBzZXZlcml0eTwvdGhlbWVrZXk+DQogICAgICAgIDx0
+aGVtZWtleT5ub3JtYWxpemVkIGJ1cm4gcmF0aW8gKG5icik8L3RoZW1la2V5Pg0KICAgICAgICA8
+dGhlbWVrZXk+cGVyY2VudCBjaGFuZ2UgaW4gYmFzYWwgYXJlYTwvdGhlbWVrZXk+DQogICAgICA8
+L3RoZW1lPg0KICAgICAgPHBsYWNlPg0KICAgICAgICA8cGxhY2VrdD5Ob25lPC9wbGFjZWt0Pg0K
+ICAgICAgICA8cGxhY2VrZXk+Q2FsaWZvcm5pYTwvcGxhY2VrZXk+DQogICAgICAgIDxwbGFjZWtl
+eT5QYWNpZmljIFNvdXRod2VzdCBSZWdpb248L3BsYWNla2V5Pg0KICAgICAgPC9wbGFjZT4NCiAg
+ICA8L2tleXdvcmRzPg0KICAgIDxhY2Njb25zdD5Ob25lPC9hY2Njb25zdD4NCiAgICA8dXNlY29u
+c3Q+VGhlcmUgYXJlIG5vIHJlc3RyaWN0aW9ucyBvbiB1c2UsIGV4Y2VwdCBmb3IgcmVhc29uYWJs
+ZSBhbmQgcHJvcGVyIGFja25vd2xlZGdlbWVudCBvZiBpbmZvcm1hdGlvbiBzb3VyY2VzLjwvdXNl
+Y29uc3Q+DQogICAgPHB0Y29udGFjPg0KICAgICAgPGNudGluZm8+DQogICAgICAgIDxjbnRvcmdw
+Pg0KICAgICAgICAgIDxjbnRvcmc+VVNEQSBGb3Jlc3QgU2VydmljZSwgUGFjaWZpYyBTb3V0aHdl
+c3QgUmVnaW9uLCBGaXJlIGFuZCBBdmlhdGlvbiBNZ210LjwvY250b3JnPg0KICAgICAgICAgIDxj
+bnRwZXI+RmlyZSBhbmQgRnVlbHMgUmVtb3RlIFNlbnNpbmcgU3BlY2lhbGlzdDwvY250cGVyPg0K
+ICAgICAgICA8L2NudG9yZ3A+DQogICAgICAgIDxjbnRhZGRyPg0KICAgICAgICAgIDxhZGRydHlw
+ZT51bmtub3duPC9hZGRydHlwZT4NCiAgICAgICAgICA8YWRkcmVzcz4zMjM3IFBlYWNla2VlcGVy
+IFdheSwgU3VpdGUgMTAxPC9hZGRyZXNzPg0KICAgICAgICAgIDxjaXR5Pk1jQ2xlbGxhbjwvY2l0
+eT4NCiAgICAgICAgICA8c3RhdGU+Q0E8L3N0YXRlPg0KICAgICAgICAgIDxwb3N0YWw+OTU2NTI8
+L3Bvc3RhbD4NCiAgICAgICAgICA8Y291bnRyeT5VUzwvY291bnRyeT4NCiAgICAgICAgPC9jbnRh
+ZGRyPg0KICAgICAgICA8Y250dm9pY2U+KDkxNikgNjQwLTEwMDA8L2NudHZvaWNlPg0KICAgICAg
+ICA8aG91cnM+TS1GLCAwODAwLTE3MDA8L2hvdXJzPg0KICAgICAgPC9jbnRpbmZvPg0KICAgIDwv
+cHRjb250YWM+DQogICAgPG5hdGl2ZT5NaWNyb3NvZnQgV2luZG93cyBYUCBWZXJzaW9uIDUuMSAo
+QnVpbGQgMjYwMCkgU2VydmljZSBQYWNrIDM7IEVTUkkgQXJjR0lTIDEwLjAuMy4zNjAwPC9uYXRp
+dmU+DQogICAgPGNyb3NzcmVmPg0KICAgICAgPGNpdGVpbmZvPg0KICAgICAgICA8b3JpZ2luPlVT
+REEgRm9yZXN0IFNlcnZpY2UsIFBhY2lmaWNhIFNvdXRod2VzdCBSZWdpb24sIEZpcmUsIEZ1ZWxz
+IGFuZCBBdmlhdGlvbiBNZ210Ljwvb3JpZ2luPg0KICAgICAgICA8dGl0bGU+VmVnQnVyblNldmVy
+aXR5QkE8L3RpdGxlPg0KICAgICAgICA8ZWRpdGlvbj4xMV8xPC9lZGl0aW9uPg0KICAgICAgICA8
+Z2VvZm9ybT52ZWN0b3IgZGlnaXRhbCBkYXRhPC9nZW9mb3JtPg0KICAgICAgPC9jaXRlaW5mbz4N
+CiAgICA8L2Nyb3NzcmVmPg0KICA8L2lkaW5mbz4NCiAgPGRhdGFxdWFsPg0KICAgIDxsb2dpYz5T
+YXRlbGxpdGUgZGF0YSBmb3IgaW5pdGlhbCBhc3Nlc3NtZW50cyBtYXkgaGF2ZSBiZWVuIGFjcXVp
+cmVkIGJlZm9yZSBmaW5hbCBjb250YWlubWVudC4gVGhlcmVmb3JlIGFkZGl0aW9uYWwgZmlyZSBl
+ZmZlY3RzIG1heSBoYXZlIG9jY3VycmVkIGFmdGVyIHNhdGVsbGl0ZSBhY3F1aXNpdGlvbiBkYXRl
+LiBTZWUgbWV0YWRhdGEgZm9yIGRhdGVzIG9mIHNhdGVsbGl0ZSBpbWFnZXJ5LiBUaGUgdXNlciBz
+aG91bGQgcmVjb25jaWxlIGRhdGVzIHdpdGggZmlyZSBjb250YWlubWVudCBkYXRlcyBiZWZvcmUg
+dXNlLiBEYXRhIHVzZWQgZm9yIGluaXRpYWwgYXNzZXNzbWVudHMgbWF5IGJlIGFjcXVpcmVkIGJ5
+IG1vcmUgdGhhbiBvbmUgc2F0ZWxsaXRlIGR1ZSB0byBsYWNrIG9mIHNhdGVsbGl0ZSBhdmFpbGFi
+aWxpdHkuIFdoZW4gTGFuZHNhdCBUTSBkYXRhIGFyZSBhdmFpbGFibGUgaW50aWFsIGFzc2Vzc21l
+bnRzIGFyZSBiYXNlZCB1cG9uIHRoZSBOQlIgaW5kZXgsIG90aGVyd2lzZSB0aGUgYXNzZXNzbWVu
+dHMgYXJlIGJhc2VkIHVwb24gTkRWSS4gU2VlIHRoZSBtZXRhZGF0YSBmb3IgZWFjaCBmaXJlIHRv
+IGRldGVybWluZSBpbWFnZXJ5IHVzZWQgaW4gdGhlIGFzc2Vzc2VtZW50LjwvbG9naWM+DQogICAg
+PGxpbmVhZ2U+DQogICAgICA8cHJvY3N0ZXA+DQogICAgICAgIDxwcm9jZGVzYz5WZXJzaW9uIDEx
+XzEgaW5jbHVkZXMgdXBkYXRlcyBmb3IgZmlyZXMgMjAwMVdISVRFX1NRRiwgMjAwNk1BR0dJRSwg
+MjAwOVNIVE9HVU4sIDIwMTFMSU9OLCAyMDExQ09VR0FSLCAyMDExTU9UT1IsIDIwMTFSVVRIPC9w
+cm9jZGVzYz4NCiAgICAgIDwvcHJvY3N0ZXA+DQogICAgICA8cHJvY3N0ZXA+DQogICAgICAgIDxw
+cm9jZGVzYz5Qcm9jZXNzaW5nIHByb2NlZHVyZXMgZm9yIG9yaWdpbmFsIHJhc3RlciBkYXRhOiBU
+aGVzZSBkYXRhIHByb2R1Y3RzIGFyZSBkZXJpdmVkIGZyb20gTGFuZHNhdCBUaGVtYXRpYyBNYXBw
+ZXIgZGF0YS4gQSBwcmUtZmlyZSBzY2VuZSBhbmQgYSBwb3N0LWZpcmUgc2NlbmUgYXJlIGFuYWx5
+emVkIHRvIGNyZWF0ZSBhIFJlbGF0aXZlIERpZmZlcmVuY2VkIE5vcm1hbGl6ZWQgQnVybiBSYXRp
+byAoUmROQlIpIGltYWdlLiBUaGUgUmROQlIgaW1hZ2UgcG9ydHJheXMgdGhlIHZhcmlhdGlvbiBv
+ZiBidXJuIHNldmVyaXR5IHdpdGhpbiB0aGUgZmlyZS4gVGhlIHByZS0gYW5kIHBvc3QtZmlyZSBM
+YW5kc2F0IGltYWdlcyBhcmUgdGVycmFpbiBjb3JyZWN0ZWQgYW5kIGdlb21ldHJpY2FsbHkgcmVj
+dGlmaWVkIHRvIHRoZSBVVE0gcHJvamVjdGlvbi4gVGhlIGltYWdlcyBhcmUgZnVydGhlciBwcm9j
+ZXNzZWQgdG8gY29udmVydCBiYW5kcyAxLTUgYW5kIDcgdG8gYXQtc2Vuc29yLXJlZmxlY3RhbmNl
+LiBUaGUgTm9ybWFsaXplZCBCdXJuIFJhdGlvIChOQlIpIGlzIGNvbXB1dGVkIGZvciBlYWNoIGRh
+dGUgb2YgaW1hZ2VyeSB1c2luZyB0aGUgZm9sbG93aW5nIGZvcm11bGE6IChCYW5kIDQgLSBCYW5k
+IDcpIC8gKEJhbmQgNCArIEJhbmQgNykgPSBOQlIgVGhlIERpZmZlcmVuY2VkIE5CUiB3aGljaCBp
+cyBjb3JyZWxhdGVkIHRvIHRoZSBhbW91bnQgb2YgcHJlLWZpcmUgdmVnZXRhdGlvbiBpcyBjb21w
+dXRlZCBieSBzdWJ0cmFjdGluZyB0aGUgcG9zdC1maXJlIE5CUiBmcm9tIHRoZSBwcmUtZmlyZSBO
+QlIgYW5kIHNjYWxlZCBieSAxMDAwIHRvIGNvbnZlcnQgdG8gaW50ZWdlciBmb3JtYXQ6IChQcmVO
+QlIgLSBQb3N0TkJSKSoxMDAwID0gZE5CUiBUaGUgUmVsYXRpdmUgRGlmZmVyZW5jZWQgTkJSIGlz
+IGNvbXB1dGVkIHRvIGRldGVybWluZSBzZXZlcml0eSBieSBzdWJ0cmFjdGluZyB0aGUgcG9zdC1m
+aXJlIE5CUiBmcm9tIHRoZSBwcmUtZmlyZSBOQlIgYW5kIGRpdmlkaW5nIGJ5IHRoZSBzcXVhcmUg
+cm9vdCBvZiB0aGUgcHJlZmlyZSBOQlI6IChQcmVOQlIgLSBQb3N0TkJSKS9zcXJ0KGFicyhQcmVO
+QlIvMTAwMCkpID0gUmROQlIgSGlnaGVyIFJkTkJSIHZhbHVlcyBhcmUgY29ycmVsYXRlZCB3aXRo
+IG1vcmUgc2V2ZXJlIGJ1cm5zLiBGb3IgYSBkZXNjcmlwdGlvbiBvZiBSZE5CUiBzZWU6IE1pbGxl
+ciwgSi4gRC4gYW5kIEEuIEUuIFRob2RlICgyMDA3KS4gUXVhbnRpZnlpbmcgYnVybiBzZXZlcml0
+eSBpbiBhIGhldGVyb2dlbmVvdXMgbGFuZHNjYXBlIHdpdGggYSByZWxhdGl2ZSB2ZXJzaW9uIG9m
+IHRoZSBkZWx0YSBOb3JtYWxpemVkIEJ1cm4gUmF0aW8oZE5CUikuIFJlbW90ZSBTZW5zaW5nIG9m
+IEVudmlyb25tZW50IDEwOSgxKTo2Ni04MC4gRm9yIGEgZGVzY3JpcHRpb24gb2YgdGhlIGNhbGli
+cmF0aW9uIG9mIFJkTkJSIHRvIHNldmVyaXR5IG1lYXN1cmVzIHNlZTogTWlsbGVyLCBKLkQuLCBF
+LkUuIEtuYXBwLCBDLkguIEtleSwgQy5OLiBTa2lubmVyLCBDLkouIElzYmVsbCwgUi5NLiBDcmVh
+c3ksIGFuZCBKLlcuIFNoZXJsb2NrICgyMDA5KS4gQ2FsaWJyYXRpb24gYW5kIHZhbGlkYXRpb24g
+b2YgdGhlIHJlbGF0aXZlIGRpZmZlcmVuY2VkIE5vcm1hbGl6ZWQgQnVybiBSYXRpbyAoUmROQlIp
+IHRvIHRocmVlIG1lYXN1cmVzIG9mIGZpcmUgc2V2ZXJpdHkgaW4gdGhlIFNpZXJyYSBOZXZhZGEg
+YW5kIEtsYW1hdGggTW91bnRhaW5zLCBDYWxpZm9ybmlhLCBVU0EuIFJlbW90ZSBTZW5zaW5nIG9m
+IEVudmlyb25tZW50IDExMygzKTogNjQ1LTY1Ni4gUGVyY2VudCBCYXNhbCBhcmVhIG1vcnRhbGl0
+eSB3YXMgY2FsaWJyYXRlZCB0aHJvdWdoIHJlZ3Jlc3Npb24gYW5hbHlzaXMgb2YgdGhlIFJkTkJS
+IGluZGV4IHRvIHBlcmNlbnQgYmFzYWwgYXJlYSB0cmVlIG1vcnRhbGl0eSAoYSB0cmVlIHdpdGgg
+bm8gZ3JlZW4gZm9saWFnZSBvbmUgeWVhciBwb3N0LWZpcmUgd2FzIGRlZmluZWQgYXMgYmVpbmcg
+ZGVhZCkuIFRoZSByZWdyZXNzaW9uIG1vZGVsIHdhcyBhcHBsaWVkIHRvIHRoZSB3aG9sZSBmaXJl
+IGV4dGVudCByZWdhcmRsZXNzIG9mIHZlZ2V0YXRpb24gdHlwZSBleGlzdGluZyBwcmUtZmlyZS4g
+VGhlcmVmb3JlIHRoZSBwZXJjZW50IGJhc2FsIGFyZWEgbW9ydGFsaXR5IG1heSBub3QgcmVwcmVz
+ZW50IGFjdHVhbCBtb3J0YWxpdHkgZHVlIHRvIGRlbGF5ZWQgbW9ydGFsaXR5LCByZXNwcm91dGlu
+Zywgb3Igbm9uLXRyZWUgdmVnZXRhdGlvbi4gQ2FsaWJyYXRpb25zIGZvciBJbml0aWFsIGFzc2Vz
+c21lbnRzIHdlcmUgZGVyaXZlZCB0aHJvdWdoIHJlZ3Jlc3Npb24gbW9kZWxpbmcgb2Ygc2F0ZWxs
+aXRlIHJlZmxlY3RhbmNlIHZhbHVlcyBmcm9tIGltYWdlcnkgY29sbGVjdGVkIG9uZSB5ZWFyIHBv
+c3QtZmlyZSB0byBpbWFnZXJ5IGFjcXVpcmVkIGltbWVkaWF0ZSBwb3N0LWZpcmUuPC9wcm9jZGVz
+Yz4NCiAgICAgIDwvcHJvY3N0ZXA+DQogICAgPC9saW5lYWdlPg0KICA8L2RhdGFxdWFsPg0KICA8
+c3Bkb2luZm8+DQogICAgPGRpcmVjdD5WZWN0b3I8L2RpcmVjdD4NCiAgPC9zcGRvaW5mbz4NCiAg
+PHNwcmVmPg0KICAgIDxob3JpenN5cz4NCiAgICAgIDxwbGFuYXI+DQogICAgICAgIDxwbGFuY2k+
+DQogICAgICAgICAgPHBsYW5jZT5jb29yZGluYXRlIHBhaXI8L3BsYW5jZT4NCiAgICAgICAgICA8
+Y29vcmRyZXA+DQogICAgICAgICAgICA8YWJzcmVzPjAuMDAwNTM4MTI4NzMxNTQ3Mjk2NzwvYWJz
+cmVzPg0KICAgICAgICAgICAgPG9yZHJlcz4wLjAwMDUzODEyODczMTU0NzI5Njc8L29yZHJlcz4N
+CiAgICAgICAgICA8L2Nvb3JkcmVwPg0KICAgICAgICAgIDxwbGFuZHU+TWV0ZXI8L3BsYW5kdT4N
+CiAgICAgICAgPC9wbGFuY2k+DQogICAgICA8L3BsYW5hcj4NCiAgICAgIDxnZW9kZXRpYz4NCiAg
+ICAgICAgPGhvcml6ZG4+RCBOb3J0aCBBbWVyaWNhbiAxOTgzPC9ob3JpemRuPg0KICAgICAgICA8
+ZWxsaXBzPkdSUyAxOTgwPC9lbGxpcHM+DQogICAgICAgIDxzZW1pYXhpcz42Mzc4MTM3LjA8L3Nl
+bWlheGlzPg0KICAgICAgICA8ZGVuZmxhdD4yOTguMjU3MjIyMTAxPC9kZW5mbGF0Pg0KICAgICAg
+PC9nZW9kZXRpYz4NCiAgICA8L2hvcml6c3lzPg0KICA8L3NwcmVmPg0KICA8ZWFpbmZvPg0KICAg
+IDxkZXRhaWxlZCBOYW1lPSJWZWdCdXJuU2V2ZXJpdHlCQSI+DQogICAgICA8ZW50dHlwPg0KICAg
+ICAgICA8ZW50dHlwbD5WZWdCdXJuU2V2ZXJpdHlCQTwvZW50dHlwbD4NCiAgICAgICAgPGVudHR5
+cHQgU3luYz0iVFJVRSI+RmVhdHVyZSBDbGFzczwvZW50dHlwdD4NCiAgICAgICAgPGVudHR5cGMg
+U3luYz0iVFJVRSI+NTcwNDwvZW50dHlwYz4NCiAgICAgIDwvZW50dHlwPg0KICAgICAgPGF0dHI+
+DQogICAgICAgIDxhdHRybGFibD5PQkpFQ1RJRDwvYXR0cmxhYmw+DQogICAgICAgIDxhdHRyZGVm
+PkludGVybmFsIGZlYXR1cmUgbnVtYmVyLjwvYXR0cmRlZj4NCiAgICAgICAgPGF0dHJkZWZzPkVT
+Ukk8L2F0dHJkZWZzPg0KICAgICAgICA8YXR0cmRvbXY+DQogICAgICAgICAgPHVkb20+U2VxdWVu
+dGlhbCB1bmlxdWUgd2hvbGUgbnVtYmVycyB0aGF0IGFyZSBhdXRvbWF0aWNhbGx5IGdlbmVyYXRl
+ZC48L3Vkb20+DQogICAgICAgIDwvYXR0cmRvbXY+DQogICAgICAgIDxhdHRhbGlhcyBTeW5jPSJU
+UlVFIj5PQkpFQ1RJRDwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRydHlwZSBTeW5jPSJUUlVFIj5P
+SUQ8L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3luYz0iVFJVRSI+NDwvYXR0d2lkdGg+
+DQogICAgICAgIDxhdHByZWNpcyBTeW5jPSJUUlVFIj4wPC9hdHByZWNpcz4NCiAgICAgICAgPGF0
+dHNjYWxlIFN5bmM9IlRSVUUiPjA8L2F0dHNjYWxlPg0KICAgICAgPC9hdHRyPg0KICAgICAgPGF0
+dHI+DQogICAgICAgIDxhdHRybGFibD5TaGFwZTwvYXR0cmxhYmw+DQogICAgICAgIDxhdHRyZGVm
+PkZlYXR1cmUgZ2VvbWV0cnkuPC9hdHRyZGVmPg0KICAgICAgICA8YXR0cmRlZnM+RVNSSTwvYXR0
+cmRlZnM+DQogICAgICAgIDxhdHRyZG9tdj4NCiAgICAgICAgICA8dWRvbT5Db29yZGluYXRlcyBk
+ZWZpbmluZyB0aGUgZmVhdHVyZXMuPC91ZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAgICAg
+ICA8YXR0YWxpYXMgU3luYz0iVFJVRSI+U2hhcGU8L2F0dGFsaWFzPg0KICAgICAgICA8YXR0cnR5
+cGUgU3luYz0iVFJVRSI+R2VvbWV0cnk8L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3lu
+Yz0iVFJVRSI+MDwvYXR0d2lkdGg+DQogICAgICAgIDxhdHByZWNpcyBTeW5jPSJUUlVFIj4wPC9h
+dHByZWNpcz4NCiAgICAgICAgPGF0dHNjYWxlIFN5bmM9IlRSVUUiPjA8L2F0dHNjYWxlPg0KICAg
+ICAgPC9hdHRyPg0KICAgICAgPGF0dHI+DQogICAgICAgIDxhdHRybGFibD5CVVJOU0VWPC9hdHRy
+bGFibD4NCiAgICAgICAgPGF0dHJkZWY+QnVybiBzZXZlcml0eSB0byB2ZWdldGF0aW9uIGNsYXNz
+aWZpY2F0aW9uPC9hdHRyZGVmPg0KICAgICAgICA8YXR0cmRvbXY+DQogICAgICAgICAgPGVkb20+
+DQogICAgICAgICAgICA8ZWRvbXY+MTwvZWRvbXY+DQogICAgICAgICAgICA8ZWRvbXZkPjAlIGNo
+YW5nZSBpbiBCQTwvZWRvbXZkPg0KICAgICAgICAgIDwvZWRvbT4NCiAgICAgICAgPC9hdHRyZG9t
+dj4NCiAgICAgICAgPGF0dHJkb212Pg0KICAgICAgICAgIDxlZG9tPg0KICAgICAgICAgICAgPGVk
+b212PjI8L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD4wJSAmbHQ7IGNoYW5nZSBpbiBCQSAm
+bHQ7IDEwJTwvZWRvbXZkPg0KICAgICAgICAgIDwvZWRvbT4NCiAgICAgICAgPC9hdHRyZG9tdj4N
+CiAgICAgICAgPGF0dHJkb212Pg0KICAgICAgICAgIDxlZG9tPg0KICAgICAgICAgICAgPGVkb212
+PjM8L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD4xMCUgJmx0Oz0gY2hhbmdlIGluIEJBICZs
+dDsgMjUlPC9lZG9tdmQ+DQogICAgICAgICAgPC9lZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0K
+ICAgICAgICA8YXR0cmRvbXY+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+
+NDwvZWRvbXY+DQogICAgICAgICAgICA8ZWRvbXZkPjI1JSAmbHQ7PSBjaGFuZ2UgaW4gQkEgJmx0
+OyA1MCU8L2Vkb212ZD4NCiAgICAgICAgICA8L2Vkb20+DQogICAgICAgIDwvYXR0cmRvbXY+DQog
+ICAgICAgIDxhdHRyZG9tdj4NCiAgICAgICAgICA8ZWRvbT4NCiAgICAgICAgICAgIDxlZG9tdj41
+PC9lZG9tdj4NCiAgICAgICAgICAgIDxlZG9tdmQ+NTAlICZsdDs9IGNoYW5nZSBpbiBCQSAmbHQ7
+IDc1JTwvZWRvbXZkPg0KICAgICAgICAgIDwvZWRvbT4NCiAgICAgICAgPC9hdHRyZG9tdj4NCiAg
+ICAgICAgPGF0dHJkb212Pg0KICAgICAgICAgIDxlZG9tPg0KICAgICAgICAgICAgPGVkb212PjY8
+L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD43NSUgJmx0Oz0gY2hhbmdlIGluIEJBICZsdDsg
+OTAlPC9lZG9tdmQ+DQogICAgICAgICAgPC9lZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAg
+ICAgICA8YXR0cmRvbXY+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+Nzwv
+ZWRvbXY+DQogICAgICAgICAgICA8ZWRvbXZkPkNoYW5nZSBpbiBCQSAmZ3Q7PSA5MCAlPC9lZG9t
+dmQ+DQogICAgICAgICAgPC9lZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAgICAgICA8YXR0
+cmRvbXY+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+MjU1PC9lZG9tdj4N
+CiAgICAgICAgICAgIDxlZG9tdmQ+Tm90IG1hcHBlZDsgY2xvdWRzLCBldGMuPC9lZG9tdmQ+DQog
+ICAgICAgICAgPC9lZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAgICAgICA8YXR0YWxpYXMg
+U3luYz0iVFJVRSI+QlVSTlNFVjwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRydHlwZSBTeW5jPSJU
+UlVFIj5TbWFsbEludGVnZXI8L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3luYz0iVFJV
+RSI+MjwvYXR0d2lkdGg+DQogICAgICAgIDxhdHByZWNpcyBTeW5jPSJUUlVFIj4wPC9hdHByZWNp
+cz4NCiAgICAgICAgPGF0dHNjYWxlIFN5bmM9IlRSVUUiPjA8L2F0dHNjYWxlPg0KICAgICAgPC9h
+dHRyPg0KICAgICAgPGF0dHI+DQogICAgICAgIDxhdHRybGFibD5WQl9JRDwvYXR0cmxhYmw+DQog
+ICAgICAgIDxhdHRyZGVmPlVuaXF1ZSBJZCBmaWVsZCBjb21wb3NlZCBvZiBGSVJFX1lFQVIgYW5k
+IGFicmV2aWF0ZWQgZmlyZSBuYW1lLCB1c2VkIHRvIGxpbmsgdG8gdmVnIHNldmVyaXR5IHBlcmlt
+ZXRlciByZWNvcmQ8L2F0dHJkZWY+DQogICAgICAgIDxhdHRhbGlhcyBTeW5jPSJUUlVFIj5WQl9J
+RDwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRydHlwZSBTeW5jPSJUUlVFIj5TdHJpbmc8L2F0dHJ0
+eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3luYz0iVFJVRSI+MzQ8L2F0dHdpZHRoPg0KICAgICAg
+ICA8YXRwcmVjaXMgU3luYz0iVFJVRSI+MDwvYXRwcmVjaXM+DQogICAgICAgIDxhdHRzY2FsZSBT
+eW5jPSJUUlVFIj4wPC9hdHRzY2FsZT4NCiAgICAgIDwvYXR0cj4NCiAgICAgIDxhdHRyPg0KICAg
+ICAgICA8YXR0cmxhYmw+QkVTVF9BU1NFU1M8L2F0dHJsYWJsPg0KICAgICAgICA8YXR0cmRlZj5U
+aGlzIGZpZWxkIGlzIGEgcmVjb21tZW5kYXRpb24gYXMgdG8gd2hpY2ggYXNzZXNzbWVudCBiZXN0
+IHJlcHJlc2VudHMgZmlyZSBlZmZlY3RzLiBGb3IgZXhhbXBsZSwgd2hlbiBzYWx2YWdlIGxvZ2dp
+bmcgb2NjdXJyZWQgYmVmb3JlIHRoZSBleHRlbmRlZCBhc3Nlc3NtZW50IHdhcyBtYWRlIGFuZCBh
+biBpbml0aWFsIGFzc2Vzc21lbnQgZXhpc3RzIHRoZSBpbml0aWFsIGFzc2Vzc21lbnQgaXMgZmxh
+Z2dlZCBhcyB0aGUgYmVzdCBhc3Nlc3NtZW50LCBvdGhlcndpc2UgdGhlIGV4dGVuZGVkIGFzc2Vz
+c21lbnQgaXMgZmxhZ2dlZC4gT3RoZXIgY29uZGl0aW9ucyB0aGF0IG1heSBpbmZsdWVuY2UgY2hv
+aWNlIG9mIGJlc3QgYXNzZXNzbWVudCBpbmNsdWRlIGxhdGUgc2Vhc29uIGltYWdlcnkgYWNxdWlz
+aXRpb24gb3Igc2F0ZWxsaXRlIGltYWdlIGlzc3Vlcy48L2F0dHJkZWY+DQogICAgICAgIDxhdHRy
+ZG9tdj4NCiAgICAgICAgICA8ZWRvbT4NCiAgICAgICAgICAgIDxlZG9tdj5ZRVM8L2Vkb212Pg0K
+ICAgICAgICAgICAgPGVkb212ZD5CZXN0IGFzc2Vzc21lbnQ8L2Vkb212ZD4NCiAgICAgICAgICA8
+L2Vkb20+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+Tk88L2Vkb212Pg0K
+ICAgICAgICAgICAgPGVkb212ZD5Ob3QgYmVzdCBhc3Nlc3NtZW50PC9lZG9tdmQ+DQogICAgICAg
+ICAgPC9lZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAgICAgICA8YXR0YWxpYXMgU3luYz0i
+VFJVRSI+QkVTVF9BU1NFU1M8L2F0dGFsaWFzPg0KICAgICAgICA8YXR0cnR5cGUgU3luYz0iVFJV
+RSI+U3RyaW5nPC9hdHRydHlwZT4NCiAgICAgICAgPGF0dHdpZHRoIFN5bmM9IlRSVUUiPjM8L2F0
+dHdpZHRoPg0KICAgICAgICA8YXRwcmVjaXMgU3luYz0iVFJVRSI+MDwvYXRwcmVjaXM+DQogICAg
+ICAgIDxhdHRzY2FsZSBTeW5jPSJUUlVFIj4wPC9hdHRzY2FsZT4NCiAgICAgIDwvYXR0cj4NCiAg
+ICAgIDxhdHRyPg0KICAgICAgICA8YXR0cmxhYmw+QVNTRVNTX1RZUEU8L2F0dHJsYWJsPg0KICAg
+ICAgICA8YXR0cmRlZj5Bc3Nlc3NtZW50IFR5cGUgLSBJbml0aWFsIGFzc2Vzc21lbnRzIGFyZSBk
+ZXJpdmVkIGZyb20gaW1tZWRpYXRlIHBvc3QtZmlyZSBpbWFnZXJ5IGFuZCB0aGVyZWZvcmUgcmVm
+bGVjdCBmaXJzdCBvcmRlciBlZmZlY3RzIHRvIHRoZSB2ZWdldGF0aW9uLiBFeHRlbmRlZCBhc3Nl
+c3NtZW50cyBhcmUgZGVyaXZlZCBmcm9tIGltYWdlcnkgYWNxdWlyZWQgYWZ0ZXIgb25lIGZ1bGwg
+Z3Jvd2luZyBzZWFzb24gdG8gY2FwdHVyZSBkZWxheWVkIG1vcnRhbGl0eSBhbmQgcmVzcHJvdXRp
+bmcgdGhhdCBtYXkgb2NjdXI8L2F0dHJkZWY+DQogICAgICAgIDxhdHRyZGVmcz5FU1JJPC9hdHRy
+ZGVmcz4NCiAgICAgICAgPGF0dHJkb212Pg0KICAgICAgICAgIDxlZG9tPg0KICAgICAgICAgICAg
+PGVkb212PmE8L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD5Jbml0aWFsPC9lZG9tdmQ+DQog
+ICAgICAgICAgPC9lZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAgICAgICA8YXR0cmRvbXY+
+DQogICAgICAgICAgPGVkb20+DQogICAgICAgICAgICA8ZWRvbXY+YjwvZWRvbXY+DQogICAgICAg
+ICAgICA8ZWRvbXZkPkV4dGVuZGVkIHlyMTwvZWRvbXZkPg0KICAgICAgICAgIDwvZWRvbT4NCiAg
+ICAgICAgPC9hdHRyZG9tdj4NCiAgICAgICAgPGF0dHJkb212Pg0KICAgICAgICAgIDxlZG9tPg0K
+ICAgICAgICAgICAgPGVkb212PmM8L2Vkb212Pg0KICAgICAgICAgICAgPGVkb212ZD5FeHRlbmRl
+ZCB5cjI8L2Vkb212ZD4NCiAgICAgICAgICA8L2Vkb20+DQogICAgICAgIDwvYXR0cmRvbXY+DQog
+ICAgICAgIDxhdHRyZG9tdj4NCiAgICAgICAgICA8dWRvbT5Qb3NpdGl2ZSByZWFsIG51bWJlcnMg
+dGhhdCBhcmUgYXV0b21hdGljYWxseSBnZW5lcmF0ZWQuPC91ZG9tPg0KICAgICAgICA8L2F0dHJk
+b212Pg0KICAgICAgICA8YXR0YWxpYXMgU3luYz0iVFJVRSI+QVNTRVNTX1RZUEU8L2F0dGFsaWFz
+Pg0KICAgICAgICA8YXR0cnR5cGUgU3luYz0iVFJVRSI+U3RyaW5nPC9hdHRydHlwZT4NCiAgICAg
+ICAgPGF0dHdpZHRoIFN5bmM9IlRSVUUiPjE8L2F0dHdpZHRoPg0KICAgICAgICA8YXRwcmVjaXMg
+U3luYz0iVFJVRSI+MDwvYXRwcmVjaXM+DQogICAgICAgIDxhdHRzY2FsZSBTeW5jPSJUUlVFIj4w
+PC9hdHRzY2FsZT4NCiAgICAgIDwvYXR0cj4NCiAgICAgIDxhdHRyPg0KICAgICAgICA8YXR0cmxh
+Ymw+RklSRV9ZRUFSPC9hdHRybGFibD4NCiAgICAgICAgPGF0dHJkZWY+WWVhciBmaXJlIG9jY3Vy
+cmVkPC9hdHRyZGVmPg0KICAgICAgICA8YXR0YWxpYXMgU3luYz0iVFJVRSI+RklSRV9ZRUFSPC9h
+dHRhbGlhcz4NCiAgICAgICAgPGF0dHJ0eXBlIFN5bmM9IlRSVUUiPlN0cmluZzwvYXR0cnR5cGU+
+DQogICAgICAgIDxhdHR3aWR0aCBTeW5jPSJUUlVFIj40PC9hdHR3aWR0aD4NCiAgICAgICAgPGF0
+cHJlY2lzIFN5bmM9IlRSVUUiPjA8L2F0cHJlY2lzPg0KICAgICAgICA8YXR0c2NhbGUgU3luYz0i
+VFJVRSI+MDwvYXR0c2NhbGU+DQogICAgICA8L2F0dHI+DQogICAgICA8YXR0cj4NCiAgICAgICAg
+PGF0dHJsYWJsPlNoYXBlX0xlbmd0aDwvYXR0cmxhYmw+DQogICAgICAgIDxhdHRyZGVmPkxlbmd0
+aCBvZiBmZWF0dXJlIGluIGludGVybmFsIHVuaXRzLjwvYXR0cmRlZj4NCiAgICAgICAgPGF0dHJk
+ZWZzPkVTUkk8L2F0dHJkZWZzPg0KICAgICAgICA8YXR0cmRvbXY+DQogICAgICAgICAgPHVkb20+
+UG9zaXRpdmUgcmVhbCBudW1iZXJzIHRoYXQgYXJlIGF1dG9tYXRpY2FsbHkgZ2VuZXJhdGVkLjwv
+dWRvbT4NCiAgICAgICAgPC9hdHRyZG9tdj4NCiAgICAgICAgPGF0dGFsaWFzIFN5bmM9IlRSVUUi
+PlNoYXBlX0xlbmd0aDwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRydHlwZSBTeW5jPSJUUlVFIj5E
+b3VibGU8L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3luYz0iVFJVRSI+ODwvYXR0d2lk
+dGg+DQogICAgICAgIDxhdHByZWNpcyBTeW5jPSJUUlVFIj4wPC9hdHByZWNpcz4NCiAgICAgICAg
+PGF0dHNjYWxlIFN5bmM9IlRSVUUiPjA8L2F0dHNjYWxlPg0KICAgICAgPC9hdHRyPg0KICAgICAg
+PGF0dHI+DQogICAgICAgIDxhdHRybGFibD5TaGFwZV9BcmVhPC9hdHRybGFibD4NCiAgICAgICAg
+PGF0dHJkZWY+QXJlYSBvZiBmZWF0dXJlIGluIGludGVybmFsIHVuaXRzIHNxdWFyZWQuPC9hdHRy
+ZGVmPg0KICAgICAgICA8YXR0cmRlZnM+RVNSSTwvYXR0cmRlZnM+DQogICAgICAgIDxhdHRyZG9t
+dj4NCiAgICAgICAgICA8dWRvbT5Qb3NpdGl2ZSByZWFsIG51bWJlcnMgdGhhdCBhcmUgYXV0b21h
+dGljYWxseSBnZW5lcmF0ZWQuPC91ZG9tPg0KICAgICAgICA8L2F0dHJkb212Pg0KICAgICAgICA8
+YXR0YWxpYXMgU3luYz0iVFJVRSI+U2hhcGVfQXJlYTwvYXR0YWxpYXM+DQogICAgICAgIDxhdHRy
+dHlwZSBTeW5jPSJUUlVFIj5Eb3VibGU8L2F0dHJ0eXBlPg0KICAgICAgICA8YXR0d2lkdGggU3lu
+Yz0iVFJVRSI+ODwvYXR0d2lkdGg+DQogICAgICAgIDxhdHByZWNpcyBTeW5jPSJUUlVFIj4wPC9h
+dHByZWNpcz4NCiAgICAgICAgPGF0dHNjYWxlIFN5bmM9IlRSVUUiPjA8L2F0dHNjYWxlPg0KICAg
+ICAgPC9hdHRyPg0KICAgIDwvZGV0YWlsZWQ+DQogIDwvZWFpbmZvPg0KICA8ZGlzdGluZm8+DQog
+ICAgPGRpc3RyaWI+DQogICAgICA8Y250aW5mbz4NCiAgICAgICAgPGNudG9yZ3A+DQogICAgICAg
+ICAgPGNudG9yZz5VU0RBIEZvcmVzdCBTZXJ2aWNlLCBQYWNpZmljIFNvdXRod2VzdCBSZWdpb24s
+IEZpcmUgYW5kIEF2aWF0aW9uIE1nbXQuPC9jbnRvcmc+DQogICAgICAgIDwvY250b3JncD4NCiAg
+ICAgICAgPGNudHBvcz5SZW1vdGUgU2Vuc2luZyBTcGVjaWFsaXN0PC9jbnRwb3M+DQogICAgICAg
+IDxjbnRhZGRyPg0KICAgICAgICAgIDxhZGRydHlwZT51bmtub3duPC9hZGRydHlwZT4NCiAgICAg
+ICAgICA8YWRkcmVzcz4zMjM3IFBlYWNla2VlcGVyIFdheSwgU3VpdGUgMTAxPC9hZGRyZXNzPg0K
+ICAgICAgICAgIDxjaXR5Pk1jQ2xlbGxhbjwvY2l0eT4NCiAgICAgICAgICA8c3RhdGU+Q0E8L3N0
+YXRlPg0KICAgICAgICAgIDxwb3N0YWw+OTU2NTI8L3Bvc3RhbD4NCiAgICAgICAgICA8Y291bnRy
+eT5VUzwvY291bnRyeT4NCiAgICAgICAgPC9jbnRhZGRyPg0KICAgICAgICA8Y250dm9pY2U+OTE2
+LTY0MC0xMDAwPC9jbnR2b2ljZT4NCiAgICAgICAgPGhvdXJzPk0tRiwgMDgwMC0xNzAwPC9ob3Vy
+cz4NCiAgICAgIDwvY250aW5mbz4NCiAgICA8L2Rpc3RyaWI+DQogICAgPGRpc3RsaWFiPkRpc3Ry
+aWJ1dGlvbl9MaWFiaWxpdHkgVGhpcyBwcm9kdWN0IGlzIHJlcHJvZHVjZWQgZnJvbSBnZW9zcGF0
+aWFsIGluZm9ybWF0aW9uIHByZXBhcmVkIGJ5IHRoZSBVLlMuIERlcGFydG1lbnQgb2YgQWdyaWN1
+bHR1cmUsIEZvcmVzdCBTZXJ2aWNlLiBCeSByZW1vdmluZyB0aGUgY29udGVudHMgb2YgdGhpcyBw
+YWNrYWdlIG9yIHRha2luZyByZWNlaXB0IG9mIHRoZXNlIGZpbGVzIHZpYSBlbGVjdHJvbmljIGZp
+bGUgdHJhbnNmZXIgbWV0aG9kcywgeW91IHVuZGVyc3RhbmQgdGhhdCB0aGUgZGF0YSBzdG9yZWQg
+b24gdGhpcyBtZWRpYSBpcyBpbiBkcmFmdCBjb25kaXRpb24uIFJlcHJlc2VudGVkIGZlYXR1cmVz
+IG1heSBub3QgYmUgaW4gYW4gYWNjdXJhdGUgZ2VvZ3JhcGhpYyBsb2NhdGlvbi4gVGhlIEZvcmVz
+dCBTZXJ2aWNlIG1ha2VzIG5vIGV4cHJlc3NlZCBvciBpbXBsaWVkIHdhcnJhbnR5LCBpbmNsdWRp
+bmcgd2FycmFudHkgb2YgbWVyY2hhbnRhYmlsaXR5IGFuZCBmaXRuZXNzLCB3aXRoIHJlc3BlY3Qg
+dG8gdGhlIGNoYXJhY3RlciwgZnVuY3Rpb24sIG9yIGNhcGFiaWxpdGllcyBvZiB0aGUgZGF0YSBv
+ciB0aGVpciBhcHByb3ByaWF0ZW5lc3MgZm9yIGFueSB1c2VyJ3MgcHVycG9zZXMuIFRoZSBGb3Jl
+c3QgU2VydmljZSByZXNlcnZlcyB0aGUgcmlnaHQgdG8gY29ycmVjdCwgdXBkYXRlLCBtb2RpZnks
+IG9yIHJlcGxhY2UgdGhpcyBnZW9zcGF0aWFsIGluZm9ybWF0aW9uIHdpdGhvdXQgbm90aWZpY2F0
+aW9uLjwvZGlzdGxpYWI+DQogIDwvZGlzdGluZm8+DQogIDxtZXRhaW5mbz4NCiAgICA8bWV0ZD4y
+MDExMTIyMTwvbWV0ZD4NCiAgICA8bWV0Yz4NCiAgICAgIDxjbnRpbmZvPg0KICAgICAgICA8Y250
+b3JncD4NCiAgICAgICAgICA8Y250b3JnPlVTREEgRm9yZXN0IFNlcnZpY2UsIFBhY2lmaWMgU291
+dGh3ZXN0IFJlZ2lvbiwgRmlyZSBhbmQgQXZpYXRpb24gTWdtdDwvY250b3JnPg0KICAgICAgICA8
+L2NudG9yZ3A+DQogICAgICAgIDxjbnRwb3M+UmVtb3RlIFNlbnNpbmcgU3BlY2lhbGlzdDwvY250
+cG9zPg0KICAgICAgICA8Y250YWRkcj4NCiAgICAgICAgICA8YWRkcnR5cGU+bWFpbGluZzwvYWRk
+cnR5cGU+DQogICAgICAgICAgPGFkZHJlc3M+MzIzNyBQZWFjZWtlZXBlciBXYXksIFN1aXRlIDEw
+MTwvYWRkcmVzcz4NCiAgICAgICAgICA8Y2l0eT5NY0NsZWxsYW48L2NpdHk+DQogICAgICAgICAg
+PHN0YXRlPkNhbGlmb3JuaWE8L3N0YXRlPg0KICAgICAgICAgIDxwb3N0YWw+OTU2NTI8L3Bvc3Rh
+bD4NCiAgICAgICAgICA8Y291bnRyeT5VUzwvY291bnRyeT4NCiAgICAgICAgPC9jbnRhZGRyPg0K
+ICAgICAgICA8Y250dm9pY2U+OTE2LTY0MC0xMDAwPC9jbnR2b2ljZT4NCiAgICAgICAgPGhvdXJz
+Pk0tRiwgMDgwMC0xNzAwPC9ob3Vycz4NCiAgICAgIDwvY250aW5mbz4NCiAgICA8L21ldGM+DQog
+ICAgPG1ldHN0ZG4+RkdEQyBDb250ZW50IFN0YW5kYXJkIGZvciBEaWdpdGFsIEdlb3NwYXRpYWwg
+TWV0YWRhdGE8L21ldHN0ZG4+DQogICAgPG1ldHN0ZHY+RkdEQy1TVEQtMDAxLTE5OTg8L21ldHN0
+ZHY+DQogICAgPG1ldHRjPmxvY2FsIHRpbWU8L21ldHRjPg0KICA8L21ldGFpbmZvPg0KICA8RXNy
+aT4NCiAgICA8U3luY0RhdGU+MjAxMTEyMjE8L1N5bmNEYXRlPg0KICAgIDxTeW5jVGltZT4wOTAw
+MjcwMDwvU3luY1RpbWU+DQogICAgPE1vZERhdGU+MjAxMTEyMjE8L01vZERhdGU+DQogICAgPE1v
+ZFRpbWU+MDkwMDI3MDA8L01vZFRpbWU+DQogIDwvRXNyaT4NCjwvbWV0YWRhdGE+</Data></Enclosure></Binary><mdHrLvName Sync="TRUE">dataset</mdHrLvName><refSysInfo><RefSystem><refSysID><identCode code="0" Sync="TRUE" value="0"/></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><geometObjs Name="VegBurnSeverityBA"><geoObjTyp><GeoObjTypCd value="002" Sync="TRUE"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">10241</geoObjCnt></geometObjs><topLvl><TopoLevCd value="001" Sync="TRUE"></TopoLevCd></topLvl></VectSpatRep></spatRepInfo><mdChar><CharSetCd value="004"/></mdChar></metadata>

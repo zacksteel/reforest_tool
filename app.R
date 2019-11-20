@@ -87,7 +87,7 @@ ui <- fluidPage(
                                           
                         h4(tags$b("Step 2: Select reforestation need threshold:"), 
                            style = "font-size:110%; color:darkblue"),
-                        sliderInput("Need", tags$p("Mortality Threshold (% Biomass loss)", style = "font-size:90%;"),
+                        sliderInput("Need", tags$p("Mortality Threshold (% loss)", style = "font-size:90%;"),
                                     10, 100, 50,
                                     width = '80%', step = 10),
                         bsPopover("Need", title = NULL,
@@ -168,7 +168,7 @@ ui <- fluidPage(
                                             width = 220, height = "auto", 
                                             checkboxGroupInput("Display", label = tags$b("Select display Layers:"),
                                                                choices = c("Area of Interest", 
-                                                                           "USFS Land",
+                                                                           "Non-USFS Land",
                                                                            "Mechanical Constraints",
                                                                            "Forest Biomass Loss (2012-16)", 
                                                                            "High-severity Fire Core",
@@ -314,6 +314,10 @@ server <- function(input, output, session) {
     ## Read in study area raster
     raster(paste0("app_data/NF_Limits/fs_",aoi()$FORESTNAME, ".tif"))
   })
+  ## non-forest service land layer
+  nfs <- reactive({
+    raster(paste0("app_data/NF_Limits/nfs_",aoi()$FORESTNAME, ".tif"))
+  })
   
   ra <- reactive({
     ## Read in AOI national forest-specific raster
@@ -329,6 +333,7 @@ server <- function(input, output, session) {
   
   mortshow <- reactive({
     bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
+    # bloss <- raster(paste0("app_data/NF_Limits/intloss_", aoi()$FORESTNAME, ".tif")) #integrated version
   })
   
   rec <- reactive({
@@ -444,15 +449,27 @@ server <- function(input, output, session) {
     }
     
     ## If Area Considered is selected, add that layer
-    if(input$Forest != "" & ("USFS Land" %in% input$Display)) {
-      
+    # if(input$Forest != "" & ("USFS Land" %in% input$Display)) {
+    #   
+    #   m <- m %>%
+    #     addRasterImage(x = fs(), colors = c("white", "green"), 
+    #                    opacity = 0.5,
+    #                    project = FALSE) %>%
+    #     addLegend(position = "bottomright", colors = c("white", "green"),
+    #               labels = c("No", "Yes"),
+    #               title = "USFS Land")
+    # }
+    if(input$Forest != "" & ("Non-USFS Land" %in% input$Display)) {
+      pal <- colorNumeric(c("black"), values(nfs()), na.color = "transparent")
       m <- m %>%
-        addRasterImage(x = fs(), colors = c("white", "green"), 
-                       opacity = 0.5,
+        addRasterImage(x = nfs(), colors = pal, 
+                       opacity = 0.3,
                        project = FALSE) %>%
-        addLegend(position = "bottomright", colors = c("white", "green"),
-                  labels = c("No", "Yes"),
-                  title = "USFS Land")
+        addLegend(position = "bottomright", 
+                  colors = "black",
+                  opacity = 0.5,
+                  # labels = c("No", "Yes"),
+                  labels = "Non-USFS Land")
     }
     
     ## If Inaccessible mask is selection add that layer
@@ -615,6 +632,7 @@ server <- function(input, output, session) {
       
       ## read in national forest-specific rasters
       bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
+      # bloss <- raster(paste0("app_data/NF_Limits/intloss_", aoi()$FORESTNAME, ".tif"))
       ra <- if(input$MechScen == "Moderate constraints") {
         raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) } else {
           if(input$MechScen == "Fewer constraints") {
@@ -656,7 +674,8 @@ server <- function(input, output, session) {
 
       ## Reclassify to three classes based on quantile thirds above the minimum threshold
       ## occasionally have problems of breaks not being unique. add a bit to upper quantiles
-      q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0, 0.33, 0.67, 1)) + c(-0.001, 0.000, 0.001, 0.001)
+      q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0, 0.33, 0.67, 1)) + c(-0.001, -0.0005, 0.0005, 0.001)
+      # q3 <- quantile(pr_aoi, probs = c(0, 0.33, 0.67, 1)) + c(-0.001, -0.0005, 0.0005, 0.001)
       breaks <- c(cellStats(pr_aoi, stat="min")-0.001, q3)
       
       ## Reclassify into areas of no need and approximate thirds of the remaining
@@ -676,7 +695,7 @@ server <- function(input, output, session) {
                                label = "Select display Layers:",
                                choices = c(
                                  "Area of Interest", 
-                                 "USFS Land",
+                                 "Non-USFS Land",
                                  "Prioritization",
                                  "Mechanical Constraints",
                                  "Forest Biomass Loss (2012-16)", 

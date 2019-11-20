@@ -12,6 +12,7 @@ NF_Limits <- function() {
   
   ## Read in Sierra-wide rasters
   bloss <- raster("data/Spatial/biomassloss.tif") #biomass loss
+  intloss <- raster("data/Spatial/integrated_loss.tif")
   sb <- raster("data/Spatial/scenb.tif") #treatment feasibility
   sd <- raster("data/Spatial/scend.tif")
   rec <- raster("data/Spatial/RecAreas.tif") 
@@ -21,13 +22,14 @@ NF_Limits <- function() {
   spow <- raster("data/Spatial/spow_pacs.tif") #spotted owl PACs
   fisher <- raster("data/Spatial/fisher_cores.tif") # fisher core areas
   fs <- raster("data/Spatial/FS_area.tif") # Forest service land
+  nfs <- raster("data/Spatial/non_fs_area.tif") # non-forest service land
   
   ## Read in Sierra Nevada national forest shape
   forest_sf <- st_read("data/Spatial", "SN_NFs")
   
   ## Make a list of rasters to work through 
-  r_l <- list(bloss, sb, sd, rec, wui, cwd, hs, spow, fisher, fs)
-  names(r_l) <- c("bloss", "sb", "sd", "rec", "wui", "cwd", "hs", "spow", "fisher", "fs")
+  r_l <- list(bloss, intloss, sb, sd, rec, wui, cwd, hs, spow, fisher, fs, nfs)
+  names(r_l) <- c("bloss", "intloss", "sb", "sd", "rec", "wui", "cwd", "hs", "spow", "fisher", "fs", "nfs")
   
   ## combinations for each national forest and dataset
   d <- expand.grid(forest = unique(forest_sf$FORESTNAME),

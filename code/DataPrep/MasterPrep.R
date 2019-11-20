@@ -14,6 +14,8 @@ ForestPrep()
 ## Prep reforestation need layer(s)
 source("code/DataPrep/BLossPrep.R")
 BLossPrep(path = "J:/My Drive/Projects/ReForestTool/GIS/DataLayers/Biomass/CABiomass_loss12_16.tif")
+source("code/DataPrep/bloss_fire_prep.R")
+bloss_fire_prep()
 
 ## Prep default feasibility layer (currently just Scenario B of mechanical opportunity)
 ## May also want to add UsuitableForestLandAreas layer, maybe make these mask layers optional

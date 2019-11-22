@@ -41,6 +41,10 @@ source("code/DataPrep/CWD_Prep.R")
 source("code/DataPrep/NF_Limits.R")
 NF_Limits()
 
+## Prep landfire existing veg (as of 2012) data
+source("code/DataPrep/evt_prep.R")
+evt_prep()
+
 ## Getting into stand data
 
 ## Summarize stand data for display on a leaflet map

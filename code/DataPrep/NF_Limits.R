@@ -11,8 +11,9 @@ NF_Limits <- function() {
   library(raster)
   
   ## Read in Sierra-wide rasters
-  bloss <- raster("data/Spatial/biomassloss.tif") #biomass loss
-  intloss <- raster("data/Spatial/integrated_loss.tif")
+  bloss <- raster("data/Spatial/biomassloss.tif") #biomass loss (LEMMA only)
+  # intloss <- raster("data/Spatial/integrated_loss.tif") #loss - fire priority
+  intloss <- raster("data/Spatial/mn_integrated_loss.tif") #mean loss (LEMMA & fire sev)
   sb <- raster("data/Spatial/scenb.tif") #treatment feasibility
   sd <- raster("data/Spatial/scend.tif")
   rec <- raster("data/Spatial/RecAreas.tif") 

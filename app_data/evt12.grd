@@ -1,0 +1,29 @@
+[general]
+creator=R package 'raster'
+created=2019-11-20 15:35:04
+[georeference]
+nrows=6138
+ncols=3795
+xmin=-122.610107094
+ymin=34.783046596
+xmax=-117.869654521
+ymax=42.450213367
+projection=+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+[data]
+datatype=FLT4S
+byteorder=little
+nbands=1
+bandorder=BIL
+categorical=TRUE
+ratnames=ID:type
+rattypes=integer:factor
+ratvalues=1:2:3:4:5:6:7:8:9:10:11:12:13:14:15:16:17:18:19:20:21:22:23:24:25:26:27:Non-forest:Western Oak Woodland and Savanna:Aspen Forest, Woodland, and Parkland:California Mixed Evergreen Forest and Woodland:Juniper Woodland and Savanna:Douglas-fir-Grand Fir-White Fir Forest and Woodland:Pinyon-Juniper Woodland:Limber Pine Woodland:Douglas-fir-Ponderosa Pine-Lodgepole Pine Forest and Woodland:Conifer-Oak Forest and Woodland:Ponderosa Pine Forest, Woodland and Savanna:Red Fir Forest and Woodland:Subalpine Woodland and Parkland:Chaparral:Douglas-fir Forest and Woodland:Douglas-fir-Western Hemlock Forest and Woodland:Mountain Hemlock Forest and Woodland:Spruce-Fir Forest and Woodland:Lodgepole Pine Forest and Woodland:Aspen-Mixed Conifer Forest and Woodland:Mountain Mahogany Woodland and Shrubland:Red Alder Forest and Woodland:Western Riparian Woodland and Shrubland:Developed-Upland Deciduous Forest:Developed-Upland Evergreen Forest:Developed-Upland Mixed Forest:Agricultural-Orchard
+minvalue=1
+maxvalue=27
+nodatavalue=-3.4e+38
+[legend]
+legendtype=
+values=
+color=
+[description]
+layername=ID2

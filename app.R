@@ -2,7 +2,7 @@
 ## Setup ####
 
 library(shiny)
-library(shinyBS) #for tooltip funcitonality
+library(shinyBS) 
 library(sf)
 library(leaflet)
 library(mapview)
@@ -64,12 +64,6 @@ ui <- fluidPage(
                  
              # Application title
              titlePanel("Post-Mortality Reforestation Prioritization Tool"),
-             
-             # Sidebar with user-input widgets
-             # sidebarLayout(
-             #   sidebarPanel(
-             ## Moving sidebar to top with multiple columns
-             # fluidRow(
                column(4,
                       sidebarPanel(
                         width = 12, style = "overflow-y:scroll; max-height: 800px",
@@ -177,10 +171,9 @@ ui <- fluidPage(
                                                                            "Wildland-Urban Interface",
                                                                            "Spotted Owl PACs",
                                                                            "Fisher Core Habitat"),
-                                                               # "Prioritization"),
                                                                selected = c("Area of Interest"))
                                             ),
-                              plotOutput(outputId = "vegPlot", height = "300px")
+                              plotOutput(outputId = "vegPlot", height = "350px")
                               )
                     )
              ),
@@ -225,13 +218,6 @@ ui <- fluidPage(
                       )
 
              )
-
-             # mainPanel(leafletOutput("map2", width = "100%", height = "400px"),
-             #           h4(tags$b("Treated"), style = "width:50%"), 
-             #           h4(tags$b("Untreated"), width = "50%"), 
-             #           ## Photos must be placed in 'www' folder for some reason
-             #           shiny::img(src='155157_2017_S.jpg',
-             #               align = "left", width = "50%"))
              )),
     tabPanel("BMP guide",
              includeHTML("bmp.html")),
@@ -242,43 +228,10 @@ ui <- fluidPage(
 )
 
 
-## Server code ####
+
+
+#### Server code ####
 server <- function(input, output, session) {
-  
-  ## Dialogs ####
-  ## The quickstart dialog for prioritization tool
-  # observe({
-  #   if(input$tabs == "Prioritization tool") {
-  #     showModal(modalDialog(
-  #       title = "Welcome",
-  #       HTML("Here you will find a: <br> 1) Spatial prioritization tool for post-mortality reforestation <br>
-  #   2) A tool summarizing stand-level data collected following the 2012-2016 drought <br>
-  #   3) A best management practices (BMP) guide for post-mortality event reforestation. <br> <br>
-  #   Good Luck! <br> <br>
-  #   (This application is still under construction. More instructions and options will be added when we get around to it...)"),
-  #       easyClose = TRUE
-  #     )) 
-  #   }
-  # })
-  
-  ## Tooltips
-  #### These inexplicably stopped working. implimented using bsTooltip above, but can't delay as you can here
-  # addTooltip(session, id = "Forest",
-  #            "Prioritization and map layer display will be limited to the national forest or ranger district selected",
-  #            placement = "bottom", trigger = "hover",
-  #            options = list(delay = list(show=500, hide=300)))
-  # addTooltip(session, id = "Need",
-  #           title = "Areas with less biomass loss than the selected threshold will be excluded from prioritization",
-  #           placement = "bottom", trigger = "hover",
-  #           options = list(delay = list(show=500, hide=300)))
-  # addTooltip(session, id = "cwd",
-  #           title = "Drought Risk is defined as the 1981-2010 average climate water deficit (CWD), as modeled by...",
-  #           placement = "bottom", trigger = "hover", 
-  #           options = list(delay = list(show=500, hide=300)))
-  # addTooltip(session, id = "HSZ2",
-  #            title = "Areas greater than 650ft (200m) from seed trees within high-severity wildfire patches where natural recruitment of non-serotinous conifer species is unlikely. Fires from 2012-2017 included.",
-  #            placement = "bottom", trigger = "hover", 
-  #            options = list(delay = list(show=500, hide=300)))
   
   ## Reactive mapping objects
   ## Call up rasters as needed (alternatively, could read in all when AOI is assigned; would shift around processing)
@@ -332,8 +285,8 @@ server <- function(input, output, session) {
   })
   
   mortshow <- reactive({
-    bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
-    # bloss <- raster(paste0("app_data/NF_Limits/intloss_", aoi()$FORESTNAME, ".tif")) #integrated version
+    # bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
+    bloss <- raster(paste0("app_data/NF_Limits/intloss_", aoi()$FORESTNAME, ".tif")) #integrated version
   })
   
   rec <- reactive({
@@ -365,7 +318,7 @@ server <- function(input, output, session) {
         cut(breaks = c(0.5,1.5)) # effectively removes zeros
   })
   
-  cveg <- raster("app_data/cwhr.grd")
+  cveg <- raster("app_data/evt12.grd")
 
   
   ## Main Map ####
@@ -384,32 +337,11 @@ server <- function(input, output, session) {
       # addProviderTiles(provider = "Esri.WorldShadedRelief", group = "Relief") %>%
       # addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
       addProviderTiles(provider = "Esri.WorldTopoMap", group = "Topo", options(zIndex = 0)) 
-      # addProviderTiles(provider = "Esri.WorldGrayCanvas", group = "Grey") 
-    
-    # add controls for basemaps and data
-    # m <- addLayersControl(m,
-    #                       baseGroups = c("Topo", "Relief", "Aerial Imagery", "Grey"))
-    # # overlayGroups = layers,
-    # # position = c("topright"),
-    # # options = layersControlOptions(collapsed = F)) %>%
-    # #   hideGroup(c("Inaccessible", "Biomass Loss"))
 
     # Overlay Groups
     ## Add layers if user-selected
     ## remove forest layer when zooming to aoi for now; makes saving crash
     if(input$Forest == "") {
-      # m <- addPolygons(m,
-      #                  data = forest,
-      #                  color = "black",
-      #                  fillColor = "green",
-      #                  fill = F,
-      #                  weight = 2,
-      #                  opacity = 1,
-      #                  fillOpacity = 0.2,
-      #                  label = forest$FORESTNAME,
-      #                  highlightOptions = highlightOptions(color = "white", weight = 2,
-      #                                                      bringToFront = TRUE),
-      #                  group = "Forests") %>%
         m <- addPolygons(m, data = dist_s,
                     color = "black",
                     fillColor = "green",
@@ -421,10 +353,6 @@ server <- function(input, output, session) {
                     highlightOptions = highlightOptions(color = "white", weight = 2,
                                                         bringToFront = TRUE),
                     group = "Forests")
-        # addLegend(position = "bottomright", 
-        #           color = "black",
-        #           opacity = 0.2,
-        #           labels = "Forests")
     }
     
     if("Area of Interest" %in% input$Display & input$Forest != "") {
@@ -631,8 +559,8 @@ server <- function(input, output, session) {
   observeEvent(input$Calc, {
       
       ## read in national forest-specific rasters
-      bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
-      # bloss <- raster(paste0("app_data/NF_Limits/intloss_", aoi()$FORESTNAME, ".tif"))
+      # bloss <- raster(paste0("app_data/NF_Limits/bloss_", aoi()$FORESTNAME, ".tif"))
+      bloss <- raster(paste0("app_data/NF_Limits/intloss_", aoi()$FORESTNAME, ".tif"))
       ra <- if(input$MechScen == "Moderate constraints") {
         raster(paste0("app_data/NF_Limits/sb_",aoi()$FORESTNAME, ".tif")) } else {
           if(input$MechScen == "Fewer constraints") {
@@ -658,30 +586,37 @@ server <- function(input, output, session) {
                wui*input$WUI + #being in the WUI increases priority
                rec*input$Rec + #being in a rec area increases priority
                ## scale non-binary rasters with max of 1
-               cwd/maxValue(cwd)*input$cwd) *
-               # cwd/cellStats(cwd, stat='max')*input$cwd) * #high cwd decreases priority 
-        ra * minmask #mask out areas of mechanical constraints & below need threshold
-
-
-      ## Scale to have a max of 1; may want to do after mask step below
-      ## Max will be equal to the number of input layers adjusted for weights
-      # maxp <- 1 + input$HSZ2 + input$CASPO + input$Fisher + input$WUI + input$Rec + input$cwd
-      pr01 <- pr / maxValue(pr) #maxp
-
-      ## Limit to AOI (this seems to be the slow step so do it last)
-      pr_aoi <- crop(pr01, aoi(), snap = "in") %>%
-        mask(mask = aoi())
-
-      ## Reclassify to three classes based on quantile thirds above the minimum threshold
-      ## occasionally have problems of breaks not being unique. add a bit to upper quantiles
-      q3 <- quantile(pr_aoi[pr_aoi > blmin], probs = c(0, 0.33, 0.67, 1)) + c(-0.001, -0.0005, 0.0005, 0.001)
-      # q3 <- quantile(pr_aoi, probs = c(0, 0.33, 0.67, 1)) + c(-0.001, -0.0005, 0.0005, 0.001)
-      breaks <- c(cellStats(pr_aoi, stat="min")-0.001, q3)
+               cwd/maxValue(cwd)*input$cwd) 
       
-      ## Reclassify into areas of no need and approximate thirds of the remaining
-      pr3 <- cut(pr_aoi, breaks = breaks) %>%
+      ## Limit to AOI
+      pr_aoi <- crop(pr, aoi(), snap = "in") %>%
+        mask(mask = aoi())
+      
+      ## Scale to have a min of 0 and max of 1; also adjust need treshold
+      pr_aoi2 <- (pr_aoi - minValue(pr_aoi)) / (maxValue(pr_aoi) - minValue(pr_aoi))
+      
+      ## mask out areas of mechanical constraints & below need threshold
+      ## ra and minmaks have broader extents, only calculating intersection as desired, suppressing warning
+      pr_aoi3 <- suppressWarnings(pr_aoi2 * ra * minmask)
+      
+      ## find adjusted minimum value
+      need_adj <- min(pr_aoi3[pr_aoi3 > 0])
+      
+      ## Reclassify to three classes based on quantile thirds above the adjusted minimum threshold
+      q3 <- quantile(pr_aoi3[pr_aoi3 >= need_adj], probs = c(0, 0.33, 0.67, 1)) %>%
+        as.numeric() 
+      breaks <- c(cellStats(pr_aoi3, stat="min")-0.001, q3)
+      
+      rcl <- matrix(c(breaks[1], breaks[2], 1,
+                      breaks[2], breaks[3], 2,
+                      breaks[3], breaks[4], 3,
+                      breaks[4], breaks[5], 4),
+                    ncol = 3, byrow = T)
+      
+      pr3 <- reclassify(pr_aoi3, rcl, right = NA) %>%
         subs(data.frame(ID = c(1,2,3,4), Priority = c("Lower mortality",
                                                       "3rd Priority", "2nd Priority", "1st Priority")))
+
 
       ## Return priority raster
       priority$raster <- pr3
@@ -691,7 +626,6 @@ server <- function(input, output, session) {
       
       ## Add priority option to checkbox and reset
       updateCheckboxGroupInput(session, inputId = "Display", 
-                               # label = tags$b("Select display Layers:"),
                                label = "Select display Layers:",
                                choices = c(
                                  "Area of Interest", 
@@ -714,14 +648,15 @@ server <- function(input, output, session) {
     
     if(!is.null(priority$raster)) {
       r2 <- crop(cveg, priority$raster) %>%
-        raster::resample(priority$raster, method = "ngb")
+        mask(priority$raster)
+        # raster::resample(priority$raster, method = "ngb")
       
       ptab <- data.frame(Priority = c(1,2,3,4), 
                          p_lab = c("Lower mortality",
                                    "3rd Priority", "2nd Priority", "1st Priority"))
       
       ct <- crosstab(priority$raster, r2, long = T) %>%
-        merge(levels(cveg)[[1]], by.x = "layer", by.y = "ID") %>%
+        merge(levels(cveg)[[1]], by.x = "ID2", by.y = "ID") %>%
         merge(ptab) %>%
         group_by(type, p_lab) %>%
         summarize(freq = sum(Freq)) %>%
@@ -736,12 +671,13 @@ server <- function(input, output, session) {
         ggplot(aes(x = type, y = freq, fill = p_lab)) +
         geom_bar(position = position_dodge(preserve = "single"), 
                  stat = "identity", color = "grey30") +
-        scale_fill_manual(name = NULL, values = c("yellow", "orange", "red")) +
+        scale_fill_manual(name = NULL, values = c("red", "orange", "yellow")) +
         ylab("Hectares") + xlab(NULL) +
         scale_y_continuous(trans='log10') +
+        scale_x_discrete(labels = function(x) str_wrap(x, width = 20)) +
         theme_bw() +
         theme(legend.position = c(1,.99), legend.justification = c(1,1),
-              axis.text.x = element_text(angle = 45, hjust = 1, size = 10))
+              axis.text.x = element_text(angle = 60, hjust = 1, size = 10))
     }
 
   })
@@ -762,9 +698,6 @@ server <- function(input, output, session) {
   
   output$map2 <- renderLeaflet({
     m2 <- leaflet(stand) %>%
-      ## puts zoom control at topright
-      # htmlwidgets::onRender("function(el, x) {
-      #   L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
       addProviderTiles(provider = "Esri.WorldImagery", group = "Aerial Imagery") %>%
       addPolygons(data = stand_aois,
                   label = stand_aois$aoi,
@@ -798,7 +731,6 @@ server <- function(input, output, session) {
     ## Select and zoom to AOI
       if(input$Forest_st != "") {
         m2 <- m2 %>%
-          # addMarkers(~aoi_plots()$long, ~aoi_plots()$lat) %>%
           ## Zoom to selection
           fitBounds(lng1 = as.numeric(st_bbox(aoi_plots())$xmin - 0.0005),
                     lat1 = as.numeric(st_bbox(aoi_plots())$ymin - 0.001),

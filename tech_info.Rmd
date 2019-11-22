@@ -14,7 +14,8 @@ This document provides additional technical information associated with the prio
 
 Forest biomass loss  
 * Calculated as the percentage change from 2012 to 2016 estimates  
-* Original data from the [LEMMA lab at Oregon State University](https://lemma.forestry.oregonstate.edu/) and the USDA Forest Service Region 5.  
+* Region-wide change data from the [LEMMA lab at Oregon State University](https://lemma.forestry.oregonstate.edu/) and wildfire severity data from the [USDA Forest Service Region 5](https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327833).  
+* Where wildfires have occurred between 2012 and 2016, percent change values represent the mean value between the two datasets. Where drought is the primary disturbance, the values are taken from the LEMMA data only.  
 
 Climate Water Deficit (CWD)  
 * 1981-2010 average potential minus actual evapotranspiration -

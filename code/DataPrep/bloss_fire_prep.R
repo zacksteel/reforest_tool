@@ -12,6 +12,9 @@ bloss_fire_prep <- function()
   
   ## bring in prepped biomass loss layer
   bloss <- raster("data/Spatial/biomassloss.tif")
+  ## bring in mech constraints original file as a 30m template
+  scenb <- raster("data/Spatial/scenb_wgs")
+  
   ## bring in fire severity layer
   sev <- st_read("data/Spatial/Sev12_16.shp") %>%
     st_transform(crs = st_crs(bloss)) %>%
@@ -23,9 +26,12 @@ bloss_fire_prep <- function()
                               BURNSEV == 5 ~ 0.62, # 50 <= change < 75%
                               BURNSEV == 6 ~ 0.82, # 75 <= change < 90%
                               BURNSEV == 7 ~ 0.95)) # >= 90%
+  
+  ## rasterize using scenb as template then resample to 10ha pixels to match bloss
   sev_r <- fasterize(sf = sev, 
-                     raster = bloss,
-                     field = "change")
+                     raster = scenb,
+                     field = "change") %>%
+    resample(bloss)
   
   ## Average the two raster. This is slow (~10 min).
   mn_chg <- overlay(bloss, sev_r, fun = function(x) mean(x, na.rm=T))
@@ -36,5 +42,5 @@ bloss_fire_prep <- function()
   # chg <- round(chg, 2)
   
   ## Save
-  writeRaster(chg, "data/Spatial/integrated_loss.tif", format = "GTiff")
+  writeRaster(mn_chg, "data/Spatial/mn_integrated_loss.tif", format = "GTiff")
 }

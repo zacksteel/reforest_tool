@@ -391,7 +391,7 @@ server <- function(input, output, session) {
       pal <- colorNumeric(c("black"), values(nfs()), na.color = "transparent")
       m <- m %>%
         addRasterImage(x = nfs(), colors = pal, 
-                       opacity = 0.3,
+                       opacity = 0.4,
                        project = FALSE) %>%
         addLegend(position = "bottomright", 
                   colors = "black",
@@ -404,7 +404,7 @@ server <- function(input, output, session) {
     if(input$Forest != "" & ("Mechanical Constraints" %in% input$Display)) {
       pal <- colorNumeric(c("black"), values(ra()), na.color = "transparent")
       m <- m %>%
-        addRasterImage(x = ra(), colors = pal, opacity = 0.3,
+        addRasterImage(x = ra(), colors = pal, opacity = 0.4,
                        project = FALSE, group = "Mechanical Constraints") %>%
         addLegend(position = "bottomright", 
                   colors = "black",
@@ -415,10 +415,10 @@ server <- function(input, output, session) {
     ## SPOW PACs
     if(input$Forest != "" & ("Spotted Owl PACs" %in% input$Display)) {
       m <- m %>%
-        addRasterImage(x = spow(), colors = "purple", opacity = 0.3,
+        addRasterImage(x = spow(), colors = "darkcyan", opacity = 0.4,
                        project = FALSE) %>%
         addLegend(position = "bottomright", 
-                  colors = "purple",
+                  colors = "darkcyan",
                   opacity = 0.5,
                   labels = "Spotted Owl PACs")
     }
@@ -426,7 +426,7 @@ server <- function(input, output, session) {
     ## Fisher habitat
     if(input$Forest != "" & ("Fisher Core Habitat" %in% input$Display)) {
       m <- m %>%
-        addRasterImage(x = fisher(), colors = "orchid", opacity = 0.3,
+        addRasterImage(x = fisher(), colors = "orchid", opacity = 0.4,
                        project = FALSE) %>%
         addLegend(position = "bottomright", 
                   colors = "orchid",
@@ -437,7 +437,7 @@ server <- function(input, output, session) {
     ## If Recreation areas selected
     if(input$Forest != "" & ("Recreation Areas" %in% input$Display)) {
       m <- m %>%
-        addRasterImage(x = rec(), colors = "darkgreen", opacity = 0.3,
+        addRasterImage(x = rec(), colors = "darkgreen", opacity = 0.4,
                        project = FALSE) %>%
         addLegend(position = "bottomright", 
                   colors = "darkgreen",
@@ -448,7 +448,7 @@ server <- function(input, output, session) {
     ## WUI
     if(input$Forest != "" & ("Wildland-Urban Interface" %in% input$Display)) {
       m <- m %>%
-        addRasterImage(x = wui(), colors = "midnightblue", opacity = 0.3,
+        addRasterImage(x = wui(), colors = "midnightblue", opacity = 0.4,
                        project = FALSE, group = "Wildland-Urban Interface") %>%
         addLegend(position = "bottomright", 
                   colors = "midnightblue",
@@ -459,7 +459,7 @@ server <- function(input, output, session) {
     ## If wildfire areas selected
     if(input$Forest != "" & ("High-severity Fire Core" %in% input$Display)) {
       m <- m %>%
-        addRasterImage(x = hs(), colors = "darkred", opacity = 0.3,
+        addRasterImage(x = hs(), colors = "darkred", opacity = 0.5,
                        project = FALSE) %>%
         addLegend(position = "bottomright", 
                   colors = "darkred",
@@ -476,7 +476,7 @@ server <- function(input, output, session) {
       pal <- colorNumeric("BrBG", domain = c(cwd_min, cwd_max), 
                           na.color = "transparent", reverse = T)
       m <- m %>%
-        addRasterImage(x = cwd(), colors = pal, opacity = 0.3,
+        addRasterImage(x = cwd(), colors = pal, opacity = 0.4,
                        project = FALSE) %>%
         addLegend(position = "bottomright", 
                   pal = pal, 
@@ -491,7 +491,7 @@ server <- function(input, output, session) {
       at <- seq(0, 1, .2)
       cb <- colorBin(palette = pal, bins = at, domain = at)
       m <- m %>%
-        addRasterImage(x = mortshow(), colors = pal, opacity = 0.3,
+        addRasterImage(x = mortshow(), colors = pal, opacity = 0.4,
                        project = FALSE, group = "Biomass Loss") %>%
         addLegend(position = "bottomright", 
                   pal = cb, values = at,
